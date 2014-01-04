@@ -14,6 +14,7 @@
 @property (readonly,nonatomic,strong) ServerConfig* serverConfig;
 @property (readonly,nonatomic,assign) BOOL loggedToServer;
 @property (readonly,nonatomic,assign) BOOL inProgress;
+@property (readonly,nonatomic,strong) NSError* lastError;
 
 +(instancetype)pydioClientWithServerConfig:(ServerConfig *)config;
 -(instancetype)initWithServerConfig:(ServerConfig *)config;

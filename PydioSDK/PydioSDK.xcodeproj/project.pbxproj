@@ -32,6 +32,9 @@
 		3DFF3B3618664EEF00A766D7 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2C18664EEF00A766D7 /* AFURLResponseSerialization.m */; };
 		3DFF3B3718664EEF00A766D7 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2E18664EEF00A766D7 /* AFURLSessionManager.m */; };
 		8910F5F218786EFA0005BED4 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F118786EFA0005BED4 /* NSString+Hash.m */; };
+		8910F5F5187874430005BED4 /* BootConfResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */; };
+		8910F5F818788A7A0005BED4 /* RequestSeedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F718788A7A0005BED4 /* RequestSeedResponseSerializer.m */; };
+		8910F5FC1878927B0005BED4 /* LoginResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */; };
 		89AD27671878198300033083 /* ServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD27661878198300033083 /* ServerConfig.m */; };
 		89AD276A18781CF000033083 /* PydioClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD276918781CF000033083 /* PydioClient.m */; };
 /* End PBXBuildFile section */
@@ -89,6 +92,12 @@
 		3DFF3B2E18664EEF00A766D7 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		8910F5F018786EFA0005BED4 /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
 		8910F5F118786EFA0005BED4 /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
+		8910F5F3187874430005BED4 /* BootConfResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BootConfResponseSerializer.h; sourceTree = "<group>"; };
+		8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BootConfResponseSerializer.m; sourceTree = "<group>"; };
+		8910F5F618788A7A0005BED4 /* RequestSeedResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestSeedResponseSerializer.h; sourceTree = "<group>"; };
+		8910F5F718788A7A0005BED4 /* RequestSeedResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestSeedResponseSerializer.m; sourceTree = "<group>"; };
+		8910F5FA1878927B0005BED4 /* LoginResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponseSerializer.h; sourceTree = "<group>"; };
+		8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseSerializer.m; sourceTree = "<group>"; };
 		89AD27651878198300033083 /* ServerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConfig.h; sourceTree = "<group>"; };
 		89AD27661878198300033083 /* ServerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConfig.m; sourceTree = "<group>"; };
 		89AD276818781CF000033083 /* PydioClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioClient.h; sourceTree = "<group>"; };
@@ -124,16 +133,22 @@
 			children = (
 				3DFF3AF4186648C900A766D7 /* AppDelegate.h */,
 				3DFF3AF5186648C900A766D7 /* AppDelegate.m */,
+				8910F5F3187874430005BED4 /* BootConfResponseSerializer.h */,
+				8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */,
+				8910F5FA1878927B0005BED4 /* LoginResponseSerializer.h */,
+				8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */,
+				8910F5F018786EFA0005BED4 /* NSString+Hash.h */,
+				8910F5F118786EFA0005BED4 /* NSString+Hash.m */,
 				89AD276818781CF000033083 /* PydioClient.h */,
 				89AD276918781CF000033083 /* PydioClient.m */,
 				3D03A6771867171200DC5839 /* PydioConnector.h */,
 				3D03A6781867171200DC5839 /* PydioConnector.m */,
+				8910F5F618788A7A0005BED4 /* RequestSeedResponseSerializer.h */,
+				8910F5F718788A7A0005BED4 /* RequestSeedResponseSerializer.m */,
 				89AD27651878198300033083 /* ServerConfig.h */,
 				89AD27661878198300033083 /* ServerConfig.m */,
 				3DFF3AFA186648C900A766D7 /* ViewController.h */,
 				3DFF3AFB186648C900A766D7 /* ViewController.m */,
-				8910F5F018786EFA0005BED4 /* NSString+Hash.h */,
-				8910F5F118786EFA0005BED4 /* NSString+Hash.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -344,17 +359,20 @@
 				3DFF3B2F18664EEF00A766D7 /* AFHTTPRequestOperation.m in Sources */,
 				8910F5F218786EFA0005BED4 /* NSString+Hash.m in Sources */,
 				3DFF3AFC186648C900A766D7 /* ViewController.m in Sources */,
+				8910F5F5187874430005BED4 /* BootConfResponseSerializer.m in Sources */,
 				3DFF3B3018664EEF00A766D7 /* AFHTTPRequestOperationManager.m in Sources */,
 				3D03A6791867171200DC5839 /* PydioConnector.m in Sources */,
 				3DFF3B3218664EEF00A766D7 /* AFNetworkReachabilityManager.m in Sources */,
 				3DFF3B3618664EEF00A766D7 /* AFURLResponseSerialization.m in Sources */,
 				3DFF3B3418664EEF00A766D7 /* AFURLConnectionOperation.m in Sources */,
+				8910F5F818788A7A0005BED4 /* RequestSeedResponseSerializer.m in Sources */,
 				3DFF3B3318664EEF00A766D7 /* AFSecurityPolicy.m in Sources */,
 				3DFF3B3118664EEF00A766D7 /* AFHTTPSessionManager.m in Sources */,
 				3DFF3B3518664EEF00A766D7 /* AFURLRequestSerialization.m in Sources */,
 				3DFF3B3718664EEF00A766D7 /* AFURLSessionManager.m in Sources */,
 				89AD276A18781CF000033083 /* PydioClient.m in Sources */,
 				3DFF3AF6186648C900A766D7 /* AppDelegate.m in Sources */,
+				8910F5FC1878927B0005BED4 /* LoginResponseSerializer.m in Sources */,
 				89AD27671878198300033083 /* ServerConfig.m in Sources */,
 				3DFF3AF2186648C900A766D7 /* main.m in Sources */,
 			);
