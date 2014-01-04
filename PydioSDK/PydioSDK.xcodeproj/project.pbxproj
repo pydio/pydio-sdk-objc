@@ -35,8 +35,11 @@
 		8910F5F5187874430005BED4 /* BootConfResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */; };
 		8910F5F818788A7A0005BED4 /* RequestSeedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F718788A7A0005BED4 /* RequestSeedResponseSerializer.m */; };
 		8910F5FC1878927B0005BED4 /* LoginResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */; };
+		8910F6011878A3410005BED4 /* NotAuthorizedXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */; };
 		89AD27671878198300033083 /* ServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD27661878198300033083 /* ServerConfig.m */; };
 		89AD276A18781CF000033083 /* PydioClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD276918781CF000033083 /* PydioClient.m */; };
+		89C2A9C71878C4EE0051B8E6 /* LoginXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */; };
+		89C2A9CA1878CD440051B8E6 /* LoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C91878CD440051B8E6 /* LoginResponse.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,10 +101,16 @@
 		8910F5F718788A7A0005BED4 /* RequestSeedResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestSeedResponseSerializer.m; sourceTree = "<group>"; };
 		8910F5FA1878927B0005BED4 /* LoginResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponseSerializer.h; sourceTree = "<group>"; };
 		8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseSerializer.m; sourceTree = "<group>"; };
+		8910F5FF1878A3410005BED4 /* NotAuthorizedXMLResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedXMLResponseParser.h; sourceTree = "<group>"; };
+		8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedXMLResponseParser.m; sourceTree = "<group>"; };
 		89AD27651878198300033083 /* ServerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConfig.h; sourceTree = "<group>"; };
 		89AD27661878198300033083 /* ServerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConfig.m; sourceTree = "<group>"; };
 		89AD276818781CF000033083 /* PydioClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioClient.h; sourceTree = "<group>"; };
 		89AD276918781CF000033083 /* PydioClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClient.m; sourceTree = "<group>"; };
+		89C2A9C51878C4EE0051B8E6 /* LoginXMLResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginXMLResponseParser.h; sourceTree = "<group>"; };
+		89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginXMLResponseParser.m; sourceTree = "<group>"; };
+		89C2A9C81878CD440051B8E6 /* LoginResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponse.h; sourceTree = "<group>"; };
+		89C2A9C91878CD440051B8E6 /* LoginResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponse.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,10 +276,16 @@
 		8910F5FE18789F870005BED4 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				89C2A9C51878C4EE0051B8E6 /* LoginXMLResponseParser.h */,
+				89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */,
+				8910F5FF1878A3410005BED4 /* NotAuthorizedXMLResponseParser.h */,
+				8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */,
 				8910F5F018786EFA0005BED4 /* NSString+Hash.h */,
 				8910F5F118786EFA0005BED4 /* NSString+Hash.m */,
 				89AD27651878198300033083 /* ServerConfig.h */,
 				89AD27661878198300033083 /* ServerConfig.m */,
+				89C2A9C81878CD440051B8E6 /* LoginResponse.h */,
+				89C2A9C91878CD440051B8E6 /* LoginResponse.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -376,6 +391,7 @@
 				8910F5F218786EFA0005BED4 /* NSString+Hash.m in Sources */,
 				3DFF3AFC186648C900A766D7 /* ViewController.m in Sources */,
 				8910F5F5187874430005BED4 /* BootConfResponseSerializer.m in Sources */,
+				89C2A9CA1878CD440051B8E6 /* LoginResponse.m in Sources */,
 				3DFF3B3018664EEF00A766D7 /* AFHTTPRequestOperationManager.m in Sources */,
 				3D03A6791867171200DC5839 /* PydioConnector.m in Sources */,
 				3DFF3B3218664EEF00A766D7 /* AFNetworkReachabilityManager.m in Sources */,
@@ -386,8 +402,10 @@
 				3DFF3B3118664EEF00A766D7 /* AFHTTPSessionManager.m in Sources */,
 				3DFF3B3518664EEF00A766D7 /* AFURLRequestSerialization.m in Sources */,
 				3DFF3B3718664EEF00A766D7 /* AFURLSessionManager.m in Sources */,
+				8910F6011878A3410005BED4 /* NotAuthorizedXMLResponseParser.m in Sources */,
 				89AD276A18781CF000033083 /* PydioClient.m in Sources */,
 				3DFF3AF6186648C900A766D7 /* AppDelegate.m in Sources */,
+				89C2A9C71878C4EE0051B8E6 /* LoginXMLResponseParser.m in Sources */,
 				8910F5FC1878927B0005BED4 /* LoginResponseSerializer.m in Sources */,
 				89AD27671878198300033083 /* ServerConfig.m in Sources */,
 				3DFF3AF2186648C900A766D7 /* main.m in Sources */,

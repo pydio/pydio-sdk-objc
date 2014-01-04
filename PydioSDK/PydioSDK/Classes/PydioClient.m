@@ -13,12 +13,13 @@
 #import "BootConfResponseSerializer.h"
 #import "RequestSeedResponseSerializer.h"
 #import "LoginResponseSerializer.h"
+#import "LoginResponse.h"
 
 
-static NSString const * COOKIE_NAME = @"AjaXplorer";
-static NSString const * GET_BOOT_CONF = @"index.php?get_action=get_boot_conf";
-static NSString const * GET_SEED = @"index.php?get_action=get_seed";
-static NSString const * LOGIN = @"index.php";
+static NSString * const COOKIE_NAME = @"AjaXplorer";
+static NSString * const GET_BOOT_CONF = @"index.php?get_action=get_boot_conf";
+static NSString * const GET_SEED = @"index.php?get_action=get_seed";
+static NSString * const LOGIN = @"index.php";
 
 
 typedef enum {
@@ -36,6 +37,7 @@ typedef enum {
 @property (nonatomic,strong) NSString* seed;
 @property (nonatomic,strong) NSString* loginSecureTooken;
 
+-(AFHTTPRequestSerializer*)getRequestSerializer;
 -(NSArray *)allServerCookies;
 -(void)clearAllCookies;
 -(BOOL)isCookieSet;
@@ -57,10 +59,26 @@ typedef enum {
         _serverConfig = config;
         NSURL *serverURL = [NSURL URLWithString:self.serverConfig.server];
         self.operationManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:serverURL];
+        self.operationManager.requestSerializer = [self getRequestSerializer];
         self.processingState = PSNone;
     }
     return self;
 }
+
+-(AFHTTPRequestSerializer*)getRequestSerializer
+{
+    AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
+    [serializer setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
+    [serializer setValue:@"*/*" forHTTPHeaderField:@"Accept"];
+    [serializer setValue:@"en-us" forHTTPHeaderField:@"Accept-Language"];
+    [serializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
+    [serializer setValue:@"true" forHTTPHeaderField:@"Ajxp-Force-Login"];
+    [serializer setValue:@"ajaxplorer-ios-client/1.0" forHTTPHeaderField:@"User-Agent"];
+    
+    return serializer;
+}
+
+#pragma mark -
 
 -(void)login {
     if (self.inProgress) {
@@ -134,7 +152,7 @@ typedef enum {
     
     self.operationManager.responseSerializer = [RequestSeedResponseSerializer serializer];
     [self.operationManager GET:GET_SEED parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        _seed = responseObject;
+        self.seed = responseObject;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         _lastError = error;
@@ -152,6 +170,11 @@ typedef enum {
     [self.operationManager POST:LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.loginSecureTooken = responseObject;
         [self markRequestNotInProgres];
+        LoginResponse *loginResponse = (LoginResponse *)responseObject;
+        if (loginResponse) {
+            self.loginSecureTooken = loginResponse.secureToken;
+        }
+        
         self.processingState = PSLogged;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self markRequestNotInProgres];
