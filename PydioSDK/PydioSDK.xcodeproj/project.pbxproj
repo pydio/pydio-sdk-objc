@@ -131,22 +131,14 @@
 		3D03A67B1867176700DC5839 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8910F5FE18789F870005BED4 /* Data */,
+				8910F5FD18789E2E0005BED4 /* ResponseSerializers */,
 				3DFF3AF4186648C900A766D7 /* AppDelegate.h */,
 				3DFF3AF5186648C900A766D7 /* AppDelegate.m */,
-				8910F5F3187874430005BED4 /* BootConfResponseSerializer.h */,
-				8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */,
-				8910F5FA1878927B0005BED4 /* LoginResponseSerializer.h */,
-				8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */,
-				8910F5F018786EFA0005BED4 /* NSString+Hash.h */,
-				8910F5F118786EFA0005BED4 /* NSString+Hash.m */,
 				89AD276818781CF000033083 /* PydioClient.h */,
 				89AD276918781CF000033083 /* PydioClient.m */,
 				3D03A6771867171200DC5839 /* PydioConnector.h */,
 				3D03A6781867171200DC5839 /* PydioConnector.m */,
-				8910F5F618788A7A0005BED4 /* RequestSeedResponseSerializer.h */,
-				8910F5F718788A7A0005BED4 /* RequestSeedResponseSerializer.m */,
-				89AD27651878198300033083 /* ServerConfig.h */,
-				89AD27661878198300033083 /* ServerConfig.m */,
 				3DFF3AFA186648C900A766D7 /* ViewController.h */,
 				3DFF3AFB186648C900A766D7 /* ViewController.m */,
 			);
@@ -257,6 +249,30 @@
 				3DFF3B1B18664EEF00A766D7 /* AFNetworking */,
 			);
 			name = ExternalLibraries;
+			sourceTree = "<group>";
+		};
+		8910F5FD18789E2E0005BED4 /* ResponseSerializers */ = {
+			isa = PBXGroup;
+			children = (
+				8910F5F3187874430005BED4 /* BootConfResponseSerializer.h */,
+				8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */,
+				8910F5FA1878927B0005BED4 /* LoginResponseSerializer.h */,
+				8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */,
+				8910F5F618788A7A0005BED4 /* RequestSeedResponseSerializer.h */,
+				8910F5F718788A7A0005BED4 /* RequestSeedResponseSerializer.m */,
+			);
+			path = ResponseSerializers;
+			sourceTree = "<group>";
+		};
+		8910F5FE18789F870005BED4 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				8910F5F018786EFA0005BED4 /* NSString+Hash.h */,
+				8910F5F118786EFA0005BED4 /* NSString+Hash.m */,
+				89AD27651878198300033083 /* ServerConfig.h */,
+				89AD27661878198300033083 /* ServerConfig.m */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

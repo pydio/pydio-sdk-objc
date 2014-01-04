@@ -32,9 +32,9 @@ typedef enum {
 @interface PydioClient ()
 @property (nonatomic,strong) AFHTTPRequestOperationManager* operationManager;
 @property (nonatomic,assign) ProcessingState processingState;
-@property (nonatomic,strong) NSString* secureToken;
+@property (nonatomic,strong) NSString* bootConfSsecureToken;
 @property (nonatomic,strong) NSString* seed;
-@property (nonatomic,strong) NSString* loginSeed;
+@property (nonatomic,strong) NSString* loginSecureTooken;
 
 -(NSArray *)allServerCookies;
 -(void)clearAllCookies;
@@ -69,7 +69,7 @@ typedef enum {
     
     [self markRequestInProgres];
     [self clearAllCookies];
-    self.secureToken = nil;
+    self.bootConfSsecureToken = nil;
     _loggedToServer = NO;
     
     [self requestSecureToken];
@@ -116,11 +116,11 @@ typedef enum {
 
 -(void)requestSecureToken {
     self.processingState = PSBootConfig;
-    self.secureToken = nil;
+    self.bootConfSsecureToken = nil;
     
     self.operationManager.responseSerializer = [[BootConfResponseSerializer alloc] init];
     [self.operationManager GET:GET_BOOT_CONF parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.secureToken = responseObject;
+        self.bootConfSsecureToken = responseObject;
         [self requestSeed];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self markRequestNotInProgres];
@@ -130,7 +130,7 @@ typedef enum {
 
 -(void)requestSeed {
     self.processingState = PSRequestSeed;
-    self.secureToken = nil;
+    self.bootConfSsecureToken = nil;
     
     self.operationManager.responseSerializer = [RequestSeedResponseSerializer serializer];
     [self.operationManager GET:GET_SEED parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -144,13 +144,13 @@ typedef enum {
 
 -(void)requestLogin {
     self.processingState = PSLogin;
-    self.loginSeed = nil;
+    self.loginSecureTooken = nil;
     
     self.operationManager.responseSerializer = [LoginResponseSerializer serializer];
     NSDictionary *params = [self loginParameters];
     
     [self.operationManager POST:LOGIN parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.loginSeed = responseObject;
+        self.loginSecureTooken = responseObject;
         [self markRequestNotInProgres];
         self.processingState = PSLogged;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -163,7 +163,7 @@ typedef enum {
              @"get_action": @"login",
              @"userid": self.serverConfig.userid,
              @"password": [[NSString stringWithFormat:@"%@%@", [self.serverConfig.password md5], self.seed] md5],
-             @"login_seed": self.seed,
+             @"login_seed": self.seed
              };
 }
 @end
