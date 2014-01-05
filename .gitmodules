@@ -1,3 +1,9 @@
 [submodule "PydioSDK/Libraries/AFNetworking"]
 	path = PydioSDK/Libraries/AFNetworking
 	url = git@github.com:AFNetworking/AFNetworking.git
+[submodule "PydioSDK/Libraries/OCMockito"]
+	path = PydioSDK/Libraries/OCMockito
+	url = git@github.com:jonreid/OCMockito.git
+[submodule "PydioSDK/Libraries/OCHamcrest"]
+	path = PydioSDK/Libraries/OCHamcrest
+	url = git@github.com:hamcrest/OCHamcrest.git

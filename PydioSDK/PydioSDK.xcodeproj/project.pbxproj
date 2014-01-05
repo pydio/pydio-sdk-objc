@@ -36,6 +36,8 @@
 		8910F5F818788A7A0005BED4 /* RequestSeedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F718788A7A0005BED4 /* RequestSeedResponseSerializer.m */; };
 		8910F5FC1878927B0005BED4 /* LoginResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */; };
 		8910F6011878A3410005BED4 /* NotAuthorizedXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */; };
+		89AA1A751879AF0900679E04 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */; };
+		89AA1A791879B54C00679E04 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */; };
 		89AD27671878198300033083 /* ServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD27661878198300033083 /* ServerConfig.m */; };
 		89AD276A18781CF000033083 /* PydioClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD276918781CF000033083 /* PydioClient.m */; };
 		89C2A9C71878C4EE0051B8E6 /* LoginXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */; };
@@ -103,6 +105,8 @@
 		8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseSerializer.m; sourceTree = "<group>"; };
 		8910F5FF1878A3410005BED4 /* NotAuthorizedXMLResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedXMLResponseParser.h; sourceTree = "<group>"; };
 		8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedXMLResponseParser.m; sourceTree = "<group>"; };
+		89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = Frameworks/OCHamcrestIOS.framework; sourceTree = "<group>"; };
+		89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMockitoIOS.framework; path = Frameworks/OCMockitoIOS.framework; sourceTree = "<group>"; };
 		89AD27651878198300033083 /* ServerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConfig.h; sourceTree = "<group>"; };
 		89AD27661878198300033083 /* ServerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConfig.m; sourceTree = "<group>"; };
 		89AD276818781CF000033083 /* PydioClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioClient.h; sourceTree = "<group>"; };
@@ -131,6 +135,8 @@
 				3DFF3B05186648CA00A766D7 /* XCTest.framework in Frameworks */,
 				3DFF3B07186648CA00A766D7 /* UIKit.framework in Frameworks */,
 				3DFF3B06186648CA00A766D7 /* Foundation.framework in Frameworks */,
+				89AA1A751879AF0900679E04 /* OCHamcrestIOS.framework in Frameworks */,
+				89AA1A791879B54C00679E04 /* OCMockitoIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +183,8 @@
 		3DFF3AE4186648C900A766D7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */,
+				89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */,
 				3DFF3AE5186648C900A766D7 /* Foundation.framework */,
 				3DFF3AE7186648C900A766D7 /* CoreGraphics.framework */,
 				3DFF3AE9186648C900A766D7 /* UIKit.framework */,
@@ -567,6 +575,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"/Users/pc-mobile/develop/ajaxplorer_new/PydioSDK/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PydioSDK/PydioSDK-Prefix.pch";
@@ -590,6 +599,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"/Users/pc-mobile/develop/ajaxplorer_new/PydioSDK/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PydioSDK/PydioSDK-Prefix.pch";
