@@ -32,12 +32,14 @@ typedef enum {
 
 @interface PydioClient ()
 @property (nonatomic,strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic,strong) AFHTTPRequestSerializer* defaultRequestSerializer;
 @property (nonatomic,assign) ProcessingState processingState;
 @property (nonatomic,strong) NSString* bootConfSsecureToken;
 @property (nonatomic,strong) NSString* seed;
 @property (nonatomic,strong) NSString* loginSecureTooken;
 
--(AFHTTPRequestSerializer*)getRequestSerializer;
+-(AFHTTPRequestOperationManager*)createRequestOperationManager:(NSString*)server;
+-(AFHTTPRequestSerializer*)defaultRequestSerializer;
 -(NSArray *)allServerCookies;
 -(void)clearAllCookies;
 -(BOOL)isCookieSet;
@@ -57,25 +59,30 @@ typedef enum {
     self = [super init];
     if (self) {
         _serverConfig = config;
-        NSURL *serverURL = [NSURL URLWithString:self.serverConfig.server];
-        self.operationManager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:serverURL];
-        self.operationManager.requestSerializer = [self getRequestSerializer];
+        self.operationManager = [self createRequestOperationManager:self.serverConfig.server];
+        self.operationManager.requestSerializer = [self defaultRequestSerializer];
         self.processingState = PSNone;
     }
     return self;
 }
 
--(AFHTTPRequestSerializer*)getRequestSerializer
+-(AFHTTPRequestOperationManager*)createRequestOperationManager:(NSString*)server {
+    NSURL *serverURL = [NSURL URLWithString:server];
+    return [[AFHTTPRequestOperationManager alloc] initWithBaseURL:serverURL];
+}
+-(AFHTTPRequestSerializer*)defaultRequestSerializer
 {
-    AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
-    [serializer setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
-    [serializer setValue:@"*/*" forHTTPHeaderField:@"Accept"];
-    [serializer setValue:@"en-us" forHTTPHeaderField:@"Accept-Language"];
-    [serializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
-    [serializer setValue:@"true" forHTTPHeaderField:@"Ajxp-Force-Login"];
-    [serializer setValue:@"ajaxplorer-ios-client/1.0" forHTTPHeaderField:@"User-Agent"];
+    if (!_defaultRequestSerializer) {
+        _defaultRequestSerializer = [AFHTTPRequestSerializer serializer];
+        [_defaultRequestSerializer setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
+        [_defaultRequestSerializer setValue:@"*/*" forHTTPHeaderField:@"Accept"];
+        [_defaultRequestSerializer setValue:@"en-us" forHTTPHeaderField:@"Accept-Language"];
+        [_defaultRequestSerializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
+        [_defaultRequestSerializer setValue:@"true" forHTTPHeaderField:@"Ajxp-Force-Login"];
+        [_defaultRequestSerializer setValue:@"ajaxplorer-ios-client/1.0" forHTTPHeaderField:@"User-Agent"];
+    }
     
-    return serializer;
+    return _defaultRequestSerializer;
 }
 
 #pragma mark -

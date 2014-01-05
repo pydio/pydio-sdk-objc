@@ -38,6 +38,7 @@
 		8910F6011878A3410005BED4 /* NotAuthorizedXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */; };
 		89AA1A751879AF0900679E04 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */; };
 		89AA1A791879B54C00679E04 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */; };
+		89AA1A7B1879D42200679E04 /* PydioClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA1A7A1879D42200679E04 /* PydioClientTests.m */; };
 		89AD27671878198300033083 /* ServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD27661878198300033083 /* ServerConfig.m */; };
 		89AD276A18781CF000033083 /* PydioClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD276918781CF000033083 /* PydioClient.m */; };
 		89C2A9C71878C4EE0051B8E6 /* LoginXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */; };
@@ -107,6 +108,7 @@
 		8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedXMLResponseParser.m; sourceTree = "<group>"; };
 		89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = Frameworks/OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMockitoIOS.framework; path = Frameworks/OCMockitoIOS.framework; sourceTree = "<group>"; };
+		89AA1A7A1879D42200679E04 /* PydioClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClientTests.m; sourceTree = "<group>"; };
 		89AD27651878198300033083 /* ServerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConfig.h; sourceTree = "<group>"; };
 		89AD27661878198300033083 /* ServerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConfig.m; sourceTree = "<group>"; };
 		89AD276818781CF000033083 /* PydioClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioClient.h; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 		3DFF3B0A186648CA00A766D7 /* PydioSDKTests */ = {
 			isa = PBXGroup;
 			children = (
+				89AA1A7A1879D42200679E04 /* PydioClientTests.m */,
 				3DFF3B10186648CA00A766D7 /* PydioSDKTests.m */,
 				3DFF3B0B186648CA00A766D7 /* Supporting Files */,
 			);
@@ -424,6 +427,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89AA1A7B1879D42200679E04 /* PydioClientTests.m in Sources */,
 				3DFF3B11186648CA00A766D7 /* PydioSDKTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -571,6 +575,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PydioSDK.app/PydioSDK";
+				CLANG_ENABLE_MODULES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -595,6 +600,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PydioSDK.app/PydioSDK";
+				CLANG_ENABLE_MODULES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
