@@ -82,6 +82,7 @@ id responseWithDictionaryWithToken(id self, SEL _cmd, NSURLResponse *response,NS
     
     //then
     assertThat(response, nilValue());
+    assertThat(error,notNilValue());
     assertThat([error domain],equalTo(PydioErrorDomain));
     assertThatLong([error code],equalToLong(NSURLErrorCannotDecodeContentData));
     
@@ -102,6 +103,7 @@ id responseWithDictionaryWithToken(id self, SEL _cmd, NSURLResponse *response,NS
     
     //then
     assertThat(response, nilValue());
+    assertThat(error,notNilValue());
     assertThat([error domain],equalTo(PydioErrorDomain));
     assertThatLong([error code],equalToLong(NSURLErrorCannotDecodeContentData));
     
@@ -123,7 +125,7 @@ id responseWithDictionaryWithToken(id self, SEL _cmd, NSURLResponse *response,NS
     
     //then
     assertThat(response, equalTo(@"123456"));
-    assertThat([error domain],nilValue());
+    assertThat(error,nilValue());
     
 }
 
