@@ -36,6 +36,7 @@
 		8910F5F818788A7A0005BED4 /* RequestSeedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F718788A7A0005BED4 /* RequestSeedResponseSerializer.m */; };
 		8910F5FC1878927B0005BED4 /* LoginResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */; };
 		8910F6011878A3410005BED4 /* NotAuthorizedXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */; };
+		89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */; };
 		89AA1A751879AF0900679E04 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */; };
 		89AA1A791879B54C00679E04 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */; };
 		89AA1A7B1879D42200679E04 /* PydioClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA1A7A1879D42200679E04 /* PydioClientTests.m */; };
@@ -106,6 +107,7 @@
 		8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseSerializer.m; sourceTree = "<group>"; };
 		8910F5FF1878A3410005BED4 /* NotAuthorizedXMLResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedXMLResponseParser.h; sourceTree = "<group>"; };
 		8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedXMLResponseParser.m; sourceTree = "<group>"; };
+		89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BootConfResponseSerializerTests.m; sourceTree = "<group>"; };
 		89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = Frameworks/OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMockitoIOS.framework; path = Frameworks/OCMockitoIOS.framework; sourceTree = "<group>"; };
 		89AA1A7A1879D42200679E04 /* PydioClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClientTests.m; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 		3DFF3B0A186648CA00A766D7 /* PydioSDKTests */ = {
 			isa = PBXGroup;
 			children = (
+				89A6AA3D187B0A03003A6BDA /* ResponseSerializers */,
 				89AA1A7A1879D42200679E04 /* PydioClientTests.m */,
 				3DFF3B10186648CA00A766D7 /* PydioSDKTests.m */,
 				3DFF3B0B186648CA00A766D7 /* Supporting Files */,
@@ -299,6 +302,14 @@
 				89C2A9C91878CD440051B8E6 /* LoginResponse.m */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		89A6AA3D187B0A03003A6BDA /* ResponseSerializers */ = {
+			isa = PBXGroup;
+			children = (
+				89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */,
+			);
+			path = ResponseSerializers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -428,6 +439,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89AA1A7B1879D42200679E04 /* PydioClientTests.m in Sources */,
+				89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */,
 				3DFF3B11186648CA00A766D7 /* PydioSDKTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
