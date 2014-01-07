@@ -8,15 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-@class AFHTTPRequestOperationManager;
-
 extern NSString * const PydioErrorDomain;
 
 typedef NS_ENUM(NSUInteger, AuthorizationState) {
     ASNone,
     ASPing,
-    ASGetSeed
+    ASGetSeed,
+    ASLogin
 };
+
+@class AFHTTPRequestOperationManager;
+@class AuthCredentials;
+
 
 @interface AuthorizationClient : NSObject
 @property (nonatomic,strong) AFHTTPRequestOperationManager *operationManager;
@@ -26,4 +29,5 @@ typedef NS_ENUM(NSUInteger, AuthorizationState) {
 
 -(BOOL)ping;
 -(BOOL)getSeed;
+-(BOOL)loginWithCredentials:(AuthCredentials*)credentials;
 @end

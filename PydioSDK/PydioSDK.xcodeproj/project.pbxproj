@@ -44,6 +44,7 @@
 		89AA1A7B1879D42200679E04 /* PydioClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA1A7A1879D42200679E04 /* PydioClientTests.m */; };
 		89AD27671878198300033083 /* ServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD27661878198300033083 /* ServerConfig.m */; };
 		89AD276A18781CF000033083 /* PydioClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD276918781CF000033083 /* PydioClient.m */; };
+		89B4780A187DFCE700A9CFC5 /* AuthCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B47809187DFCE700A9CFC5 /* AuthCredentials.m */; };
 		89C2A9C71878C4EE0051B8E6 /* LoginXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */; };
 		89C2A9CA1878CD440051B8E6 /* LoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C91878CD440051B8E6 /* LoginResponse.m */; };
 /* End PBXBuildFile section */
@@ -120,6 +121,8 @@
 		89AD27661878198300033083 /* ServerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConfig.m; sourceTree = "<group>"; };
 		89AD276818781CF000033083 /* PydioClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioClient.h; sourceTree = "<group>"; };
 		89AD276918781CF000033083 /* PydioClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClient.m; sourceTree = "<group>"; };
+		89B47808187DFCE700A9CFC5 /* AuthCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthCredentials.h; sourceTree = "<group>"; };
+		89B47809187DFCE700A9CFC5 /* AuthCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthCredentials.m; sourceTree = "<group>"; };
 		89C2A9C51878C4EE0051B8E6 /* LoginXMLResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginXMLResponseParser.h; sourceTree = "<group>"; };
 		89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginXMLResponseParser.m; sourceTree = "<group>"; };
 		89C2A9C81878CD440051B8E6 /* LoginResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponse.h; sourceTree = "<group>"; };
@@ -297,6 +300,10 @@
 		8910F5FE18789F870005BED4 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				89B47808187DFCE700A9CFC5 /* AuthCredentials.h */,
+				89B47809187DFCE700A9CFC5 /* AuthCredentials.m */,
+				89C2A9C81878CD440051B8E6 /* LoginResponse.h */,
+				89C2A9C91878CD440051B8E6 /* LoginResponse.m */,
 				89C2A9C51878C4EE0051B8E6 /* LoginXMLResponseParser.h */,
 				89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */,
 				8910F5FF1878A3410005BED4 /* NotAuthorizedXMLResponseParser.h */,
@@ -305,8 +312,6 @@
 				8910F5F118786EFA0005BED4 /* NSString+Hash.m */,
 				89AD27651878198300033083 /* ServerConfig.h */,
 				89AD27661878198300033083 /* ServerConfig.m */,
-				89C2A9C81878CD440051B8E6 /* LoginResponse.h */,
-				89C2A9C91878CD440051B8E6 /* LoginResponse.m */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -437,6 +442,7 @@
 				8910F5F218786EFA0005BED4 /* NSString+Hash.m in Sources */,
 				3DFF3AFC186648C900A766D7 /* ViewController.m in Sources */,
 				8910F5F5187874430005BED4 /* BootConfResponseSerializer.m in Sources */,
+				89B4780A187DFCE700A9CFC5 /* AuthCredentials.m in Sources */,
 				89A6AA46187B4436003A6BDA /* AuthorizationClient.m in Sources */,
 				89C2A9CA1878CD440051B8E6 /* LoginResponse.m in Sources */,
 				3DFF3B3018664EEF00A766D7 /* AFHTTPRequestOperationManager.m in Sources */,
