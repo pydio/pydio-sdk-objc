@@ -33,7 +33,7 @@
 		3DFF3B3718664EEF00A766D7 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2E18664EEF00A766D7 /* AFURLSessionManager.m */; };
 		8910F5F218786EFA0005BED4 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F118786EFA0005BED4 /* NSString+Hash.m */; };
 		8910F5F5187874430005BED4 /* BootConfResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */; };
-		8910F5F818788A7A0005BED4 /* RequestSeedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F718788A7A0005BED4 /* RequestSeedResponseSerializer.m */; };
+		8910F5F818788A7A0005BED4 /* GetSeedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F718788A7A0005BED4 /* GetSeedResponseSerializer.m */; };
 		8910F5FC1878927B0005BED4 /* LoginResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */; };
 		8910F6011878A3410005BED4 /* NotAuthorizedXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */; };
 		89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */; };
@@ -103,8 +103,8 @@
 		8910F5F118786EFA0005BED4 /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
 		8910F5F3187874430005BED4 /* BootConfResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BootConfResponseSerializer.h; sourceTree = "<group>"; };
 		8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BootConfResponseSerializer.m; sourceTree = "<group>"; };
-		8910F5F618788A7A0005BED4 /* RequestSeedResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestSeedResponseSerializer.h; sourceTree = "<group>"; };
-		8910F5F718788A7A0005BED4 /* RequestSeedResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestSeedResponseSerializer.m; sourceTree = "<group>"; };
+		8910F5F618788A7A0005BED4 /* GetSeedResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetSeedResponseSerializer.h; sourceTree = "<group>"; };
+		8910F5F718788A7A0005BED4 /* GetSeedResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSeedResponseSerializer.m; sourceTree = "<group>"; };
 		8910F5FA1878927B0005BED4 /* LoginResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponseSerializer.h; sourceTree = "<group>"; };
 		8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseSerializer.m; sourceTree = "<group>"; };
 		8910F5FF1878A3410005BED4 /* NotAuthorizedXMLResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedXMLResponseParser.h; sourceTree = "<group>"; };
@@ -288,8 +288,8 @@
 				8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */,
 				8910F5FA1878927B0005BED4 /* LoginResponseSerializer.h */,
 				8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */,
-				8910F5F618788A7A0005BED4 /* RequestSeedResponseSerializer.h */,
-				8910F5F718788A7A0005BED4 /* RequestSeedResponseSerializer.m */,
+				8910F5F618788A7A0005BED4 /* GetSeedResponseSerializer.h */,
+				8910F5F718788A7A0005BED4 /* GetSeedResponseSerializer.m */,
 			);
 			path = ResponseSerializers;
 			sourceTree = "<group>";
@@ -444,7 +444,7 @@
 				3DFF3B3218664EEF00A766D7 /* AFNetworkReachabilityManager.m in Sources */,
 				3DFF3B3618664EEF00A766D7 /* AFURLResponseSerialization.m in Sources */,
 				3DFF3B3418664EEF00A766D7 /* AFURLConnectionOperation.m in Sources */,
-				8910F5F818788A7A0005BED4 /* RequestSeedResponseSerializer.m in Sources */,
+				8910F5F818788A7A0005BED4 /* GetSeedResponseSerializer.m in Sources */,
 				3DFF3B3318664EEF00A766D7 /* AFSecurityPolicy.m in Sources */,
 				3DFF3B3118664EEF00A766D7 /* AFHTTPSessionManager.m in Sources */,
 				3DFF3B3518664EEF00A766D7 /* AFURLRequestSerialization.m in Sources */,

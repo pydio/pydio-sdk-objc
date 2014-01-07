@@ -8,6 +8,6 @@
 
 #import "AFURLResponseSerialization.h"
 
-@interface RequestSeedResponseSerializer : AFHTTPResponseSerializer
+@interface GetSeedResponseSerializer : AFHTTPResponseSerializer
 
 @end

@@ -11,7 +11,7 @@
 #import "ServerConfig.h"
 #import "NSString+Hash.h"
 #import "BootConfResponseSerializer.h"
-#import "RequestSeedResponseSerializer.h"
+#import "GetSeedResponseSerializer.h"
 #import "LoginResponseSerializer.h"
 #import "LoginResponse.h"
 
@@ -157,7 +157,7 @@ typedef enum {
     self.processingState = PSRequestSeed;
     self.bootConfSsecureToken = nil;
     
-    self.operationManager.responseSerializer = [RequestSeedResponseSerializer serializer];
+    self.operationManager.responseSerializer = [GetSeedResponseSerializer serializer];
     [self.operationManager GET:GET_SEED parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.seed = responseObject;
         

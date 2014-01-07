@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 MINI. All rights reserved.
 //
 
-#import "RequestSeedResponseSerializer.h"
+#import "GetSeedResponseSerializer.h"
 
-@implementation RequestSeedResponseSerializer
+@implementation GetSeedResponseSerializer
 -(instancetype)init {
     self = [super init];
     if (self) {

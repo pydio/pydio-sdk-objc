@@ -10,9 +10,12 @@
 
 @class AFHTTPRequestOperationManager;
 
+extern NSString * const PydioErrorDomain;
+
 typedef NS_ENUM(NSUInteger, AuthorizationState) {
     ASNone,
-    ASPing
+    ASPing,
+    ASGetSeed
 };
 
 @interface AuthorizationClient : NSObject
@@ -22,4 +25,5 @@ typedef NS_ENUM(NSUInteger, AuthorizationState) {
 @property (readonly,nonatomic,strong) NSError *lastError;
 
 -(BOOL)ping;
+-(BOOL)getSeed;
 @end
