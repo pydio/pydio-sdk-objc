@@ -313,8 +313,6 @@ static NSString * const LOGIN_ACTION = @"";
     assertThat(receivedError,sameInstance(error));
 }
 
-//Response with success, response with failure
-
 -(NSDictionary*)createExpectedLoginParamsWithHashedPassword:(AuthCredentials*)credentials {
     return @{@"get_action": @"login",
              @"userid": credentials.userid,
