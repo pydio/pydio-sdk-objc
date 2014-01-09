@@ -22,59 +22,55 @@ static NSString * const PASSWORD = @"password";
 static NSString * const LOGIN_SEED = @"login_seed";
 
 @interface AuthorizationClient ()
-@property (readwrite,nonatomic,assign) AuthorizationState state;
 @property (readwrite,nonatomic,assign) BOOL progress;
-@property (readwrite,nonatomic,strong) NSError *lastError;
 @end
 
 @implementation AuthorizationClient
 
--(BOOL)ping {
-    if (self.progress || self.state != ASNone) {
+-(BOOL)ping:(void(^)())success failure:(void(^)(NSError *error))failure {
+    if (self.progress) {
         return NO;
     }
     self.progress = YES;
-    self.state = ASPing;
     
     [self.operationManager GET:PING_ACTION parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //Ignore result, we just want cookie
         self.progress = NO;
+        success();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         self.progress = NO;
-        self.lastError = error;
+        failure(error);
     }];
     
     return YES;
 }
 
--(BOOL)getSeed {
-    if (self.lastError || self.progress || self.state != ASPing) {
+-(BOOL)getSeed:(void(^)(NSString *seed))success failure:(void(^)(NSError *error))failure {
+    if (self.progress) {
         return NO;
     }
     
     self.progress = YES;
-    self.state = ASGetSeed;
-
+    
     self.operationManager.responseSerializer = [[GetSeedResponseSerializer alloc] init];
     [self.operationManager GET:GET_SEED_ACTION parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.progress = NO;
-        //TODO: For now we just want to know about success, later we want to inform caller about receiving seed
+        success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         self.progress = NO;
-        self.lastError = error;
+        failure(error);
     }];
     
     return YES;
 }
 
--(BOOL)loginWithCredentials:(AuthCredentials*)credentials {
-    if (self.lastError || self.progress || self.state != ASGetSeed) {
+-(BOOL)loginWithCredentials:(AuthCredentials*)credentials success:(void(^)(LoginResponse *response))success failure:(void(^)(NSError *error))failure {
+    if (self.progress) {
         return NO;
     }
     
     self.progress = YES;
-    self.state = ASLogin;
-    
+        
     [self.operationManager.requestSerializer setValue:@"true" forHTTPHeaderField:@"Ajxp-Force-Login"];
     self.operationManager.responseSerializer = [[LoginResponseSerializer alloc] init];
     NSDictionary *params = @{GET_ACTION : @"login",
@@ -84,9 +80,11 @@ static NSString * const LOGIN_SEED = @"login_seed";
                             };
     
     [self.operationManager POST:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+        self.progress = NO;
+        success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        self.progress = NO;
+        failure(error);
     }];
     return YES;
 }

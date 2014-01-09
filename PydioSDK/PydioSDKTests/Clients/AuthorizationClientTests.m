@@ -22,17 +22,20 @@
 #import "LoginResponseSerializer.h"
 #import "AuthCredentials.h"
 #import "NSString+Hash.h"
+#import "LoginResponse.h"
 
 
 @interface AuthorizationClient ()
-@property (readwrite,nonatomic,assign) AuthorizationState state;
 @property (readwrite,nonatomic,assign) BOOL progress;
-@property (readwrite,nonatomic,strong) NSError *lastError;
 -(NSString *)hashedPass:(NSString*)pass WithSeed:(NSString *)seed;
 @end
 
 typedef void (^SuccessBlock)(AFHTTPRequestOperation *operation, id responseObject);
 typedef void (^FailureBlock)(AFHTTPRequestOperation *operation, NSError *error);
+
+typedef void (^ClientPingSuccessResponse)();
+typedef void (^ClientFailureResponse)(NSError *error);
+
 
 static NSString * const PING_ACTION = @"get_action=ping";
 static NSString * const GET_SEED_ACTION = @"get_action=get_seed";
@@ -66,203 +69,147 @@ static NSString * const LOGIN_ACTION = @"";
 -(void)testInitialization
 {
     //then
-    assertThatInt(self.client.state,equalToInt(ASNone));
     assertThatBool(self.client.progress,equalToBool(NO));
-    assertThat(self.client.lastError,nilValue());
 }
 
 #pragma mark - Ping Tests
 
 -(void)testPingStart
 {
-    //given
-    
     //when
-    BOOL startResult = [self.client ping];
+    BOOL startResult = [self.client ping:nil failure:nil];
     
     //then
     [verify(self.operationManager) GET:PING_ACTION parameters:nil success:anything() failure:anything()];
     assertThatBool(startResult,equalToBool(YES));
-    assertThatInt(self.client.state,equalToInt(ASPing));
     assertThatBool(self.client.progress,equalToBool(YES));
-    assertThat(self.client.lastError,nilValue());
 }
 
 -(void)testPingNoStartWhenInProgress
 {
     //given
     self.client.progress = YES;
-    AuthorizationState prevState = self.client.state;
     
     //when
-    BOOL startResult = [self.client ping];
-    
-    //then
-    [verifyCount(self.operationManager, never()) GET:PING_ACTION parameters:nil success:anything() failure:anything()];
-    
-    assertThatBool(startResult,equalToBool(NO));
-    assertThatInt(self.client.state,equalToInt(prevState));
-    assertThat(self.client.lastError,nilValue());
-}
-
--(void)testPingNoStartWhenNotNoneState
-{
-    //given
-    self.client.state = ASPing;
-    
-    //when
-    BOOL startResult = [self.client ping];
+    BOOL startResult = [self.client ping:nil failure:nil];
     
     //then
     [verifyCount(self.operationManager, never()) GET:PING_ACTION parameters:nil success:anything() failure:anything()];
     assertThatBool(startResult,equalToBool(NO));
-    assertThat(self.client.lastError,nilValue());
 }
 
 - (void)testPingSuccess
 {
-    //when
-    [self.client ping];
+    BOOL __block blockCalled = NO;
     
-    //then 1
+    //when
+    [self.client ping:^{
+        blockCalled = YES;
+    } failure:nil];
+    
+    //then
     MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
     [verify(self.operationManager) GET:PING_ACTION parameters:nil success:[success capture] failure:anything()];
     ((SuccessBlock)[success value])(nil,nil);
-    
-    //then 2
-    assertThatInt(self.client.state,equalToInt(ASPing));
     assertThatBool(self.client.progress,equalToBool(NO));
-    assertThat(self.client.lastError,nilValue());
+    assertThatBool(blockCalled,equalToBool(YES));
 }
 
 - (void)testPingFailure
 {
     //given
+    BOOL __block blockCalled = NO;
+    NSError __block *receivedError = nil;
     NSError *error = [NSError errorWithDomain:@"TEST" code:1 userInfo:nil];
     
     //when
-    [self.client ping];
+    [self.client ping:nil failure:^(NSError *error){
+        receivedError = error;
+        blockCalled = YES;
+    }];
     
-    //then 1
+    //then
     MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
     [verify(self.operationManager) GET:PING_ACTION parameters:nil success:anything() failure:[failure capture]];
     ((FailureBlock)[failure value])(nil,error);
-    
-    //then 2
-    assertThatInt(self.client.state,equalToInt(ASPing));
     assertThatBool(self.client.progress,equalToBool(NO));
-    assertThat(self.client.lastError,sameInstance(error));
+    assertThatBool(blockCalled,equalToBool(YES));
+    assertThat(receivedError,sameInstance(error));
+    
 }
 
 #pragma mark - Get Seed Tests
 
 -(void)testGetSeedStart
 {
-    //given
-    self.client.state = ASPing;
-    
     //when
-    BOOL startResult = [self.client getSeed];
+    BOOL startResult = [self.client getSeed:nil failure:nil];
     
     //then
     [verify(self.operationManager)  setResponseSerializer:instanceOf([GetSeedResponseSerializer class])];
     [verify(self.operationManager) GET:GET_SEED_ACTION parameters:nil success:anything() failure:anything()];
     assertThatBool(startResult,equalToBool(YES));
-    assertThatInt(self.client.state,equalToInt(ASGetSeed));
     assertThatBool(self.client.progress,equalToBool(YES));
-    assertThat(self.client.lastError,nilValue());
 }
 
 -(void)testGetSeedNotStartedIfInProgress
 {
     //given
-    self.client.state = ASPing;
     self.client.progress = YES;
     
     //when
-    BOOL startResult = [self.client getSeed];
+    BOOL startResult = [self.client getSeed:nil failure:nil];
     
     //then
     [verifyCount(self.operationManager,never()) GET:GET_SEED_ACTION parameters:nil success:anything() failure:anything()];
     assertThatBool(startResult,equalToBool(NO));
-    assertThatInt(self.client.state,equalToInt(ASPing));
-    assertThat(self.client.lastError,nilValue());
-}
-
--(void)testGetSeedNotStartedIfStateNotPing
-{
-    //given
-    AuthorizationState prevState = self.client.state;
-    
-    //when
-    BOOL startResult = [self.client getSeed];
-    
-    //then
-    [verifyCount(self.operationManager,never()) GET:GET_SEED_ACTION parameters:nil success:anything() failure:anything()];
-    assertThatBool(startResult,equalToBool(NO));
-    assertThatInt(self.client.state,equalToInt(prevState));
-    assertThat(self.client.lastError,nilValue());
-}
-
--(void)testGetSeedNotStartedIfLastErrorNotNil
-{
-    //given
-    self.client.state = ASPing;
-    NSError *error = [NSError errorWithDomain:PydioErrorDomain code:99 userInfo:nil];
-    self.client.lastError = error;
-    
-    //when
-    BOOL startResult = [self.client getSeed];
-    
-    //then
-    [verifyCount(self.operationManager,never()) GET:GET_SEED_ACTION parameters:nil success:anything() failure:anything()];
-    assertThatBool(startResult,equalToBool(NO));
-    assertThatInt(self.client.state,equalToInt(ASPing));
-    assertThatBool(self.client.progress,equalToBool(NO));
-    assertThat(self.client.lastError,sameInstance(error));
 }
 
 -(void)testGetSeedSuccess
 {
-    //given
-    self.client.state = ASPing;
-   
-    //when
-    BOOL startResult = [self.client getSeed];
+    BOOL __block blockCalled = NO;
+    NSString __block *responseSeed = nil;
+    NSString *seed = @"seed";
     
+    //when
+    BOOL startResult = [self.client getSeed:^(NSString *seed) {
+        blockCalled = YES;
+        responseSeed = seed;
+    } failure:nil];
+
     //then 1
+    [verify(self.operationManager)  setResponseSerializer:instanceOf([GetSeedResponseSerializer class])];
     MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
     [verify(self.operationManager) GET:GET_SEED_ACTION parameters:nil success:[success capture] failure:anything()];
-    ((SuccessBlock)[success value])(nil,nil);
-    
-    //then 2
-    [verify(self.operationManager)  setResponseSerializer:instanceOf([GetSeedResponseSerializer class])];
+    ((SuccessBlock)[success value])(nil,seed);
     assertThatBool(startResult,equalToBool(YES));
-    assertThatInt(self.client.state,equalToInt(ASGetSeed));
     assertThatBool(self.client.progress,equalToBool(NO));
-    assertThat(self.client.lastError,nilValue());
+    assertThatBool(blockCalled,equalToBool(YES));
+    assertThat(responseSeed,sameInstance(seed));
 }
 
 -(void)testGetSeedFailure
 {
     //given
-    self.client.state = ASPing;
+    BOOL __block blockCalled = NO;
+    NSError __block *receivedError = nil;
     NSError *error = [NSError errorWithDomain:@"TEST" code:1 userInfo:nil];
     
     //when
-    BOOL startResult = [self.client getSeed];
+    BOOL startResult = [self.client getSeed:nil failure:^(NSError *error) {
+        blockCalled = YES;
+        receivedError = error;
+    }];
     
     //then 1
+    [verify(self.operationManager)  setResponseSerializer:instanceOf([GetSeedResponseSerializer class])];
     MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
     [verify(self.operationManager) GET:GET_SEED_ACTION parameters:nil success:anything() failure:[failure capture]];
     ((SuccessBlock)[failure value])(nil,error);
-    
-    //then 2
-    [verify(self.operationManager)  setResponseSerializer:instanceOf([GetSeedResponseSerializer class])];
     assertThatBool(startResult,equalToBool(YES));
-    assertThatInt(self.client.state,equalToInt(ASGetSeed));
     assertThatBool(self.client.progress,equalToBool(NO));
-    assertThat(self.client.lastError,sameInstance(error));
+    assertThatBool(blockCalled,equalToBool(YES));
+    assertThat(receivedError,sameInstance(error));
 }
 
 #pragma mark - Login Tests
@@ -290,10 +237,9 @@ static NSString * const LOGIN_ACTION = @"";
     [given([self.operationManager requestSerializer]) willReturn:serializer];
     AuthCredentials *credentials = [self createAuthCredentials:@"userid" WithPass:@"pass" AndSeed:@"seed"];
     NSDictionary *expectedParams = [self createExpectedLoginParamsWithHashedPassword:credentials];
-    self.client.state = ASGetSeed;
     
     //when
-    BOOL startResult = [self.client loginWithCredentials:credentials];
+    BOOL startResult = [self.client loginWithCredentials:credentials success:nil failure:nil];
     
     [verify(serializer) setValue:@"true" forHTTPHeaderField:@"Ajxp-Force-Login"];
     [verify(self.operationManager)  setResponseSerializer:instanceOf([LoginResponseSerializer class])];
@@ -301,49 +247,70 @@ static NSString * const LOGIN_ACTION = @"";
     [verify(self.operationManager) POST:LOGIN_ACTION parameters:[actualParams capture] success:anything() failure:anything()];
     assertThat([actualParams value],equalTo(expectedParams));
     assertThatBool(startResult,equalToBool(YES));
-    assertThatInt(self.client.state,equalToInt(ASLogin));
     assertThatBool(self.client.progress,equalToBool(YES));
-    assertThat(self.client.lastError,nilValue());
 }
 
 -(void)testLoginNotStartedIfInProgress
 {
-    self.client.state = ASGetSeed;
     self.client.progress = YES;
     
     //when
-    BOOL startResult = [self.client loginWithCredentials:nil];
+    BOOL startResult = [self.client loginWithCredentials:nil success:nil failure:nil];
     
     //then
     [verifyCount(self.operationManager,never()) POST:LOGIN_ACTION parameters:anything() success:anything() failure:anything()];
     assertThatBool(startResult,equalToBool(NO));
-    assertThat(self.client.lastError,nilValue());
 }
 
--(void)testLoginNotStartedIfStateNotGetSeed
+-(void)testLoginSuccess
 {
+    //given
+    BOOL __block blockCalled = NO;
+    LoginResponse __block *receivedResponse = nil;
+    LoginResponse *response = [[LoginResponse alloc] init];
+    AFHTTPRequestSerializer *serializer = mock([AFHTTPRequestSerializer class]);
+    [given([self.operationManager requestSerializer]) willReturn:serializer];
+    AuthCredentials *credentials = [self createAuthCredentials:@"userid" WithPass:@"pass" AndSeed:@"seed"];
+    
     //when
-    BOOL startResult = [self.client loginWithCredentials:nil];
+    [self.client loginWithCredentials:credentials success:^(LoginResponse *response) {
+        blockCalled = YES;
+        receivedResponse = response;
+    } failure:nil];
     
     //then
-    [verifyCount(self.operationManager,never()) POST:LOGIN_ACTION parameters:anything() success:anything() failure:anything()];
-    assertThatBool(startResult,equalToBool(NO));
-    assertThat(self.client.lastError,nilValue());
+    MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
+    [verify(self.operationManager) POST:LOGIN_ACTION parameters:anything() success:[success capture] failure:anything()];
+    ((SuccessBlock)[success value])(nil,response);
+    assertThatBool(self.client.progress,equalToBool(NO));
+    assertThatBool(blockCalled,equalToBool(YES));
+    assertThat(receivedResponse,sameInstance(response));
 }
 
--(void)testLoginNotStartedIfLastErrorNotNil
+-(void)testLoginFailure
 {
-    self.client.state = ASGetSeed;
-    NSError *error = [NSError errorWithDomain:PydioErrorDomain code:99 userInfo:nil];
-    self.client.lastError = error;
+    BOOL __block blockCalled = NO;
+    NSError __block *receivedError = nil;
+    NSError *error = [NSError errorWithDomain:@"TEST" code:1 userInfo:nil];
+
+    //given
+    AFHTTPRequestSerializer *serializer = mock([AFHTTPRequestSerializer class]);
+    [given([self.operationManager requestSerializer]) willReturn:serializer];
+    AuthCredentials *credentials = [self createAuthCredentials:@"userid" WithPass:@"pass" AndSeed:@"seed"];
     
     //when
-    BOOL startResult = [self.client loginWithCredentials:nil];
-    
+    [self.client loginWithCredentials:credentials success:nil failure:^(NSError *error) {
+        blockCalled = YES;
+        receivedError = error;
+    }];
+
     //then
-    [verifyCount(self.operationManager,never()) POST:LOGIN_ACTION parameters:anything() success:anything() failure:anything()];
-    assertThatBool(startResult,equalToBool(NO));
-    assertThat(self.client.lastError,sameInstance(error));
+    MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
+    [verify(self.operationManager) POST:LOGIN_ACTION parameters:anything() success:anything() failure:[failure capture]];
+    ((SuccessBlock)[failure value])(nil,error);
+    assertThatBool(self.client.progress,equalToBool(NO));
+    assertThatBool(blockCalled,equalToBool(YES));
+    assertThat(receivedError,sameInstance(error));
 }
 
 //Response with success, response with failure

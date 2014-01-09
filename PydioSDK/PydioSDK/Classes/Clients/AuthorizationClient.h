@@ -10,24 +10,16 @@
 
 extern NSString * const PydioErrorDomain;
 
-typedef NS_ENUM(NSUInteger, AuthorizationState) {
-    ASNone,
-    ASPing,
-    ASGetSeed,
-    ASLogin
-};
-
 @class AFHTTPRequestOperationManager;
 @class AuthCredentials;
+@class LoginResponse;
 
 
 @interface AuthorizationClient : NSObject
 @property (nonatomic,strong) AFHTTPRequestOperationManager *operationManager;
-@property (readonly,nonatomic,assign) AuthorizationState state;
 @property (readonly,nonatomic,assign) BOOL progress;
-@property (readonly,nonatomic,strong) NSError *lastError;
 
--(BOOL)ping;
--(BOOL)getSeed;
--(BOOL)loginWithCredentials:(AuthCredentials*)credentials;
+-(BOOL)ping:(void(^)())success failure:(void(^)(NSError *error))failure;
+-(BOOL)getSeed:(void(^)(NSString *seed))success failure:(void(^)(NSError *error))failure;
+-(BOOL)loginWithCredentials:(AuthCredentials*)credentials success:(void(^)(LoginResponse *resposne))success failure:(void(^)(NSError *error))failure;
 @end
