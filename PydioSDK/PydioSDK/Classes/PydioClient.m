@@ -16,7 +16,6 @@
 #import "LoginResponse.h"
 
 
-static NSString * const COOKIE_NAME = @"AjaXplorer";
 static NSString * const GET_BOOT_CONF = @"index.php?get_action=get_boot_conf";
 static NSString * const GET_SEED = @"index.php?get_action=get_seed";
 static NSString * const LOGIN = @"index.php";
@@ -101,27 +100,6 @@ typedef enum {
 }
 
 #pragma mark - Cookies
-
--(NSArray *)allServerCookies {
-    return [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:self.serverURL];
-}
-
--(void)clearAllCookies {
-    NSArray *cookies = [self allServerCookies];
-    for (NSHTTPCookie *cookie in cookies) {
-        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
-    }
-}
-
--(BOOL)isCookieSet {
-    NSArray *cookies = [self allServerCookies];
-    for (NSHTTPCookie *cookie in cookies) {
-        if ([COOKIE_NAME compare:cookie.name] == NSOrderedSame) {
-            return YES;
-        }
-    }
-    return NO;
-}
 
 #pragma mark -
 
