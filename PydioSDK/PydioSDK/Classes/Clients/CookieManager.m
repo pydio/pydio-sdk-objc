@@ -43,4 +43,7 @@ static CookieManager *manager = nil;
     return NO;
 }
 
+-(User*)userForServer:(NSURL *)server {
+    return nil;
+}
 @end

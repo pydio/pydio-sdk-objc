@@ -25,7 +25,7 @@ AFHTTPRequestOperationManager* getOperationManager(id self, SEL _cmd, NSString* 
     return operationManager;
 }
 
-@interface PydioClientTests : XCTestCase {
+@interface PydioClientTests2 : XCTestCase {
     Method _exchangedMethod;
     IMP _originalIMP;
 }
@@ -34,7 +34,7 @@ AFHTTPRequestOperationManager* getOperationManager(id self, SEL _cmd, NSString* 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
 
-@implementation PydioClientTests
+@implementation PydioClientTests2
 
 - (void)setUp
 {
@@ -52,15 +52,15 @@ AFHTTPRequestOperationManager* getOperationManager(id self, SEL _cmd, NSString* 
     [super tearDown];
 }
 
-- (void)testInitialization
-{
-    ServerConfig *config = [[ServerConfig alloc] init];
-    
-    PydioClient *client = [[PydioClient alloc] initWithServerConfig:config];
-    [verify(operationManager) setRequestSerializer:[client performSelector:@selector(defaultRequestSerializer)]];
-    assertThatInt((int)[client performSelector:@selector(processingState)],equalToInt(0));
-    
-}
+//- (void)testInitialization
+//{
+//    ServerConfig *config = [[ServerConfig alloc] init];
+//    
+//    PydioClient *client = [[PydioClient alloc] initWithServerConfig:config];
+//    [verify(operationManager) setRequestSerializer:[client performSelector:@selector(defaultRequestSerializer)]];
+//    assertThatInt((int)[client performSelector:@selector(processingState)],equalToInt(0));
+//    
+//}
 
 @end
 

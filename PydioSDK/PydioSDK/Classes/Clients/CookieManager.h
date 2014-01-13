@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class User;
+
 @interface CookieManager : NSObject
 +(CookieManager*)sharedManager;
 
 -(NSArray *)allServerCookies:(NSURL *)server;
 -(void)clearAllCookies:(NSURL *)server;
 -(BOOL)isCookieSet:(NSURL *)server;
-
+-(User*)userForServer:(NSURL *)server;
 @end

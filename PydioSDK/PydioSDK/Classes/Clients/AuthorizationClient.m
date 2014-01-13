@@ -12,7 +12,7 @@
 #import "LoginResponseSerializer.h"
 #import "AuthCredentials.h"
 #import "NSString+Hash.h"
-
+#import "User.h"
 
 static NSString * const PING_ACTION = @"get_action=ping";
 static NSString * const GET_SEED_ACTION = @"get_action=get_seed";
@@ -26,6 +26,10 @@ static NSString * const LOGIN_SEED = @"login_seed";
 @end
 
 @implementation AuthorizationClient
+
+-(BOOL)authorize:(User*)user {
+    return NO;
+}
 
 -(BOOL)ping:(void(^)())success failure:(void(^)(NSError *error))failure {
     if (self.progress) {

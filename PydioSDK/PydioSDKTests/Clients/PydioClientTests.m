@@ -18,17 +18,41 @@
 #import "AuthorizationClient.h"
 #import "CookieManager.h"
 #import <objc/runtime.h>
+#import "AFHTTPRequestOperationManager.h"
+#import "User.h"
+
 
 static NSString * const TEST_SERVER_ADDRESS = @"http://www.testserver.com/";
+static NSString * const TEST_USER_ID = @"testid";
+static NSString * const TEST_USER_PASSWORD = @"testpassword";
 static CookieManager *cookieManager = nil;
+static AFHTTPRequestOperationManager* operationManager = nil;
+static AuthorizationClient* authorizationClient = nil;
 
-id mockedSharedManager(id self, SEL _cmd) {
+id mockedCookieManager(id self, SEL _cmd) {
     return cookieManager;
 }
 
 #pragma mark - Tested derived object
 
+@interface PydioClient ()
+@property(nonatomic,strong) AFHTTPRequestOperationManager* operationManager;
+@property (readwrite,nonatomic,assign) BOOL progress;
+@end
 
+@interface TestedPydioClient : PydioClient
+@end
+
+@implementation TestedPydioClient
+
+-(AuthorizationClient*)createAuthorizationClient {
+    return authorizationClient;
+}
+
+-(AFHTTPRequestOperationManager*)createOperationManager:(NSString*)server {
+    return operationManager;
+}
+@end
 
 #pragma mark -
 
@@ -36,8 +60,8 @@ id mockedSharedManager(id self, SEL _cmd) {
     Method _methodToExchange;
     IMP _originalIMP;
 }
-@property (nonatomic,strong) PydioClient* client;
-@property (nonatomic,strong) AuthorizationClient* authorizationClient;
+@property (nonatomic,strong) TestedPydioClient* client;
+//@property (nonatomic,strong) AuthorizationClient* authorizationClient;
 @end
 
 
@@ -47,52 +71,107 @@ id mockedSharedManager(id self, SEL _cmd) {
 {
     [super setUp];
     _methodToExchange = class_getClassMethod([CookieManager class], @selector(sharedManager));
-    _originalIMP = method_setImplementation(_methodToExchange, (IMP)mockedSharedManager);
+    _originalIMP = method_setImplementation(_methodToExchange, (IMP)mockedCookieManager);
     cookieManager = mock([CookieManager class]);
-    self.authorizationClient = mock([AuthorizationClient class]);
+    operationManager = mock([AFHTTPRequestOperationManager class]);
+    authorizationClient = mock([AuthorizationClient class]);
     
-    self.client = [[PydioClient alloc] initWithServer:TEST_SERVER_ADDRESS];
+    self.client = [[TestedPydioClient alloc] initWithServer:TEST_SERVER_ADDRESS];
 }
 
 - (void)tearDown
 {
     method_setImplementation(_methodToExchange, _originalIMP);
     cookieManager = nil;
-    self.authorizationClient = nil;
+    operationManager = nil;
+    authorizationClient = nil;
     self.client = nil;
     [super tearDown];
 }
 
 #pragma mark - Tests
 
-- (void)testInitialization
+-(void)testInitialization
 {
-    assertThat(self.client.server, equalTo(TEST_SERVER_ADDRESS));
+    assertThatBool(self.client.progress, equalToBool(NO));
 }
 
--(void)testShouldAuthorizeWhenNoCookie
+-(void)testShouldStartAuthorizationWhenNoCookie
 {
     //given
+    [self setupClassesResponses:[self helperUser]];
     
     //when
-    [self.client listFiles];
+    BOOL startResult = [self.client listFiles];
     
     //then
-    //Should check if cookie is present
-    [verify(cookieManager) isCookieSet:equalTo([self testServerURL])];
-    //Should call ping
-    //Should call getSeed
-    //Should call login
+    assertThatBool(startResult, equalToBool(YES));
+    assertThatBool(self.client.progress, equalToBool(YES));
+    [verify(cookieManager) isCookieSet:equalTo([self helperServerURL])];
+    [verify(cookieManager) userForServer:equalTo([self helperServerURL])];
+    [verify(authorizationClient) authorize:equalTo([self helperUser])];
 }
 
--(void)testShouldAuthorizeWhenReceivedNotAuthorizedResponse
+-(void)testShouldNotStartWhenThereIsOperationInProgress
 {
+    //given
+    [self setupClassesResponses:[self helperUser]];
+    self.client.progress = YES;
     
     //when
+    BOOL startResult = [self.client listFiles];
+    
+    //then
+    assertThatBool(startResult, equalToBool(NO));
+    [verifyCount(cookieManager,never()) isCookieSet:equalTo([self helperServerURL])];
 }
 
--(NSURL*)testServerURL {
+-(void)testShouldNotStartWhenThereIsNoUserForServer
+{
+    //given
+    [self setupClassesResponses:nil];
+    
+    //when
+    BOOL startResult = [self.client listFiles];
+    
+    //then
+    assertThatBool(startResult, equalToBool(NO));
+    assertThatBool(self.client.progress, equalToBool(NO));
+    [verify(cookieManager) isCookieSet:equalTo([self helperServerURL])];
+    [verify(cookieManager) userForServer:equalTo([self helperServerURL])];
+    [verifyCount(authorizationClient,never()) authorize:equalTo([self helperUser])];
+}
+
+//if cookie set then no checking for authorization only download list of files
+//Check finishing of authorization with succes and failure
+//Check what will happen if not authorized message will appear
+
+//-(void)testShouldNotAuthorizeAndOnlyListFilesWhenCookieIsPresent
+//{
+//    
+//}
+//
+////should not start authorization when no cookie
+//
+//-(void)testShouldAuthorizeWhenReceivedNotAuthorizedResponse
+//{
+//    
+//}
+
+-(void)setupClassesResponses:(User*)user {
+    [given([operationManager baseURL]) willReturn:[self helperServerURL]];
+    [given([cookieManager isCookieSet:equalTo([self helperServerURL])]) willReturnBool:NO];
+    [given([cookieManager userForServer:equalTo([self helperServerURL])]) willReturn:user];
+}
+
+#pragma mark - Helpers
+
+-(NSURL*)helperServerURL {
     return [NSURL URLWithString:TEST_SERVER_ADDRESS];
+}
+
+-(User *)helperUser {
+    return [User userWithId:TEST_USER_ID AndPassword:TEST_USER_PASSWORD];
 }
 
 @end

@@ -13,11 +13,13 @@ extern NSString * const PydioErrorDomain;
 @class AFHTTPRequestOperationManager;
 @class AuthCredentials;
 @class LoginResponse;
-
+@class User;
 
 @interface AuthorizationClient : NSObject
 @property (nonatomic,strong) AFHTTPRequestOperationManager *operationManager;
 @property (readonly,nonatomic,assign) BOOL progress;
+
+-(BOOL)authorize:(User*)user;
 
 -(BOOL)ping:(void(^)())success failure:(void(^)(NSError *error))failure;
 -(BOOL)getSeed:(void(^)(NSString *seed))success failure:(void(^)(NSError *error))failure;
