@@ -41,6 +41,7 @@
 		89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */; };
 		89A6AA42187B1E31003A6BDA /* AuthorizationClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */; };
 		89A6AA46187B4436003A6BDA /* AuthorizationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA45187B4436003A6BDA /* AuthorizationClient.m */; };
+		89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A84FF31885F5B800AFC2F0 /* OperationsClient.m */; };
 		89AA1A751879AF0900679E04 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */; };
 		89AA1A791879B54C00679E04 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */; };
 		89AA1A7B1879D42200679E04 /* PydioClientTests2.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA1A7A1879D42200679E04 /* PydioClientTests2.m */; };
@@ -122,6 +123,8 @@
 		89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationClientTests.m; sourceTree = "<group>"; };
 		89A6AA44187B4436003A6BDA /* AuthorizationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationClient.h; sourceTree = "<group>"; };
 		89A6AA45187B4436003A6BDA /* AuthorizationClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationClient.m; sourceTree = "<group>"; };
+		89A84FF21885F5B800AFC2F0 /* OperationsClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationsClient.h; sourceTree = "<group>"; };
+		89A84FF31885F5B800AFC2F0 /* OperationsClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClient.m; sourceTree = "<group>"; };
 		89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = Frameworks/OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMockitoIOS.framework; path = Frameworks/OCMockitoIOS.framework; sourceTree = "<group>"; };
 		89AA1A7A1879D42200679E04 /* PydioClientTests2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClientTests2.m; sourceTree = "<group>"; };
@@ -360,6 +363,8 @@
 				89B429EA187F4BAB005F6580 /* PydioClient.m */,
 				89401D211883318F005A030A /* CookieManager.h */,
 				89401D221883318F005A030A /* CookieManager.m */,
+				89A84FF21885F5B800AFC2F0 /* OperationsClient.h */,
+				89A84FF31885F5B800AFC2F0 /* OperationsClient.m */,
 			);
 			path = Clients;
 			sourceTree = "<group>";
@@ -485,6 +490,7 @@
 				89C2A9C71878C4EE0051B8E6 /* LoginXMLResponseParser.m in Sources */,
 				89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */,
 				8910F5FC1878927B0005BED4 /* LoginResponseSerializer.m in Sources */,
+				89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */,
 				89AD27671878198300033083 /* ServerConfig.m in Sources */,
 				3DFF3AF2186648C900A766D7 /* main.m in Sources */,
 			);

@@ -142,9 +142,27 @@ id mockedCookieManager(id self, SEL _cmd) {
     [verifyCount(authorizationClient,never()) authorize:equalTo([self helperUser])];
 }
 
+-(void)testShouldListFilesWhenCookieSet
+{
+    //given
+    [self setupClassesResponses:nil];
+    
+    //when
+    BOOL startResult = [self.client listFiles];
+    
+    //then
+    assertThatBool(startResult, equalToBool(NO));
+    assertThatBool(self.client.progress, equalToBool(NO));
+    [verify(cookieManager) isCookieSet:equalTo([self helperServerURL])];
+    [verify(cookieManager) userForServer:equalTo([self helperServerURL])];
+    [verifyCount(authorizationClient,never()) authorize:equalTo([self helperUser])];
+}
+
 //if cookie set then no checking for authorization only download list of files
 //Check finishing of authorization with succes and failure
 //Check what will happen if not authorized message will appear
+//Should not start if authorize will not start - authorize will return NO
+
 
 //-(void)testShouldNotAuthorizeAndOnlyListFilesWhenCookieIsPresent
 //{

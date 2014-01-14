@@ -19,7 +19,7 @@ extern NSString * const PydioErrorDomain;
 @property (nonatomic,strong) AFHTTPRequestOperationManager *operationManager;
 @property (readonly,nonatomic,assign) BOOL progress;
 
--(BOOL)authorize:(User*)user;
+-(BOOL)authorize:(User*)user success:(void(^)())success failure:(void(^)(NSError *error))failure;
 
 -(BOOL)ping:(void(^)())success failure:(void(^)(NSError *error))failure;
 -(BOOL)getSeed:(void(^)(NSString *seed))success failure:(void(^)(NSError *error))failure;
