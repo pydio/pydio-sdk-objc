@@ -16,6 +16,7 @@
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
 #import "BootConfResponseSerializer.h"
+#import "PydioErrors.h"
 
 #pragma mark - responses
 
@@ -84,7 +85,7 @@ id responseWithDictionaryWithToken(id self, SEL _cmd, NSURLResponse *response,NS
     assertThat(response, nilValue());
     assertThat(error,notNilValue());
     assertThat([error domain],equalTo(PydioErrorDomain));
-    assertThatLong([error code],equalToLong(NSURLErrorCannotDecodeContentData));
+    assertThatLong([error code],equalToLong(PydioErrorUnableToParseAnswer));
     
     NSDictionary *userInfo = [error userInfo];
     assertThat(userInfo,notNilValue());
@@ -105,7 +106,7 @@ id responseWithDictionaryWithToken(id self, SEL _cmd, NSURLResponse *response,NS
     assertThat(response, nilValue());
     assertThat(error,notNilValue());
     assertThat([error domain],equalTo(PydioErrorDomain));
-    assertThatLong([error code],equalToLong(NSURLErrorCannotDecodeContentData));
+    assertThatLong([error code],equalToLong(PydioErrorUnableToParseAnswer));
     
     NSDictionary *userInfo = [error userInfo];
     assertThat(userInfo,notNilValue());

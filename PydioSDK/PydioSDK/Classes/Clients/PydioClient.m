@@ -16,7 +16,6 @@
 
 
 @interface PydioClient ()
-@property(nonatomic,assign) NSInteger authorizationFailures;
 @property(nonatomic,strong) AFHTTPRequestOperationManager* operationManager;
 @property(nonatomic,strong) AuthorizationClient* authorizationClient;
 @property(nonatomic,strong) OperationsClient* operationsClient;
@@ -40,62 +39,38 @@
 -(instancetype)initWithServer:(NSString *)server {
     self = [super init];
     if (self) {
-        self.authorizationFailures = 0;
         self.operationManager = [self createOperationManager:server];
         self.authorizationClient = [self createAuthorizationClient];
-        self.operationsClient = [self operationsClient];
+        self.operationsClient = [self createOperationsClient];
     }
     
     return self;
 }
 
--(BOOL)listFiles {
+-(BOOL)listFilesWithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
     if (self.progress) {
         return NO;
     }
     
-    [self.operationsClient listFilesWithSuccess:^{
-        //Success, call success block
+    [self.operationsClient listFilesWithSuccess:^(NSArray *files){
+        success(files);
     } failure:^(NSError *error) {
-        if ([error.domain isEqualToString:PydioErrorDomain] && error.code == PydioErrorUnableToLogin && self.authorizationFailures == 0) {
-            self.authorizationFailures++;
+        if ([self isAuthorizationError:error]) {
             [self.authorizationClient authorizeWithSuccess:^{
-                self.authorizationFailures = 0;
-                [self listFiles];
+                [self.operationsClient listFilesWithSuccess:^(NSArray *files) {
+                    success(files);
+                } failure:^(NSError *error) {
+                    failure(error);
+                }];
             } failure:^(NSError *error) {
-                //Failure, call failure block
+                failure(error);
             }];
         } else {
-            //Failure, call failure block
+            failure(error);
         }
     }];
     
-//    CookieManager *manager = [CookieManager sharedManager];
-//    if ([manager isCookieSet:self.serverURL]) {
-//        self.progress = YES;
-//        [self.operationClient listFiles];
-//    } else {
-//        User *user = [manager userForServer:self.serverURL];
-//        if (user == nil) {
-//            return NO;
-//        }
-//        BOOL authorizationStart = [self.authorizationClient authorize:user success:^{
-//            [self.operationClient listFiles];
-//        } failure:^(NSError *error) {
-//            self.progress = NO;
-//        }];
-//        
-//        if (authorizationStart == NO) {
-//            return NO;
-//        }
-//        self.progress = YES;
-//    }
-    
     return YES;
-}
-
--(void)performListFiles {
-    
 }
 
 #pragma mark -
@@ -116,6 +91,10 @@
     client.operationManager = self.operationManager;
     
     return client;
+}
+
+-(BOOL)isAuthorizationError:(NSError *)error {
+    return [error.domain isEqualToString:PydioErrorDomain] && error.code == PydioErrorUnableToLogin;
 }
 
 @end

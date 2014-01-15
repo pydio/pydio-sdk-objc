@@ -14,5 +14,5 @@
 
 -(instancetype)initWithServer:(NSString *)server;
 
--(BOOL)listFiles;
+-(BOOL)listFilesWithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure;
 @end

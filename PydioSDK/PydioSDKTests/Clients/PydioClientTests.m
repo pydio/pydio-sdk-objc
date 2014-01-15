@@ -20,20 +20,24 @@
 #import <objc/runtime.h>
 #import "AFHTTPRequestOperationManager.h"
 #import "User.h"
+#import "OperationsClient.h"
+#import "PydioErrors.h"
+
+
+typedef void (^FailureBlock)(NSError *error);
+typedef void (^ListFilesSuccessBlock)(NSArray* files);
 
 
 static NSString * const TEST_SERVER_ADDRESS = @"http://www.testserver.com/";
 static NSString * const TEST_USER_ID = @"testid";
 static NSString * const TEST_USER_PASSWORD = @"testpassword";
-static CookieManager *cookieManager = nil;
+
 static AFHTTPRequestOperationManager* operationManager = nil;
 static AuthorizationClient* authorizationClient = nil;
+static OperationsClient* operationsClient = nil;
 
-id mockedCookieManager(id self, SEL _cmd) {
-    return cookieManager;
-}
 
-#pragma mark - Tested derived object
+#pragma mark - Deriving from Tested class
 
 @interface PydioClient ()
 @property(nonatomic,strong) AFHTTPRequestOperationManager* operationManager;
@@ -52,6 +56,10 @@ id mockedCookieManager(id self, SEL _cmd) {
 -(AFHTTPRequestOperationManager*)createOperationManager:(NSString*)server {
     return operationManager;
 }
+
+-(OperationsClient*)createOperationsClient {
+    return operationsClient;
+}
 @end
 
 #pragma mark -
@@ -61,7 +69,6 @@ id mockedCookieManager(id self, SEL _cmd) {
     IMP _originalIMP;
 }
 @property (nonatomic,strong) TestedPydioClient* client;
-//@property (nonatomic,strong) AuthorizationClient* authorizationClient;
 @end
 
 
@@ -70,21 +77,21 @@ id mockedCookieManager(id self, SEL _cmd) {
 - (void)setUp
 {
     [super setUp];
-    _methodToExchange = class_getClassMethod([CookieManager class], @selector(sharedManager));
-    _originalIMP = method_setImplementation(_methodToExchange, (IMP)mockedCookieManager);
-    cookieManager = mock([CookieManager class]);
     operationManager = mock([AFHTTPRequestOperationManager class]);
     authorizationClient = mock([AuthorizationClient class]);
+    operationsClient = mock([OperationsClient class]);
     
     self.client = [[TestedPydioClient alloc] initWithServer:TEST_SERVER_ADDRESS];
+    [given([operationManager baseURL]) willReturn:[self helperServerURL]];
+    [self setupAuthorizationClient:NO AndOperationsClient:NO];
 }
 
 - (void)tearDown
 {
-    method_setImplementation(_methodToExchange, _originalIMP);
-    cookieManager = nil;
     operationManager = nil;
     authorizationClient = nil;
+    operationsClient = nil;
+    
     self.client = nil;
     [super tearDown];
 }
@@ -94,92 +101,197 @@ id mockedCookieManager(id self, SEL _cmd) {
 -(void)testInitialization
 {
     assertThatBool(self.client.progress, equalToBool(NO));
+    assertThat(self.client.serverURL, equalTo([self helperServerURL]));
 }
 
--(void)testShouldStartAuthorizationWhenNoCookie
+-(void)testShouldBeProgressWhenAuthorizationProgress
 {
-    //given
-    [self setupClassesResponses:[self helperUser]];
+    [self setupAuthorizationClient:YES AndOperationsClient:NO];
     
-    //when
-    BOOL startResult = [self.client listFiles];
-    
-    //then
-    assertThatBool(startResult, equalToBool(YES));
     assertThatBool(self.client.progress, equalToBool(YES));
-    [verify(cookieManager) isCookieSet:equalTo([self helperServerURL])];
-    [verify(cookieManager) userForServer:equalTo([self helperServerURL])];
-    [verify(authorizationClient) authorize:equalTo([self helperUser])];
 }
 
--(void)testShouldNotStartWhenThereIsOperationInProgress
+-(void)testShouldBeProgressWhenOperationsProgress
 {
-    //given
-    [self setupClassesResponses:[self helperUser]];
-    self.client.progress = YES;
+    [self setupAuthorizationClient:NO AndOperationsClient:YES];
     
-    //when
-    BOOL startResult = [self.client listFiles];
-    
-    //then
-    assertThatBool(startResult, equalToBool(NO));
-    [verifyCount(cookieManager,never()) isCookieSet:equalTo([self helperServerURL])];
+    assertThatBool(self.client.progress, equalToBool(YES));
 }
 
--(void)testShouldNotStartWhenThereIsNoUserForServer
+-(void)testShouldStartListFilesWhenNotInProgress
 {
-    //given
-    [self setupClassesResponses:nil];
+    BOOL startResult = [self.client listFilesWithSuccess:^(NSArray *files) {
+    } failure:^(NSError *error) {
+    }];
     
-    //when
-    BOOL startResult = [self.client listFiles];
-    
-    //then
-    assertThatBool(startResult, equalToBool(NO));
-    assertThatBool(self.client.progress, equalToBool(NO));
-    [verify(cookieManager) isCookieSet:equalTo([self helperServerURL])];
-    [verify(cookieManager) userForServer:equalTo([self helperServerURL])];
-    [verifyCount(authorizationClient,never()) authorize:equalTo([self helperUser])];
+    assertThatBool(startResult, equalToBool(YES));
+    [verify(operationsClient) listFilesWithSuccess:anything() failure:anything()];
 }
 
--(void)testShouldListFilesWhenCookieSet
+-(void)testShouldNotStartListFilesWhenInProgress
 {
-    //given
-    [self setupClassesResponses:nil];
+    [self setupAuthorizationClient:YES AndOperationsClient:NO];
     
-    //when
-    BOOL startResult = [self.client listFiles];
+    BOOL startResult = [self.client listFilesWithSuccess:^(NSArray *files) {
+    } failure:^(NSError *error) {
+    }];
     
-    //then
     assertThatBool(startResult, equalToBool(NO));
-    assertThatBool(self.client.progress, equalToBool(NO));
-    [verify(cookieManager) isCookieSet:equalTo([self helperServerURL])];
-    [verify(cookieManager) userForServer:equalTo([self helperServerURL])];
-    [verifyCount(authorizationClient,never()) authorize:equalTo([self helperUser])];
+    [verifyCount(operationsClient,never()) listFilesWithSuccess:anything() failure:anything()];
 }
 
-//if cookie set then no checking for authorization only download list of files
-//Check finishing of authorization with succes and failure
-//Check what will happen if not authorized message will appear
-//Should not start if authorize will not start - authorize will return NO
+-(void)testShouldReceiveArrayWhenSuccess
+{
+    NSArray *responseArray = [NSArray array];
+    __block NSArray *receivedArray = nil;
+    __block BOOL successBlockCalled = NO;
+    __block BOOL failureBlockCalled = NO;
+    
+    [self.client listFilesWithSuccess:^(NSArray *files) {
+        successBlockCalled = YES;
+        receivedArray = files;
+    } failure:^(NSError *error) {
+        failureBlockCalled = YES;
+    }];
+    
+    MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
+    [verify(operationsClient) listFilesWithSuccess:[success capture] failure:anything()];
+    ((ListFilesSuccessBlock)[success value])(responseArray);
+    assertThatBool(successBlockCalled,equalToBool(YES));
+    assertThatBool(failureBlockCalled,equalToBool(NO));
+    assertThat(receivedArray,sameInstance(responseArray));
+}
+
+-(void)testShouldAuthorizeWhenNotLogged
+{
+    NSError *authorizationError = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
+
+    __block BOOL successBlockCalled = NO;
+    __block BOOL failureBlockCalled = NO;
+    
+    [self.client listFilesWithSuccess:^(NSArray *files) {
+        successBlockCalled = YES;
+    } failure:^(NSError *error) {
+        failureBlockCalled = YES;
+    }];
+    
+    MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
+    [verify(operationsClient) listFilesWithSuccess:anything() failure:[failure capture]];
+    ((FailureBlock)[failure value])(authorizationError);
+    [verify(authorizationClient) authorizeWithSuccess:anything() failure:anything()];
+    assertThatBool(successBlockCalled,equalToBool(NO));
+    assertThatBool(failureBlockCalled,equalToBool(NO));
+}
+
+-(void)testShouldFailureWhenNotAuthorizedForSecondTime
+{
+    NSError *authorizationError = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
+    __block NSError *receivedError = nil;
+    __block BOOL successBlockCalled = NO;
+    __block BOOL failureBlockCalled = NO;
+    
+    [self.client listFilesWithSuccess:^(NSArray *files) {
+        successBlockCalled = YES;
+    } failure:^(NSError *error) {
+        failureBlockCalled = YES;
+        receivedError = error;
+    }];
+    
+    MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
+    [verify(operationsClient) listFilesWithSuccess:anything() failure:[failure capture]];
+    ((FailureBlock)[failure value])(authorizationError);
+    MKTArgumentCaptor *authFailure = [[MKTArgumentCaptor alloc] init];
+    [verify(authorizationClient) authorizeWithSuccess:anything() failure:[authFailure capture]];
+    ((FailureBlock)[authFailure value])(authorizationError);
+    assertThatBool(successBlockCalled,equalToBool(NO));
+    assertThatBool(failureBlockCalled,equalToBool(YES));
+    assertThat(receivedError,sameInstance(authorizationError));
+}
+
+-(void)testShouldSuccessWhenReceivedResponseAfterAuthorizationInSecondTry {
+    NSError *authorizationError = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
+    NSArray *responseArray = [NSArray array];
+    __block NSArray *receivedArray = nil;
+    __block BOOL successBlockCalled = NO;
+    __block BOOL failureBlockCalled = NO;
+    
+    [self.client listFilesWithSuccess:^(NSArray *files) {
+        successBlockCalled = YES;
+        receivedArray = files;
+    } failure:^(NSError *error) {
+        failureBlockCalled = YES;
+    }];
+    
+    MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
+    [verify(operationsClient) listFilesWithSuccess:anything() failure:[failure capture]];
+    ((FailureBlock)[failure value])(authorizationError);
+    MKTArgumentCaptor *authSuccess = [[MKTArgumentCaptor alloc] init];
+    [verify(authorizationClient) authorizeWithSuccess:[authSuccess capture] failure:anything()];
+    ((void(^)())[authSuccess value])();
+    MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
+    [verifyCount(operationsClient,times(2)) listFilesWithSuccess:[success capture] failure:anything()];
+    ((ListFilesSuccessBlock)[success value])(responseArray);
+    assertThatBool(successBlockCalled,equalToBool(YES));
+    assertThatBool(failureBlockCalled,equalToBool(NO));
+    assertThat(receivedArray,sameInstance(responseArray));
+}
+
+-(void)testShouldFailureWhenReceivedErrorAfterCallingListAfterAuthorizationForSecondTry {
+    NSError *authorizationError = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
+    __block NSError *receivedError = nil;
+    __block BOOL successBlockCalled = NO;
+    __block BOOL failureBlockCalled = NO;
+    
+    [self.client listFilesWithSuccess:^(NSArray *files) {
+        successBlockCalled = YES;
+    } failure:^(NSError *error) {
+        failureBlockCalled = YES;
+        receivedError = error;
+    }];
+    
+    MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
+    [verify(operationsClient) listFilesWithSuccess:anything() failure:[failure capture]];
+    ((FailureBlock)[failure value])(authorizationError);
+    MKTArgumentCaptor *authSuccess = [[MKTArgumentCaptor alloc] init];
+    [verify(authorizationClient) authorizeWithSuccess:[authSuccess capture] failure:anything()];
+    ((void(^)())[authSuccess value])();
+    [verifyCount(operationsClient,times(2)) listFilesWithSuccess:anything() failure:[failure capture]];
+    ((FailureBlock)[failure value])(authorizationError);
+    
+    assertThatBool(successBlockCalled,equalToBool(NO));
+    assertThatBool(failureBlockCalled,equalToBool(YES));
+    assertThat(receivedError,sameInstance(authorizationError));
+}
 
 
-//-(void)testShouldNotAuthorizeAndOnlyListFilesWhenCookieIsPresent
-//{
-//    
-//}
-//
-////should not start authorization when no cookie
-//
-//-(void)testShouldAuthorizeWhenReceivedNotAuthorizedResponse
-//{
-//    
-//}
+-(void)testShouldFailureWhenOtherError
+{
+    NSError *otherError = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToParseAnswer userInfo:nil];
+    __block NSError *receivedError = nil;
+    __block BOOL successBlockCalled = NO;
+    __block BOOL failureBlockCalled = NO;
+    
+    [self.client listFilesWithSuccess:^(NSArray *files) {
+        successBlockCalled = YES;
+    } failure:^(NSError *error) {
+        failureBlockCalled = YES;
+        receivedError = error;
+    }];
+    
+    MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
+    [verify(operationsClient) listFilesWithSuccess:anything() failure:[failure capture]];
+    ((FailureBlock)[failure value])(otherError);
+    [verifyCount(authorizationClient,never()) authorizeWithSuccess:anything() failure:anything()];
+    assertThatBool(successBlockCalled,equalToBool(NO));
+    assertThatBool(failureBlockCalled,equalToBool(YES));
+    assertThat(receivedError,sameInstance(otherError));
+}
 
--(void)setupClassesResponses:(User*)user {
-    [given([operationManager baseURL]) willReturn:[self helperServerURL]];
-    [given([cookieManager isCookieSet:equalTo([self helperServerURL])]) willReturnBool:NO];
-    [given([cookieManager userForServer:equalTo([self helperServerURL])]) willReturn:user];
+#pragma mark -
+
+-(void)setupAuthorizationClient:(BOOL) authProgress AndOperationsClient: (BOOL)operationsProgress {
+    [given([authorizationClient progress]) willReturnBool:authProgress];
+    [given([operationsClient progress]) willReturnBool:operationsProgress];
 }
 
 #pragma mark - Helpers

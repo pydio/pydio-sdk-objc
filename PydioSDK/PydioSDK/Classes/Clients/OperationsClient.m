@@ -9,11 +9,11 @@
 #import "OperationsClient.h"
 
 @interface OperationsClient ()
-@property (readwrite,nonatomic,assign) BOOL progress;
+//@property (readwrite,nonatomic,assign) BOOL progress;
 @end
 
 @implementation OperationsClient
--(BOOL)listFilesWithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure {
+-(BOOL)listFilesWithSuccess:(void(^)(NSArray *files))success failure:(void(^)(NSError *error))failure {
     return NO;
 }
 @end
