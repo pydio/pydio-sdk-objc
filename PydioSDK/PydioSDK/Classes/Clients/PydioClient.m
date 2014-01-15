@@ -12,9 +12,11 @@
 #import "User.h"
 #import "AuthorizationClient.h"
 #import "OperationsClient.h"
+#import "PydioErrors.h"
 
 
 @interface PydioClient ()
+@property(nonatomic,assign) NSInteger authorizationFailures;
 @property(nonatomic,strong) AFHTTPRequestOperationManager* operationManager;
 @property(nonatomic,strong) AuthorizationClient* authorizationClient;
 @property(nonatomic,strong) OperationsClient* operationsClient;
@@ -38,6 +40,7 @@
 -(instancetype)initWithServer:(NSString *)server {
     self = [super init];
     if (self) {
+        self.authorizationFailures = 0;
         self.operationManager = [self createOperationManager:server];
         self.authorizationClient = [self createAuthorizationClient];
         self.operationsClient = [self operationsClient];
@@ -52,9 +55,19 @@
     }
     
     [self.operationsClient listFilesWithSuccess:^{
-        
+        //Success, call success block
     } failure:^(NSError *error) {
-       if ([error.domain isEqualToString:PydioErrorDomain] && error.code )
+        if ([error.domain isEqualToString:PydioErrorDomain] && error.code == PydioErrorUnableToLogin && self.authorizationFailures == 0) {
+            self.authorizationFailures++;
+            [self.authorizationClient authorizeWithSuccess:^{
+                self.authorizationFailures = 0;
+                [self listFiles];
+            } failure:^(NSError *error) {
+                //Failure, call failure block
+            }];
+        } else {
+            //Failure, call failure block
+        }
     }];
     
 //    CookieManager *manager = [CookieManager sharedManager];
@@ -79,6 +92,10 @@
 //    }
     
     return YES;
+}
+
+-(void)performListFiles {
+    
 }
 
 #pragma mark -

@@ -139,6 +139,7 @@
 		89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginXMLResponseParser.m; sourceTree = "<group>"; };
 		89C2A9C81878CD440051B8E6 /* LoginResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponse.h; sourceTree = "<group>"; };
 		89C2A9C91878CD440051B8E6 /* LoginResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponse.m; sourceTree = "<group>"; };
+		89E5A14B1887156F001CE77D /* PydioErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PydioErrors.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +181,7 @@
 				3D03A6781867171200DC5839 /* PydioConnector.m */,
 				3DFF3AFA186648C900A766D7 /* ViewController.h */,
 				3DFF3AFB186648C900A766D7 /* ViewController.m */,
+				89E5A14B1887156F001CE77D /* PydioErrors.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

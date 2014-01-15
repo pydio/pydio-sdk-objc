@@ -7,6 +7,7 @@
 //
 
 #import "BootConfResponseSerializer.h"
+#import "PydioErrors.h"
 
 NSString * const PydioErrorDomain = @"PydioErrorDomain";
 static NSString * const TOKEN=@"SECURE_TOKEN";
@@ -42,7 +43,7 @@ static NSString * const TOKEN=@"SECURE_TOKEN";
     [userInfo setValue:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Error extracting %@", nil, @"PydioSDK"),TOKEN] forKey:NSLocalizedDescriptionKey];
     [userInfo setValue:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Could not extract %@: %@", nil, @"PydioSDK"),TOKEN, responseObject] forKey:NSLocalizedFailureReasonErrorKey];
     if (error) {
-        *error = [[NSError alloc] initWithDomain:PydioErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:userInfo];
+        *error = [[NSError alloc] initWithDomain:PydioErrorDomain code:PydioErrorUnableToParseAnswer userInfo:userInfo];
     }
 
     return nil;

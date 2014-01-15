@@ -27,7 +27,7 @@ static NSString * const LOGIN_SEED = @"login_seed";
 
 @implementation AuthorizationClient
 
--(BOOL)authorize:(User*)user success:(void(^)())success failure:(void(^)(NSError *error))failure {
+-(BOOL)authorizeWithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure {
     return NO;
 }
 
