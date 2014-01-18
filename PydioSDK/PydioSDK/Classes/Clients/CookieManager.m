@@ -46,4 +46,8 @@ static CookieManager *manager = nil;
 -(User*)userForServer:(NSURL *)server {
     return nil;
 }
+
+-(NSString*)secureTokenForServer:(NSURL *)server {
+    return nil;
+}
 @end
