@@ -25,6 +25,8 @@
     self.progress = YES;
     
     NSString *listRegisters = [self urlStringForGetRegisters];
+    self.operationManager.requestSerializer = [self defaultRequestSerializer];
+    self.operationManager.responseSerializer = [self responseSerializer];
     [self.operationManager GET:listRegisters parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.progress = NO;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -35,15 +37,11 @@
     return YES;
 }
 
+#pragma mark -
+
 -(NSString*)urlStringForGetRegisters {
     NSString *secureToken = [[CookieManager sharedManager] secureTokenForServer:self.operationManager.baseURL];
-    
-    /*
-     static const NSString * const REGISTERS_URL_PART = ;
-     static const NSString * const SECURE_TOKEN_PART = ;
-     static const NSString * const XPATH_PART = ;
-     */
-    
+
     NSString *base = @"index.php?get_action=get_xml_registry";
     if (secureToken) {
         base = [base stringByAppendingFormat:@"&secure_token=%@",secureToken];
@@ -51,5 +49,26 @@
     base = [base stringByAppendingString:@"&xPath=user/repositories"];
     
     return base;
+}
+
+-(AFHTTPRequestSerializer*)defaultRequestSerializer {
+    AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
+    [serializer setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
+    [serializer setValue:@"*/*" forHTTPHeaderField:@"Accept"];
+    [serializer setValue:@"en-us" forHTTPHeaderField:@"Accept-Language"];
+    [serializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
+    [serializer setValue:@"true" forHTTPHeaderField:@"Ajxp-Force-Login"];
+    [serializer setValue:@"ajaxplorer-ios-client/1.0" forHTTPHeaderField:@"User-Agent"];
+    
+    return serializer;
+}
+
+-(AFHTTPResponseSerializer*)responseSerializer {
+    
+    NSMutableArray *serializers = [NSMutableArray array];
+    AFCompoundResponseSerializer *serializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
+    
+    
+    return serializer;
 }
 @end

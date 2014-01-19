@@ -102,8 +102,11 @@ id mockedCookieManager(id self, SEL _cmd) {
     
     assertThatBool(startResult,equalToBool(YES));
     assertThatBool(self.client.progress,equalToBool(YES));
-    //should set request serializers
-    //should set response serializers
+    
+    MKTArgumentCaptor *requestSerializer = [[MKTArgumentCaptor alloc] init];
+    [verify(self.operationManager) setRequestSerializer:[requestSerializer capture]];
+    [self assertRequestSerializer:((AFHTTPRequestSerializer*)[requestSerializer value]).HTTPRequestHeaders];
+    [verify(self.operationManager) setResponseSerializer:equalTo(nil)];
     [verify(cookieManager) secureTokenForServer:server];
     [verify(self.operationManager) GET:[self urlGetRegistersToken] parameters:nil success:anything() failure:anything()];
     
@@ -115,8 +118,8 @@ id mockedCookieManager(id self, SEL _cmd) {
     BOOL startResult = [self.client listFilesWithSuccess:nil failure:nil];
     
     assertThatBool(startResult,equalToBool(NO));
-    //should not set request serializers
-    //should not set response serializers
+    [verifyCount(self.operationManager,never()) setRequestSerializer:anything()];
+    [verifyCount(self.operationManager,never()) setResponseSerializer:anything()];
     [verifyCount(self.operationManager, never()) GET:anything() parameters:nil success:anything() failure:anything()];
 }
 
@@ -126,12 +129,22 @@ id mockedCookieManager(id self, SEL _cmd) {
 }
 
 #pragma mark -
+
 -(NSString *)urlGetRegistersNoToken {
     return [NSString stringWithFormat:@"%@%@",REGISTERS_URL_PART,XPATH_PART];
 }
 
 -(NSString *)urlGetRegistersToken {
     return [NSString stringWithFormat:@"%@%@%@%@",REGISTERS_URL_PART,SECURE_TOKEN_PART,TEST_TOKEN,XPATH_PART];
+}
+
+-(void)assertRequestSerializer:(NSDictionary*)headers {
+    assertThat([headers valueForKey:@"Accept-Encoding"],equalTo(@"gzip, deflate"));
+    assertThat([headers valueForKey:@"Accept"],equalTo(@"*/*"));
+    assertThat([headers valueForKey:@"Accept-Language"],equalTo(@"en-us"));
+    assertThat([headers valueForKey:@"Connection"],equalTo(@"keep-alive"));
+    assertThat([headers valueForKey:@"Ajxp-Force-Login"],equalTo(@"true"));
+    assertThat([headers valueForKey:@"User-Agent"],equalTo(@"ajaxplorer-ios-client/1.0"));
 }
 
 @end
