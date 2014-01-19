@@ -9,9 +9,11 @@
 #ifndef PydioSDK_PydioErrors_h
 #define PydioSDK_PydioErrors_h
 
+extern NSString * const PydioErrorDomain;
+
 enum {
     PydioErrorUnableToParseAnswer = 1,
-    PydioErrorUnableToLogin = 2
+    PydioErrorUnableToLogin = 2 //TODO: Rename to Authorization error
     
 };
 

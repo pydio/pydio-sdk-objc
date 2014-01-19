@@ -10,7 +10,10 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "CookieManager.h"
 #import "NotAuthorizedResponseSerializer.h"
+#import "NotAuthorizedResponse.h"
+#import "PydioErrors.h"
 
+extern NSString * const PydioErrorDomain;
 
 @interface OperationsClient ()
 @property (readwrite,nonatomic,assign) BOOL progress;
@@ -28,10 +31,18 @@
     NSString *listRegisters = [self urlStringForGetRegisters];
     self.operationManager.requestSerializer = [self defaultRequestSerializer];
     self.operationManager.responseSerializer = [self responseSerializer];
+    
     [self.operationManager GET:listRegisters parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.progress = NO;
+        NSError *error = [self authorizationError:responseObject];
+        if (error) {
+            failure(error);
+        } else {
+            success(responseObject);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         self.progress = NO;
+        failure(error);
     }];
     
     
@@ -72,5 +83,14 @@
     AFCompoundResponseSerializer *serializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
         
     return serializer;
+}
+
+-(NSError *)authorizationError:(id)potentialError {
+    NSError *error = nil;
+    if ([potentialError isKindOfClass:[NotAuthorizedResponse class]]) {
+        error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
+    }
+    
+    return error;
 }
 @end
