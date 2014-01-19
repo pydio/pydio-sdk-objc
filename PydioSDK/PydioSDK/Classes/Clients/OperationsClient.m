@@ -10,6 +10,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "CookieManager.h"
 #import "NotAuthorizedResponseSerializer.h"
+#import "RepositoriesResponseSerializer.h"
 #import "NotAuthorizedResponse.h"
 #import "PydioErrors.h"
 
@@ -79,6 +80,7 @@ extern NSString * const PydioErrorDomain;
     
     NSMutableArray *serializers = [NSMutableArray array];
     [serializers addObject:[[NotAuthorizedResponseSerializer alloc] init]];
+    [serializers addObject:[[RepositoriesResponseSerializer alloc] init]];
     
     AFCompoundResponseSerializer *serializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
         

@@ -48,7 +48,11 @@
 		89AA1A751879AF0900679E04 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */; };
 		89AA1A791879B54C00679E04 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */; };
 		89AA1A7B1879D42200679E04 /* PydioClientTests2.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA1A7A1879D42200679E04 /* PydioClientTests2.m */; };
+		89AC1AC8188D8CAD00ACAD7C /* RepositoriesParserStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1AC7188D8CAD00ACAD7C /* RepositoriesParserStates.m */; };
+		89AC1ACB188DA30800ACAD7C /* Repository.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1ACA188DA30800ACAD7C /* Repository.m */; };
 		89AD27671878198300033083 /* ServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD27661878198300033083 /* ServerConfig.m */; };
+		89B35609188C6FB000C62728 /* RepositoriesResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B35608188C6FB000C62728 /* RepositoriesResponseSerializer.m */; };
+		89B3560C188C70A500C62728 /* RepositoriesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B3560B188C70A500C62728 /* RepositoriesParserDelegate.m */; };
 		89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EA187F4BAB005F6580 /* PydioClient.m */; };
 		89B429ED187F4BD0005F6580 /* PydioClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EC187F4BD0005F6580 /* PydioClientTests.m */; };
 		89B4780A187DFCE700A9CFC5 /* AuthCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B47809187DFCE700A9CFC5 /* AuthCredentials.m */; };
@@ -136,8 +140,17 @@
 		89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = Frameworks/OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMockitoIOS.framework; path = Frameworks/OCMockitoIOS.framework; sourceTree = "<group>"; };
 		89AA1A7A1879D42200679E04 /* PydioClientTests2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClientTests2.m; sourceTree = "<group>"; };
+		89AC1AC5188D8AE100ACAD7C /* RepositoriesParserDelegate_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepositoriesParserDelegate_Private.h; sourceTree = "<group>"; };
+		89AC1AC6188D8CAD00ACAD7C /* RepositoriesParserStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesParserStates.h; sourceTree = "<group>"; };
+		89AC1AC7188D8CAD00ACAD7C /* RepositoriesParserStates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesParserStates.m; sourceTree = "<group>"; };
+		89AC1AC9188DA30800ACAD7C /* Repository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repository.h; sourceTree = "<group>"; };
+		89AC1ACA188DA30800ACAD7C /* Repository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repository.m; sourceTree = "<group>"; };
 		89AD27651878198300033083 /* ServerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConfig.h; sourceTree = "<group>"; };
 		89AD27661878198300033083 /* ServerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConfig.m; sourceTree = "<group>"; };
+		89B35607188C6FB000C62728 /* RepositoriesResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesResponseSerializer.h; sourceTree = "<group>"; };
+		89B35608188C6FB000C62728 /* RepositoriesResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesResponseSerializer.m; sourceTree = "<group>"; };
+		89B3560A188C70A500C62728 /* RepositoriesParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesParserDelegate.h; sourceTree = "<group>"; };
+		89B3560B188C70A500C62728 /* RepositoriesParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesParserDelegate.m; sourceTree = "<group>"; };
 		89B429E9187F4BAB005F6580 /* PydioClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioClient.h; sourceTree = "<group>"; };
 		89B429EA187F4BAB005F6580 /* PydioClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClient.m; sourceTree = "<group>"; };
 		89B429EC187F4BD0005F6580 /* PydioClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClientTests.m; sourceTree = "<group>"; };
@@ -316,6 +329,8 @@
 				8910F5F718788A7A0005BED4 /* GetSeedResponseSerializer.m */,
 				899D93EC188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.h */,
 				899D93ED188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.m */,
+				89B35607188C6FB000C62728 /* RepositoriesResponseSerializer.h */,
+				89B35608188C6FB000C62728 /* RepositoriesResponseSerializer.m */,
 			);
 			path = ResponseSerializers;
 			sourceTree = "<group>";
@@ -335,6 +350,13 @@
 				8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */,
 				8910F5F018786EFA0005BED4 /* NSString+Hash.h */,
 				8910F5F118786EFA0005BED4 /* NSString+Hash.m */,
+				89B3560A188C70A500C62728 /* RepositoriesParserDelegate.h */,
+				89B3560B188C70A500C62728 /* RepositoriesParserDelegate.m */,
+				89AC1AC5188D8AE100ACAD7C /* RepositoriesParserDelegate_Private.h */,
+				89AC1AC6188D8CAD00ACAD7C /* RepositoriesParserStates.h */,
+				89AC1AC7188D8CAD00ACAD7C /* RepositoriesParserStates.m */,
+				89AC1AC9188DA30800ACAD7C /* Repository.h */,
+				89AC1ACA188DA30800ACAD7C /* Repository.m */,
 				89AD27651878198300033083 /* ServerConfig.h */,
 				89AD27661878198300033083 /* ServerConfig.m */,
 				89401308188443C90044001D /* User.h */,
@@ -483,7 +505,9 @@
 			files = (
 				8940130A188443C90044001D /* User.m in Sources */,
 				3DFF3B2F18664EEF00A766D7 /* AFHTTPRequestOperation.m in Sources */,
+				89B35609188C6FB000C62728 /* RepositoriesResponseSerializer.m in Sources */,
 				8910F5F218786EFA0005BED4 /* NSString+Hash.m in Sources */,
+				89AC1ACB188DA30800ACAD7C /* Repository.m in Sources */,
 				3DFF3AFC186648C900A766D7 /* ViewController.m in Sources */,
 				8910F5F5187874430005BED4 /* BootConfResponseSerializer.m in Sources */,
 				89B4780A187DFCE700A9CFC5 /* AuthCredentials.m in Sources */,
@@ -505,10 +529,12 @@
 				8910F6011878A3410005BED4 /* NotAuthorizedXMLResponseParser.m in Sources */,
 				3DFF3AF6186648C900A766D7 /* AppDelegate.m in Sources */,
 				89C2A9C71878C4EE0051B8E6 /* LoginXMLResponseParser.m in Sources */,
+				89B3560C188C70A500C62728 /* RepositoriesParserDelegate.m in Sources */,
 				89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */,
 				8910F5FC1878927B0005BED4 /* LoginResponseSerializer.m in Sources */,
 				89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */,
 				89AD27671878198300033083 /* ServerConfig.m in Sources */,
+				89AC1AC8188D8CAD00ACAD7C /* RepositoriesParserStates.m in Sources */,
 				3DFF3AF2186648C900A766D7 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

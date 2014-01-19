@@ -18,6 +18,7 @@
 #import "CookieManager.h"
 #import "NotAuthorizedResponseSerializer.h"
 #import "NotAuthorizedResponse.h"
+#import "RepositoriesResponseSerializer.h"
 #import "PydioErrors.h"
 
 
@@ -237,7 +238,10 @@ id mockedCookieManager(id self, SEL _cmd) {
 
 -(void)assertResponseSerializer:(AFHTTPResponseSerializer*)serializer {
     assertThat(serializer,instanceOf([AFCompoundResponseSerializer class]));
-    assertThat([((AFCompoundResponseSerializer*)serializer).responseSerializers objectAtIndex:0],instanceOf([NotAuthorizedResponseSerializer class])) ;
+    AFCompoundResponseSerializer* compoundSerializer = (AFCompoundResponseSerializer*)serializer;
+    assertThatUnsignedInteger(compoundSerializer.responseSerializers.count,equalToUnsignedInteger(2));
+    assertThat([compoundSerializer.responseSerializers objectAtIndex:0],instanceOf([NotAuthorizedResponseSerializer class]));
+    assertThat([compoundSerializer.responseSerializers objectAtIndex:1],instanceOf([RepositoriesResponseSerializer class]));
 }
 
 @end
