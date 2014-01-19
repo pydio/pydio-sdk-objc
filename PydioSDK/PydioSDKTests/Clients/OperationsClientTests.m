@@ -16,6 +16,8 @@
 #import "OperationsClient.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "CookieManager.h"
+#import "NotAuthorizedResponseSerializer.h"
+
 
 static const NSString * const REGISTERS_URL_PART = @"index.php?get_action=get_xml_registry";
 static const NSString * const SECURE_TOKEN_PART = @"&secure_token=";
@@ -105,8 +107,12 @@ id mockedCookieManager(id self, SEL _cmd) {
     
     MKTArgumentCaptor *requestSerializer = [[MKTArgumentCaptor alloc] init];
     [verify(self.operationManager) setRequestSerializer:[requestSerializer capture]];
-    [self assertRequestSerializer:((AFHTTPRequestSerializer*)[requestSerializer value]).HTTPRequestHeaders];
-    [verify(self.operationManager) setResponseSerializer:equalTo(nil)];
+    [self assertRequestSerializer:(AFHTTPRequestSerializer*)[requestSerializer value]];
+    
+    MKTArgumentCaptor *responseSerializer = [[MKTArgumentCaptor alloc] init];
+    [verify(self.operationManager) setResponseSerializer:[responseSerializer capture]];
+    [self assertResponseSerializer:(AFHTTPResponseSerializer*)[responseSerializer value]];
+    
     [verify(cookieManager) secureTokenForServer:server];
     [verify(self.operationManager) GET:[self urlGetRegistersToken] parameters:nil success:anything() failure:anything()];
     
@@ -138,13 +144,19 @@ id mockedCookieManager(id self, SEL _cmd) {
     return [NSString stringWithFormat:@"%@%@%@%@",REGISTERS_URL_PART,SECURE_TOKEN_PART,TEST_TOKEN,XPATH_PART];
 }
 
--(void)assertRequestSerializer:(NSDictionary*)headers {
+-(void)assertRequestSerializer:(AFHTTPRequestSerializer*)serializer {
+    NSDictionary* headers = serializer.HTTPRequestHeaders;
     assertThat([headers valueForKey:@"Accept-Encoding"],equalTo(@"gzip, deflate"));
     assertThat([headers valueForKey:@"Accept"],equalTo(@"*/*"));
     assertThat([headers valueForKey:@"Accept-Language"],equalTo(@"en-us"));
     assertThat([headers valueForKey:@"Connection"],equalTo(@"keep-alive"));
     assertThat([headers valueForKey:@"Ajxp-Force-Login"],equalTo(@"true"));
     assertThat([headers valueForKey:@"User-Agent"],equalTo(@"ajaxplorer-ios-client/1.0"));
+}
+
+-(void)assertResponseSerializer:(AFHTTPResponseSerializer*)serializer {
+    assertThat(serializer,instanceOf([AFCompoundResponseSerializer class]));
+    assertThat([((AFCompoundResponseSerializer*)serializer).responseSerializers objectAtIndex:0],instanceOf([NotAuthorizedResponseSerializer class])) ;
 }
 
 @end

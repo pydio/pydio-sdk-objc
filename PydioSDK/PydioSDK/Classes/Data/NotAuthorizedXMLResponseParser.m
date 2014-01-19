@@ -31,9 +31,9 @@
 #pragma mark -
 
 -(void)firstElementStart:(NSString *)elementName {
-    if ([elementName compare:@"tree"] == NSOrderedSame) {
+    if ([elementName isEqualToString:@"tree"]) {
         self.startElementAction = @selector(requireAuthElementStart:);
-    } else if ([elementName compare:@"ajxp_registry_part"] == NSOrderedSame) {
+    } else if ([elementName isEqualToString:@"ajxp_registry_part"]) {
         _notLogged = YES;
         self.startElementAction = nil;
     }

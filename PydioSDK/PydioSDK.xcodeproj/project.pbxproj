@@ -38,6 +38,8 @@
 		8910F6011878A3410005BED4 /* NotAuthorizedXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */; };
 		8940130A188443C90044001D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401309188443C90044001D /* User.m */; };
 		89401D231883318F005A030A /* CookieManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401D221883318F005A030A /* CookieManager.m */; };
+		899D93EE188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 899D93ED188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.m */; };
+		89A554FF188C03F1008C1B64 /* NotAuthorizedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */; };
 		89A5A6661888F7B300365E24 /* OperationsClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A5A6651888F7B300365E24 /* OperationsClientTests.m */; };
 		89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */; };
 		89A6AA42187B1E31003A6BDA /* AuthorizationClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */; };
@@ -120,6 +122,10 @@
 		89401D211883318F005A030A /* CookieManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CookieManager.h; sourceTree = "<group>"; };
 		89401D221883318F005A030A /* CookieManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieManager.m; sourceTree = "<group>"; };
 		89401D2518833DFB005A030A /* oldPydioClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = oldPydioClient.h; sourceTree = "<group>"; };
+		899D93EC188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedResponseSerializer.h; sourceTree = "<group>"; };
+		899D93ED188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedResponseSerializer.m; sourceTree = "<group>"; };
+		89A554FD188C03F1008C1B64 /* NotAuthorizedResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedResponse.h; sourceTree = "<group>"; };
+		89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedResponse.m; sourceTree = "<group>"; };
 		89A5A6651888F7B300365E24 /* OperationsClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClientTests.m; sourceTree = "<group>"; };
 		89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BootConfResponseSerializerTests.m; sourceTree = "<group>"; };
 		89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationClientTests.m; sourceTree = "<group>"; };
@@ -308,6 +314,8 @@
 				8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */,
 				8910F5F618788A7A0005BED4 /* GetSeedResponseSerializer.h */,
 				8910F5F718788A7A0005BED4 /* GetSeedResponseSerializer.m */,
+				899D93EC188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.h */,
+				899D93ED188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.m */,
 			);
 			path = ResponseSerializers;
 			sourceTree = "<group>";
@@ -321,6 +329,8 @@
 				89C2A9C91878CD440051B8E6 /* LoginResponse.m */,
 				89C2A9C51878C4EE0051B8E6 /* LoginXMLResponseParser.h */,
 				89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */,
+				89A554FD188C03F1008C1B64 /* NotAuthorizedResponse.h */,
+				89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */,
 				8910F5FF1878A3410005BED4 /* NotAuthorizedXMLResponseParser.h */,
 				8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */,
 				8910F5F018786EFA0005BED4 /* NSString+Hash.h */,
@@ -484,8 +494,10 @@
 				3D03A6791867171200DC5839 /* PydioConnector.m in Sources */,
 				3DFF3B3218664EEF00A766D7 /* AFNetworkReachabilityManager.m in Sources */,
 				3DFF3B3618664EEF00A766D7 /* AFURLResponseSerialization.m in Sources */,
+				89A554FF188C03F1008C1B64 /* NotAuthorizedResponse.m in Sources */,
 				3DFF3B3418664EEF00A766D7 /* AFURLConnectionOperation.m in Sources */,
 				8910F5F818788A7A0005BED4 /* GetSeedResponseSerializer.m in Sources */,
+				899D93EE188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.m in Sources */,
 				3DFF3B3318664EEF00A766D7 /* AFSecurityPolicy.m in Sources */,
 				3DFF3B3118664EEF00A766D7 /* AFHTTPSessionManager.m in Sources */,
 				3DFF3B3518664EEF00A766D7 /* AFURLRequestSerialization.m in Sources */,

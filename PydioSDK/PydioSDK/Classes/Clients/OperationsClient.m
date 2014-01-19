@@ -9,6 +9,7 @@
 #import "OperationsClient.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "CookieManager.h"
+#import "NotAuthorizedResponseSerializer.h"
 
 
 @interface OperationsClient ()
@@ -66,9 +67,10 @@
 -(AFHTTPResponseSerializer*)responseSerializer {
     
     NSMutableArray *serializers = [NSMutableArray array];
+    [serializers addObject:[[NotAuthorizedResponseSerializer alloc] init]];
+    
     AFCompoundResponseSerializer *serializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
-    
-    
+        
     return serializer;
 }
 @end
