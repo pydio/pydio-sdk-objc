@@ -20,19 +20,19 @@
 
 #pragma mark - responses
 
-id responseWithNil(id self, SEL _cmd, NSURLResponse *response,NSData *data,NSError *__autoreleasing *error) {
+static id responseWithNil(id self, SEL _cmd, NSURLResponse *response,NSData *data,NSError *__autoreleasing *error) {
     return nil;
 }
 
-id responseWithArray(id self, SEL _cmd, NSURLResponse *response,NSData *data,NSError *__autoreleasing *error) {
+static id responseWithArray(id self, SEL _cmd, NSURLResponse *response,NSData *data,NSError *__autoreleasing *error) {
     return [[NSArray alloc] init];
 }
 
-id responseWithEmptyDictionary(id self, SEL _cmd, NSURLResponse *response,NSData *data,NSError *__autoreleasing *error) {
+static id responseWithEmptyDictionary(id self, SEL _cmd, NSURLResponse *response,NSData *data,NSError *__autoreleasing *error) {
     return [[NSDictionary alloc] init];
 }
 
-id responseWithDictionaryWithToken(id self, SEL _cmd, NSURLResponse *response,NSData *data,NSError *__autoreleasing *error) {
+static id responseWithDictionaryWithToken(id self, SEL _cmd, NSURLResponse *response,NSData *data,NSError *__autoreleasing *error) {
     return @{@"SECURE_TOKEN": @"123456"};
 }
 

@@ -10,7 +10,16 @@
 #import "RepositoriesParserDelegate.h"
 #import "PydioErrors.h"
 
+
+@interface RepositoriesResponseSerializer ()
+-(RepositoriesParserDelegate *)createRepositoriesParserDelegate;
+@end
+
 @implementation RepositoriesResponseSerializer
+
+-(RepositoriesParserDelegate *)createRepositoriesParserDelegate {
+    return [[RepositoriesParserDelegate alloc] init];
+}
 
 #pragma mark - AFURLResponseSerialization
 
@@ -24,7 +33,7 @@
     }
     
     NSXMLParser *parser = (NSXMLParser *)responseObject;
-    RepositoriesParserDelegate * responseParser = [[RepositoriesParserDelegate alloc] init];
+    RepositoriesParserDelegate * responseParser = [self createRepositoriesParserDelegate];
     [parser setDelegate:responseParser];
     [parser parse];
     
