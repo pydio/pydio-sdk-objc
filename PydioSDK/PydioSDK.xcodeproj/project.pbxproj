@@ -192,17 +192,19 @@
 		3D03A67B1867176700DC5839 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				89401D2418833DAA005A030A /* toremove */,
-				89A6AA43187B440A003A6BDA /* Clients */,
-				8910F5FE18789F870005BED4 /* Data */,
-				8910F5FD18789E2E0005BED4 /* ResponseSerializers */,
 				3DFF3AF4186648C900A766D7 /* AppDelegate.h */,
 				3DFF3AF5186648C900A766D7 /* AppDelegate.m */,
+				89A6AA43187B440A003A6BDA /* Clients */,
+				8910F5FE18789F870005BED4 /* Data */,
 				3D03A6771867171200DC5839 /* PydioConnector.h */,
 				3D03A6781867171200DC5839 /* PydioConnector.m */,
+				89E5A14B1887156F001CE77D /* PydioErrors.h */,
+				89AC1ACC188DAEDD00ACAD7C /* ResponseParsers */,
+				89AC1ACD188DBE1900ACAD7C /* Responses */,
+				8910F5FD18789E2E0005BED4 /* ResponseSerializers */,
+				89401D2418833DAA005A030A /* toremove */,
 				3DFF3AFA186648C900A766D7 /* ViewController.h */,
 				3DFF3AFB186648C900A766D7 /* ViewController.m */,
-				89E5A14B1887156F001CE77D /* PydioErrors.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -340,23 +342,8 @@
 			children = (
 				89B47808187DFCE700A9CFC5 /* AuthCredentials.h */,
 				89B47809187DFCE700A9CFC5 /* AuthCredentials.m */,
-				89C2A9C81878CD440051B8E6 /* LoginResponse.h */,
-				89C2A9C91878CD440051B8E6 /* LoginResponse.m */,
-				89C2A9C51878C4EE0051B8E6 /* LoginXMLResponseParser.h */,
-				89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */,
-				89A554FD188C03F1008C1B64 /* NotAuthorizedResponse.h */,
-				89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */,
-				8910F5FF1878A3410005BED4 /* NotAuthorizedXMLResponseParser.h */,
-				8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */,
 				8910F5F018786EFA0005BED4 /* NSString+Hash.h */,
 				8910F5F118786EFA0005BED4 /* NSString+Hash.m */,
-				89B3560A188C70A500C62728 /* RepositoriesParserDelegate.h */,
-				89B3560B188C70A500C62728 /* RepositoriesParserDelegate.m */,
-				89AC1AC5188D8AE100ACAD7C /* RepositoriesParserDelegate_Private.h */,
-				89AC1AC6188D8CAD00ACAD7C /* RepositoriesParserStates.h */,
-				89AC1AC7188D8CAD00ACAD7C /* RepositoriesParserStates.m */,
-				89AC1AC9188DA30800ACAD7C /* Repository.h */,
-				89AC1ACA188DA30800ACAD7C /* Repository.m */,
 				89AD27651878198300033083 /* ServerConfig.h */,
 				89AD27661878198300033083 /* ServerConfig.m */,
 				89401308188443C90044001D /* User.h */,
@@ -404,6 +391,35 @@
 				89A84FF31885F5B800AFC2F0 /* OperationsClient.m */,
 			);
 			path = Clients;
+			sourceTree = "<group>";
+		};
+		89AC1ACC188DAEDD00ACAD7C /* ResponseParsers */ = {
+			isa = PBXGroup;
+			children = (
+				8910F5FF1878A3410005BED4 /* NotAuthorizedXMLResponseParser.h */,
+				8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */,
+				89C2A9C51878C4EE0051B8E6 /* LoginXMLResponseParser.h */,
+				89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */,
+				89B3560A188C70A500C62728 /* RepositoriesParserDelegate.h */,
+				89B3560B188C70A500C62728 /* RepositoriesParserDelegate.m */,
+				89AC1AC5188D8AE100ACAD7C /* RepositoriesParserDelegate_Private.h */,
+				89AC1AC6188D8CAD00ACAD7C /* RepositoriesParserStates.h */,
+				89AC1AC7188D8CAD00ACAD7C /* RepositoriesParserStates.m */,
+			);
+			path = ResponseParsers;
+			sourceTree = "<group>";
+		};
+		89AC1ACD188DBE1900ACAD7C /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				89C2A9C81878CD440051B8E6 /* LoginResponse.h */,
+				89C2A9C91878CD440051B8E6 /* LoginResponse.m */,
+				89A554FD188C03F1008C1B64 /* NotAuthorizedResponse.h */,
+				89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */,
+				89AC1AC9188DA30800ACAD7C /* Repository.h */,
+				89AC1ACA188DA30800ACAD7C /* Repository.m */,
+			);
+			path = Responses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
