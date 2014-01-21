@@ -49,6 +49,8 @@
 		89AC1AC8188D8CAD00ACAD7C /* RepositoriesParserStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1AC7188D8CAD00ACAD7C /* RepositoriesParserStates.m */; };
 		89AC1ACB188DA30800ACAD7C /* Repository.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1ACA188DA30800ACAD7C /* Repository.m */; };
 		89AC1ACF188DC92D00ACAD7C /* RepositoriesResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1ACE188DC92D00ACAD7C /* RepositoriesResponseSerializerTests.m */; };
+		89AC1AD2188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */; };
+		89AC1AD5188DE98600ACAD7C /* proper_get_registers.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AC1AD4188DE98600ACAD7C /* proper_get_registers.xml */; };
 		89AD27671878198300033083 /* ServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD27661878198300033083 /* ServerConfig.m */; };
 		89B35609188C6FB000C62728 /* RepositoriesResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B35608188C6FB000C62728 /* RepositoriesResponseSerializer.m */; };
 		89B3560C188C70A500C62728 /* RepositoriesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B3560B188C70A500C62728 /* RepositoriesParserDelegate.m */; };
@@ -143,6 +145,8 @@
 		89AC1AC9188DA30800ACAD7C /* Repository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repository.h; sourceTree = "<group>"; };
 		89AC1ACA188DA30800ACAD7C /* Repository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repository.m; sourceTree = "<group>"; };
 		89AC1ACE188DC92D00ACAD7C /* RepositoriesResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesResponseSerializerTests.m; sourceTree = "<group>"; };
+		89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesParserDelegateTests.m; sourceTree = "<group>"; };
+		89AC1AD4188DE98600ACAD7C /* proper_get_registers.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = proper_get_registers.xml; sourceTree = "<group>"; };
 		89AD27651878198300033083 /* ServerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConfig.h; sourceTree = "<group>"; };
 		89AD27661878198300033083 /* ServerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConfig.m; sourceTree = "<group>"; };
 		89B35607188C6FB000C62728 /* RepositoriesResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesResponseSerializer.h; sourceTree = "<group>"; };
@@ -265,6 +269,7 @@
 		3DFF3B0A186648CA00A766D7 /* PydioSDKTests */ = {
 			isa = PBXGroup;
 			children = (
+				89AC1AD3188DE84900ACAD7C /* Fixtures */,
 				89AC1AD0188DDD2700ACAD7C /* ResponseParsers */,
 				89A6AA40187B1DE2003A6BDA /* Clients */,
 				89A6AA3D187B0A03003A6BDA /* ResponseSerializers */,
@@ -423,8 +428,17 @@
 		89AC1AD0188DDD2700ACAD7C /* ResponseParsers */ = {
 			isa = PBXGroup;
 			children = (
+				89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */,
 			);
-			name = ResponseParsers;
+			path = ResponseParsers;
+			sourceTree = "<group>";
+		};
+		89AC1AD3188DE84900ACAD7C /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				89AC1AD4188DE98600ACAD7C /* proper_get_registers.xml */,
+			);
+			path = Fixtures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -514,6 +528,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DFF3B0F186648CA00A766D7 /* InfoPlist.strings in Resources */,
+				89AC1AD5188DE98600ACAD7C /* proper_get_registers.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +580,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89AC1ACF188DC92D00ACAD7C /* RepositoriesResponseSerializerTests.m in Sources */,
+				89AC1AD2188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m in Sources */,
 				89A6AA42187B1E31003A6BDA /* AuthorizationClientTests.m in Sources */,
 				89B429ED187F4BD0005F6580 /* PydioClientTests.m in Sources */,
 				89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */,

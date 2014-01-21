@@ -22,3 +22,12 @@
 
 @interface StartParserState : BaseParserState
 @end
+
+@interface ExpectStartRepoState : BaseParserState
+@end
+
+@interface ExpectEndRepoState : BaseParserState
+@property (nonatomic,strong) NSString *repoId;
+@property (nonatomic,strong) NSString *label;
+@property (nonatomic,strong) NSString *description;
+@end

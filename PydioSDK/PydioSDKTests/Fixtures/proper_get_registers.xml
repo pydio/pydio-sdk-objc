@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><ajxp_registry_part xPath="user/repositories" ><repositories><repo access_type="fs" id="0" allowCrossRepositoryCopy="true" repositorySlug="default"><label>Common Files</label><description>No description available</description><client_settings icon="plugins/access.fs/icon.png">
+        <resources>
+            <i18n namespace="access_fs" path="plugins/access.fs/i18n"/>
+        </resources>
+    </client_settings></repo><repo access_type="fs" id="1" allowCrossRepositoryCopy="true" repositorySlug="my-files"><label>My Files</label><description>No description available</description><client_settings icon="plugins/access.fs/icon.png">
+        <resources>
+            <i18n namespace="access_fs" path="plugins/access.fs/i18n"/>
+        </resources>
+    </client_settings></repo><repo access_type="fs" id="b03285d816de6a3c67349ab87d27ac20" allowCrossRepositoryCopy="true" repositorySlug="synchro"><label>Synchro</label><description>Created by charles on 2013/10/14</description><client_settings icon="plugins/access.fs/icon.png">
+        <resources>
+            <i18n namespace="access_fs" path="plugins/access.fs/i18n"/>
+        </resources>
+    </client_settings></repo></repositories></ajxp_registry_part>

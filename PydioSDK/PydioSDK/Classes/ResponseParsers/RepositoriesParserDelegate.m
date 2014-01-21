@@ -17,6 +17,7 @@
     self = [super init];
     if (self) {
         self.parserState = [[StartParserState alloc] initWithParser:self];
+        _repositories = [NSArray array];
     }
     
     return self;

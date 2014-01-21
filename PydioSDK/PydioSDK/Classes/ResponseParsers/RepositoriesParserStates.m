@@ -37,18 +37,7 @@
 
 @end
 
-#pragma mark - Derived Parsers States, interfaces
-
-@interface ExpectStartRepoState : BaseParserState
-@end
-
-@interface ExpectEndRepoState : BaseParserState
-@property (nonatomic,strong) NSString *repoId;
-@property (nonatomic,strong) NSString *label;
-@property (nonatomic,strong) NSString *description;
-@end
-
-#pragma mark - Derived Parsers States, implementation
+#pragma mark - Derived Parsers States
 
 @implementation StartParserState
 
@@ -60,12 +49,11 @@
 
 @end
 
-#pragma mark -
 
 @implementation ExpectStartRepoState
 
 -(void)didStartElement:(NSString *)elementName attributes:(NSDictionary *)attributeDict {
-    if ([elementName isEqualToString:@"repo"] && ![attributeDict valueForKey:@"id"]) {
+    if ([elementName isEqualToString:@"repo"] && [attributeDict valueForKey:@"id"]) {
         ExpectEndRepoState *endRepoState = [[ExpectEndRepoState alloc] initWithParser:self.parser];
         endRepoState.repoId = [attributeDict valueForKey:@"id"];
         self.parser.parserState = endRepoState;
@@ -74,7 +62,6 @@
 
 @end
 
-#pragma mark -
 
 @implementation ExpectEndRepoState
 -(void)didStartElement:(NSString *)elementName attributes:(NSDictionary *)attributeDict {
