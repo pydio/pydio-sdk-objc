@@ -17,5 +17,6 @@
 -(void)clearAllCookies:(NSURL *)server;
 -(BOOL)isCookieSet:(NSURL *)server;
 -(User*)userForServer:(NSURL *)server;
+-(void)setSecureToken:(NSString*)token ForServer:(NSURL *)server;
 -(NSString*)secureTokenForServer:(NSURL *)server;
 @end

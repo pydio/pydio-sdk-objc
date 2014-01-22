@@ -23,6 +23,8 @@
 #import "AuthCredentials.h"
 #import "NSString+Hash.h"
 #import "LoginResponse.h"
+#import "User.h"
+#import <objc/runtime.h>
 
 
 @interface AuthorizationClient ()
@@ -70,6 +72,24 @@ static NSString * const LOGIN_ACTION = @"";
 {
     //then
     assertThatBool(self.client.progress,equalToBool(NO));
+}
+
+#pragma mark - Authorization tests
+
+-(void)testShouldNotStartAuthorizationWhenInProgress
+{
+    self.client.progress = YES;
+    
+    BOOL startResult = [self.client authorizeWithSuccess:nil failure:nil];
+    
+    assertThatBool(startResult,equalToBool(NO));
+}
+
+-(void)testShouldStartAuthorizationWhenInProgress
+{
+    BOOL startResult = [self.client authorizeWithSuccess:nil failure:nil];
+    
+    assertThatBool(startResult,equalToBool(YES));
 }
 
 #pragma mark - Ping Tests
@@ -313,6 +333,8 @@ static NSString * const LOGIN_ACTION = @"";
     assertThat(receivedError,sameInstance(error));
 }
 
+#pragma mark -
+
 -(NSDictionary*)createExpectedLoginParamsWithHashedPassword:(AuthCredentials*)credentials {
     return @{@"get_action": @"login",
              @"userid": credentials.userid,
@@ -322,10 +344,8 @@ static NSString * const LOGIN_ACTION = @"";
 }
 
 -(AuthCredentials*)createAuthCredentials:(NSString *)userid WithPass:(NSString*)pass AndSeed:(NSString*)seed{
-    AuthCredentials *credentials = [[AuthCredentials alloc] init];
-    credentials.userid = userid;
-    credentials.password = pass;
-    credentials.seed = seed;
+    User *user = [User userWithId:userid AndPassword:pass];
+    AuthCredentials *credentials = [AuthCredentials credentialsWith:user AndSeed:seed];
     
     return credentials;
 }

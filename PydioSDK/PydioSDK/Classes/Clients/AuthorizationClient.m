@@ -9,10 +9,14 @@
 #import "AuthorizationClient.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "GetSeedResponseSerializer.h"
+#import "CookieManager.h"
 #import "LoginResponseSerializer.h"
 #import "AuthCredentials.h"
 #import "NSString+Hash.h"
 #import "User.h"
+#import "LoginResponse.h"
+#import "PydioErrors.h"
+
 
 static NSString * const PING_ACTION = @"get_action=ping";
 static NSString * const GET_SEED_ACTION = @"get_action=get_seed";
@@ -28,7 +32,40 @@ static NSString * const LOGIN_SEED = @"login_seed";
 @implementation AuthorizationClient
 
 -(BOOL)authorizeWithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure {
-    return NO;
+    if (self.progress) {
+        return NO;
+    }
+    
+    self.progress = YES;
+    [self ping:^{
+        [self getSeed:^(NSString *seed) {
+//            [[CookieManager sharedManager] setSeed:seed ForServer:self.operationManager.baseURL];
+            User *user = [[CookieManager sharedManager] userForServer:self.operationManager.baseURL];;
+            
+            AuthCredentials *authCredentials = [AuthCredentials credentialsWith:user AndSeed:seed];
+            
+            [self loginWithCredentials:authCredentials success:^(LoginResponse *resposne) {
+                if (resposne.value != LRValueOK) {
+                    NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
+                    failure(error);
+                } else {
+                    [[CookieManager sharedManager] setSecureToken:resposne.secureToken ForServer:self.operationManager.baseURL];
+                    success();
+                }
+                
+            } failure:^(NSError *error) {
+                failure(error);
+            }];
+            
+        } failure:^(NSError *error) {
+            failure(error);
+        }];
+    } failure:^(NSError *error) {
+        failure(error);
+    }];
+    
+    
+    return YES;
 }
 
 -(BOOL)ping:(void(^)())success failure:(void(^)(NSError *error))failure {

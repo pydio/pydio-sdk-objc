@@ -8,8 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class User;
+
 @interface AuthCredentials : NSObject
-@property(nonatomic,strong) NSString* userid;
-@property(nonatomic,strong) NSString* password;
-@property(nonatomic,strong) NSString* seed;
+@property(readonly,nonatomic,strong) NSString* userid;
+@property(readonly,nonatomic,strong) NSString* password;
+@property(readonly,nonatomic,strong) NSString* seed;
+
++(instancetype)credentialsWith:(User*)user AndSeed:(NSString*)seed;
+-(instancetype)initWith:(User*)user AndSeed:(NSString*)seed;
 @end

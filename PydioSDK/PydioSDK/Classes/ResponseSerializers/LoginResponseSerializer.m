@@ -9,8 +9,8 @@
 #import "LoginResponseSerializer.h"
 #import "LoginXMLResponseParser.h"
 #import "LoginResponse.h"
+#import "PydioErrors.h"
 
-extern NSString * const PydioErrorDomain;
 
 @implementation LoginResponseSerializer
 
@@ -37,7 +37,7 @@ extern NSString * const PydioErrorDomain;
     [userInfo setValue: NSLocalizedStringFromTable(@"Error when parsing login response", nil, @"PydioSDK") forKey:NSLocalizedDescriptionKey];
     [userInfo setValue:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Could not extract logging_result value: %@", nil, @"PydioSDK"), responseObject] forKey:NSLocalizedFailureReasonErrorKey];
     if (error) {
-        *error = [[NSError alloc] initWithDomain:PydioErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:userInfo];
+        *error = [[NSError alloc] initWithDomain:PydioErrorDomain code:PydioErrorUnableToParseAnswer userInfo:userInfo];
     }
     
     return nil;
