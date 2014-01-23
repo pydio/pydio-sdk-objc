@@ -16,6 +16,7 @@
 -(NSArray *)allServerCookies:(NSURL *)server;
 -(void)clearAllCookies:(NSURL *)server;
 -(BOOL)isCookieSet:(NSURL *)server;
+-(void)setUser:(User*)user ForServer:(NSURL *)server;
 -(User*)userForServer:(NSURL *)server;
 -(void)setSecureToken:(NSString*)token ForServer:(NSURL *)server;
 -(NSString*)secureTokenForServer:(NSURL *)server;

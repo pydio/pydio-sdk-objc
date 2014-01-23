@@ -11,7 +11,22 @@
 static NSString * const COOKIE_NAME = @"AjaXplorer";
 static CookieManager *manager = nil;
 
+@interface CookieManager ()
+@property (nonatomic,strong) NSMutableDictionary *users;
+@property (nonatomic,strong) NSMutableDictionary *tokens;
+@end
+
 @implementation CookieManager
+
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+        self.users = [NSMutableDictionary dictionary];
+        self.tokens = [NSMutableDictionary dictionary];
+    }
+    
+    return self;
+}
 
 +(CookieManager*)sharedManager {
     static dispatch_once_t onceToken;
@@ -36,22 +51,26 @@ static CookieManager *manager = nil;
 -(BOOL)isCookieSet:(NSURL *)server {
     NSArray *cookies = [self allServerCookies:server];
     for (NSHTTPCookie *cookie in cookies) {
-        if ([COOKIE_NAME compare:cookie.name] == NSOrderedSame) {
+        if ([COOKIE_NAME isEqualToString:cookie.name]) {
             return YES;
         }
     }
     return NO;
 }
 
+-(void)setUser:(User*)user ForServer:(NSURL *)server {
+    [self.users setValue:user forKey:server.absoluteString];
+}
+
 -(User*)userForServer:(NSURL *)server {
-    return nil;
+    return [self.users valueForKey:server.absoluteString];
 }
 
 -(void)setSecureToken:(NSString*)token ForServer:(NSURL *)server {
-    
+    [self.tokens setValue:token forKey:server.absoluteString];
 }
 
 -(NSString*)secureTokenForServer:(NSURL *)server {
-    return nil;
+    return [self.tokens valueForKey:server.absoluteString];
 }
 @end
