@@ -39,8 +39,8 @@ typedef void (^ClientPingSuccessResponse)();
 typedef void (^ClientFailureResponse)(NSError *error);
 
 
-static NSString * const PING_ACTION = @"get_action=ping";
-static NSString * const GET_SEED_ACTION = @"get_action=get_seed";
+static NSString * const PING_ACTION = @"index.php?get_action=ping";
+static NSString * const GET_SEED_ACTION = @"index.php?get_action=get_seed";
 static NSString * const LOGIN_ACTION = @"";
 
 
@@ -102,20 +102,6 @@ static NSString * const LOGIN_ACTION = @"";
     //then
     [verify(self.operationManager) GET:PING_ACTION parameters:nil success:anything() failure:anything()];
     assertThatBool(startResult,equalToBool(YES));
-    assertThatBool(self.client.progress,equalToBool(YES));
-}
-
--(void)testPingNoStartWhenInProgress
-{
-    //given
-    self.client.progress = YES;
-    
-    //when
-    BOOL startResult = [self.client ping:nil failure:nil];
-    
-    //then
-    [verifyCount(self.operationManager, never()) GET:PING_ACTION parameters:nil success:anything() failure:anything()];
-    assertThatBool(startResult,equalToBool(NO));
 }
 
 - (void)testPingSuccess
@@ -169,20 +155,6 @@ static NSString * const LOGIN_ACTION = @"";
     [verify(self.operationManager)  setResponseSerializer:instanceOf([GetSeedResponseSerializer class])];
     [verify(self.operationManager) GET:GET_SEED_ACTION parameters:nil success:anything() failure:anything()];
     assertThatBool(startResult,equalToBool(YES));
-    assertThatBool(self.client.progress,equalToBool(YES));
-}
-
--(void)testGetSeedNotStartedIfInProgress
-{
-    //given
-    self.client.progress = YES;
-    
-    //when
-    BOOL startResult = [self.client getSeed:nil failure:nil];
-    
-    //then
-    [verifyCount(self.operationManager,never()) GET:GET_SEED_ACTION parameters:nil success:anything() failure:anything()];
-    assertThatBool(startResult,equalToBool(NO));
 }
 
 -(void)testGetSeedSuccess
@@ -267,19 +239,6 @@ static NSString * const LOGIN_ACTION = @"";
     [verify(self.operationManager) POST:LOGIN_ACTION parameters:[actualParams capture] success:anything() failure:anything()];
     assertThat([actualParams value],equalTo(expectedParams));
     assertThatBool(startResult,equalToBool(YES));
-    assertThatBool(self.client.progress,equalToBool(YES));
-}
-
--(void)testLoginNotStartedIfInProgress
-{
-    self.client.progress = YES;
-    
-    //when
-    BOOL startResult = [self.client loginWithCredentials:nil success:nil failure:nil];
-    
-    //then
-    [verifyCount(self.operationManager,never()) POST:LOGIN_ACTION parameters:anything() success:anything() failure:anything()];
-    assertThatBool(startResult,equalToBool(NO));
 }
 
 -(void)testLoginSuccess

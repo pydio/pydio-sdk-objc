@@ -39,12 +39,12 @@ static NSString * const LOGIN_SEED = @"login_seed";
     self.progress = YES;
     [self ping:^{
         [self getSeed:^(NSString *seed) {
-//            [[CookieManager sharedManager] setSeed:seed ForServer:self.operationManager.baseURL];
             User *user = [[CookieManager sharedManager] userForServer:self.operationManager.baseURL];;
             
             AuthCredentials *authCredentials = [AuthCredentials credentialsWith:user AndSeed:seed];
             
             [self loginWithCredentials:authCredentials success:^(LoginResponse *resposne) {
+                self.progress = NO;
                 if (resposne.value != LRValueOK) {
                     NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
                     failure(error);
@@ -54,13 +54,16 @@ static NSString * const LOGIN_SEED = @"login_seed";
                 }
                 
             } failure:^(NSError *error) {
+                self.progress = NO;
                 failure(error);
             }];
             
         } failure:^(NSError *error) {
+            self.progress = NO;
             failure(error);
         }];
     } failure:^(NSError *error) {
+        self.progress = NO;
         failure(error);
     }];
     
@@ -69,17 +72,11 @@ static NSString * const LOGIN_SEED = @"login_seed";
 }
 
 -(BOOL)ping:(void(^)())success failure:(void(^)(NSError *error))failure {
-//    if (self.progress) {
-//        return NO;
-//    }
-//    self.progress = YES;
     
     [self.operationManager GET:PING_ACTION parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //Ignore result, we just want cookie
-        self.progress = NO;
         success();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        self.progress = NO;
         failure(error);
     }];
     
@@ -87,18 +84,11 @@ static NSString * const LOGIN_SEED = @"login_seed";
 }
 
 -(BOOL)getSeed:(void(^)(NSString *seed))success failure:(void(^)(NSError *error))failure {
-//    if (self.progress) {
-//        return NO;
-//    }
-//    
-//    self.progress = YES;
     
     self.operationManager.responseSerializer = [[GetSeedResponseSerializer alloc] init];
     [self.operationManager GET:GET_SEED_ACTION parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.progress = NO;
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        self.progress = NO;
         failure(error);
     }];
     
@@ -106,11 +96,6 @@ static NSString * const LOGIN_SEED = @"login_seed";
 }
 
 -(BOOL)loginWithCredentials:(AuthCredentials*)credentials success:(void(^)(LoginResponse *response))success failure:(void(^)(NSError *error))failure {
-//    if (self.progress) {
-//        return NO;
-//    }
-//    
-//    self.progress = YES;
     
     [self.operationManager.requestSerializer setValue:@"true" forHTTPHeaderField:@"Ajxp-Force-Login"];
     self.operationManager.responseSerializer = [[LoginResponseSerializer alloc] init];
@@ -121,10 +106,8 @@ static NSString * const LOGIN_SEED = @"login_seed";
                             };
     
     [self.operationManager POST:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.progress = NO;
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        self.progress = NO;
         failure(error);
     }];
     return YES;
