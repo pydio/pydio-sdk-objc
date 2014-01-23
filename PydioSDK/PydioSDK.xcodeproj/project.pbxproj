@@ -197,6 +197,8 @@
 				3DFF3AF4186648C900A766D7 /* AppDelegate.h */,
 				3DFF3AF5186648C900A766D7 /* AppDelegate.m */,
 				89A6AA43187B440A003A6BDA /* Clients */,
+				89401D211883318F005A030A /* CookieManager.h */,
+				89401D221883318F005A030A /* CookieManager.m */,
 				8910F5FE18789F870005BED4 /* Data */,
 				3D03A6771867171200DC5839 /* PydioConnector.h */,
 				3D03A6781867171200DC5839 /* PydioConnector.m */,
@@ -388,8 +390,6 @@
 				89A6AA45187B4436003A6BDA /* AuthorizationClient.m */,
 				89B429E9187F4BAB005F6580 /* PydioClient.h */,
 				89B429EA187F4BAB005F6580 /* PydioClient.m */,
-				89401D211883318F005A030A /* CookieManager.h */,
-				89401D221883318F005A030A /* CookieManager.m */,
 				89A84FF21885F5B800AFC2F0 /* OperationsClient.h */,
 				89A84FF31885F5B800AFC2F0 /* OperationsClient.m */,
 			);
