@@ -38,6 +38,9 @@ extern NSString * const PydioErrorDomain;
         NSError *error = [self authorizationError:responseObject];
         if (error) {
             failure(error);
+        } else if (((NSArray*)responseObject).count == 0) {
+            NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
+            failure(error);
         } else {
             success(responseObject);
         }

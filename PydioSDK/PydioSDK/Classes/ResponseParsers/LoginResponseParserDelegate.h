@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LoginXMLResponseParser : NSObject<NSXMLParserDelegate>
+@interface LoginResponseParserDelegate : NSObject<NSXMLParserDelegate>
 @property (readonly,nonatomic,strong) NSString *resultValue;
 @property (readonly,nonatomic,strong) NSString *secureToken;
 @end

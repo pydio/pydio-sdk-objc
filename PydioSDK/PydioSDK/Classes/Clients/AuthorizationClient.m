@@ -18,8 +18,8 @@
 #import "PydioErrors.h"
 
 
-static NSString * const PING_ACTION = @"get_action=ping";
-static NSString * const GET_SEED_ACTION = @"get_action=get_seed";
+static NSString * const PING_ACTION = @"index.php?get_action=ping";
+static NSString * const GET_SEED_ACTION = @"index.php?get_action=get_seed";
 static NSString * const GET_ACTION = @"get_action";
 static NSString * const USERID = @"userid";
 static NSString * const PASSWORD = @"password";
@@ -69,10 +69,10 @@ static NSString * const LOGIN_SEED = @"login_seed";
 }
 
 -(BOOL)ping:(void(^)())success failure:(void(^)(NSError *error))failure {
-    if (self.progress) {
-        return NO;
-    }
-    self.progress = YES;
+//    if (self.progress) {
+//        return NO;
+//    }
+//    self.progress = YES;
     
     [self.operationManager GET:PING_ACTION parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //Ignore result, we just want cookie
@@ -87,11 +87,11 @@ static NSString * const LOGIN_SEED = @"login_seed";
 }
 
 -(BOOL)getSeed:(void(^)(NSString *seed))success failure:(void(^)(NSError *error))failure {
-    if (self.progress) {
-        return NO;
-    }
-    
-    self.progress = YES;
+//    if (self.progress) {
+//        return NO;
+//    }
+//    
+//    self.progress = YES;
     
     self.operationManager.responseSerializer = [[GetSeedResponseSerializer alloc] init];
     [self.operationManager GET:GET_SEED_ACTION parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -106,12 +106,12 @@ static NSString * const LOGIN_SEED = @"login_seed";
 }
 
 -(BOOL)loginWithCredentials:(AuthCredentials*)credentials success:(void(^)(LoginResponse *response))success failure:(void(^)(NSError *error))failure {
-    if (self.progress) {
-        return NO;
-    }
+//    if (self.progress) {
+//        return NO;
+//    }
+//    
+//    self.progress = YES;
     
-    self.progress = YES;
-        
     [self.operationManager.requestSerializer setValue:@"true" forHTTPHeaderField:@"Ajxp-Force-Login"];
     self.operationManager.responseSerializer = [[LoginResponseSerializer alloc] init];
     NSDictionary *params = @{GET_ACTION : @"login",

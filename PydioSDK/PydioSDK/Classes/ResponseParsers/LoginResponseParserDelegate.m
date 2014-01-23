@@ -6,16 +6,16 @@
 //  Copyright (c) 2014 MINI. All rights reserved.
 //
 
-#import "LoginXMLResponseParser.h"
+#import "LoginResponseParserDelegate.h"
 
-@interface LoginXMLResponseParser ()
+@interface LoginResponseParserDelegate ()
 @property (nonatomic,assign) SEL startElementAction;
 
 -(void)treeElementStart:(NSString*)elementName Attributes:(NSDictionary *)attributes;
 -(void)loggingResultElementStart:(NSString*)elementName Attributes:(NSDictionary *)attributes;
 @end
 
-@implementation LoginXMLResponseParser
+@implementation LoginResponseParserDelegate
 
 -(instancetype)init {
     self = [super init];
@@ -52,7 +52,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     if (self.startElementAction) {
-        [self performSelector:self.startElementAction withObject:elementName];
+        [self performSelector:self.startElementAction withObject:elementName withObject:attributeDict];
     }
 #pragma clang diagnostic pop
 }

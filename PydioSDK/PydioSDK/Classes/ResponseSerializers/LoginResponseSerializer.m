@@ -7,7 +7,7 @@
 //
 
 #import "LoginResponseSerializer.h"
-#import "LoginXMLResponseParser.h"
+#import "LoginResponseParserDelegate.h"
 #import "LoginResponse.h"
 #import "PydioErrors.h"
 
@@ -26,8 +26,9 @@
     }
     
     NSXMLParser *parser = (NSXMLParser *)responseObject;
-    LoginXMLResponseParser *loginXMLResponse = [[LoginXMLResponseParser alloc] init];
+    LoginResponseParserDelegate *loginXMLResponse = [[LoginResponseParserDelegate alloc] init];
     [parser setDelegate:loginXMLResponse];
+    [parser parse];
     
     if (loginXMLResponse.resultValue) {
         return [[LoginResponse alloc] initWithValue:loginXMLResponse.resultValue AndToken:loginXMLResponse.secureToken];

@@ -58,7 +58,9 @@
 		89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EA187F4BAB005F6580 /* PydioClient.m */; };
 		89B429ED187F4BD0005F6580 /* PydioClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EC187F4BD0005F6580 /* PydioClientTests.m */; };
 		89B4780A187DFCE700A9CFC5 /* AuthCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B47809187DFCE700A9CFC5 /* AuthCredentials.m */; };
-		89C2A9C71878C4EE0051B8E6 /* LoginXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */; };
+		89BD973E1891A20C0054CFA2 /* proper_login_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89BD973D1891A20C0054CFA2 /* proper_login_response.xml */; };
+		89BD97401891A2710054CFA2 /* LoginResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */; };
+		89C2A9C71878C4EE0051B8E6 /* LoginResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C61878C4EE0051B8E6 /* LoginResponseParserDelegate.m */; };
 		89C2A9CA1878CD440051B8E6 /* LoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C91878CD440051B8E6 /* LoginResponse.m */; };
 /* End PBXBuildFile section */
 
@@ -160,8 +162,10 @@
 		89B429EC187F4BD0005F6580 /* PydioClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClientTests.m; sourceTree = "<group>"; };
 		89B47808187DFCE700A9CFC5 /* AuthCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthCredentials.h; sourceTree = "<group>"; };
 		89B47809187DFCE700A9CFC5 /* AuthCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthCredentials.m; sourceTree = "<group>"; };
-		89C2A9C51878C4EE0051B8E6 /* LoginXMLResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginXMLResponseParser.h; sourceTree = "<group>"; };
-		89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginXMLResponseParser.m; sourceTree = "<group>"; };
+		89BD973D1891A20C0054CFA2 /* proper_login_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = proper_login_response.xml; sourceTree = "<group>"; };
+		89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseParserDelegateTests.m; sourceTree = "<group>"; };
+		89C2A9C51878C4EE0051B8E6 /* LoginResponseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponseParserDelegate.h; sourceTree = "<group>"; };
+		89C2A9C61878C4EE0051B8E6 /* LoginResponseParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseParserDelegate.m; sourceTree = "<group>"; };
 		89C2A9C81878CD440051B8E6 /* LoginResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponse.h; sourceTree = "<group>"; };
 		89C2A9C91878CD440051B8E6 /* LoginResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponse.m; sourceTree = "<group>"; };
 		89E5A14B1887156F001CE77D /* PydioErrors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PydioErrors.h; sourceTree = "<group>"; };
@@ -404,8 +408,8 @@
 			children = (
 				8910F5FF1878A3410005BED4 /* NotAuthorizedXMLResponseParser.h */,
 				8910F6001878A3410005BED4 /* NotAuthorizedXMLResponseParser.m */,
-				89C2A9C51878C4EE0051B8E6 /* LoginXMLResponseParser.h */,
-				89C2A9C61878C4EE0051B8E6 /* LoginXMLResponseParser.m */,
+				89C2A9C51878C4EE0051B8E6 /* LoginResponseParserDelegate.h */,
+				89C2A9C61878C4EE0051B8E6 /* LoginResponseParserDelegate.m */,
 				89B3560A188C70A500C62728 /* RepositoriesParserDelegate.h */,
 				89B3560B188C70A500C62728 /* RepositoriesParserDelegate.m */,
 				89AC1AC5188D8AE100ACAD7C /* RepositoriesParserDelegate_Private.h */,
@@ -432,6 +436,7 @@
 			isa = PBXGroup;
 			children = (
 				89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */,
+				89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */,
 			);
 			path = ResponseParsers;
 			sourceTree = "<group>";
@@ -439,6 +444,7 @@
 		89AC1AD3188DE84900ACAD7C /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				89BD973D1891A20C0054CFA2 /* proper_login_response.xml */,
 				89AC1AD4188DE98600ACAD7C /* proper_get_registers.xml */,
 			);
 			path = Fixtures;
@@ -530,6 +536,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89BD973E1891A20C0054CFA2 /* proper_login_response.xml in Resources */,
 				3DFF3B0F186648CA00A766D7 /* InfoPlist.strings in Resources */,
 				89AC1AD5188DE98600ACAD7C /* proper_get_registers.xml in Resources */,
 			);
@@ -567,7 +574,7 @@
 				3DFF3B3718664EEF00A766D7 /* AFURLSessionManager.m in Sources */,
 				8910F6011878A3410005BED4 /* NotAuthorizedXMLResponseParser.m in Sources */,
 				3DFF3AF6186648C900A766D7 /* AppDelegate.m in Sources */,
-				89C2A9C71878C4EE0051B8E6 /* LoginXMLResponseParser.m in Sources */,
+				89C2A9C71878C4EE0051B8E6 /* LoginResponseParserDelegate.m in Sources */,
 				89B3560C188C70A500C62728 /* RepositoriesParserDelegate.m in Sources */,
 				89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */,
 				8910F5FC1878927B0005BED4 /* LoginResponseSerializer.m in Sources */,
@@ -582,6 +589,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89BD97401891A2710054CFA2 /* LoginResponseParserDelegateTests.m in Sources */,
 				89AC1ACF188DC92D00ACAD7C /* RepositoriesResponseSerializerTests.m in Sources */,
 				89AC1AD2188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m in Sources */,
 				89B13A9D18917A13007282EB /* CookieManagerTests.m in Sources */,

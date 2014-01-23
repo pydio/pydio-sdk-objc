@@ -7,10 +7,13 @@
 //
 
 #import "ViewController.h"
-#import "PydioConnector.h"
+#import "CookieManager.h"
+#import "User.h"
+#import "PydioClient.h"
+
 
 @interface ViewController ()
-@property (strong, nonatomic) PydioConnector* pydioConnector;
+@property(nonatomic,strong) PydioClient *client;
 @end
 
 @implementation ViewController
@@ -29,31 +32,15 @@
 }
 
 - (IBAction)pressMeClicked:(id)sender {
-    if (self.pydioConnector.requestInProgress || ![self isUsernameAndPassEntered])
-        return;
-    
-    //    if (self.pydioConnector.requestInProgress) {
-    //        NSLog(@"%s Request in progress",__PRETTY_FUNCTION__);
-    //    } else if (self.pydioConnector.secure_token == nil) {
-    //        [self.pydioConnector requestSecureToken:^(BOOL result,NSString *error) {
-    //            NSLog(@"%s result:%d token:%@ error:%@",__PRETTY_FUNCTION__,result,self.pydioConnector.secure_token,error);
-    //        }];
-    //    }
-    //    else
-    
-    if (self.pydioConnector.seed == nil) {
-        [self.pydioConnector requestSeed:^(BOOL result,NSString *error) {
-            NSLog(@"%s result:%d error:%@",__PRETTY_FUNCTION__,result,error);
-            
-            if (result)
-                [self.button setTitle:@"Login" forState:UIControlStateNormal];
-        }];
-    } else if (!self.pydioConnector.loggedIn) {
-        [self.pydioConnector requestLoginWithUserName:self.username.text password:self.password.text resultBlock:^(BOOL success, NSString *error) {
-            NSLog(@"%s error:%@",__PRETTY_FUNCTION__,error);
-            
-            if (success)
-                [self.button setTitle:@"Logged" forState:UIControlStateNormal];
+    if ([self isUsernameAndPassEntered]) {
+        CookieManager *manager = [CookieManager sharedManager];
+        User* user = [User userWithId:self.username.text AndPassword:self.password.text];
+        [manager setUser:user ForServer:self.client.serverURL];
+        
+        [self.client listFilesWithSuccess:^(NSArray *files) {
+            NSLog(@"success %s %@",__PRETTY_FUNCTION__,files);
+        } failure:^(NSError *error) {
+            NSLog(@"failure %s %@",__PRETTY_FUNCTION__,error);
         }];
     }
 }
@@ -68,9 +55,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.client = [[PydioClient alloc] initWithServer:@"http://sandbox.ajaxplorer.info/"];
+    
     [self setupGestureRecognizerForDissmissingKeyboard];
-	self.pydioConnector = [[PydioConnector alloc] init];
-    [self.button setTitle:@"Seed" forState:UIControlStateNormal];
+    [self.button setTitle:@"Login" forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning
