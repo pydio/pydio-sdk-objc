@@ -349,10 +349,10 @@
 			children = (
 				8910F5F3187874430005BED4 /* BootConfResponseSerializer.h */,
 				8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */,
-				8910F5FA1878927B0005BED4 /* LoginResponseSerializer.h */,
-				8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */,
 				8910F5F618788A7A0005BED4 /* GetSeedResponseSerializer.h */,
 				8910F5F718788A7A0005BED4 /* GetSeedResponseSerializer.m */,
+				8910F5FA1878927B0005BED4 /* LoginResponseSerializer.h */,
+				8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */,
 				899D93EC188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.h */,
 				899D93ED188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.m */,
 				89B35607188C6FB000C62728 /* RepositoriesResponseSerializer.h */,

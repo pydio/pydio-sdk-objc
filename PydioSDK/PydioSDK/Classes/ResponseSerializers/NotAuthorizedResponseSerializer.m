@@ -9,6 +9,7 @@
 #import "NotAuthorizedResponseSerializer.h"
 #import "NotAuthorizedResponseParserDelegate.h"
 #import "NotAuthorizedResponse.h"
+#import "PydioErrors.h"
 
 
 @implementation NotAuthorizedResponseSerializer
@@ -27,9 +28,19 @@
     NSXMLParser *parser = (NSXMLParser *)responseObject;
     NotAuthorizedResponseParserDelegate *notAuthorizedXMLResponseParser = [[NotAuthorizedResponseParserDelegate alloc] init];
     [parser setDelegate:notAuthorizedXMLResponseParser];
+    [parser parse];
     
     if (notAuthorizedXMLResponseParser.notLogged) {
         return [[NotAuthorizedResponse alloc] init];
+    }
+    
+    NSDictionary *userInfo = @{
+                               NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Error parsing not authorized response", nil, @"PydioSDK"),
+                               NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Could not extract not authorized response from: %@", nil, @"PydioSDK"), responseObject]
+                              };
+    
+    if (error) {
+        *error = [[NSError alloc] initWithDomain:PydioErrorDomain code:PydioErrorUnableToParseAnswer userInfo:userInfo];
     }
 
     return nil;
