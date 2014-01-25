@@ -9,6 +9,7 @@
 #import "LoginResponse.h"
 
 @implementation LoginResponse
+
 -(instancetype)initWithValue:(NSString*)value AndToken:(NSString*)token {
     self = [super init];
     if (self) {
@@ -25,4 +26,23 @@
     
     return self;
 }
+
+-(BOOL)isEqual:(id)object
+{
+    if (self == object)
+        return YES;
+    
+    if (![object isKindOfClass:[self class]])
+        return NO;
+
+    LoginResponse *typedObject = object;
+    
+    return self.value == typedObject.value && [self.secureToken isEqualToString:typedObject.secureToken];
+}
+
+-(NSUInteger) hash
+{
+    return [[NSString stringWithFormat:@"%d %@",self.value,self.secureToken] hash];
+}
+
 @end

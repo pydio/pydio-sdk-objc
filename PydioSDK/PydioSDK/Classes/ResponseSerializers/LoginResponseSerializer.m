@@ -26,7 +26,7 @@
     }
     
     NSXMLParser *parser = (NSXMLParser *)responseObject;
-    LoginResponseParserDelegate *loginXMLResponse = [[LoginResponseParserDelegate alloc] init];
+    LoginResponseParserDelegate *loginXMLResponse = [self createResponseParserDelegate];
     [parser setDelegate:loginXMLResponse];
     [parser parse];
     
@@ -36,7 +36,7 @@
     
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     [userInfo setValue: NSLocalizedStringFromTable(@"Error when parsing login response", nil, @"PydioSDK") forKey:NSLocalizedDescriptionKey];
-    [userInfo setValue:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Could not extract logging_result value: %@", nil, @"PydioSDK"), responseObject] forKey:NSLocalizedFailureReasonErrorKey];
+    [userInfo setValue:[NSString stringWithFormat:NSLocalizedStringFromTable(@"Could not extract login result value from: %@", nil, @"PydioSDK"), responseObject] forKey:NSLocalizedFailureReasonErrorKey];
     if (error) {
         *error = [[NSError alloc] initWithDomain:PydioErrorDomain code:PydioErrorUnableToParseAnswer userInfo:userInfo];
     }
@@ -44,4 +44,8 @@
     return nil;
 }
 
+-(LoginResponseParserDelegate*)createResponseParserDelegate
+{
+    return [[LoginResponseParserDelegate alloc] init];
+}
 @end
