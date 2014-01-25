@@ -14,6 +14,8 @@
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
 #import "LoginResponseParserDelegate.h"
+#import "XCTestCase+XMLFixture.h"
+
 
 @interface LoginResponseParserDelegateTests : XCTestCase
 @property (nonatomic,strong) LoginResponseParserDelegate* responseDelegate;
@@ -35,24 +37,13 @@
 
 - (void)testShouldParseCorrectLoginResult
 {
-    NSData * xmlData = [self loadFixture:@"proper_login_response.xml"];
-    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:xmlData];
-    parser.delegate = self.responseDelegate;
+    NSXMLParser *parser = [self parserWithFixture:@"login_response.xml" delegate:self.responseDelegate];
     
     BOOL result = [parser parse];
 
     assertThatBool(result,equalToBool(YES));
     assertThat(self.responseDelegate.resultValue,equalTo(@"1"));
     assertThat(self.responseDelegate.secureToken,equalTo(@"2w70XYorR6AgEWZaEUggf5NHun4ZZEPj"));
-}
-
-#pragma mark -
-
--(NSData*)loadFixture:(NSString*)name {
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSString *path = [bundle pathForResource:name ofType:nil];
-    
-    return [[NSData alloc] initWithContentsOfFile:path];
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "NotAuthorizedResponseSerializer.h"
-#import "NotAuthorizedXMLResponseParser.h"
+#import "NotAuthorizedResponseParserDelegate.h"
 #import "NotAuthorizedResponse.h"
 
 
@@ -25,7 +25,7 @@
     }
     
     NSXMLParser *parser = (NSXMLParser *)responseObject;
-    NotAuthorizedXMLResponseParser *notAuthorizedXMLResponseParser = [[NotAuthorizedXMLResponseParser alloc] init];
+    NotAuthorizedResponseParserDelegate *notAuthorizedXMLResponseParser = [[NotAuthorizedResponseParserDelegate alloc] init];
     [parser setDelegate:notAuthorizedXMLResponseParser];
     
     if (notAuthorizedXMLResponseParser.notLogged) {

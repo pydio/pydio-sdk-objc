@@ -16,6 +16,7 @@
 
 #import "RepositoriesParserDelegate.h"
 #import "Repository.h"
+#import "XCTestCase+XMLFixture.h"
 
 
 @interface RepositoriesParserDelegateTests : XCTestCase
@@ -38,9 +39,7 @@
 
 - (void)testShouldParseCorrectRepositoriesXML
 {
-    NSData * xmlData = [self loadFixture:@"proper_get_registers.xml"];
-    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:xmlData];
-    parser.delegate = self.parserDelegate;
+    NSXMLParser *parser = [self parserWithFixture:@"get_registers_response.xml" delegate:self.parserDelegate];
     
     BOOL result = [parser parse];
     
@@ -53,13 +52,6 @@
 }
 
 #pragma mark -
-
--(NSData*)loadFixture:(NSString*)name {
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSString *path = [bundle pathForResource:name ofType:nil];
-    
-    return [[NSData alloc] initWithContentsOfFile:path];
-}
 
 -(void)assertRepo:(Repository*)repo WithId:(NSString *)repoId Label:(NSString *)label Description:(NSString*)description {
     assertThat(repo.repoId,equalTo(repoId));

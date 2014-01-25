@@ -96,6 +96,7 @@ RepositoriesParserDelegate* getParserDelegate(id self, SEL _cmd, NSString* serve
     id response = [self.serializer responseObjectForResponse:nil data:nil error:&error];
     
     [verify(xmlParser) setDelegate:equalTo(repositoriesParserDelegate)];
+    [verify(xmlParser) parse];
     assertThat(response,nilValue());
     assertThat(error,notNilValue());
     assertThat(error.domain,equalTo(PydioErrorDomain));
@@ -112,6 +113,7 @@ RepositoriesParserDelegate* getParserDelegate(id self, SEL _cmd, NSString* serve
     id response = [self.serializer responseObjectForResponse:nil data:nil error:&error];
     
     [verify(xmlParser) setDelegate:equalTo(repositoriesParserDelegate)];
+    [verify(xmlParser) parse];
     assertThat(error,nilValue());
     assertThat(response,instanceOf([NSArray class]));
     NSArray *responseArray = response;

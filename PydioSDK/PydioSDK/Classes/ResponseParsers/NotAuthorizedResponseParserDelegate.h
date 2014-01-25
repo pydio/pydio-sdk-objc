@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NotAuthorizedXMLResponseParser : NSObject<NSXMLParserDelegate>
+@interface NotAuthorizedResponseParserDelegate : NSObject<NSXMLParserDelegate>
 @property (readonly,nonatomic,assign) BOOL notLogged;
 @end
