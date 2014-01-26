@@ -79,13 +79,13 @@ static id response(id self, SEL _cmd, NSURLResponse *response, NSData *data, NSE
     [verify(parser) setDelegate:self.xmlParserDelegate];
     [verify(parser) parse];
     assertThat(response,sameInstance(parserResult));
-    [verifyCount(self.serializerDelegate, never()) userInfoForError];
+    [verifyCount(self.serializerDelegate, never()) errorUserInfo:anything()];
 }
 
 -(void)testshouldReturnNilAndErrorWhenParserReturnsNilAndUserINfoIsNotNil
 {
     NSDictionary *userInfo = @{};
-    [given([self.serializerDelegate userInfoForError]) willReturn:userInfo];
+    [given([self.serializerDelegate errorUserInfo:anything()]) willReturn:userInfo];
     parser = mock([NSXMLParser class]);
     NSError *receivedError = nil;
     
@@ -96,7 +96,7 @@ static id response(id self, SEL _cmd, NSURLResponse *response, NSData *data, NSE
     [verify(parser) setDelegate:self.xmlParserDelegate];
     [verify(parser) parse];
     assertThat(response,nilValue());
-    [verify(self.serializerDelegate) userInfoForError];
+    [verify(self.serializerDelegate) errorUserInfo:anything()];
     assertThatInteger(receivedError.code,equalToInteger(PydioErrorUnableToParseAnswer));
     assertThat(receivedError.domain,equalTo(PydioErrorDomain));
 }
@@ -113,7 +113,7 @@ static id response(id self, SEL _cmd, NSURLResponse *response, NSData *data, NSE
     [verify(parser) setDelegate:self.xmlParserDelegate];
     [verify(parser) parse];
     assertThat(response,nilValue());
-    [verify(self.serializerDelegate) userInfoForError];
+    [verify(self.serializerDelegate) errorUserInfo:anything()];
     assertThat(receivedError,nilValue());
 }
 

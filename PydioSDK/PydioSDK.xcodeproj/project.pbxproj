@@ -49,6 +49,7 @@
 		89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A84FF31885F5B800AFC2F0 /* OperationsClient.m */; };
 		89AA1A751879AF0900679E04 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */; };
 		89AA1A791879B54C00679E04 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */; };
+		89AA6A1A18956EFE006A22DB /* XMLResponseSerializerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA6A1918956EFE006A22DB /* XMLResponseSerializerDelegate.m */; };
 		89ABACFB1893B3E200E1420D /* NotAuthorizedResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ABACFA1893B3E200E1420D /* NotAuthorizedResponseParserDelegateTests.m */; };
 		89ABACFD1893BDC800E1420D /* unathorized_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89ABACFC1893BDC800E1420D /* unathorized_response.xml */; };
 		89ABACFF1893BEF700E1420D /* unathorized_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89ABACFE1893BEF700E1420D /* unathorized_response2.xml */; };
@@ -154,6 +155,7 @@
 		89A84FF31885F5B800AFC2F0 /* OperationsClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClient.m; sourceTree = "<group>"; };
 		89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = Frameworks/OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMockitoIOS.framework; path = Frameworks/OCMockitoIOS.framework; sourceTree = "<group>"; };
+		89AA6A1918956EFE006A22DB /* XMLResponseSerializerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLResponseSerializerDelegate.m; sourceTree = "<group>"; };
 		89ABACFA1893B3E200E1420D /* NotAuthorizedResponseParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedResponseParserDelegateTests.m; sourceTree = "<group>"; };
 		89ABACFC1893BDC800E1420D /* unathorized_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = unathorized_response.xml; sourceTree = "<group>"; };
 		89ABACFE1893BEF700E1420D /* unathorized_response2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = unathorized_response2.xml; sourceTree = "<group>"; };
@@ -422,6 +424,7 @@
 			isa = PBXGroup;
 			children = (
 				89A6C8AC18947AB400EA5D13 /* XMLResponseSerializerDelegate.h */,
+				89AA6A1918956EFE006A22DB /* XMLResponseSerializerDelegate.m */,
 			);
 			path = SerializersDelegates;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				89401D231883318F005A030A /* CookieManager.m in Sources */,
 				3DFF3B3018664EEF00A766D7 /* AFHTTPRequestOperationManager.m in Sources */,
 				3D03A6791867171200DC5839 /* PydioConnector.m in Sources */,
+				89AA6A1A18956EFE006A22DB /* XMLResponseSerializerDelegate.m in Sources */,
 				3DFF3B3218664EEF00A766D7 /* AFNetworkReachabilityManager.m in Sources */,
 				3DFF3B3618664EEF00A766D7 /* AFURLResponseSerialization.m in Sources */,
 				89A554FF188C03F1008C1B64 /* NotAuthorizedResponse.m in Sources */,

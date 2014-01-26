@@ -8,11 +8,26 @@
 
 #import <Foundation/Foundation.h>
 
-@class NSXMLParserDelegate;
 
 @protocol XMLResponseSerializerDelegate <NSObject>
 @required
 -(id <NSXMLParserDelegate>)xmlParserDelegate;
 -(id)parseResult;
--(NSDictionary*)userInfoForError;
+-(NSDictionary*)errorUserInfo:(id)response;
 @end
+
+
+@interface LoginResponseSerializerDelegate : NSObject<XMLResponseSerializerDelegate>
+
+@end
+
+
+@interface NotAuthorizedResponseSerializerDelegate : NSObject<XMLResponseSerializerDelegate>
+
+@end
+
+
+@interface WorkspacesResponseSerializerDelegate : NSObject<XMLResponseSerializerDelegate>
+
+@end
+

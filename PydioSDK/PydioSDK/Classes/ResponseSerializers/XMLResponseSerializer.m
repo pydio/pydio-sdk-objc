@@ -45,7 +45,7 @@
         return result;
     }
     
-    NSDictionary *userInfo = [self.serializerDelegate userInfoForError];
+    NSDictionary *userInfo = [self.serializerDelegate errorUserInfo:responseObject];
     
     if (error && userInfo) {
         *error = [[NSError alloc] initWithDomain:PydioErrorDomain code:PydioErrorUnableToParseAnswer userInfo:userInfo];
