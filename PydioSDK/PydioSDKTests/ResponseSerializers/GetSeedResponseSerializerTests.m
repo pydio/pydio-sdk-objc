@@ -20,7 +20,7 @@
 
 static NSData* dataResponse = nil;
 
-id response(id self, SEL _cmd, NSURLResponse * response, NSData *data, NSError *__autoreleasing *error) {
+static id response(id self, SEL _cmd, NSURLResponse * response, NSData *data, NSError *__autoreleasing *error) {
     return dataResponse;
 }
 

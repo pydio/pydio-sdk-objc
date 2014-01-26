@@ -44,6 +44,8 @@
 		89A6AA42187B1E31003A6BDA /* AuthorizationClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */; };
 		89A6AA46187B4436003A6BDA /* AuthorizationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA45187B4436003A6BDA /* AuthorizationClient.m */; };
 		89A6C8A5189469A200EA5D13 /* GetSeedResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6C8A4189469A200EA5D13 /* GetSeedResponseSerializerTests.m */; };
+		89A6C8AB189479B600EA5D13 /* XMLResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6C8AA189479B600EA5D13 /* XMLResponseSerializer.m */; };
+		89A6C8AE18947ED600EA5D13 /* XMLResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6C8AD18947ED600EA5D13 /* XMLResponseSerializerTests.m */; };
 		89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A84FF31885F5B800AFC2F0 /* OperationsClient.m */; };
 		89AA1A751879AF0900679E04 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */; };
 		89AA1A791879B54C00679E04 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */; };
@@ -134,7 +136,6 @@
 		89401309188443C90044001D /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		89401D211883318F005A030A /* CookieManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CookieManager.h; sourceTree = "<group>"; };
 		89401D221883318F005A030A /* CookieManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieManager.m; sourceTree = "<group>"; };
-		89401D2518833DFB005A030A /* oldPydioClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = oldPydioClient.h; sourceTree = "<group>"; };
 		899D93EC188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedResponseSerializer.h; sourceTree = "<group>"; };
 		899D93ED188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedResponseSerializer.m; sourceTree = "<group>"; };
 		89A554FD188C03F1008C1B64 /* NotAuthorizedResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedResponse.h; sourceTree = "<group>"; };
@@ -145,6 +146,10 @@
 		89A6AA44187B4436003A6BDA /* AuthorizationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationClient.h; sourceTree = "<group>"; };
 		89A6AA45187B4436003A6BDA /* AuthorizationClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationClient.m; sourceTree = "<group>"; };
 		89A6C8A4189469A200EA5D13 /* GetSeedResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSeedResponseSerializerTests.m; sourceTree = "<group>"; };
+		89A6C8A9189479B600EA5D13 /* XMLResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLResponseSerializer.h; sourceTree = "<group>"; };
+		89A6C8AA189479B600EA5D13 /* XMLResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLResponseSerializer.m; sourceTree = "<group>"; };
+		89A6C8AC18947AB400EA5D13 /* XMLResponseSerializerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMLResponseSerializerDelegate.h; sourceTree = "<group>"; };
+		89A6C8AD18947ED600EA5D13 /* XMLResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLResponseSerializerTests.m; sourceTree = "<group>"; };
 		89A84FF21885F5B800AFC2F0 /* OperationsClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationsClient.h; sourceTree = "<group>"; };
 		89A84FF31885F5B800AFC2F0 /* OperationsClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClient.m; sourceTree = "<group>"; };
 		89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = Frameworks/OCHamcrestIOS.framework; sourceTree = "<group>"; };
@@ -225,9 +230,9 @@
 				89AC1ACC188DAEDD00ACAD7C /* ResponseParsers */,
 				89AC1ACD188DBE1900ACAD7C /* Responses */,
 				8910F5FD18789E2E0005BED4 /* ResponseSerializers */,
-				89401D2418833DAA005A030A /* toremove */,
 				3DFF3AFA186648C900A766D7 /* ViewController.h */,
 				3DFF3AFB186648C900A766D7 /* ViewController.m */,
+				89A6C8A81894791700EA5D13 /* SerializersDelegates */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -357,6 +362,8 @@
 				899D93ED188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.m */,
 				89B35607188C6FB000C62728 /* RepositoriesResponseSerializer.h */,
 				89B35608188C6FB000C62728 /* RepositoriesResponseSerializer.m */,
+				89A6C8A9189479B600EA5D13 /* XMLResponseSerializer.h */,
+				89A6C8AA189479B600EA5D13 /* XMLResponseSerializer.m */,
 			);
 			path = ResponseSerializers;
 			sourceTree = "<group>";
@@ -376,14 +383,6 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		89401D2418833DAA005A030A /* toremove */ = {
-			isa = PBXGroup;
-			children = (
-				89401D2518833DFB005A030A /* oldPydioClient.h */,
-			);
-			path = toremove;
-			sourceTree = "<group>";
-		};
 		89A6AA3D187B0A03003A6BDA /* ResponseSerializers */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +390,7 @@
 				89A6C8A4189469A200EA5D13 /* GetSeedResponseSerializerTests.m */,
 				89AD37721893F260007E3F43 /* LoginResponseSerializerTests.m */,
 				89AC1ACE188DC92D00ACAD7C /* RepositoriesResponseSerializerTests.m */,
+				89A6C8AD18947ED600EA5D13 /* XMLResponseSerializerTests.m */,
 			);
 			path = ResponseSerializers;
 			sourceTree = "<group>";
@@ -416,6 +416,14 @@
 				89A84FF31885F5B800AFC2F0 /* OperationsClient.m */,
 			);
 			path = Clients;
+			sourceTree = "<group>";
+		};
+		89A6C8A81894791700EA5D13 /* SerializersDelegates */ = {
+			isa = PBXGroup;
+			children = (
+				89A6C8AC18947AB400EA5D13 /* XMLResponseSerializerDelegate.h */,
+			);
+			path = SerializersDelegates;
 			sourceTree = "<group>";
 		};
 		89AC1ACC188DAEDD00ACAD7C /* ResponseParsers */ = {
@@ -597,6 +605,7 @@
 				8910F6011878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m in Sources */,
 				3DFF3AF6186648C900A766D7 /* AppDelegate.m in Sources */,
 				89C2A9C71878C4EE0051B8E6 /* LoginResponseParserDelegate.m in Sources */,
+				89A6C8AB189479B600EA5D13 /* XMLResponseSerializer.m in Sources */,
 				89B3560C188C70A500C62728 /* RepositoriesParserDelegate.m in Sources */,
 				89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */,
 				8910F5FC1878927B0005BED4 /* LoginResponseSerializer.m in Sources */,
@@ -622,6 +631,7 @@
 				89ABACFB1893B3E200E1420D /* NotAuthorizedResponseParserDelegateTests.m in Sources */,
 				89AD37731893F260007E3F43 /* LoginResponseSerializerTests.m in Sources */,
 				89ABAD021893D51400E1420D /* XCTestCase+XMLFixture.m in Sources */,
+				89A6C8AE18947ED600EA5D13 /* XMLResponseSerializerTests.m in Sources */,
 				89A5A6661888F7B300365E24 /* OperationsClientTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
