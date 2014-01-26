@@ -31,7 +31,7 @@
 -(id)parseResult {
     LoginResponse *result = nil;
     if (self.parserDelegate.resultValue) {
-        result = [[LoginResponse alloc] initWithValue:self.parserDelegate.resultValue AndToken:self.parserDelegate.resultValue];
+        result = [[LoginResponse alloc] initWithValue:self.parserDelegate.resultValue AndToken:self.parserDelegate.secureToken];
     }
     
     return result;
