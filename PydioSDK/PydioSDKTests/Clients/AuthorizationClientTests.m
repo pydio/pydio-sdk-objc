@@ -19,11 +19,12 @@
 #import "AFURLRequestSerialization.h"
 #import "GetSeedResponseSerializer.h"
 #import "BootConfResponseSerializer.h"
-#import "LoginResponseSerializer.h"
 #import "AuthCredentials.h"
 #import "NSString+Hash.h"
 #import "LoginResponse.h"
 #import "User.h"
+#import "XMLResponseSerializer.h"
+#import "XMLResponseSerializerDelegate.h"
 #import <objc/runtime.h>
 
 
@@ -234,7 +235,10 @@ static NSString * const LOGIN_ACTION = @"";
     BOOL startResult = [self.client loginWithCredentials:credentials success:nil failure:nil];
     
     [verify(serializer) setValue:@"true" forHTTPHeaderField:@"Ajxp-Force-Login"];
-    [verify(self.operationManager)  setResponseSerializer:instanceOf([LoginResponseSerializer class])];
+    MKTArgumentCaptor *responseSerializer = [[MKTArgumentCaptor alloc] init];
+    [verify(self.operationManager)  setResponseSerializer:[responseSerializer capture]];
+    assertThat([responseSerializer value],instanceOf([XMLResponseSerializer class]));
+    assertThat(((XMLResponseSerializer*)[responseSerializer value]).serializerDelegate,instanceOf([LoginResponseSerializerDelegate class]));
     MKTArgumentCaptor *actualParams = [[MKTArgumentCaptor alloc] init];
     [verify(self.operationManager) POST:LOGIN_ACTION parameters:[actualParams capture] success:anything() failure:anything()];
     assertThat([actualParams value],equalTo(expectedParams));

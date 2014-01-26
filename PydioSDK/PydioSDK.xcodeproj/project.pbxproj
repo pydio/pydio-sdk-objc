@@ -33,11 +33,9 @@
 		8910F5F218786EFA0005BED4 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F118786EFA0005BED4 /* NSString+Hash.m */; };
 		8910F5F5187874430005BED4 /* BootConfResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */; };
 		8910F5F818788A7A0005BED4 /* GetSeedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F718788A7A0005BED4 /* GetSeedResponseSerializer.m */; };
-		8910F5FC1878927B0005BED4 /* LoginResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */; };
 		8910F6011878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F6001878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m */; };
 		8940130A188443C90044001D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401309188443C90044001D /* User.m */; };
 		89401D231883318F005A030A /* CookieManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401D221883318F005A030A /* CookieManager.m */; };
-		899D93EE188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 899D93ED188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.m */; };
 		89A554FF188C03F1008C1B64 /* NotAuthorizedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */; };
 		89A5A6661888F7B300365E24 /* OperationsClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A5A6651888F7B300365E24 /* OperationsClientTests.m */; };
 		89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */; };
@@ -59,13 +57,10 @@
 		89ABAD021893D51400E1420D /* XCTestCase+XMLFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ABAD011893D51400E1420D /* XCTestCase+XMLFixture.m */; };
 		89AC1AC8188D8CAD00ACAD7C /* RepositoriesParserStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1AC7188D8CAD00ACAD7C /* RepositoriesParserStates.m */; };
 		89AC1ACB188DA30800ACAD7C /* Repository.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1ACA188DA30800ACAD7C /* Repository.m */; };
-		89AC1ACF188DC92D00ACAD7C /* RepositoriesResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1ACE188DC92D00ACAD7C /* RepositoriesResponseSerializerTests.m */; };
 		89AC1AD2188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */; };
 		89AC1AD5188DE98600ACAD7C /* get_registers_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AC1AD4188DE98600ACAD7C /* get_registers_response.xml */; };
 		89AD27671878198300033083 /* ServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD27661878198300033083 /* ServerConfig.m */; };
-		89AD37731893F260007E3F43 /* LoginResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD37721893F260007E3F43 /* LoginResponseSerializerTests.m */; };
 		89B13A9D18917A13007282EB /* CookieManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B13A9C18917A13007282EB /* CookieManagerTests.m */; };
-		89B35609188C6FB000C62728 /* RepositoriesResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B35608188C6FB000C62728 /* RepositoriesResponseSerializer.m */; };
 		89B3560C188C70A500C62728 /* RepositoriesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B3560B188C70A500C62728 /* RepositoriesParserDelegate.m */; };
 		89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EA187F4BAB005F6580 /* PydioClient.m */; };
 		89B429ED187F4BD0005F6580 /* PydioClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EC187F4BD0005F6580 /* PydioClientTests.m */; };
@@ -132,16 +127,12 @@
 		8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BootConfResponseSerializer.m; sourceTree = "<group>"; };
 		8910F5F618788A7A0005BED4 /* GetSeedResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetSeedResponseSerializer.h; sourceTree = "<group>"; };
 		8910F5F718788A7A0005BED4 /* GetSeedResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSeedResponseSerializer.m; sourceTree = "<group>"; };
-		8910F5FA1878927B0005BED4 /* LoginResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponseSerializer.h; sourceTree = "<group>"; };
-		8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseSerializer.m; sourceTree = "<group>"; };
 		8910F5FF1878A3410005BED4 /* NotAuthorizedResponseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedResponseParserDelegate.h; sourceTree = "<group>"; };
 		8910F6001878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedResponseParserDelegate.m; sourceTree = "<group>"; };
 		89401308188443C90044001D /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		89401309188443C90044001D /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		89401D211883318F005A030A /* CookieManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CookieManager.h; sourceTree = "<group>"; };
 		89401D221883318F005A030A /* CookieManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieManager.m; sourceTree = "<group>"; };
-		899D93EC188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedResponseSerializer.h; sourceTree = "<group>"; };
-		899D93ED188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedResponseSerializer.m; sourceTree = "<group>"; };
 		89A554FD188C03F1008C1B64 /* NotAuthorizedResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedResponse.h; sourceTree = "<group>"; };
 		89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedResponse.m; sourceTree = "<group>"; };
 		89A5A6651888F7B300365E24 /* OperationsClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClientTests.m; sourceTree = "<group>"; };
@@ -172,15 +163,11 @@
 		89AC1AC7188D8CAD00ACAD7C /* RepositoriesParserStates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesParserStates.m; sourceTree = "<group>"; };
 		89AC1AC9188DA30800ACAD7C /* Repository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repository.h; sourceTree = "<group>"; };
 		89AC1ACA188DA30800ACAD7C /* Repository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repository.m; sourceTree = "<group>"; };
-		89AC1ACE188DC92D00ACAD7C /* RepositoriesResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesResponseSerializerTests.m; sourceTree = "<group>"; };
 		89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesParserDelegateTests.m; sourceTree = "<group>"; };
 		89AC1AD4188DE98600ACAD7C /* get_registers_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = get_registers_response.xml; sourceTree = "<group>"; };
 		89AD27651878198300033083 /* ServerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConfig.h; sourceTree = "<group>"; };
 		89AD27661878198300033083 /* ServerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConfig.m; sourceTree = "<group>"; };
-		89AD37721893F260007E3F43 /* LoginResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseSerializerTests.m; sourceTree = "<group>"; };
 		89B13A9C18917A13007282EB /* CookieManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieManagerTests.m; sourceTree = "<group>"; };
-		89B35607188C6FB000C62728 /* RepositoriesResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesResponseSerializer.h; sourceTree = "<group>"; };
-		89B35608188C6FB000C62728 /* RepositoriesResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesResponseSerializer.m; sourceTree = "<group>"; };
 		89B3560A188C70A500C62728 /* RepositoriesParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesParserDelegate.h; sourceTree = "<group>"; };
 		89B3560B188C70A500C62728 /* RepositoriesParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesParserDelegate.m; sourceTree = "<group>"; };
 		89B429E9187F4BAB005F6580 /* PydioClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioClient.h; sourceTree = "<group>"; };
@@ -365,12 +352,6 @@
 				8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */,
 				8910F5F618788A7A0005BED4 /* GetSeedResponseSerializer.h */,
 				8910F5F718788A7A0005BED4 /* GetSeedResponseSerializer.m */,
-				8910F5FA1878927B0005BED4 /* LoginResponseSerializer.h */,
-				8910F5FB1878927B0005BED4 /* LoginResponseSerializer.m */,
-				899D93EC188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.h */,
-				899D93ED188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.m */,
-				89B35607188C6FB000C62728 /* RepositoriesResponseSerializer.h */,
-				89B35608188C6FB000C62728 /* RepositoriesResponseSerializer.m */,
 				89A6C8A9189479B600EA5D13 /* XMLResponseSerializer.h */,
 				89A6C8AA189479B600EA5D13 /* XMLResponseSerializer.m */,
 			);
@@ -397,8 +378,6 @@
 			children = (
 				89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */,
 				89A6C8A4189469A200EA5D13 /* GetSeedResponseSerializerTests.m */,
-				89AD37721893F260007E3F43 /* LoginResponseSerializerTests.m */,
-				89AC1ACE188DC92D00ACAD7C /* RepositoriesResponseSerializerTests.m */,
 				89A6C8AD18947ED600EA5D13 /* XMLResponseSerializerTests.m */,
 			);
 			path = ResponseSerializers;
@@ -601,7 +580,6 @@
 			files = (
 				8940130A188443C90044001D /* User.m in Sources */,
 				3DFF3B2F18664EEF00A766D7 /* AFHTTPRequestOperation.m in Sources */,
-				89B35609188C6FB000C62728 /* RepositoriesResponseSerializer.m in Sources */,
 				8910F5F218786EFA0005BED4 /* NSString+Hash.m in Sources */,
 				89AC1ACB188DA30800ACAD7C /* Repository.m in Sources */,
 				3DFF3AFC186648C900A766D7 /* ViewController.m in Sources */,
@@ -618,7 +596,6 @@
 				89A554FF188C03F1008C1B64 /* NotAuthorizedResponse.m in Sources */,
 				3DFF3B3418664EEF00A766D7 /* AFURLConnectionOperation.m in Sources */,
 				8910F5F818788A7A0005BED4 /* GetSeedResponseSerializer.m in Sources */,
-				899D93EE188BF00F00E9FD25 /* NotAuthorizedResponseSerializer.m in Sources */,
 				3DFF3B3318664EEF00A766D7 /* AFSecurityPolicy.m in Sources */,
 				3DFF3B3118664EEF00A766D7 /* AFHTTPSessionManager.m in Sources */,
 				3DFF3B3518664EEF00A766D7 /* AFURLRequestSerialization.m in Sources */,
@@ -629,7 +606,6 @@
 				89A6C8AB189479B600EA5D13 /* XMLResponseSerializer.m in Sources */,
 				89B3560C188C70A500C62728 /* RepositoriesParserDelegate.m in Sources */,
 				89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */,
-				8910F5FC1878927B0005BED4 /* LoginResponseSerializer.m in Sources */,
 				89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */,
 				89AD27671878198300033083 /* ServerConfig.m in Sources */,
 				89AC1AC8188D8CAD00ACAD7C /* RepositoriesParserStates.m in Sources */,
@@ -644,7 +620,6 @@
 				89AA6A2118957FF9006A22DB /* NotAuthorizedResponseSerializerDelegateTests.m in Sources */,
 				89A6C8A5189469A200EA5D13 /* GetSeedResponseSerializerTests.m in Sources */,
 				89BD97401891A2710054CFA2 /* LoginResponseParserDelegateTests.m in Sources */,
-				89AC1ACF188DC92D00ACAD7C /* RepositoriesResponseSerializerTests.m in Sources */,
 				89AC1AD2188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m in Sources */,
 				89B13A9D18917A13007282EB /* CookieManagerTests.m in Sources */,
 				89A6AA42187B1E31003A6BDA /* AuthorizationClientTests.m in Sources */,
@@ -652,7 +627,6 @@
 				89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */,
 				89AA6A1F18957FE9006A22DB /* LoginResponseSerializerDelegateTests.m in Sources */,
 				89ABACFB1893B3E200E1420D /* NotAuthorizedResponseParserDelegateTests.m in Sources */,
-				89AD37731893F260007E3F43 /* LoginResponseSerializerTests.m in Sources */,
 				89ABAD021893D51400E1420D /* XCTestCase+XMLFixture.m in Sources */,
 				89AA6A231895800A006A22DB /* WorkspacesResponseSerializerDelegateTests.m in Sources */,
 				89A6C8AE18947ED600EA5D13 /* XMLResponseSerializerTests.m in Sources */,

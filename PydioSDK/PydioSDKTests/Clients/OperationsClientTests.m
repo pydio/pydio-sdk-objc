@@ -16,9 +16,9 @@
 #import "OperationsClient.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "CookieManager.h"
-#import "NotAuthorizedResponseSerializer.h"
 #import "NotAuthorizedResponse.h"
-#import "RepositoriesResponseSerializer.h"
+#import "XMLResponseSerializer.h"
+#import "XMLResponseSerializerDelegate.h"
 #import "PydioErrors.h"
 
 
@@ -269,8 +269,14 @@ id mockedCookieManager(id self, SEL _cmd) {
     assertThat(serializer,instanceOf([AFCompoundResponseSerializer class]));
     AFCompoundResponseSerializer* compoundSerializer = (AFCompoundResponseSerializer*)serializer;
     assertThatUnsignedInteger(compoundSerializer.responseSerializers.count,equalToUnsignedInteger(2));
-    assertThat([compoundSerializer.responseSerializers objectAtIndex:0],instanceOf([NotAuthorizedResponseSerializer class]));
-    assertThat([compoundSerializer.responseSerializers objectAtIndex:1],instanceOf([RepositoriesResponseSerializer class]));
+    assertThat([compoundSerializer.responseSerializers objectAtIndex:0],instanceOf([XMLResponseSerializer class]));
+    assertThat([compoundSerializer.responseSerializers objectAtIndex:1],instanceOf([XMLResponseSerializer class]));
+    assertThat([self xmlResponseSerializerFrom:compoundSerializer AtIndex:0],instanceOf([NotAuthorizedResponseSerializerDelegate class]));
+    assertThat([self xmlResponseSerializerFrom:compoundSerializer AtIndex:1],instanceOf([WorkspacesResponseSerializerDelegate class]));
+}
+
+-(id<XMLResponseSerializerDelegate>)xmlResponseSerializerFrom:(AFCompoundResponseSerializer*)compound AtIndex:(NSUInteger)index {
+    return ((XMLResponseSerializer*)[compound.responseSerializers objectAtIndex:index]).serializerDelegate;
 }
 
 @end

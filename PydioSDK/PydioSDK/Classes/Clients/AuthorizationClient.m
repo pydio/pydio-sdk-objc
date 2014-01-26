@@ -10,12 +10,13 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "GetSeedResponseSerializer.h"
 #import "CookieManager.h"
-#import "LoginResponseSerializer.h"
 #import "AuthCredentials.h"
 #import "NSString+Hash.h"
 #import "User.h"
 #import "LoginResponse.h"
 #import "PydioErrors.h"
+#import "XMLResponseSerializer.h"
+#import "XMLResponseSerializerDelegate.h"
 
 
 static NSString * const PING_ACTION = @"index.php?get_action=ping";
@@ -98,7 +99,7 @@ static NSString * const LOGIN_SEED = @"login_seed";
 -(BOOL)loginWithCredentials:(AuthCredentials*)credentials success:(void(^)(LoginResponse *response))success failure:(void(^)(NSError *error))failure {
     
     [self.operationManager.requestSerializer setValue:@"true" forHTTPHeaderField:@"Ajxp-Force-Login"];
-    self.operationManager.responseSerializer = [[LoginResponseSerializer alloc] init];
+    self.operationManager.responseSerializer = [self createLoginResponseSerializer];
     NSDictionary *params = @{GET_ACTION : @"login",
                              USERID : credentials.userid,
                              PASSWORD : [self hashedPass:credentials.password WithSeed:credentials.seed],
@@ -115,5 +116,10 @@ static NSString * const LOGIN_SEED = @"login_seed";
 
 -(NSString *)hashedPass:(NSString*)pass WithSeed:(NSString *)seed {
     return [seed compare:@"-1"] == NSOrderedSame ? pass : [[NSString stringWithFormat:@"%@%@", [pass md5], seed] md5];
+}
+
+-(XMLResponseSerializer*)createLoginResponseSerializer {
+    LoginResponseSerializerDelegate *delegate = [[LoginResponseSerializerDelegate alloc] init];
+    return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
 }
 @end

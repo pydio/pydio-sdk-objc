@@ -9,8 +9,10 @@
 #import "OperationsClient.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "CookieManager.h"
-#import "NotAuthorizedResponseSerializer.h"
-#import "RepositoriesResponseSerializer.h"
+#import "XMLResponseSerializer.h"
+#import "XMLResponseSerializerDelegate.h"
+//#import "NotAuthorizedResponseSerializer.h"
+//#import "RepositoriesResponseSerializer.h"
 #import "NotAuthorizedResponse.h"
 #import "PydioErrors.h"
 
@@ -82,12 +84,22 @@ extern NSString * const PydioErrorDomain;
 -(AFHTTPResponseSerializer*)responseSerializer {
     
     NSMutableArray *serializers = [NSMutableArray array];
-    [serializers addObject:[[NotAuthorizedResponseSerializer alloc] init]];
-    [serializers addObject:[[RepositoriesResponseSerializer alloc] init]];
+    [serializers addObject:[self createSerializerForNotAuthorized]];
+    [serializers addObject:[self createSerializerForRepositories]];
     
     AFCompoundResponseSerializer *serializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
         
     return serializer;
+}
+
+-(XMLResponseSerializer*)createSerializerForNotAuthorized {
+    NotAuthorizedResponseSerializerDelegate *delegate = [[NotAuthorizedResponseSerializerDelegate alloc] init];
+    return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
+}
+
+-(XMLResponseSerializer*)createSerializerForRepositories {
+    WorkspacesResponseSerializerDelegate *delegate = [[WorkspacesResponseSerializerDelegate alloc] init];
+    return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
 }
 
 -(NSError *)authorizationError:(id)potentialError {
