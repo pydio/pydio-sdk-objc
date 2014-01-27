@@ -157,12 +157,13 @@ static OperationsClient* operationsClient = nil;
     MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
     [verify(operationsClient) listFilesWithSuccess:[success capture] failure:anything()];
     ((ListFilesSuccessBlock)[success value])(responseArray);
+    
     assertThatBool(successBlockCalled,equalToBool(YES));
     assertThatBool(failureBlockCalled,equalToBool(NO));
     assertThat(receivedArray,sameInstance(responseArray));
 }
 
--(void)testShouldAuthorizeWhenNotLogged
+-(void)test_ShouldInvokeAuthorize_WhenNotLogged
 {
     NSError *authorizationError = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
 
@@ -174,16 +175,15 @@ static OperationsClient* operationsClient = nil;
     } failure:^(NSError *error) {
         failureBlockCalled = YES;
     }];
+
+    [self operationsClientListFailure:authorizationError];
     
-    MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
-    [verify(operationsClient) listFilesWithSuccess:anything() failure:[failure capture]];
-    ((FailureBlock)[failure value])(authorizationError);
     [verify(authorizationClient) authorizeWithSuccess:anything() failure:anything()];
     assertThatBool(successBlockCalled,equalToBool(NO));
     assertThatBool(failureBlockCalled,equalToBool(NO));
 }
 
--(void)testShouldFailureWhenNotAuthorizedForSecondTime
+-(void)test_ShouldFailure_WhenReceivedNotAuthorizedTwoTimes
 {
     NSError *authorizationError = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
     __block NSError *receivedError = nil;
@@ -196,19 +196,19 @@ static OperationsClient* operationsClient = nil;
         failureBlockCalled = YES;
         receivedError = error;
     }];
+
+    [self operationsClientListFailure:authorizationError];
     
-    MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
-    [verify(operationsClient) listFilesWithSuccess:anything() failure:[failure capture]];
-    ((FailureBlock)[failure value])(authorizationError);
     MKTArgumentCaptor *authFailure = [[MKTArgumentCaptor alloc] init];
     [verify(authorizationClient) authorizeWithSuccess:anything() failure:[authFailure capture]];
     ((FailureBlock)[authFailure value])(authorizationError);
+    
     assertThatBool(successBlockCalled,equalToBool(NO));
     assertThatBool(failureBlockCalled,equalToBool(YES));
     assertThat(receivedError,sameInstance(authorizationError));
 }
 
--(void)testShouldSuccessWhenReceivedResponseAfterAuthorizationInSecondTry {
+-(void)test_ShouldSuccess_WhenReceivedResponseWithArray_AfterAuthorizationForSecondTime {
     NSError *authorizationError = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
     NSArray *responseArray = [NSArray array];
     __block NSArray *receivedArray = nil;
@@ -222,21 +222,20 @@ static OperationsClient* operationsClient = nil;
         failureBlockCalled = YES;
     }];
     
-    MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
-    [verify(operationsClient) listFilesWithSuccess:anything() failure:[failure capture]];
-    ((FailureBlock)[failure value])(authorizationError);
-    MKTArgumentCaptor *authSuccess = [[MKTArgumentCaptor alloc] init];
-    [verify(authorizationClient) authorizeWithSuccess:[authSuccess capture] failure:anything()];
-    ((void(^)())[authSuccess value])();
+    [self operationsClientListFailure:authorizationError];
+    
+    [self authorizationClientAuthorizeSuccess];
+    
     MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
     [verifyCount(operationsClient,times(2)) listFilesWithSuccess:[success capture] failure:anything()];
     ((ListFilesSuccessBlock)[success value])(responseArray);
+    
     assertThatBool(successBlockCalled,equalToBool(YES));
     assertThatBool(failureBlockCalled,equalToBool(NO));
     assertThat(receivedArray,sameInstance(responseArray));
 }
 
--(void)testShouldFailureWhenReceivedErrorAfterCallingListAfterAuthorizationForSecondTry {
+-(void)test_ShouldFailure_WhenReceivedErrorAfterListingFiles_AfterSuccessAuthorization_afterAuthorizationFailure {
     NSError *authorizationError = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
     __block NSError *receivedError = nil;
     __block BOOL successBlockCalled = NO;
@@ -249,12 +248,11 @@ static OperationsClient* operationsClient = nil;
         receivedError = error;
     }];
     
+    [self operationsClientListFailure:authorizationError];
+    
+    [self authorizationClientAuthorizeSuccess];
+    
     MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
-    [verify(operationsClient) listFilesWithSuccess:anything() failure:[failure capture]];
-    ((FailureBlock)[failure value])(authorizationError);
-    MKTArgumentCaptor *authSuccess = [[MKTArgumentCaptor alloc] init];
-    [verify(authorizationClient) authorizeWithSuccess:[authSuccess capture] failure:anything()];
-    ((void(^)())[authSuccess value])();
     [verifyCount(operationsClient,times(2)) listFilesWithSuccess:anything() failure:[failure capture]];
     ((FailureBlock)[failure value])(authorizationError);
     
@@ -264,7 +262,7 @@ static OperationsClient* operationsClient = nil;
 }
 
 
--(void)testShouldFailureWhenOtherError
+-(void)test_ShouldFailureWhenOtherErrorThanAuthorizationError
 {
     NSError *otherError = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToParseAnswer userInfo:nil];
     __block NSError *receivedError = nil;
@@ -278,9 +276,8 @@ static OperationsClient* operationsClient = nil;
         receivedError = error;
     }];
     
-    MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
-    [verify(operationsClient) listFilesWithSuccess:anything() failure:[failure capture]];
-    ((FailureBlock)[failure value])(otherError);
+    [self operationsClientListFailure:otherError];
+    
     [verifyCount(authorizationClient,never()) authorizeWithSuccess:anything() failure:anything()];
     assertThatBool(successBlockCalled,equalToBool(NO));
     assertThatBool(failureBlockCalled,equalToBool(YES));
@@ -288,6 +285,20 @@ static OperationsClient* operationsClient = nil;
 }
 
 #pragma mark -
+
+-(void)operationsClientListFailure:(NSError*)error
+{
+    MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
+    [verify(operationsClient) listFilesWithSuccess:anything() failure:[failure capture]];
+    ((FailureBlock)[failure value])(error);
+}
+
+-(void)authorizationClientAuthorizeSuccess
+{
+    MKTArgumentCaptor *authSuccess = [[MKTArgumentCaptor alloc] init];
+    [verify(authorizationClient) authorizeWithSuccess:[authSuccess capture] failure:anything()];
+    ((void(^)())[authSuccess value])();
+}
 
 -(void)setupAuthorizationClient:(BOOL) authProgress AndOperationsClient: (BOOL)operationsProgress {
     [given([authorizationClient progress]) willReturnBool:authProgress];
