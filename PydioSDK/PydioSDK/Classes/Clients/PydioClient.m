@@ -15,19 +15,24 @@
 #import "PydioErrors.h"
 
 
+static const int AUTHORIZATION_TRIES_COUNT = 1;
+
 @interface PydioClient ()
 @property(nonatomic,strong) AFHTTPRequestOperationManager* operationManager;
 @property(nonatomic,strong) AuthorizationClient* authorizationClient;
 @property(nonatomic,strong) OperationsClient* operationsClient;
+@property(nonatomic,copy) void(^operationBlock)();
+@property(nonatomic,copy) void(^failureBlock)(NSError* error);
+@property(nonatomic,assign) int authorizationsTriesCount;
 
 -(AFHTTPRequestOperationManager*)createOperationManager:(NSString*)server;
 -(AuthorizationClient*)createAuthorizationClient;
 -(OperationsClient*)createOperationsClient;
+-(void)performAuthorizationAndOperation;
 @end
 
 
 @implementation PydioClient
-
 -(NSURL*)serverURL {
     return self.operationManager.baseURL;
 }
@@ -52,23 +57,20 @@
         return NO;
     }
     
-    [self.operationsClient listWorkspacesWithSuccess:^(NSArray *files){
-        success(files);
-    } failure:^(NSError *error) {
-        if ([self isAuthorizationError:error]) {
-            [self.authorizationClient authorizeWithSuccess:^{
-                [self.operationsClient listWorkspacesWithSuccess:^(NSArray *files) {
-                    success(files);
-                } failure:^(NSError *error) {
-                    failure(error);
-                }];
-            } failure:^(NSError *error) {
-                failure(error);
-            }];
-        } else {
-            failure(error);
-        }
-    }];
+    [self resetAuthorizationTriesCount];
+    self.failureBlock = failure;
+    
+     __unsafe_unretained typeof(self) weakSelf = self;
+    
+    self.operationBlock = ^{
+        [weakSelf.operationsClient listWorkspacesWithSuccess:^(NSArray *files){
+            success(files);
+        } failure:^(NSError *error) {
+            [weakSelf handleOperationFailure:error];
+        }];
+    };
+    
+    self.operationBlock();
     
     return YES;
 }
@@ -101,8 +103,29 @@
     return client;
 }
 
+-(void)performAuthorizationAndOperation {
+    self.authorizationsTriesCount--;
+    [self.authorizationClient authorizeWithSuccess:^{
+        self.operationBlock();
+    } failure:^(NSError *error) {
+        self.failureBlock(error);
+    }];
+}
+
+-(void)handleOperationFailure:(NSError*)error {
+    if ([self isAuthorizationError:error] && self.authorizationsTriesCount > 0) {
+        [self performAuthorizationAndOperation];
+    } else {
+        self.failureBlock(error);
+        self.operationBlock = nil;
+    }
+}
+
 -(BOOL)isAuthorizationError:(NSError *)error {
     return [error.domain isEqualToString:PydioErrorDomain] && error.code == PydioErrorUnableToLogin;
 }
 
+-(void)resetAuthorizationTriesCount {
+    self.authorizationsTriesCount = AUTHORIZATION_TRIES_COUNT;
+}
 @end
