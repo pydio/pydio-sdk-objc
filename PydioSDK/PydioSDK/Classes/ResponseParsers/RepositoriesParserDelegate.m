@@ -23,7 +23,7 @@
     return self;
 }
 
--(void)appendRepository:(Repository*)repo {
+-(void)appendRepository:(Workspace*)repo {
     _repositories = [_repositories arrayByAddingObject:repo];
 }
 

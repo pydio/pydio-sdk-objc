@@ -109,7 +109,7 @@ id mockedCookieManager(id self, SEL _cmd) {
     [given([self.operationManager baseURL]) willReturn:server];
     [given([cookieManager secureTokenForServer:server]) willReturn:TEST_TOKEN];
     
-    BOOL startResult = [self.client listFilesWithSuccess:nil failure:nil];
+    BOOL startResult = [self.client listWorkspacesWithSuccess:nil failure:nil];
     
     assertThatBool(startResult,equalToBool(YES));
     assertThatBool(self.client.progress,equalToBool(YES));
@@ -130,7 +130,7 @@ id mockedCookieManager(id self, SEL _cmd) {
 - (void)testShouldNotStartListFilesIfInProgress
 {
     self.client.progress = YES;
-    BOOL startResult = [self.client listFilesWithSuccess:nil failure:nil];
+    BOOL startResult = [self.client listWorkspacesWithSuccess:nil failure:nil];
     
     assertThatBool(startResult,equalToBool(NO));
     [verifyCount(self.operationManager,never()) setRequestSerializer:anything()];
@@ -148,7 +148,7 @@ id mockedCookieManager(id self, SEL _cmd) {
     __block BOOL failureBlockCalled = NO;
     __block NSError *receivedError = nil;
     
-    [self.client listFilesWithSuccess:^(NSArray *files) {
+    [self.client listWorkspacesWithSuccess:^(NSArray *files) {
         successBlockCalled = YES;
     } failure:^(NSError *error) {
         failureBlockCalled = YES;
@@ -176,7 +176,7 @@ id mockedCookieManager(id self, SEL _cmd) {
     __block BOOL failureBlockCalled = NO;
     __block NSError *receivedError = nil;
     
-    [self.client listFilesWithSuccess:^(NSArray *files) {
+    [self.client listWorkspacesWithSuccess:^(NSArray *files) {
         successBlockCalled = YES;
     } failure:^(NSError *error) {
         failureBlockCalled = YES;
@@ -205,7 +205,7 @@ id mockedCookieManager(id self, SEL _cmd) {
     __block BOOL failureBlockCalled = NO;
     __block NSError *receivedError = nil;
 
-    [self.client listFilesWithSuccess:^(NSArray *files) {
+    [self.client listWorkspacesWithSuccess:^(NSArray *files) {
         successBlockCalled = YES;
     } failure:^(NSError *error) {
         failureBlockCalled = YES;
@@ -228,7 +228,7 @@ id mockedCookieManager(id self, SEL _cmd) {
     __block BOOL failureBlockCalled = NO;
     __block NSArray *receivedArray = nil;
     
-    [self.client listFilesWithSuccess:^(NSArray *files) {
+    [self.client listWorkspacesWithSuccess:^(NSArray *files) {
         successBlockCalled = YES;
         receivedArray = files;
     } failure:^(NSError *error) {

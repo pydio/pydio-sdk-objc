@@ -25,7 +25,7 @@ extern NSString * const PydioErrorDomain;
 @end
 
 @implementation OperationsClient
--(BOOL)listFilesWithSuccess:(void(^)(NSArray *files))success failure:(void(^)(NSError *error))failure {
+-(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray *files))success failure:(void(^)(NSError *error))failure {
     if (self.progress) {
         return NO;
     }

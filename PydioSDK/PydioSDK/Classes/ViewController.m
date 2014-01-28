@@ -10,7 +10,7 @@
 #import "CookieManager.h"
 #import "User.h"
 #import "PydioClient.h"
-#import "Repository.h"
+#import "Workspace.h"
 
 static NSString * const TABLE_CELL_ID = @"RegisterCell";
 
@@ -40,7 +40,7 @@ static NSString * const TABLE_CELL_ID = @"RegisterCell";
         User* user = [User userWithId:self.username.text AndPassword:self.password.text];
         [manager setUser:user ForServer:self.client.serverURL];
         
-        [self.client listFilesWithSuccess:^(NSArray *files) {
+        [self.client listWorkspacesWithSuccess:^(NSArray *files) {
             NSLog(@"success %s %@",__PRETTY_FUNCTION__,files);
             self.registers = files;
             [self.tableView reloadData];
@@ -83,7 +83,7 @@ static NSString * const TABLE_CELL_ID = @"RegisterCell";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TABLE_CELL_ID];
     }
     
-    cell.textLabel.text = ((Repository*)[self.registers objectAtIndex:indexPath.row]).label;
+    cell.textLabel.text = ((Workspace*)[self.registers objectAtIndex:indexPath.row]).label;
     
     return cell;
 }

@@ -56,7 +56,7 @@
 		89ABACFF1893BEF700E1420D /* unathorized_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89ABACFE1893BEF700E1420D /* unathorized_response2.xml */; };
 		89ABAD021893D51400E1420D /* XCTestCase+XMLFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ABAD011893D51400E1420D /* XCTestCase+XMLFixture.m */; };
 		89AC1AC8188D8CAD00ACAD7C /* RepositoriesParserStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1AC7188D8CAD00ACAD7C /* RepositoriesParserStates.m */; };
-		89AC1ACB188DA30800ACAD7C /* Repository.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1ACA188DA30800ACAD7C /* Repository.m */; };
+		89AC1ACB188DA30800ACAD7C /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1ACA188DA30800ACAD7C /* Workspace.m */; };
 		89AC1AD2188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */; };
 		89AC1AD5188DE98600ACAD7C /* get_registers_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AC1AD4188DE98600ACAD7C /* get_registers_response.xml */; };
 		89AD27671878198300033083 /* ServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD27661878198300033083 /* ServerConfig.m */; };
@@ -161,8 +161,8 @@
 		89AC1AC5188D8AE100ACAD7C /* RepositoriesParserDelegate_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepositoriesParserDelegate_Private.h; sourceTree = "<group>"; };
 		89AC1AC6188D8CAD00ACAD7C /* RepositoriesParserStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesParserStates.h; sourceTree = "<group>"; };
 		89AC1AC7188D8CAD00ACAD7C /* RepositoriesParserStates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesParserStates.m; sourceTree = "<group>"; };
-		89AC1AC9188DA30800ACAD7C /* Repository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Repository.h; sourceTree = "<group>"; };
-		89AC1ACA188DA30800ACAD7C /* Repository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Repository.m; sourceTree = "<group>"; };
+		89AC1AC9188DA30800ACAD7C /* Workspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workspace.h; sourceTree = "<group>"; };
+		89AC1ACA188DA30800ACAD7C /* Workspace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workspace.m; sourceTree = "<group>"; };
 		89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesParserDelegateTests.m; sourceTree = "<group>"; };
 		89AC1AD4188DE98600ACAD7C /* get_registers_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = get_registers_response.xml; sourceTree = "<group>"; };
 		89AD27651878198300033083 /* ServerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConfig.h; sourceTree = "<group>"; };
@@ -448,8 +448,8 @@
 				89C2A9C91878CD440051B8E6 /* LoginResponse.m */,
 				89A554FD188C03F1008C1B64 /* NotAuthorizedResponse.h */,
 				89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */,
-				89AC1AC9188DA30800ACAD7C /* Repository.h */,
-				89AC1ACA188DA30800ACAD7C /* Repository.m */,
+				89AC1AC9188DA30800ACAD7C /* Workspace.h */,
+				89AC1ACA188DA30800ACAD7C /* Workspace.m */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -581,7 +581,7 @@
 				8940130A188443C90044001D /* User.m in Sources */,
 				3DFF3B2F18664EEF00A766D7 /* AFHTTPRequestOperation.m in Sources */,
 				8910F5F218786EFA0005BED4 /* NSString+Hash.m in Sources */,
-				89AC1ACB188DA30800ACAD7C /* Repository.m in Sources */,
+				89AC1ACB188DA30800ACAD7C /* Workspace.m in Sources */,
 				3DFF3AFC186648C900A766D7 /* ViewController.m in Sources */,
 				8910F5F5187874430005BED4 /* BootConfResponseSerializer.m in Sources */,
 				89B4780A187DFCE700A9CFC5 /* AuthCredentials.m in Sources */,

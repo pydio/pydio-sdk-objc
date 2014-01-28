@@ -47,17 +47,17 @@
     return self;
 }
 
--(BOOL)listFilesWithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
+-(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
     if (self.progress) {
         return NO;
     }
     
-    [self.operationsClient listFilesWithSuccess:^(NSArray *files){
+    [self.operationsClient listWorkspacesWithSuccess:^(NSArray *files){
         success(files);
     } failure:^(NSError *error) {
         if ([self isAuthorizationError:error]) {
             [self.authorizationClient authorizeWithSuccess:^{
-                [self.operationsClient listFilesWithSuccess:^(NSArray *files) {
+                [self.operationsClient listWorkspacesWithSuccess:^(NSArray *files) {
                     success(files);
                 } failure:^(NSError *error) {
                     failure(error);

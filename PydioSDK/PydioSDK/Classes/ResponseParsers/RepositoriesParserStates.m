@@ -8,7 +8,7 @@
 
 #import "RepositoriesParserStates.h"
 #import "RepositoriesParserDelegate_Private.h"
-#import "Repository.h"
+#import "Workspace.h"
 
 
 @implementation BaseParserState
@@ -74,7 +74,7 @@
     } else if (!self.description && [elementName isEqualToString:@"description"]) {
         self.description = self.buffer;
     } else if ([elementName isEqualToString:@"repo"]) {
-        Repository *repo = [[Repository alloc] initWithId:self.repoId AndLabel:self.label AndDescription:self.description];
+        Workspace *repo = [[Workspace alloc] initWithId:self.repoId AndLabel:self.label AndDescription:self.description];
         [self.parser appendRepository:repo];
         self.parser.parserState = [[ExpectStartRepoState alloc] initWithParser:self.parser];
     }

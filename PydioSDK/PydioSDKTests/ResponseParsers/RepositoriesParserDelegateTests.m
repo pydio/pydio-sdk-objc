@@ -15,7 +15,7 @@
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
 #import "RepositoriesParserDelegate.h"
-#import "Repository.h"
+#import "Workspace.h"
 #import "XCTestCase+XMLFixture.h"
 
 
@@ -53,8 +53,8 @@
 
 #pragma mark -
 
--(void)assertRepo:(Repository*)repo WithId:(NSString *)repoId Label:(NSString *)label Description:(NSString*)description {
-    assertThat(repo.repoId,equalTo(repoId));
+-(void)assertRepo:(Workspace*)repo WithId:(NSString *)repoId Label:(NSString *)label Description:(NSString*)description {
+    assertThat(repo.workspaceId,equalTo(repoId));
     assertThat(repo.label,equalTo(label));
     assertThat(repo.description,equalTo(description));
 }

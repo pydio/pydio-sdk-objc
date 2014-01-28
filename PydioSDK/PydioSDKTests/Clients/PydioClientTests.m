@@ -120,24 +120,24 @@ static OperationsClient* operationsClient = nil;
 
 -(void)testShouldStartListFilesWhenNotInProgress
 {
-    BOOL startResult = [self.client listFilesWithSuccess:^(NSArray *files) {
+    BOOL startResult = [self.client listWorkspacesWithSuccess:^(NSArray *files) {
     } failure:^(NSError *error) {
     }];
     
     assertThatBool(startResult, equalToBool(YES));
-    [verify(operationsClient) listFilesWithSuccess:anything() failure:anything()];
+    [verify(operationsClient) listWorkspacesWithSuccess:anything() failure:anything()];
 }
 
 -(void)testShouldNotStartListFilesWhenInProgress
 {
     [self setupAuthorizationClient:YES AndOperationsClient:NO];
     
-    BOOL startResult = [self.client listFilesWithSuccess:^(NSArray *files) {
+    BOOL startResult = [self.client listWorkspacesWithSuccess:^(NSArray *files) {
     } failure:^(NSError *error) {
     }];
     
     assertThatBool(startResult, equalToBool(NO));
-    [verifyCount(operationsClient,never()) listFilesWithSuccess:anything() failure:anything()];
+    [verifyCount(operationsClient,never()) listWorkspacesWithSuccess:anything() failure:anything()];
 }
 
 -(void)testShouldReceiveArrayWhenSuccess
@@ -147,7 +147,7 @@ static OperationsClient* operationsClient = nil;
     __block BOOL successBlockCalled = NO;
     __block BOOL failureBlockCalled = NO;
     
-    [self.client listFilesWithSuccess:^(NSArray *files) {
+    [self.client listWorkspacesWithSuccess:^(NSArray *files) {
         successBlockCalled = YES;
         receivedArray = files;
     } failure:^(NSError *error) {
@@ -155,7 +155,7 @@ static OperationsClient* operationsClient = nil;
     }];
     
     MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
-    [verify(operationsClient) listFilesWithSuccess:[success capture] failure:anything()];
+    [verify(operationsClient) listWorkspacesWithSuccess:[success capture] failure:anything()];
     ((ListFilesSuccessBlock)[success value])(responseArray);
     
     assertThatBool(successBlockCalled,equalToBool(YES));
@@ -170,7 +170,7 @@ static OperationsClient* operationsClient = nil;
     __block BOOL successBlockCalled = NO;
     __block BOOL failureBlockCalled = NO;
     
-    [self.client listFilesWithSuccess:^(NSArray *files) {
+    [self.client listWorkspacesWithSuccess:^(NSArray *files) {
         successBlockCalled = YES;
     } failure:^(NSError *error) {
         failureBlockCalled = YES;
@@ -190,7 +190,7 @@ static OperationsClient* operationsClient = nil;
     __block BOOL successBlockCalled = NO;
     __block BOOL failureBlockCalled = NO;
     
-    [self.client listFilesWithSuccess:^(NSArray *files) {
+    [self.client listWorkspacesWithSuccess:^(NSArray *files) {
         successBlockCalled = YES;
     } failure:^(NSError *error) {
         failureBlockCalled = YES;
@@ -215,7 +215,7 @@ static OperationsClient* operationsClient = nil;
     __block BOOL successBlockCalled = NO;
     __block BOOL failureBlockCalled = NO;
     
-    [self.client listFilesWithSuccess:^(NSArray *files) {
+    [self.client listWorkspacesWithSuccess:^(NSArray *files) {
         successBlockCalled = YES;
         receivedArray = files;
     } failure:^(NSError *error) {
@@ -227,7 +227,7 @@ static OperationsClient* operationsClient = nil;
     [self authorizationClientAuthorizeSuccess];
     
     MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
-    [verifyCount(operationsClient,times(2)) listFilesWithSuccess:[success capture] failure:anything()];
+    [verifyCount(operationsClient,times(2)) listWorkspacesWithSuccess:[success capture] failure:anything()];
     ((ListFilesSuccessBlock)[success value])(responseArray);
     
     assertThatBool(successBlockCalled,equalToBool(YES));
@@ -241,7 +241,7 @@ static OperationsClient* operationsClient = nil;
     __block BOOL successBlockCalled = NO;
     __block BOOL failureBlockCalled = NO;
     
-    [self.client listFilesWithSuccess:^(NSArray *files) {
+    [self.client listWorkspacesWithSuccess:^(NSArray *files) {
         successBlockCalled = YES;
     } failure:^(NSError *error) {
         failureBlockCalled = YES;
@@ -253,7 +253,7 @@ static OperationsClient* operationsClient = nil;
     [self authorizationClientAuthorizeSuccess];
     
     MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
-    [verifyCount(operationsClient,times(2)) listFilesWithSuccess:anything() failure:[failure capture]];
+    [verifyCount(operationsClient,times(2)) listWorkspacesWithSuccess:anything() failure:[failure capture]];
     ((FailureBlock)[failure value])(authorizationError);
     
     assertThatBool(successBlockCalled,equalToBool(NO));
@@ -269,7 +269,7 @@ static OperationsClient* operationsClient = nil;
     __block BOOL successBlockCalled = NO;
     __block BOOL failureBlockCalled = NO;
     
-    [self.client listFilesWithSuccess:^(NSArray *files) {
+    [self.client listWorkspacesWithSuccess:^(NSArray *files) {
         successBlockCalled = YES;
     } failure:^(NSError *error) {
         failureBlockCalled = YES;
@@ -289,7 +289,7 @@ static OperationsClient* operationsClient = nil;
 -(void)operationsClientListFailure:(NSError*)error
 {
     MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
-    [verify(operationsClient) listFilesWithSuccess:anything() failure:[failure capture]];
+    [verify(operationsClient) listWorkspacesWithSuccess:anything() failure:[failure capture]];
     ((FailureBlock)[failure value])(error);
 }
 

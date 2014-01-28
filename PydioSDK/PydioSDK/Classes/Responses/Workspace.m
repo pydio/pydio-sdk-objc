@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 MINI. All rights reserved.
 //
 
-#import "Repository.h"
+#import "Workspace.h"
 
-@implementation Repository
+@implementation Workspace
 
 -(instancetype)initWithId:(NSString*)repoId AndLabel:(NSString *)label AndDescription:(NSString*)description {
     self = [super init];
     if (self) {
-        _repoId = repoId;
+        _workspaceId = repoId;
         _label = label;
         _description = description;
     }

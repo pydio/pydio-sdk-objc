@@ -15,5 +15,5 @@
 @property (nonatomic,strong) AFHTTPRequestOperationManager *operationManager;
 @property (readonly,nonatomic,assign) BOOL progress;
 
--(BOOL)listFilesWithSuccess:(void(^)(NSArray *files))success failure:(void(^)(NSError *error))failure;
+-(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray *files))success failure:(void(^)(NSError *error))failure;
 @end

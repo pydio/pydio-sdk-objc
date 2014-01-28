@@ -9,10 +9,10 @@
 #import "RepositoriesParserDelegate.h"
 
 @class BaseParserState;
-@class Repository;
+@class Workspace;
 
 @interface RepositoriesParserDelegate ()
 @property (nonatomic,strong) BaseParserState *parserState;
 
--(void)appendRepository:(Repository*)repo;
+-(void)appendRepository:(Workspace*)repo;
 @end

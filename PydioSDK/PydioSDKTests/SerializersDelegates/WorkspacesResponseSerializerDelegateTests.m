@@ -14,7 +14,7 @@
 
 #import "XMLResponseSerializerDelegate.h"
 #import "RepositoriesParserDelegate.h"
-#import "Repository.h"
+#import "Workspace.h"
 
 
 #pragma mark - 
@@ -51,7 +51,7 @@
 -(void)testShouldReturnArrayOfRepositoriesWhenRepositoriesArrayInResponseIsPresent
 {
     RepositoriesParserDelegate *parserDelegate = mock([RepositoriesParserDelegate class]);
-    Repository *repository = [[Repository alloc] initWithId:@"1" AndLabel:@"label" AndDescription:@"description"];
+    Workspace *repository = [[Workspace alloc] initWithId:@"1" AndLabel:@"label" AndDescription:@"description"];
     NSArray *responseArray = @[repository];
     [given(parserDelegate.repositories) willReturn:responseArray];
     self.serializerDelegate.parserDelegate = parserDelegate;

@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Repository : NSObject
-@property (readonly,nonatomic,strong) NSString* repoId;
+@interface Workspace : NSObject
+@property (readonly,nonatomic,strong) NSString* workspaceId;
 @property (readonly,nonatomic,strong) NSString* label;
 @property (readonly,nonatomic,strong) NSString* description;
 
