@@ -15,4 +15,5 @@
 -(instancetype)initWithServer:(NSString *)server;
 
 -(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure;
+-(BOOL)listFiles:(NSString*)workspaceId WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure;
 @end

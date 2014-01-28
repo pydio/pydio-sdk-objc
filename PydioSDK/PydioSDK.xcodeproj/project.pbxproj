@@ -175,6 +175,7 @@
 		89B429EC187F4BD0005F6580 /* PydioClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClientTests.m; sourceTree = "<group>"; };
 		89B47808187DFCE700A9CFC5 /* AuthCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthCredentials.h; sourceTree = "<group>"; };
 		89B47809187DFCE700A9CFC5 /* AuthCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthCredentials.m; sourceTree = "<group>"; };
+		89B4ED7618984BB30033CFBA /* Commons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commons.h; sourceTree = "<group>"; };
 		89BD973D1891A20C0054CFA2 /* login_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = login_response.xml; sourceTree = "<group>"; };
 		89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseParserDelegateTests.m; sourceTree = "<group>"; };
 		89C2A9C51878C4EE0051B8E6 /* LoginResponseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponseParserDelegate.h; sourceTree = "<group>"; };
@@ -386,8 +387,8 @@
 		89A6AA40187B1DE2003A6BDA /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				89B4ED7518984AB70033CFBA /* PydioClient */,
 				89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */,
-				89B429EC187F4BD0005F6580 /* PydioClientTests.m */,
 				89A5A6651888F7B300365E24 /* OperationsClientTests.m */,
 			);
 			path = Clients;
@@ -475,6 +476,15 @@
 				89ABACFE1893BEF700E1420D /* unathorized_response2.xml */,
 			);
 			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		89B4ED7518984AB70033CFBA /* PydioClient */ = {
+			isa = PBXGroup;
+			children = (
+				89B429EC187F4BD0005F6580 /* PydioClientTests.m */,
+				89B4ED7618984BB30033CFBA /* Commons.h */,
+			);
+			path = PydioClient;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -73,6 +73,14 @@
     return YES;
 }
 
+-(BOOL)listFiles:(NSString*)workspaceId WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
+    if (self.progress) {
+        return NO;
+    }
+    
+    return YES;
+}
+
 #pragma mark -
 
 -(AFHTTPRequestOperationManager*)createOperationManager:(NSString*)server {

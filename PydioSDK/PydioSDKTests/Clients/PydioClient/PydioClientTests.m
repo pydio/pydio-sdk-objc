@@ -22,52 +22,13 @@
 #import "User.h"
 #import "OperationsClient.h"
 #import "PydioErrors.h"
+#import "Commons.h"
 
 
-typedef void (^FailureBlock)(NSError *error);
-typedef void (^ListFilesSuccessBlock)(NSArray* files);
+typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
 
 
-static NSString * const TEST_SERVER_ADDRESS = @"http://www.testserver.com/";
-static NSString * const TEST_USER_ID = @"testid";
-static NSString * const TEST_USER_PASSWORD = @"testpassword";
-
-static AFHTTPRequestOperationManager* operationManager = nil;
-static AuthorizationClient* authorizationClient = nil;
-static OperationsClient* operationsClient = nil;
-
-
-#pragma mark - Deriving from Tested class
-
-@interface PydioClient ()
-@property(nonatomic,strong) AFHTTPRequestOperationManager* operationManager;
-@property (readwrite,nonatomic,assign) BOOL progress;
-@end
-
-@interface TestedPydioClient : PydioClient
-@end
-
-@implementation TestedPydioClient
-
--(AuthorizationClient*)createAuthorizationClient {
-    return authorizationClient;
-}
-
--(AFHTTPRequestOperationManager*)createOperationManager:(NSString*)server {
-    return operationManager;
-}
-
--(OperationsClient*)createOperationsClient {
-    return operationsClient;
-}
-@end
-
-#pragma mark -
-
-@interface PydioClientTests : XCTestCase {
-    Method _methodToExchange;
-    IMP _originalIMP;
-}
+@interface PydioClientTests : XCTestCase
 @property (nonatomic,strong) TestedPydioClient* client;
 @end
 
@@ -118,7 +79,7 @@ static OperationsClient* operationsClient = nil;
     assertThatBool(self.client.progress, equalToBool(YES));
 }
 
--(void)testShouldStartListFilesWhenNotInProgress
+-(void)testShouldStartListWorkspacesWhenNotInProgress
 {
     BOOL startResult = [self.client listWorkspacesWithSuccess:^(NSArray *files) {
     } failure:^(NSError *error) {
@@ -128,7 +89,7 @@ static OperationsClient* operationsClient = nil;
     [verify(operationsClient) listWorkspacesWithSuccess:anything() failure:anything()];
 }
 
--(void)testShouldNotStartListFilesWhenInProgress
+-(void)testShouldNotStartListWorkspacesWhenInProgress
 {
     [self setupAuthorizationClient:YES AndOperationsClient:NO];
     
@@ -156,7 +117,7 @@ static OperationsClient* operationsClient = nil;
     
     MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
     [verify(operationsClient) listWorkspacesWithSuccess:[success capture] failure:anything()];
-    ((ListFilesSuccessBlock)[success value])(responseArray);
+    ((ListWorkspacesSuccessBlock)[success value])(responseArray);
     
     assertThatBool(successBlockCalled,equalToBool(YES));
     assertThatBool(failureBlockCalled,equalToBool(NO));
@@ -166,7 +127,7 @@ static OperationsClient* operationsClient = nil;
 -(void)test_ShouldInvokeAuthorize_WhenNotLogged
 {
     NSError *authorizationError = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
-
+    
     __block BOOL successBlockCalled = NO;
     __block BOOL failureBlockCalled = NO;
     
@@ -175,7 +136,7 @@ static OperationsClient* operationsClient = nil;
     } failure:^(NSError *error) {
         failureBlockCalled = YES;
     }];
-
+    
     [self operationsClientListFailure:authorizationError];
     
     [verify(authorizationClient) authorizeWithSuccess:anything() failure:anything()];
@@ -196,7 +157,7 @@ static OperationsClient* operationsClient = nil;
         failureBlockCalled = YES;
         receivedError = error;
     }];
-
+    
     [self operationsClientListFailure:authorizationError];
     
     MKTArgumentCaptor *authFailure = [[MKTArgumentCaptor alloc] init];
@@ -228,7 +189,7 @@ static OperationsClient* operationsClient = nil;
     
     MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
     [verifyCount(operationsClient,times(2)) listWorkspacesWithSuccess:[success capture] failure:anything()];
-    ((ListFilesSuccessBlock)[success value])(responseArray);
+    ((ListWorkspacesSuccessBlock)[success value])(responseArray);
     
     assertThatBool(successBlockCalled,equalToBool(YES));
     assertThatBool(failureBlockCalled,equalToBool(NO));
