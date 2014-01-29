@@ -55,6 +55,10 @@ extern NSString * const PydioErrorDomain;
     return YES;
 }
 
+-(BOOL)listFiles:(NSString*)workspaceId WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
+    return NO;
+}
+
 #pragma mark -
 
 -(NSString*)urlStringForGetRegisters {

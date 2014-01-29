@@ -16,4 +16,5 @@
 @property (readonly,nonatomic,assign) BOOL progress;
 
 -(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray *files))success failure:(void(^)(NSError *error))failure;
+-(BOOL)listFiles:(NSString*)workspaceId WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure;
 @end

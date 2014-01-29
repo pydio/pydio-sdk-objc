@@ -29,6 +29,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 -(AuthorizationClient*)createAuthorizationClient;
 -(OperationsClient*)createOperationsClient;
 -(void)performAuthorizationAndOperation;
+-(void)handleOperationFailure:(NSError*)error;
 @end
 
 
@@ -80,6 +81,22 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         return NO;
     }
     
+    [self resetAuthorizationTriesCount];
+    self.failureBlock = failure;
+    
+    __unsafe_unretained typeof(self) weakSelf = self;
+    
+    self.operationBlock = ^{
+        [weakSelf.operationsClient listFiles:workspaceId WithSuccess:^(NSArray *files){
+            success(files);
+        } failure:^(NSError *error) {
+            [weakSelf handleOperationFailure:error];
+        }];
+    };
+    
+    self.operationBlock();
+
+    
     return YES;
 }
 
@@ -109,6 +126,8 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         self.operationBlock();
     } failure:^(NSError *error) {
         self.failureBlock(error);
+        self.operationBlock = nil;
+        self.failureBlock = nil;
     }];
 }
 
@@ -118,6 +137,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     } else {
         self.failureBlock(error);
         self.operationBlock = nil;
+        self.failureBlock = nil;
     }
 }
 
