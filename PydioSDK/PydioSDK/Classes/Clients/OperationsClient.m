@@ -33,15 +33,12 @@ extern NSString * const PydioErrorDomain;
     
     NSString *listRegisters = [self urlStringForGetRegisters];
     self.operationManager.requestSerializer = [self defaultRequestSerializer];
-    self.operationManager.responseSerializer = [self responseSerializer];
+    self.operationManager.responseSerializer = [self responseSerializerForGetRegisters];
     
     [self.operationManager GET:listRegisters parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.progress = NO;
         NSError *error = [self authorizationError:responseObject];
         if (error) {
-            failure(error);
-        } else if (((NSArray*)responseObject).count == 0) {
-            NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
             failure(error);
         } else {
             success(responseObject);
@@ -85,7 +82,7 @@ extern NSString * const PydioErrorDomain;
     return serializer;
 }
 
--(AFHTTPResponseSerializer*)responseSerializer {
+-(AFHTTPResponseSerializer*)responseSerializerForGetRegisters {
     
     NSMutableArray *serializers = [NSMutableArray array];
     [serializers addObject:[self createSerializerForNotAuthorized]];

@@ -166,35 +166,6 @@ id mockedCookieManager(id self, SEL _cmd) {
     assertThatInteger(receivedError.code,equalToInteger(PydioErrorUnableToLogin));
 }
 
--(void)testListFilesShouldUnableToLoginErrorWhenReceivedEmptyArray
-{
-    NSArray *response = [NSArray array];
-    NSURL *server = [NSURL URLWithString:TEST_SERVER];
-    [given([self.operationManager baseURL]) willReturn:server];
-    [given([cookieManager secureTokenForServer:server]) willReturn:TEST_TOKEN];
-    __block BOOL successBlockCalled = NO;
-    __block BOOL failureBlockCalled = NO;
-    __block NSError *receivedError = nil;
-    
-    [self.client listWorkspacesWithSuccess:^(NSArray *files) {
-        successBlockCalled = YES;
-    } failure:^(NSError *error) {
-        failureBlockCalled = YES;
-        receivedError = error;
-    }];
-    
-    MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
-    [verify(self.operationManager) GET:[self urlGetRegistersToken] parameters:nil success:[success capture] failure:anything()];
-    ((SuccessBlock)[success value])(nil,response);
-    assertThatBool(successBlockCalled,equalToBool(NO));
-    assertThatBool(failureBlockCalled,equalToBool(YES));
-    assertThatBool(self.client.progress,equalToBool(NO));
-    assertThat(receivedError,notNilValue());
-    assertThat(receivedError.domain,equalTo(PydioErrorDomain));
-    assertThatInteger(receivedError.code,equalToInteger(PydioErrorUnableToLogin));
-}
-
-
 -(void)testListFilesShouldFailureWhenOtherError
 {
     NSURL *server = [NSURL URLWithString:TEST_SERVER];
