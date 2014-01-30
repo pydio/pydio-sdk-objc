@@ -76,7 +76,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return YES;
 }
 
--(BOOL)listFiles:(NSString*)workspaceId WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
+-(BOOL)listFiles:(NSDictionary*)params WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
     if (self.progress) {
         return NO;
     }
@@ -87,7 +87,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     __unsafe_unretained typeof(self) weakSelf = self;
     
     self.operationBlock = ^{
-        [weakSelf.operationsClient listFiles:workspaceId WithSuccess:^(NSArray *files){
+        [weakSelf.operationsClient listFiles:params WithSuccess:^(NSArray *files){
             success(files);
         } failure:^(NSError *error) {
             [weakSelf handleOperationFailure:error];

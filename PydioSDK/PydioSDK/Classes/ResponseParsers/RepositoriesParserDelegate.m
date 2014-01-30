@@ -7,16 +7,21 @@
 //
 
 #import "RepositoriesParserDelegate.h"
-#import "RepositoriesParserDelegate_Private.h"
-#import "RepositoriesParserStates.h"
+#import "GetRepositoriesParserStates.h"
 
+@class Workspace;
+
+@interface RepositoriesParserDelegate ()
+-(void)appendRepository:(Workspace*)repo;
+@end
 
 @implementation RepositoriesParserDelegate
+@synthesize parserState;
 
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.parserState = [[StartParserState alloc] initWithParser:self];
+        self.parserState = [[InitialGetReposParserState alloc] initWithDelegate:self];
         _repositories = [NSArray array];
     }
     

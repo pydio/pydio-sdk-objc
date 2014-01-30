@@ -195,25 +195,19 @@ typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
     BOOL startResult = [self.client listWorkspacesWithSuccess:^(NSArray *files) {
     } failure:failureBlock];
     
-    assertThatBool(startResult, equalToBool(NO));
-    assertThatInt(self.client.authorizationsTriesCount,equalToInt(0));
-    assertThat(self.client.failureBlock,nilValue());
-    assertThat(self.client.operationBlock,nilValue());
+    [self assertNotStartInProgress:startResult];
     [verifyCount(operationsClient,never()) listWorkspacesWithSuccess:anything() failure:anything()];
 }
 
 -(void)test_ShouldStartListWorkspaces_WhenNotInProgress
 {
-    void(^failureBlock)(NSError *) = ^(NSError *error) {
+    FailureBlock failureBlock = ^(NSError *error) {
     };
     
     BOOL startResult = [self.client listWorkspacesWithSuccess:^(NSArray *files) {
     } failure:failureBlock];
     
-    assertThatBool(startResult, equalToBool(YES));
-    assertThatInt(self.client.authorizationsTriesCount,equalToInt(1));
-    assertThat(self.client.failureBlock,sameInstance(failureBlock));
-    assertThat(self.client.operationBlock,notNilValue());
+    [self assertStartNotInProgress:startResult failure:failureBlock];
     [verify(operationsClient) listWorkspacesWithSuccess:anything() failure:anything()];
 }
 
@@ -261,6 +255,84 @@ typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
     assertThatBool(failureBlockCalled,equalToBool(NO));
 }
 
+#pragma mark - Test List Files
+
+-(void)test_ShouldNotStartListFiles_WhenInProgress
+{
+    NSDictionary *params = [NSDictionary dictionary];
+    [self setupAuthorizationClient:YES AndOperationsClient:NO];
+
+    FailureBlock failureBlock = ^(NSError *error) {
+    };
+    
+    BOOL startResult = [self.client listFiles:params WithSuccess:^(NSArray *files) {
+    } failure:failureBlock];
+
+    [self assertNotStartInProgress:startResult];
+    [verifyCount(operationsClient,never()) listFiles:params WithSuccess:anything() failure:anything()];
+}
+
+-(void)test_ShouldStartListFiles_WhenNotInProgress
+{
+    NSDictionary *params = [NSDictionary dictionary];
+    FailureBlock failureBlock = ^(NSError *error) {
+    };
+    
+    BOOL startResult = [self.client listFiles:params WithSuccess:^(NSArray *files) {
+    } failure:failureBlock];
+    
+    [self assertStartNotInProgress:startResult failure:failureBlock];
+    [verify(operationsClient) listFiles:params WithSuccess:anything() failure:anything()];
+}
+
+-(void)test_ShouldCallSuccessBlock_WhenSuccessInOperationsClientListFiles
+{
+    NSDictionary *params = [NSDictionary dictionary];
+    NSArray *responseArray = [NSArray array];
+    __block NSArray *receivedArray = nil;
+    __block BOOL successBlockCalled = NO;
+    __block BOOL failureBlockCalled = NO;
+    
+    [self.client listFiles:params WithSuccess:^(NSArray *files) {
+        successBlockCalled = YES;
+        receivedArray = files;
+    } failure:^(NSError *error) {
+        failureBlockCalled = YES;
+    }];
+    
+    MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
+    [verify(operationsClient) listFiles:params WithSuccess:[success capture] failure:anything()];
+    ((ListWorkspacesSuccessBlock)[success value])(responseArray);
+    
+    assertThatBool(successBlockCalled,equalToBool(YES));
+    assertThatBool(failureBlockCalled,equalToBool(NO));
+    assertThat(receivedArray,sameInstance(responseArray));
+}
+
+-(void)test_ShouldCallHandleOperationFailure_WhenOperationsClientListFilesWorkspacesError
+{
+    NSDictionary *params = [NSDictionary dictionary];
+    self.client.callTestHandleOperationFailure = YES;
+    NSError *error = [NSError errorWithDomain:@"TestDomain" code:1 userInfo:nil];
+    
+    __block BOOL successBlockCalled = NO;
+    __block BOOL failureBlockCalled = NO;
+    
+    [self.client listFiles:params WithSuccess:^(NSArray *files) {
+        successBlockCalled = YES;
+    } failure:^(NSError *error) {
+        failureBlockCalled = YES;
+    }];
+    
+    MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
+    [verify(operationsClient) listFiles:params WithSuccess:anything() failure:[failure capture]];
+    ((FailureBlock)[failure value])(error);
+    
+    assertThatInt(self.client.handleOperationFailureOperationCallCount,equalToInt(1));
+    assertThatBool(successBlockCalled,equalToBool(NO));
+    assertThatBool(failureBlockCalled,equalToBool(NO));
+}
+
 #pragma mark - Test Verification
 
 -(void)operationsClientListFailure:(NSError*)error
@@ -273,6 +345,22 @@ typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
 -(void)setupAuthorizationClient:(BOOL) authProgress AndOperationsClient: (BOOL)operationsProgress {
     [given([authorizationClient progress]) willReturnBool:authProgress];
     [given([operationsClient progress]) willReturnBool:operationsProgress];
+}
+
+-(void)assertNotStartInProgress:(BOOL)startResult
+{
+    assertThatBool(startResult, equalToBool(NO));
+    assertThatInt(self.client.authorizationsTriesCount,equalToInt(0));
+    assertThat(self.client.failureBlock,nilValue());
+    assertThat(self.client.operationBlock,nilValue());
+}
+
+-(void)assertStartNotInProgress:(BOOL)startResult failure:(FailureBlock)failureBlock
+{
+    assertThatBool(startResult, equalToBool(YES));
+    assertThatInt(self.client.authorizationsTriesCount,equalToInt(1));
+    assertThat(self.client.failureBlock,sameInstance(failureBlock));
+    assertThat(self.client.operationBlock,notNilValue());
 }
 
 #pragma mark - Helpers

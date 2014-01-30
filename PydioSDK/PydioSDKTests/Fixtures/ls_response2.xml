@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tree repo_has_recycle="true" is_file="false" filename="" mimestring_id="8" icon="folder.png" openicon="folder_open.png" ajxp_mime="ajxp_folder" file_group="1" file_owner="1" file_perms="0755" ajxp_modiftime="1389931615" bytesize="0" filesize="-" meta_fields="tags" meta_labels="Tags" meta_types="string" text="">
+    <tree is_file="true" text="curl_dump" filename="/curl_dump" mimestring_id="23" icon="mime_empty.png" file_group="1" file_owner="1" file_perms="0600" ajxp_modiftime="1389931615" bytesize="53066" filesize="51,82 Kb" meta_fields="tags" meta_labels="Tags" meta_types="string" mimestring="File"/>
+    <tree text="Recycle Bin" is_file="false" filename="/recycle_bin" icon="trashcan.png" mimestring="Recycle Bin" ajxp_mime="ajxp_recycle" file_group="1" file_owner="1" file_perms="0755" ajxp_modiftime="1386778972" bytesize="0" filesize="-" meta_fields="tags" meta_labels="Tags" meta_types="string"/>
+</tree>
+

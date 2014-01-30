@@ -5,7 +5,7 @@
 #import "NotAuthorizedResponseParserDelegate.h"
 #import "NotAuthorizedResponse.h"
 #import "RepositoriesParserDelegate.h"
-
+#import "ListFilesResponseParserDelegate.h"
 
 #pragma mark - Login response
 
@@ -116,6 +116,45 @@
     return @{
              NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"Error when parsing get repositories response", nil, @"PydioSDK"),
              NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedStringFromTable(@"Could not extract get repositories result: %@", nil, @"PydioSDK"), response]
+             };
+}
+
+@end
+
+#pragma mark - List Files Response
+
+@interface ListFilesResponseSerializerDelegate ()
+@property (nonatomic,strong) ListFilesResponseParserDelegate* parserDelegate;
+@end
+
+@implementation ListFilesResponseSerializerDelegate
+
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+        self.parserDelegate = [[ListFilesResponseParserDelegate alloc] init];
+    }
+    
+    return self;
+}
+
+-(id <NSXMLParserDelegate>)xmlParserDelegate {
+    return self.parserDelegate;
+}
+
+-(id)parseResult {
+    NSArray *result = nil;
+    if (self.parserDelegate.files) {
+        result = [NSArray arrayWithArray:self.parserDelegate.files];
+    }
+    
+    return result;
+}
+
+-(NSDictionary*)errorUserInfo:(id)response {
+    return @{
+             NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"Error when parsing list files response", nil, @"PydioSDK"),
+             NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedStringFromTable(@"Could not extract list files result: %@", nil, @"PydioSDK"), response]
              };
 }
 

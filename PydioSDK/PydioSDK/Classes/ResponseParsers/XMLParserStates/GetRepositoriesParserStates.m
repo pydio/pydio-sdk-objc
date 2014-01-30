@@ -6,44 +6,22 @@
 //  Copyright (c) 2014 MINI. All rights reserved.
 //
 
-#import "RepositoriesParserStates.h"
-#import "RepositoriesParserDelegate_Private.h"
+#import "GetRepositoriesParserStates.h"
 #import "Workspace.h"
 
 
-@implementation BaseParserState
-
--(instancetype)initWithParser:(RepositoriesParserDelegate*)parser {
-    self = [super init];
-    if (self) {
-        self.parser = parser;
-        self.buffer = @"";
-    }
-    
-    return self;
-}
-
--(void)didStartElement:(NSString *)elementName attributes:(NSDictionary *)attributeDict {
-    
-}
-
--(void)didEndElement:(NSString *)elementName {
-    
-}
-
--(void)foundCharacters:(NSString *)string {
-    self.buffer = [self.buffer stringByAppendingString:string];
-}
-
+@interface RepositoriesParserDelegate ()
+-(void)appendRepository:(Workspace*)repo;
 @end
 
-#pragma mark - Derived Parsers States
 
-@implementation StartParserState
+#pragma mark - Get Repositories Parser state
+
+@implementation InitialGetReposParserState
 
 -(void)didStartElement:(NSString *)elementName attributes:(NSDictionary *)attributeDict {
     if ([elementName isEqualToString:@"repositories"]) {
-        self.parser.parserState = [[ExpectStartRepoState alloc] initWithParser:self.parser];
+        self.delegate.parserState = [[ExpectStartRepoState alloc] initWithDelegate:self.delegate];
     }
 }
 
@@ -54,9 +32,9 @@
 
 -(void)didStartElement:(NSString *)elementName attributes:(NSDictionary *)attributeDict {
     if ([elementName isEqualToString:@"repo"] && [attributeDict valueForKey:@"id"]) {
-        ExpectEndRepoState *endRepoState = [[ExpectEndRepoState alloc] initWithParser:self.parser];
+        ExpectEndRepoState *endRepoState = [[ExpectEndRepoState alloc] initWithDelegate:self.delegate];
         endRepoState.repoId = [attributeDict valueForKey:@"id"];
-        self.parser.parserState = endRepoState;
+        self.delegate.parserState = endRepoState;
     }
 }
 
@@ -75,8 +53,8 @@
         self.description = self.buffer;
     } else if ([elementName isEqualToString:@"repo"]) {
         Workspace *repo = [[Workspace alloc] initWithId:self.repoId AndLabel:self.label AndDescription:self.description];
-        [self.parser appendRepository:repo];
-        self.parser.parserState = [[ExpectStartRepoState alloc] initWithParser:self.parser];
+        [self.delegate appendRepository:repo];
+        self.delegate.parserState = [[ExpectStartRepoState alloc] initWithDelegate:self.delegate];
     }
 }
 

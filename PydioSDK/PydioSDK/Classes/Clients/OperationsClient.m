@@ -21,7 +21,9 @@ extern NSString * const PydioErrorDomain;
 @interface OperationsClient ()
 @property (readwrite,nonatomic,assign) BOOL progress;
 
+-(NSString*)actionWithTokenIfNeeded:(NSString*)action;
 -(NSString*)urlStringForGetRegisters;
+-(NSString*)urlStringForListFiles;
 @end
 
 @implementation OperationsClient
@@ -52,22 +54,52 @@ extern NSString * const PydioErrorDomain;
     return YES;
 }
 
--(BOOL)listFiles:(NSString*)workspaceId WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
-    return NO;
+-(BOOL)listFiles:(NSDictionary*)params WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
+    if (self.progress) {
+        return NO;
+    }
+    self.progress = YES;
+    
+    NSString *listFilesURL = [self urlStringForListFiles];
+    self.operationManager.requestSerializer = [self defaultRequestSerializer];
+    self.operationManager.responseSerializer = [self responseSerializerForListFiles];
+
+    [self.operationManager GET:listFilesURL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        self.progress = NO;
+        NSError *error = [self authorizationError:responseObject];
+        if (error) {
+            failure(error);
+        } else {
+            success(responseObject);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        self.progress = NO;
+        failure(error);
+    }];
+
+    
+    return YES;
 }
 
 #pragma mark -
 
--(NSString*)urlStringForGetRegisters {
+-(NSString*)actionWithTokenIfNeeded:(NSString*)action {
     NSString *secureToken = [[CookieManager sharedManager] secureTokenForServer:self.operationManager.baseURL];
-
-    NSString *base = @"index.php?get_action=get_xml_registry";
-    if (secureToken) {
-        base = [base stringByAppendingFormat:@"&secure_token=%@",secureToken];
-    }
-    base = [base stringByAppendingString:@"&xPath=user/repositories"];
     
-    return base;
+    NSString *result = [NSString stringWithFormat:@"index.php?get_action=%@",action];
+    if (secureToken) {
+        result = [result stringByAppendingFormat:@"&secure_token=%@",secureToken];
+    }
+    
+    return result;
+}
+
+-(NSString*)urlStringForGetRegisters {
+    return [[self actionWithTokenIfNeeded:@"get_xml_registry"] stringByAppendingString:@"&xPath=user/repositories"];
+}
+
+-(NSString*)urlStringForListFiles {
+    return [self actionWithTokenIfNeeded:@"ls"];
 }
 
 -(AFHTTPRequestSerializer*)defaultRequestSerializer {
@@ -93,6 +125,17 @@ extern NSString * const PydioErrorDomain;
     return serializer;
 }
 
+-(AFHTTPResponseSerializer*)responseSerializerForListFiles {
+    
+    NSMutableArray *serializers = [NSMutableArray array];
+    [serializers addObject:[self createSerializerForNotAuthorized]];
+    [serializers addObject:[self createSerializerForListFiles]];
+    
+    AFCompoundResponseSerializer *serializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
+    
+    return serializer;
+}
+
 -(XMLResponseSerializer*)createSerializerForNotAuthorized {
     NotAuthorizedResponseSerializerDelegate *delegate = [[NotAuthorizedResponseSerializerDelegate alloc] init];
     return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
@@ -100,6 +143,11 @@ extern NSString * const PydioErrorDomain;
 
 -(XMLResponseSerializer*)createSerializerForRepositories {
     WorkspacesResponseSerializerDelegate *delegate = [[WorkspacesResponseSerializerDelegate alloc] init];
+    return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
+}
+
+-(XMLResponseSerializer*)createSerializerForListFiles {
+    ListFilesResponseSerializerDelegate *delegate = [[ListFilesResponseSerializerDelegate alloc] init];
     return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
 }
 

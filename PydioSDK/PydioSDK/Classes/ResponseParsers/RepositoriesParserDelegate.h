@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ParserStateDelgate.h"
 
-@interface RepositoriesParserDelegate : NSObject<NSXMLParserDelegate>
+@interface RepositoriesParserDelegate : NSObject<NSXMLParserDelegate,ParserStateDelgate>
 @property (readonly,nonatomic,strong) NSArray* repositories;
 @end
