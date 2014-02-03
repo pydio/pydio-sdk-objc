@@ -20,4 +20,5 @@
 -(User*)userForServer:(NSURL *)server;
 -(void)setSecureToken:(NSString*)token ForServer:(NSURL *)server;
 -(NSString*)secureTokenForServer:(NSURL *)server;
+-(NSArray*)serversList;
 @end

@@ -73,4 +73,8 @@ static CookieManager *manager = nil;
 -(NSString*)secureTokenForServer:(NSURL *)server {
     return [self.tokens valueForKey:server.absoluteString];
 }
+
+-(NSArray*)serversList {
+    return [self.users allKeys];
+}
 @end

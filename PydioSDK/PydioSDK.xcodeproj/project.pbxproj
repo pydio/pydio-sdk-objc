@@ -15,7 +15,7 @@
 		3DFF3AF2186648C900A766D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3AF1186648C900A766D7 /* main.m */; };
 		3DFF3AF6186648C900A766D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3AF5186648C900A766D7 /* AppDelegate.m */; };
 		3DFF3AF9186648C900A766D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DFF3AF7186648C900A766D7 /* Main.storyboard */; };
-		3DFF3AFC186648C900A766D7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3AFB186648C900A766D7 /* ViewController.m */; };
+		3DFF3AFC186648C900A766D7 /* ServersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3AFB186648C900A766D7 /* ServersViewController.m */; };
 		3DFF3AFE186648C900A766D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DFF3AFD186648C900A766D7 /* Images.xcassets */; };
 		3DFF3B05186648CA00A766D7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3B04186648C900A766D7 /* XCTest.framework */; };
 		3DFF3B06186648CA00A766D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3AE5186648C900A766D7 /* Foundation.framework */; };
@@ -38,6 +38,8 @@
 		89401D231883318F005A030A /* CookieManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401D221883318F005A030A /* CookieManager.m */; };
 		89A554FF188C03F1008C1B64 /* NotAuthorizedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */; };
 		89A5A6661888F7B300365E24 /* OperationsClientGetWorkspacesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A5A6651888F7B300365E24 /* OperationsClientGetWorkspacesTests.m */; };
+		89A6155118A036300079D21B /* NewServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6155018A036300079D21B /* NewServerViewController.m */; };
+		89A6155718A046BB0079D21B /* ServerContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6155618A046BB0079D21B /* ServerContentViewController.m */; };
 		89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */; };
 		89A6AA42187B1E31003A6BDA /* AuthorizationClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */; };
 		89A6AA46187B4436003A6BDA /* AuthorizationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA45187B4436003A6BDA /* AuthorizationClient.m */; };
@@ -103,8 +105,8 @@
 		3DFF3AF4186648C900A766D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3DFF3AF5186648C900A766D7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3DFF3AF8186648C900A766D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		3DFF3AFA186648C900A766D7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3DFF3AFB186648C900A766D7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		3DFF3AFA186648C900A766D7 /* ServersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServersViewController.h; sourceTree = "<group>"; };
+		3DFF3AFB186648C900A766D7 /* ServersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServersViewController.m; sourceTree = "<group>"; };
 		3DFF3AFD186648C900A766D7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3DFF3B03186648C900A766D7 /* PydioSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PydioSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DFF3B04186648C900A766D7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -144,6 +146,10 @@
 		89A554FD188C03F1008C1B64 /* NotAuthorizedResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedResponse.h; sourceTree = "<group>"; };
 		89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedResponse.m; sourceTree = "<group>"; };
 		89A5A6651888F7B300365E24 /* OperationsClientGetWorkspacesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClientGetWorkspacesTests.m; sourceTree = "<group>"; };
+		89A6154F18A036300079D21B /* NewServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewServerViewController.h; sourceTree = "<group>"; };
+		89A6155018A036300079D21B /* NewServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewServerViewController.m; sourceTree = "<group>"; };
+		89A6155518A046BB0079D21B /* ServerContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerContentViewController.h; sourceTree = "<group>"; };
+		89A6155618A046BB0079D21B /* ServerContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerContentViewController.m; sourceTree = "<group>"; };
 		89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BootConfResponseSerializerTests.m; sourceTree = "<group>"; };
 		89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationClientTests.m; sourceTree = "<group>"; };
 		89A6AA44187B4436003A6BDA /* AuthorizationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationClient.h; sourceTree = "<group>"; };
@@ -246,8 +252,6 @@
 				89AC1ACC188DAEDD00ACAD7C /* ResponseParsers */,
 				89AC1ACD188DBE1900ACAD7C /* Responses */,
 				8910F5FD18789E2E0005BED4 /* ResponseSerializers */,
-				3DFF3AFA186648C900A766D7 /* ViewController.h */,
-				3DFF3AFB186648C900A766D7 /* ViewController.m */,
 				89A6C8A81894791700EA5D13 /* SerializersDelegates */,
 			);
 			path = Classes;
@@ -289,6 +293,7 @@
 		3DFF3AEB186648C900A766D7 /* PydioSDK */ = {
 			isa = PBXGroup;
 			children = (
+				89A6154E18A034360079D21B /* Views */,
 				3D03A67B1867176700DC5839 /* Classes */,
 				3DFF3AFD186648C900A766D7 /* Images.xcassets */,
 				3DFF3AF7186648C900A766D7 /* Main.storyboard */,
@@ -392,6 +397,19 @@
 				89401309188443C90044001D /* User.m */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		89A6154E18A034360079D21B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				89A6154F18A036300079D21B /* NewServerViewController.h */,
+				89A6155018A036300079D21B /* NewServerViewController.m */,
+				3DFF3AFA186648C900A766D7 /* ServersViewController.h */,
+				3DFF3AFB186648C900A766D7 /* ServersViewController.m */,
+				89A6155518A046BB0079D21B /* ServerContentViewController.h */,
+				89A6155618A046BB0079D21B /* ServerContentViewController.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		89A6AA3D187B0A03003A6BDA /* ResponseSerializers */ = {
@@ -631,10 +649,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8940130A188443C90044001D /* User.m in Sources */,
+				89A6155718A046BB0079D21B /* ServerContentViewController.m in Sources */,
 				3DFF3B2F18664EEF00A766D7 /* AFHTTPRequestOperation.m in Sources */,
 				8910F5F218786EFA0005BED4 /* NSString+Hash.m in Sources */,
 				89AC1ACB188DA30800ACAD7C /* Workspace.m in Sources */,
-				3DFF3AFC186648C900A766D7 /* ViewController.m in Sources */,
+				3DFF3AFC186648C900A766D7 /* ServersViewController.m in Sources */,
 				8910F5F5187874430005BED4 /* BootConfResponseSerializer.m in Sources */,
 				89B4780A187DFCE700A9CFC5 /* AuthCredentials.m in Sources */,
 				89A6AA46187B4436003A6BDA /* AuthorizationClient.m in Sources */,
@@ -642,6 +661,7 @@
 				89C2A9CA1878CD440051B8E6 /* LoginResponse.m in Sources */,
 				89401D231883318F005A030A /* CookieManager.m in Sources */,
 				3DFF3B3018664EEF00A766D7 /* AFHTTPRequestOperationManager.m in Sources */,
+				89A6155118A036300079D21B /* NewServerViewController.m in Sources */,
 				3D03A6791867171200DC5839 /* PydioConnector.m in Sources */,
 				89AA6A1A18956EFE006A22DB /* XMLResponseSerializerDelegate.m in Sources */,
 				3DFF3B3218664EEF00A766D7 /* AFNetworkReachabilityManager.m in Sources */,
