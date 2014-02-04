@@ -14,7 +14,7 @@
 #import "ServerContentViewController.h"
 
 
-static NSString * const TABLE_CELL_ID = @"RegisterCell";
+static NSString * const TABLE_CELL_ID = @"ServerCell";
 static NSString * const SERVER_CONTENT_SEGUE = @"ServerContent";
 
 
@@ -30,7 +30,6 @@ static NSString * const SERVER_CONTENT_SEGUE = @"ServerContent";
 {
     [super viewDidLoad];
     self.tableView.dataSource = self;
-//    self.client = [[PydioClient alloc] initWithServer:@"http://sandbox.ajaxplorer.info/"];
 }
 
 - (void)didReceiveMemoryWarning

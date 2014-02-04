@@ -39,7 +39,6 @@
 		89A554FF188C03F1008C1B64 /* NotAuthorizedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */; };
 		89A5A6661888F7B300365E24 /* OperationsClientGetWorkspacesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A5A6651888F7B300365E24 /* OperationsClientGetWorkspacesTests.m */; };
 		89A6155118A036300079D21B /* NewServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6155018A036300079D21B /* NewServerViewController.m */; };
-		89A6155718A046BB0079D21B /* ServerContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6155618A046BB0079D21B /* ServerContentViewController.m */; };
 		89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */; };
 		89A6AA42187B1E31003A6BDA /* AuthorizationClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */; };
 		89A6AA46187B4436003A6BDA /* AuthorizationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA45187B4436003A6BDA /* AuthorizationClient.m */; };
@@ -75,6 +74,7 @@
 		89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EA187F4BAB005F6580 /* PydioClient.m */; };
 		89B429ED187F4BD0005F6580 /* PydioClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EC187F4BD0005F6580 /* PydioClientTests.m */; };
 		89B4780A187DFCE700A9CFC5 /* AuthCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B47809187DFCE700A9CFC5 /* AuthCredentials.m */; };
+		89BAC56A18A1198400799C1C /* ServerContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BAC56918A1198400799C1C /* ServerContentViewController.m */; };
 		89BD973E1891A20C0054CFA2 /* login_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89BD973D1891A20C0054CFA2 /* login_response.xml */; };
 		89BD97401891A2710054CFA2 /* LoginResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */; };
 		89C2A9C71878C4EE0051B8E6 /* LoginResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C61878C4EE0051B8E6 /* LoginResponseParserDelegate.m */; };
@@ -148,8 +148,6 @@
 		89A5A6651888F7B300365E24 /* OperationsClientGetWorkspacesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClientGetWorkspacesTests.m; sourceTree = "<group>"; };
 		89A6154F18A036300079D21B /* NewServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewServerViewController.h; sourceTree = "<group>"; };
 		89A6155018A036300079D21B /* NewServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewServerViewController.m; sourceTree = "<group>"; };
-		89A6155518A046BB0079D21B /* ServerContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerContentViewController.h; sourceTree = "<group>"; };
-		89A6155618A046BB0079D21B /* ServerContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerContentViewController.m; sourceTree = "<group>"; };
 		89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BootConfResponseSerializerTests.m; sourceTree = "<group>"; };
 		89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationClientTests.m; sourceTree = "<group>"; };
 		89A6AA44187B4436003A6BDA /* AuthorizationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationClient.h; sourceTree = "<group>"; };
@@ -202,6 +200,8 @@
 		89B47808187DFCE700A9CFC5 /* AuthCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthCredentials.h; sourceTree = "<group>"; };
 		89B47809187DFCE700A9CFC5 /* AuthCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthCredentials.m; sourceTree = "<group>"; };
 		89B4ED7618984BB30033CFBA /* Commons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commons.h; sourceTree = "<group>"; };
+		89BAC56818A1198400799C1C /* ServerContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerContentViewController.h; sourceTree = "<group>"; };
+		89BAC56918A1198400799C1C /* ServerContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerContentViewController.m; sourceTree = "<group>"; };
 		89BD973D1891A20C0054CFA2 /* login_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = login_response.xml; sourceTree = "<group>"; };
 		89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseParserDelegateTests.m; sourceTree = "<group>"; };
 		89C2A9C51878C4EE0051B8E6 /* LoginResponseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponseParserDelegate.h; sourceTree = "<group>"; };
@@ -406,8 +406,8 @@
 				89A6155018A036300079D21B /* NewServerViewController.m */,
 				3DFF3AFA186648C900A766D7 /* ServersViewController.h */,
 				3DFF3AFB186648C900A766D7 /* ServersViewController.m */,
-				89A6155518A046BB0079D21B /* ServerContentViewController.h */,
-				89A6155618A046BB0079D21B /* ServerContentViewController.m */,
+				89BAC56818A1198400799C1C /* ServerContentViewController.h */,
+				89BAC56918A1198400799C1C /* ServerContentViewController.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -649,7 +649,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8940130A188443C90044001D /* User.m in Sources */,
-				89A6155718A046BB0079D21B /* ServerContentViewController.m in Sources */,
+				89BAC56A18A1198400799C1C /* ServerContentViewController.m in Sources */,
 				3DFF3B2F18664EEF00A766D7 /* AFHTTPRequestOperation.m in Sources */,
 				8910F5F218786EFA0005BED4 /* NSString+Hash.m in Sources */,
 				89AC1ACB188DA30800ACAD7C /* Workspace.m in Sources */,
