@@ -7,6 +7,8 @@
 //
 
 #import "CookieManager.h"
+#import "NSURL+Normalization.h"
+
 
 static NSString * const COOKIE_NAME = @"AjaXplorer";
 static CookieManager *manager = nil;
@@ -38,7 +40,7 @@ static CookieManager *manager = nil;
 }
 
 -(NSArray *)allServerCookies:(NSURL *)server {
-    return [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:server];
+    return [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[server normalized]];
 }
 
 -(void)clearAllCookies:(NSURL *)server {
@@ -59,22 +61,27 @@ static CookieManager *manager = nil;
 }
 
 -(void)setUser:(User*)user ForServer:(NSURL *)server {
-    [self.users setValue:user forKey:server.absoluteString];
+    [self.users setValue:user forKey:[self serverKey:server]];
 }
 
 -(User*)userForServer:(NSURL *)server {
-    return [self.users valueForKey:server.absoluteString];
+    return [self.users valueForKey:[self serverKey:server]];
 }
 
 -(void)setSecureToken:(NSString*)token ForServer:(NSURL *)server {
-    [self.tokens setValue:token forKey:server.absoluteString];
+    [self.tokens setValue:token forKey:[self serverKey:server]];
 }
 
 -(NSString*)secureTokenForServer:(NSURL *)server {
-    return [self.tokens valueForKey:server.absoluteString];
+    return [self.tokens valueForKey:[self serverKey:server]];
 }
 
 -(NSArray*)serversList {
     return [self.users allKeys];
 }
+
+-(NSString*)serverKey:(NSURL*)url {
+    return [[url normalized] absoluteString];
+}
+
 @end

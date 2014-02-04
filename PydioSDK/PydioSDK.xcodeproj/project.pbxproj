@@ -45,6 +45,7 @@
 		89A6C8A5189469A200EA5D13 /* GetSeedResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6C8A4189469A200EA5D13 /* GetSeedResponseSerializerTests.m */; };
 		89A6C8AB189479B600EA5D13 /* XMLResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6C8AA189479B600EA5D13 /* XMLResponseSerializer.m */; };
 		89A6C8AE18947ED600EA5D13 /* XMLResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6C8AD18947ED600EA5D13 /* XMLResponseSerializerTests.m */; };
+		89A6D1CF18A16F0A00B3A4AF /* NSURL+Normalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6D1CE18A16F0A00B3A4AF /* NSURL+Normalization.m */; };
 		89A6F2FA189E3FDA00F1763E /* ls_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A6F2F9189E3FDA00F1763E /* ls_response2.xml */; };
 		89A6F2FE189E5A9600F1763E /* XMLParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F2FD189E5A9600F1763E /* XMLParserState.m */; };
 		89A6F305189E73FF00F1763E /* FileNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F304189E73FF00F1763E /* FileNode.m */; };
@@ -157,6 +158,8 @@
 		89A6C8AA189479B600EA5D13 /* XMLResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLResponseSerializer.m; sourceTree = "<group>"; };
 		89A6C8AC18947AB400EA5D13 /* XMLResponseSerializerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XMLResponseSerializerDelegate.h; sourceTree = "<group>"; };
 		89A6C8AD18947ED600EA5D13 /* XMLResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLResponseSerializerTests.m; sourceTree = "<group>"; };
+		89A6D1CD18A16F0A00B3A4AF /* NSURL+Normalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Normalization.h"; sourceTree = "<group>"; };
+		89A6D1CE18A16F0A00B3A4AF /* NSURL+Normalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Normalization.m"; sourceTree = "<group>"; };
 		89A6F2F9189E3FDA00F1763E /* ls_response2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ls_response2.xml; sourceTree = "<group>"; };
 		89A6F2FB189E55D500F1763E /* ParserStateDelgate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParserStateDelgate.h; sourceTree = "<group>"; };
 		89A6F2FC189E5A9600F1763E /* XMLParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParserState.h; sourceTree = "<group>"; };
@@ -253,6 +256,8 @@
 				89AC1ACD188DBE1900ACAD7C /* Responses */,
 				8910F5FD18789E2E0005BED4 /* ResponseSerializers */,
 				89A6C8A81894791700EA5D13 /* SerializersDelegates */,
+				89A6D1CD18A16F0A00B3A4AF /* NSURL+Normalization.h */,
+				89A6D1CE18A16F0A00B3A4AF /* NSURL+Normalization.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -676,6 +681,7 @@
 				3DFF3B3518664EEF00A766D7 /* AFURLRequestSerialization.m in Sources */,
 				3DFF3B3718664EEF00A766D7 /* AFURLSessionManager.m in Sources */,
 				8910F6011878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m in Sources */,
+				89A6D1CF18A16F0A00B3A4AF /* NSURL+Normalization.m in Sources */,
 				3DFF3AF6186648C900A766D7 /* AppDelegate.m in Sources */,
 				89C2A9C71878C4EE0051B8E6 /* LoginResponseParserDelegate.m in Sources */,
 				89A6C8AB189479B600EA5D13 /* XMLResponseSerializer.m in Sources */,
