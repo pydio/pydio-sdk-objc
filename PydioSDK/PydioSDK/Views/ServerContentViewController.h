@@ -10,7 +10,10 @@
 
 @class Workspace;
 
-@interface ServerContentViewController : UIViewController
+@interface ServerContentViewController : UIViewController<UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 @property (nonatomic,strong) NSURL *server;
 @property (nonatomic,strong) Workspace *workspace;
 @property (nonatomic,strong) NSString *path;

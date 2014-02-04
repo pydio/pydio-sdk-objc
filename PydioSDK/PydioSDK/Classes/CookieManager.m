@@ -77,7 +77,12 @@ static CookieManager *manager = nil;
 }
 
 -(NSArray*)serversList {
-    return [self.users allKeys];
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSString *server in [self.users allKeys]) {
+        [array addObject:[NSURL URLWithString:server]];
+    }
+    
+    return [NSArray arrayWithArray:array];
 }
 
 -(NSString*)serverKey:(NSURL*)url {

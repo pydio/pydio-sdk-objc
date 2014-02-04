@@ -11,7 +11,7 @@
 #import "User.h"
 #import "PydioClient.h"
 #import "Workspace.h"
-#import "ServerContentViewController.h"
+#import "ServerWorkspacesViewController.h"
 
 
 static NSString * const TABLE_CELL_ID = @"ServerCell";
@@ -47,8 +47,8 @@ static NSString * const SERVER_CONTENT_SEGUE = @"ServerContent";
     if ([segue.identifier isEqualToString:SERVER_CONTENT_SEGUE]) {
         int row = [self.tableView indexPathForSelectedRow].row;
         
-        ServerContentViewController *serverContent = segue.destinationViewController;
-        serverContent.server = [self.servers objectAtIndex:row];
+        ServerWorkspacesViewController *serverWorkspaces = segue.destinationViewController;
+        serverWorkspaces.server = [self.servers objectAtIndex:row];
     }
 }
 
@@ -61,7 +61,7 @@ static NSString * const SERVER_CONTENT_SEGUE = @"ServerContent";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TABLE_CELL_ID];
     }
     
-    cell.textLabel.text = [self.servers objectAtIndex:indexPath.row];
+    cell.textLabel.text = [[self.servers objectAtIndex:indexPath.row] absoluteString];
     
     return cell;
 }
