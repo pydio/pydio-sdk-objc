@@ -17,7 +17,6 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 
 @interface ServerContentViewController ()
 @property (nonatomic,strong) NSArray *files;
-@property (nonatomic,strong) PydioClient* client;
 @end
 
 @implementation ServerContentViewController
@@ -45,9 +44,9 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.client = [[PydioClient alloc] initWithServer:[self.server absoluteString]];
+    PydioClient *client = [[PydioClient alloc] initWithServer:[self.server absoluteString]];
     
-    [self.client listFiles:@{
+    [client listFiles:@{
                              @"tmp_repository_id" : self.workspace.workspaceId,
                              @"dir": self.path,
                              @"options":@"al"

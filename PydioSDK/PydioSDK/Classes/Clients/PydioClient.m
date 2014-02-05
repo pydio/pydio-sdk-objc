@@ -61,13 +61,14 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     [self resetAuthorizationTriesCount];
     self.failureBlock = failure;
     
-     __unsafe_unretained typeof(self) weakSelf = self;
-    
+    typeof(self) strongSelf = self;
     self.operationBlock = ^{
-        [weakSelf.operationsClient listWorkspacesWithSuccess:^(NSArray *files){
+        [strongSelf.operationsClient listWorkspacesWithSuccess:^(NSArray *files){
             success(files);
+            strongSelf.operationBlock = nil;
+            strongSelf.failureBlock = nil;
         } failure:^(NSError *error) {
-            [weakSelf handleOperationFailure:error];
+            [strongSelf handleOperationFailure:error];
         }];
     };
     
@@ -84,13 +85,14 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     [self resetAuthorizationTriesCount];
     self.failureBlock = failure;
     
-    __unsafe_unretained typeof(self) weakSelf = self;
-    
+    typeof(self) strongSelf = self;
     self.operationBlock = ^{
-        [weakSelf.operationsClient listFiles:params WithSuccess:^(NSArray *files){
+        [strongSelf.operationsClient listFiles:params WithSuccess:^(NSArray *files){
             success(files);
+            strongSelf.operationBlock = nil;
+            strongSelf.failureBlock = nil;
         } failure:^(NSError *error) {
-            [weakSelf handleOperationFailure:error];
+            [strongSelf handleOperationFailure:error];
         }];
     };
     
@@ -148,4 +150,5 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 -(void)resetAuthorizationTriesCount {
     self.authorizationsTriesCount = AUTHORIZATION_TRIES_COUNT;
 }
+
 @end

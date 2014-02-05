@@ -17,7 +17,6 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 
 @interface ServerWorkspacesViewController ()
 @property (nonatomic,strong) NSArray* workspaces;
-@property (nonatomic,strong) PydioClient* client;
 @end
 
 @implementation ServerWorkspacesViewController
@@ -44,8 +43,8 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 -(void)viewWillAppear:(BOOL)animated {
     self.navigationItem.title = [self.server absoluteString];
     
-    self.client = [[PydioClient alloc] initWithServer:[self.server absoluteString]];
-    [self.client listWorkspacesWithSuccess:^(NSArray *files) {
+    PydioClient *client = [[PydioClient alloc] initWithServer:[self.server absoluteString]];
+    [client listWorkspacesWithSuccess:^(NSArray *files) {
         self.workspaces = files;
         [self.tableView reloadData];
     } failure:^(NSError *error) {
