@@ -48,15 +48,19 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
     self.client = [[PydioClient alloc] initWithServer:[self.server absoluteString]];
     
     [self.client listFiles:@{
-                             @"tmp_repository" : self.workspace.workspaceId,
+                             @"tmp_repository_id" : self.workspace.workspaceId,
                              @"dir": self.path,
                              @"options":@"al"
-                             } WithSuccess:^(NSArray *files) {
-        self.files = ((FileNode*)[files objectAtIndex:0]).children;
-        [self.tableView reloadData];
-    } failure:^(NSError *error) {
-        NSLog(@"%s %@",__PRETTY_FUNCTION__,error);
-    }];
+                             }
+               WithSuccess:^(NSArray *files) {
+                   if (files.count) {
+                       self.files = ((FileNode*)[files objectAtIndex:0]).children;
+                       [self.tableView reloadData];
+                   }
+               } failure:^(NSError *error) {
+                   NSLog(@"%s %@",__PRETTY_FUNCTION__,error);
+               }
+     ];
     
     self.navigationItem.title = self.workspace.label;
     
@@ -72,6 +76,7 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
     }
     
     cell.textLabel.text = [self fileNameAt:indexPath.row];
+    cell.accessoryType = [self fileNodeAt:indexPath.row].isFile ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
 }
@@ -81,20 +86,28 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 }
 
 -(NSString*)fileNameAt:(NSInteger)row {
-    return ((FileNode*)[self.files objectAtIndex:row]).name;
+    return [self fileNodeAt:row].name;
+}
+
+-(FileNode*)fileNodeAt:(NSInteger)row {
+    return (FileNode*)[self.files objectAtIndex:row];
 }
 
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     int row = [self.tableView indexPathForSelectedRow].row;
     
     ServerContentViewController *destination = segue.destinationViewController;
     destination.workspace = self.workspace;
     destination.server = self.server;
-    destination.path = [NSString stringWithFormat:@"%@%@/",self.path,((FileNode*)[self.files objectAtIndex:row]).path];
+    destination.path = [NSString stringWithFormat:@"%@%@/",self.path,[self fileNodeAt:row].path];
 }
 
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    int row = [self.tableView indexPathForSelectedRow].row;
+    
+    return ![self fileNodeAt:row].isFile;
+}
 
 @end
