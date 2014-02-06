@@ -23,6 +23,7 @@
 #import "OperationsClient.h"
 #import "PydioErrors.h"
 #import "Commons.h"
+#import "ListFilesRequest.h"
 
 
 typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
@@ -263,41 +264,43 @@ typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
 
 -(void)test_ShouldNotStartListFiles_WhenInProgress
 {
-    NSDictionary *params = [NSDictionary dictionary];
+    ListFilesRequest *request = [self exampleListFilesRequest];
     [self setupAuthorizationClient:YES AndOperationsClient:NO];
 
     FailureBlock failureBlock = ^(NSError *error) {
     };
     
-    BOOL startResult = [self.client listFiles:params WithSuccess:^(NSArray *files) {
+    BOOL startResult = [self.client listFiles:request WithSuccess:^(NSArray *files) {
     } failure:failureBlock];
 
     [self assertNotStartInProgress:startResult];
-    [verifyCount(operationsClient,never()) listFiles:params WithSuccess:anything() failure:anything()];
+    [verifyCount(operationsClient,never()) listFiles:anything() WithSuccess:anything() failure:anything()];
 }
 
 -(void)test_ShouldStartListFiles_WhenNotInProgress
 {
-    NSDictionary *params = [NSDictionary dictionary];
+    ListFilesRequest *request = [self exampleListFilesRequest];
+    NSDictionary *expectedParams = [self exampleListFilesDictionary];
     FailureBlock failureBlock = ^(NSError *error) {
     };
     
-    BOOL startResult = [self.client listFiles:params WithSuccess:^(NSArray *files) {
+    BOOL startResult = [self.client listFiles:request WithSuccess:^(NSArray *files) {
     } failure:failureBlock];
     
     [self assertStartNotInProgress:startResult failure:failureBlock];
-    [verify(operationsClient) listFiles:params WithSuccess:anything() failure:anything()];
+    [verify(operationsClient) listFiles:equalTo(expectedParams) WithSuccess:anything() failure:anything()];
 }
 
 -(void)test_ShouldCallSuccessBlock_WhenSuccessInOperationsClientListFiles
 {
-    NSDictionary *params = [NSDictionary dictionary];
+    ListFilesRequest *request = [self exampleListFilesRequest];
+    NSDictionary *expectedParams = [self exampleListFilesDictionary];
     NSArray *responseArray = [NSArray array];
     __block NSArray *receivedArray = nil;
     __block BOOL successBlockCalled = NO;
     __block BOOL failureBlockCalled = NO;
     
-    [self.client listFiles:params WithSuccess:^(NSArray *files) {
+    [self.client listFiles:request WithSuccess:^(NSArray *files) {
         successBlockCalled = YES;
         receivedArray = files;
     } failure:^(NSError *error) {
@@ -305,7 +308,7 @@ typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
     }];
     
     MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
-    [verify(operationsClient) listFiles:params WithSuccess:[success capture] failure:anything()];
+    [verify(operationsClient) listFiles:equalTo(expectedParams) WithSuccess:[success capture] failure:anything()];
     ((ListWorkspacesSuccessBlock)[success value])(responseArray);
     
     assertThatBool(successBlockCalled,equalToBool(YES));
@@ -317,21 +320,22 @@ typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
 
 -(void)test_ShouldCallHandleOperationFailure_WhenOperationsClientListFilesWorkspacesError
 {
-    NSDictionary *params = [NSDictionary dictionary];
+    ListFilesRequest *request = [self exampleListFilesRequest];
+    NSDictionary *expectedParams = [self exampleListFilesDictionary];
     self.client.callTestHandleOperationFailure = YES;
     NSError *error = [NSError errorWithDomain:@"TestDomain" code:1 userInfo:nil];
     
     __block BOOL successBlockCalled = NO;
     __block BOOL failureBlockCalled = NO;
     
-    [self.client listFiles:params WithSuccess:^(NSArray *files) {
+    [self.client listFiles:request WithSuccess:^(NSArray *files) {
         successBlockCalled = YES;
     } failure:^(NSError *error) {
         failureBlockCalled = YES;
     }];
     
     MKTArgumentCaptor *failure = [[MKTArgumentCaptor alloc] init];
-    [verify(operationsClient) listFiles:params WithSuccess:anything() failure:[failure capture]];
+    [verify(operationsClient) listFiles:equalTo(expectedParams) WithSuccess:anything() failure:[failure capture]];
     ((FailureBlock)[failure value])(error);
     
     assertThatInt(self.client.handleOperationFailureOperationCallCount,equalToInt(1));
@@ -377,6 +381,22 @@ typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
 
 -(User *)helperUser {
     return [User userWithId:TEST_USER_ID AndPassword:TEST_USER_PASSWORD];
+}
+
+-(ListFilesRequest*) exampleListFilesRequest {
+    ListFilesRequest *request = [[ListFilesRequest alloc] init];
+    request.workspaceId = @"testworkspaceid";
+    request.path = @"/testpath";
+    
+    return request;
+}
+
+-(NSDictionary*) exampleListFilesDictionary {
+    return @{
+             @"tmp_repository_id": @"testworkspaceid",
+             @"dir" : @"/testpath",
+             @"options" : @"al"
+             };
 }
 
 @end

@@ -10,6 +10,7 @@
 #import "FileNode.h"
 #import "PydioClient.h"
 #import "Workspace.h"
+#import "ListFilesRequest.h"
 
 
 static NSString * const TABLE_CELL_ID = @"TableCell";
@@ -46,11 +47,7 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
     
     PydioClient *client = [[PydioClient alloc] initWithServer:[self.server absoluteString]];
     
-    [client listFiles:@{
-                             @"tmp_repository_id" : self.workspace.workspaceId,
-                             @"dir": self.path,
-                             @"options":@"al"
-                             }
+    [client listFiles:[self listFilesRequest]
                WithSuccess:^(NSArray *files) {
                    if (files.count) {
                        self.files = ((FileNode*)[files objectAtIndex:0]).children;
@@ -107,6 +104,14 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
     int row = [self.tableView indexPathForSelectedRow].row;
     
     return ![self fileNodeAt:row].isFile;
+}
+
+-(ListFilesRequest*)listFilesRequest {
+    ListFilesRequest *request = [[ListFilesRequest alloc] init];
+    request.workspaceId = self.workspace.workspaceId;
+    request.path = self.path;
+
+    return request;
 }
 
 @end

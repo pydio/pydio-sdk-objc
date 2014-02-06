@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+@class ListFilesRequest;
+
+
 @interface PydioClient : NSObject
 @property (readonly,nonatomic,strong) NSURL* serverURL;
 @property (readonly,nonatomic,assign) BOOL progress;
@@ -15,5 +18,5 @@
 -(instancetype)initWithServer:(NSString *)server;
 
 -(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure;
--(BOOL)listFiles:(NSDictionary*)params WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure;
+-(BOOL)listFiles:(ListFilesRequest*)request WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure;
 @end
