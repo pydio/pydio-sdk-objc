@@ -72,6 +72,8 @@
 		89AD73B6189D3449003C8DD4 /* ListFilesResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD73B5189D3449003C8DD4 /* ListFilesResponseParserDelegateTests.m */; };
 		89AD73B8189D3602003C8DD4 /* ls_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AD73B7189D3602003C8DD4 /* ls_response.xml */; };
 		89B13A9D18917A13007282EB /* CookieManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B13A9C18917A13007282EB /* CookieManagerTests.m */; };
+		89B1B6F118A4170400EC79C5 /* FailingResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1B6F018A4170400EC79C5 /* FailingResponseSerializer.m */; };
+		89B1B6F318A41B1500EC79C5 /* FailingResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1B6F218A41B1500EC79C5 /* FailingResponseSerializerTests.m */; };
 		89B3560C188C70A500C62728 /* RepositoriesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B3560B188C70A500C62728 /* RepositoriesParserDelegate.m */; };
 		89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EA187F4BAB005F6580 /* PydioClient.m */; };
 		89B429ED187F4BD0005F6580 /* PydioClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EC187F4BD0005F6580 /* PydioClientTests.m */; };
@@ -198,6 +200,9 @@
 		89AD73B5189D3449003C8DD4 /* ListFilesResponseParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListFilesResponseParserDelegateTests.m; sourceTree = "<group>"; };
 		89AD73B7189D3602003C8DD4 /* ls_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ls_response.xml; sourceTree = "<group>"; };
 		89B13A9C18917A13007282EB /* CookieManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieManagerTests.m; sourceTree = "<group>"; };
+		89B1B6EF18A4170400EC79C5 /* FailingResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FailingResponseSerializer.h; sourceTree = "<group>"; };
+		89B1B6F018A4170400EC79C5 /* FailingResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailingResponseSerializer.m; sourceTree = "<group>"; };
+		89B1B6F218A41B1500EC79C5 /* FailingResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailingResponseSerializerTests.m; sourceTree = "<group>"; };
 		89B3560A188C70A500C62728 /* RepositoriesParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesParserDelegate.h; sourceTree = "<group>"; };
 		89B3560B188C70A500C62728 /* RepositoriesParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesParserDelegate.m; sourceTree = "<group>"; };
 		89B429E9187F4BAB005F6580 /* PydioClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioClient.h; sourceTree = "<group>"; };
@@ -384,6 +389,8 @@
 			children = (
 				8910F5F3187874430005BED4 /* BootConfResponseSerializer.h */,
 				8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */,
+				89B1B6EF18A4170400EC79C5 /* FailingResponseSerializer.h */,
+				89B1B6F018A4170400EC79C5 /* FailingResponseSerializer.m */,
 				8910F5F618788A7A0005BED4 /* GetSeedResponseSerializer.h */,
 				8910F5F718788A7A0005BED4 /* GetSeedResponseSerializer.m */,
 				89A6C8A9189479B600EA5D13 /* XMLResponseSerializer.h */,
@@ -428,6 +435,7 @@
 				89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */,
 				89A6C8A4189469A200EA5D13 /* GetSeedResponseSerializerTests.m */,
 				89A6C8AD18947ED600EA5D13 /* XMLResponseSerializerTests.m */,
+				89B1B6F218A41B1500EC79C5 /* FailingResponseSerializerTests.m */,
 			);
 			path = ResponseSerializers;
 			sourceTree = "<group>";
@@ -691,6 +699,7 @@
 				3DFF3AF6186648C900A766D7 /* AppDelegate.m in Sources */,
 				89C2A9C71878C4EE0051B8E6 /* LoginResponseParserDelegate.m in Sources */,
 				89A6C8AB189479B600EA5D13 /* XMLResponseSerializer.m in Sources */,
+				89B1B6F118A4170400EC79C5 /* FailingResponseSerializer.m in Sources */,
 				89B3560C188C70A500C62728 /* RepositoriesParserDelegate.m in Sources */,
 				89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */,
 				89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */,
@@ -720,6 +729,7 @@
 				89ABAD021893D51400E1420D /* XCTestCase+XMLFixture.m in Sources */,
 				89AA6A231895800A006A22DB /* WorkspacesResponseSerializerDelegateTests.m in Sources */,
 				89A6C8AE18947ED600EA5D13 /* XMLResponseSerializerTests.m in Sources */,
+				89B1B6F318A41B1500EC79C5 /* FailingResponseSerializerTests.m in Sources */,
 				89A5A6661888F7B300365E24 /* OperationsClientGetWorkspacesTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

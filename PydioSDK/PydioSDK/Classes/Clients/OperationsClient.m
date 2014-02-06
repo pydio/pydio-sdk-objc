@@ -11,9 +11,8 @@
 #import "CookieManager.h"
 #import "XMLResponseSerializer.h"
 #import "XMLResponseSerializerDelegate.h"
-//#import "NotAuthorizedResponseSerializer.h"
-//#import "RepositoriesResponseSerializer.h"
 #import "NotAuthorizedResponse.h"
+#import "FailingResponseSerializer.h"
 #import "PydioErrors.h"
 
 extern NSString * const PydioErrorDomain;
@@ -119,6 +118,7 @@ extern NSString * const PydioErrorDomain;
     NSMutableArray *serializers = [NSMutableArray array];
     [serializers addObject:[self createSerializerForNotAuthorized]];
     [serializers addObject:[self createSerializerForRepositories]];
+    [serializers addObject:[self createFailingSerializer]];
     
     AFCompoundResponseSerializer *serializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
         
@@ -130,6 +130,7 @@ extern NSString * const PydioErrorDomain;
     NSMutableArray *serializers = [NSMutableArray array];
     [serializers addObject:[self createSerializerForNotAuthorized]];
     [serializers addObject:[self createSerializerForListFiles]];
+    [serializers addObject:[self createFailingSerializer]];
     
     AFCompoundResponseSerializer *serializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
     
@@ -149,6 +150,10 @@ extern NSString * const PydioErrorDomain;
 -(XMLResponseSerializer*)createSerializerForListFiles {
     ListFilesResponseSerializerDelegate *delegate = [[ListFilesResponseSerializerDelegate alloc] init];
     return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
+}
+
+-(FailingResponseSerializer*)createFailingSerializer {
+    return [[FailingResponseSerializer alloc] init];
 }
 
 -(NSError *)authorizationError:(id)potentialError {

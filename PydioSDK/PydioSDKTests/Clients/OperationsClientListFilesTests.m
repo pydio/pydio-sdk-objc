@@ -17,6 +17,7 @@
 #import "OperationsClient.h"
 #import "XMLResponseSerializer.h"
 #import "XMLResponseSerializerDelegate.h"
+#import "FailingResponseSerializer.h"
 #import "NotAuthorizedResponse.h"
 #import "PydioErrors.h"
 
@@ -186,9 +187,10 @@ static const NSString * const LS_ACTION_URL_PART = @"index.php?get_action=ls";
 -(void)assertResponseSerializer:(AFHTTPResponseSerializer*)serializer {
     assertThat(serializer,instanceOf([AFCompoundResponseSerializer class]));
     AFCompoundResponseSerializer* compoundSerializer = (AFCompoundResponseSerializer*)serializer;
-    assertThatUnsignedInteger(compoundSerializer.responseSerializers.count,equalToUnsignedInteger(2));
+    assertThatUnsignedInteger(compoundSerializer.responseSerializers.count,equalToUnsignedInteger(3));
     assertThat([compoundSerializer.responseSerializers objectAtIndex:0],instanceOf([XMLResponseSerializer class]));
     assertThat([compoundSerializer.responseSerializers objectAtIndex:1],instanceOf([XMLResponseSerializer class]));
+    assertThat([compoundSerializer.responseSerializers objectAtIndex:2],instanceOf([FailingResponseSerializer class]));
     assertThat([self xmlResponseSerializerFrom:compoundSerializer AtIndex:0],instanceOf([NotAuthorizedResponseSerializerDelegate class]));
     assertThat([self xmlResponseSerializerFrom:compoundSerializer AtIndex:1],instanceOf([ListFilesResponseSerializerDelegate class]));
 }

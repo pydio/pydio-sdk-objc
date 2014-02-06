@@ -181,6 +181,8 @@ typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
     ((FailureBlock)[authFailure value])(error);
     assertThatBool(operationBlockCalled,equalToBool(NO));
     assertThatBool(failureBlockCalled,equalToBool(YES));
+    assertThat(self.client.operationBlock,nilValue());
+    assertThat(self.client.failureBlock,nilValue());
 }
 
 #pragma mark - Test List Workspaces
@@ -232,6 +234,8 @@ typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
     assertThatBool(successBlockCalled,equalToBool(YES));
     assertThatBool(failureBlockCalled,equalToBool(NO));
     assertThat(receivedArray,sameInstance(responseArray));
+    assertThat(self.client.operationBlock,nilValue());
+    assertThat(self.client.failureBlock,nilValue());
 }
 
 -(void)test_ShouldCallHandleOperationFailure_WhenOperationsClientListWithWorkspacesError
@@ -307,6 +311,8 @@ typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
     assertThatBool(successBlockCalled,equalToBool(YES));
     assertThatBool(failureBlockCalled,equalToBool(NO));
     assertThat(receivedArray,sameInstance(responseArray));
+    assertThat(self.client.operationBlock,nilValue());
+    assertThat(self.client.failureBlock,nilValue());
 }
 
 -(void)test_ShouldCallHandleOperationFailure_WhenOperationsClientListFilesWorkspacesError
