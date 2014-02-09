@@ -50,7 +50,8 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
     [client listFiles:[self listFilesRequest]
                WithSuccess:^(NSArray *files) {
                    if (files.count) {
-                       self.files = ((Node*)[files objectAtIndex:0]).children;
+                       //Array of children instead of root object
+                       self.files = files;//((Node*)[files objectAtIndex:0]).children;
                        [self.tableView reloadData];
                    }
                } failure:^(NSError *error) {
