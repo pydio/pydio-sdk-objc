@@ -8,15 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FileNode : NSObject
-@property (nonatomic,weak) FileNode* parent;
+@interface Node : NSObject
+@property (nonatomic,weak) Node* parent;
 @property (nonatomic,strong) NSString* name;
-@property (nonatomic,assign) BOOL isFile;
+@property (nonatomic,assign) BOOL isLeaf;
 @property (nonatomic,strong) NSString* path;
 @property (nonatomic,assign) NSInteger size;
-@property (nonatomic,strong) NSDate* modificationTime;
+@property (nonatomic,strong) NSDate* mTime;
 @property (nonatomic,strong) NSArray *children;
 
--(BOOL)isTreeEqual:(FileNode*)node;
--(BOOL)isValuesEqual:(FileNode*)other;
+-(BOOL)isTreeEqual:(Node*)node;
+-(BOOL)isValuesEqual:(Node*)other;
 @end

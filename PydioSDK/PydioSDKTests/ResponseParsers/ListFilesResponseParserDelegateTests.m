@@ -14,7 +14,7 @@
 
 #import "ListFilesResponseParserDelegate.h"
 #import "XCTestCase+XMLFixture.h"
-#import "FileNode.h"
+#import "Node.h"
 
 
 @interface ListFilesResponseParserDelegateTests : XCTestCase
@@ -37,26 +37,26 @@
 
 - (void)testShouldParseCorrectFilesResponse
 {
-    FileNode *expectedTree = [self expectedFilesTree];
+    Node *expectedTree = [self expectedFilesTree];
     NSXMLParser *parser = [self parserWithFixture:@"ls_response2.xml" delegate:self.parserDelegate];
     
     BOOL result = [parser parse];
     
     assertThatBool(result,equalToBool(YES));
     assertThatUnsignedInteger(self.parserDelegate.files.count,equalToUnsignedInteger(1));
-    assertThatBool([((FileNode*)[self.parserDelegate.files objectAtIndex:0]) isTreeEqual:expectedTree],equalToBool(YES));
+    assertThatBool([((Node*)[self.parserDelegate.files objectAtIndex:0]) isTreeEqual:expectedTree],equalToBool(YES));
 }
 
 #pragma mark - Helpers
 
--(FileNode*)expectedFilesTree {
-    FileNode *node = [[FileNode alloc] init];
+-(Node*)expectedFilesTree {
+    Node *node = [[Node alloc] init];
     
     node.name = @"";
-    node.isFile = NO;
+    node.isLeaf = NO;
     node.path = @"";
     node.size = 0;
-    node.modificationTime = [NSDate dateWithTimeIntervalSince1970:1389931615];
+    node.mTime = [NSDate dateWithTimeIntervalSince1970:1389931615];
     node.children = @[
                       [self child1:node],
                       [self child2:node]
@@ -65,28 +65,28 @@
     return node;
 }
 
--(FileNode*)child1:(FileNode*)parent {
-    FileNode *node = [[FileNode alloc] init];
+-(Node*)child1:(Node*)parent {
+    Node *node = [[Node alloc] init];
 
     node.parent = parent;
     node.name = @"curl_dump";
-    node.isFile = YES;
+    node.isLeaf = YES;
     node.path = @"/curl_dump";
     node.size = 53066;
-    node.modificationTime = [NSDate dateWithTimeIntervalSince1970:1389931615];
+    node.mTime = [NSDate dateWithTimeIntervalSince1970:1389931615];
 
     return node;
 }
 
--(FileNode*)child2:(FileNode*)parent {
-    FileNode *node = [[FileNode alloc] init];
+-(Node*)child2:(Node*)parent {
+    Node *node = [[Node alloc] init];
     
     node.parent = parent;
     node.name = @"Recycle Bin";
-    node.isFile = NO;
+    node.isLeaf = NO;
     node.path = @"/recycle_bin";
     node.size = 0;
-    node.modificationTime = [NSDate dateWithTimeIntervalSince1970:1386778972];
+    node.mTime = [NSDate dateWithTimeIntervalSince1970:1386778972];
     
     return node;
 }

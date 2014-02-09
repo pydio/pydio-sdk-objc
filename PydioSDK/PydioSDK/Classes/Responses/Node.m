@@ -6,18 +6,18 @@
 //  Copyright (c) 2014 MINI. All rights reserved.
 //
 
-#import "FileNode.h"
+#import "Node.h"
 
-@implementation FileNode
+@implementation Node
 
--(BOOL)isTreeEqual:(FileNode*)other {
+-(BOOL)isTreeEqual:(Node*)other {
     BOOL result = [self isValuesEqual:other];
     result = self.children.count == other.children.count;
     
     NSUInteger i = 0;
     while (result && i < self.children.count) {
-        FileNode *myChild = [self.children objectAtIndex:i];
-        FileNode *otherChild = [other.children objectAtIndex:i];
+        Node *myChild = [self.children objectAtIndex:i];
+        Node *otherChild = [other.children objectAtIndex:i];
         
         result = [myChild isTreeEqual:otherChild];
         ++i;
@@ -26,7 +26,7 @@
     return result;
 }
 
--(BOOL)isValuesEqual:(FileNode*)other {
+-(BOOL)isValuesEqual:(Node*)other {
     if (self == other) {
         return YES;
     }
@@ -35,7 +35,7 @@
         return NO;
     }
     
-    if (self.isFile != other.isFile) {
+    if (self.isLeaf != other.isLeaf) {
         return NO;
     }
     
@@ -47,7 +47,7 @@
         return NO;
     }
     
-    if (self.modificationTime != other.modificationTime && ![self.modificationTime isEqual:other.modificationTime]) {
+    if (self.mTime != other.mTime && ![self.mTime isEqual:other.mTime]) {
         return NO;
     }
 

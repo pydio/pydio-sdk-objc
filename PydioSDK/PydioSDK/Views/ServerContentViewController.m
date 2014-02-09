@@ -7,7 +7,7 @@
 //
 
 #import "ServerContentViewController.h"
-#import "FileNode.h"
+#import "Node.h"
 #import "PydioClient.h"
 #import "Workspace.h"
 #import "ListFilesRequest.h"
@@ -50,7 +50,7 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
     [client listFiles:[self listFilesRequest]
                WithSuccess:^(NSArray *files) {
                    if (files.count) {
-                       self.files = ((FileNode*)[files objectAtIndex:0]).children;
+                       self.files = ((Node*)[files objectAtIndex:0]).children;
                        [self.tableView reloadData];
                    }
                } failure:^(NSError *error) {
@@ -72,7 +72,7 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
     }
     
     cell.textLabel.text = [self fileNameAt:indexPath.row];
-    cell.accessoryType = [self fileNodeAt:indexPath.row].isFile ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+    cell.accessoryType = [self fileNodeAt:indexPath.row].isLeaf ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     
     return cell;
 }
@@ -85,8 +85,8 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
     return [self fileNodeAt:row].name;
 }
 
--(FileNode*)fileNodeAt:(NSInteger)row {
-    return (FileNode*)[self.files objectAtIndex:row];
+-(Node*)fileNodeAt:(NSInteger)row {
+    return (Node*)[self.files objectAtIndex:row];
 }
 
 #pragma mark - Navigation
@@ -103,7 +103,7 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     int row = [self.tableView indexPathForSelectedRow].row;
     
-    return ![self fileNodeAt:row].isFile;
+    return ![self fileNodeAt:row].isLeaf;
 }
 
 -(ListFilesRequest*)listFilesRequest {

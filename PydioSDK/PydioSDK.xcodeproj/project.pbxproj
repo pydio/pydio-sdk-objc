@@ -49,7 +49,7 @@
 		89A6D1D218A1772F00B3A4AF /* ServerWorkspacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6D1D118A1772F00B3A4AF /* ServerWorkspacesViewController.m */; };
 		89A6F2FA189E3FDA00F1763E /* ls_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A6F2F9189E3FDA00F1763E /* ls_response2.xml */; };
 		89A6F2FE189E5A9600F1763E /* XMLParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F2FD189E5A9600F1763E /* XMLParserState.m */; };
-		89A6F305189E73FF00F1763E /* FileNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F304189E73FF00F1763E /* FileNode.m */; };
+		89A6F305189E73FF00F1763E /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F304189E73FF00F1763E /* Node.m */; };
 		89A71BE4189ADE6600DCD566 /* OperationsClientBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A71BE3189ADE6600DCD566 /* OperationsClientBaseTests.m */; };
 		89A71BE7189AE61200DCD566 /* OperationsClientListFilesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A71BE6189AE61200DCD566 /* OperationsClientListFilesTests.m */; };
 		89A7691918A4391A0056A61F /* ListFilesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A7691818A4391A0056A61F /* ListFilesRequest.m */; };
@@ -170,8 +170,8 @@
 		89A6F2FB189E55D500F1763E /* ParserStateDelgate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParserStateDelgate.h; sourceTree = "<group>"; };
 		89A6F2FC189E5A9600F1763E /* XMLParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParserState.h; sourceTree = "<group>"; };
 		89A6F2FD189E5A9600F1763E /* XMLParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParserState.m; sourceTree = "<group>"; };
-		89A6F303189E73FF00F1763E /* FileNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileNode.h; sourceTree = "<group>"; };
-		89A6F304189E73FF00F1763E /* FileNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileNode.m; sourceTree = "<group>"; };
+		89A6F303189E73FF00F1763E /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
+		89A6F304189E73FF00F1763E /* Node.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Node.m; sourceTree = "<group>"; };
 		89A71BE3189ADE6600DCD566 /* OperationsClientBaseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClientBaseTests.m; sourceTree = "<group>"; };
 		89A71BE5189ADE9000DCD566 /* OperationsClientBaseTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperationsClientBaseTests.h; sourceTree = "<group>"; };
 		89A71BE6189AE61200DCD566 /* OperationsClientListFilesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClientListFilesTests.m; sourceTree = "<group>"; };
@@ -535,8 +535,8 @@
 				89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */,
 				89AC1AC9188DA30800ACAD7C /* Workspace.h */,
 				89AC1ACA188DA30800ACAD7C /* Workspace.m */,
-				89A6F303189E73FF00F1763E /* FileNode.h */,
-				89A6F304189E73FF00F1763E /* FileNode.m */,
+				89A6F303189E73FF00F1763E /* Node.h */,
+				89A6F304189E73FF00F1763E /* Node.m */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -699,7 +699,7 @@
 				3DFF3B3218664EEF00A766D7 /* AFNetworkReachabilityManager.m in Sources */,
 				3DFF3B3618664EEF00A766D7 /* AFURLResponseSerialization.m in Sources */,
 				89AD73B4189D2C69003C8DD4 /* ListFilesResponseParserDelegate.m in Sources */,
-				89A6F305189E73FF00F1763E /* FileNode.m in Sources */,
+				89A6F305189E73FF00F1763E /* Node.m in Sources */,
 				89A554FF188C03F1008C1B64 /* NotAuthorizedResponse.m in Sources */,
 				3DFF3B3418664EEF00A766D7 /* AFURLConnectionOperation.m in Sources */,
 				8910F5F818788A7A0005BED4 /* GetSeedResponseSerializer.m in Sources */,

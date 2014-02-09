@@ -54,7 +54,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return self;
 }
 
--(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
+-(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray* workspaces))success failure:(void(^)(NSError* error))failure {
     if (self.progress) {
         return NO;
     }
@@ -64,8 +64,8 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     
     typeof(self) strongSelf = self;
     self.operationBlock = ^{
-        [strongSelf.operationsClient listWorkspacesWithSuccess:^(NSArray *files){
-            success(files);
+        [strongSelf.operationsClient listWorkspacesWithSuccess:^(NSArray *workspaces){
+            success(workspaces);
             strongSelf.operationBlock = nil;
             strongSelf.failureBlock = nil;
         } failure:^(NSError *error) {

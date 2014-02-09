@@ -7,7 +7,7 @@
 //
 
 #import "ListFilesResponseParserDelegate.h"
-#import "FileNode.h"
+#import "Node.h"
 
 
 static NSString * const TREE_NODE = @"tree";
@@ -29,7 +29,7 @@ static NSString * const MODIFTIME_ELEMENT = @"ajxp_modiftime";
     return [self valueForKey:TEXT_ELEMENT];
 }
 
--(NSString*)isFile {
+-(NSString*)isLeaf {
     return [self valueForKey:IS_FILE_ELEMENT];
 }
 
@@ -68,17 +68,17 @@ static NSString * const MODIFTIME_ELEMENT = @"ajxp_modiftime";
     return [NSArray arrayWithArray:_files];
 }
 
--(void)appendFile:(FileNode*)file {
+-(void)appendFile:(Node*)file {
     [_files addObject:file];
 }
 
--(FileNode*)createFileNode:(NSDictionary*)attributes {
-    FileNode *file = [[FileNode alloc] init];
+-(Node*)createFileNode:(NSDictionary*)attributes {
+    Node *file = [[Node alloc] init];
     file.name = [attributes text];
-    file.isFile = [[attributes isFile] isEqualToString:@"true"];
+    file.isLeaf = [[attributes isLeaf] isEqualToString:@"true"];
     file.path = [attributes filename];
     file.size = [[attributes bytesize] integerValue];
-    file.modificationTime = [NSDate dateWithTimeIntervalSince1970:[[attributes modiftime] doubleValue]];
+    file.mTime = [NSDate dateWithTimeIntervalSince1970:[[attributes modiftime] doubleValue]];
     
     return file;
 }
@@ -87,7 +87,7 @@ static NSString * const MODIFTIME_ELEMENT = @"ajxp_modiftime";
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     if ([elementName isEqualToString:TREE_NODE] && [attributeDict filename] != nil) {
-        FileNode *node = [self createFileNode:attributeDict];
+        Node *node = [self createFileNode:attributeDict];
         node.parent = [self.parentsStack lastObject];
         if (!node.parent.children) {
             node.parent.children = [NSArray arrayWithObject:node];
@@ -103,7 +103,7 @@ static NSString * const MODIFTIME_ELEMENT = @"ajxp_modiftime";
 
 -(void)parser:(NSXMLParser*)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
     if ([elementName isEqualToString:TREE_NODE]) {
-        FileNode *node = [self.parentsStack lastObject];
+        Node *node = [self.parentsStack lastObject];
         [self.parentsStack removeLastObject];
         if (self.parentsStack.count == 0) {
             [_files addObject:node];
