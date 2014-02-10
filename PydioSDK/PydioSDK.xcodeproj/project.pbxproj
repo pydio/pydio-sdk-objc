@@ -37,6 +37,9 @@
 		8940130A188443C90044001D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401309188443C90044001D /* User.m */; };
 		89401D231883318F005A030A /* CookieManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401D221883318F005A030A /* CookieManager.m */; };
 		89A554FF188C03F1008C1B64 /* NotAuthorizedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */; };
+		89A58F0618A9796C00FCEDE5 /* ErrorResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A58F0518A9796C00FCEDE5 /* ErrorResponseParserDelegate.m */; };
+		89A58F0818A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A58F0718A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m */; };
+		89A58F0A18A9878600FCEDE5 /* error_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A58F0918A9878600FCEDE5 /* error_response.xml */; };
 		89A5A6661888F7B300365E24 /* OperationsClientGetWorkspacesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A5A6651888F7B300365E24 /* OperationsClientGetWorkspacesTests.m */; };
 		89A6155118A036300079D21B /* NewServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6155018A036300079D21B /* NewServerViewController.m */; };
 		89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */; };
@@ -150,6 +153,10 @@
 		89401D221883318F005A030A /* CookieManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieManager.m; sourceTree = "<group>"; };
 		89A554FD188C03F1008C1B64 /* NotAuthorizedResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedResponse.h; sourceTree = "<group>"; };
 		89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedResponse.m; sourceTree = "<group>"; };
+		89A58F0418A9796C00FCEDE5 /* ErrorResponseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorResponseParserDelegate.h; sourceTree = "<group>"; };
+		89A58F0518A9796C00FCEDE5 /* ErrorResponseParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorResponseParserDelegate.m; sourceTree = "<group>"; };
+		89A58F0718A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorResponseParserDelegateTests.m; sourceTree = "<group>"; };
+		89A58F0918A9878600FCEDE5 /* error_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = error_response.xml; sourceTree = "<group>"; };
 		89A5A6651888F7B300365E24 /* OperationsClientGetWorkspacesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClientGetWorkspacesTests.m; sourceTree = "<group>"; };
 		89A6154F18A036300079D21B /* NewServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewServerViewController.h; sourceTree = "<group>"; };
 		89A6155018A036300079D21B /* NewServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewServerViewController.m; sourceTree = "<group>"; };
@@ -513,6 +520,8 @@
 		89AC1ACC188DAEDD00ACAD7C /* ResponseParsers */ = {
 			isa = PBXGroup;
 			children = (
+				89A58F0418A9796C00FCEDE5 /* ErrorResponseParserDelegate.h */,
+				89A58F0518A9796C00FCEDE5 /* ErrorResponseParserDelegate.m */,
 				89AD73B2189D2C69003C8DD4 /* ListFilesResponseParserDelegate.h */,
 				89AD73B3189D2C69003C8DD4 /* ListFilesResponseParserDelegate.m */,
 				89C2A9C51878C4EE0051B8E6 /* LoginResponseParserDelegate.h */,
@@ -550,6 +559,7 @@
 				89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */,
 				89ABAD001893D51400E1420D /* XCTestCase+XMLFixture.h */,
 				89ABAD011893D51400E1420D /* XCTestCase+XMLFixture.m */,
+				89A58F0718A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m */,
 			);
 			path = ResponseParsers;
 			sourceTree = "<group>";
@@ -557,6 +567,7 @@
 		89AC1AD3188DE84900ACAD7C /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				89A58F0918A9878600FCEDE5 /* error_response.xml */,
 				89AC1AD4188DE98600ACAD7C /* get_registers_response.xml */,
 				89BD973D1891A20C0054CFA2 /* login_response.xml */,
 				89AD73B7189D3602003C8DD4 /* ls_response.xml */,
@@ -663,6 +674,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89ABACFD1893BDC800E1420D /* unathorized_response.xml in Resources */,
+				89A58F0A18A9878600FCEDE5 /* error_response.xml in Resources */,
 				89BD973E1891A20C0054CFA2 /* login_response.xml in Resources */,
 				89ABACFF1893BEF700E1420D /* unathorized_response2.xml in Resources */,
 				89AD73B8189D3602003C8DD4 /* ls_response.xml in Resources */,
@@ -692,6 +704,7 @@
 				89A6F2FE189E5A9600F1763E /* XMLParserState.m in Sources */,
 				89C2A9CA1878CD440051B8E6 /* LoginResponse.m in Sources */,
 				89401D231883318F005A030A /* CookieManager.m in Sources */,
+				89A58F0618A9796C00FCEDE5 /* ErrorResponseParserDelegate.m in Sources */,
 				3DFF3B3018664EEF00A766D7 /* AFHTTPRequestOperationManager.m in Sources */,
 				89A6155118A036300079D21B /* NewServerViewController.m in Sources */,
 				3D03A6791867171200DC5839 /* PydioConnector.m in Sources */,
@@ -742,6 +755,7 @@
 				89ABACFB1893B3E200E1420D /* NotAuthorizedResponseParserDelegateTests.m in Sources */,
 				89ABAD021893D51400E1420D /* XCTestCase+XMLFixture.m in Sources */,
 				89AA6A231895800A006A22DB /* WorkspacesResponseSerializerDelegateTests.m in Sources */,
+				89A58F0818A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m in Sources */,
 				89A6C8AE18947ED600EA5D13 /* XMLResponseSerializerTests.m in Sources */,
 				89B1B6F318A41B1500EC79C5 /* FailingResponseSerializerTests.m in Sources */,
 				89A5A6661888F7B300365E24 /* OperationsClientGetWorkspacesTests.m in Sources */,
