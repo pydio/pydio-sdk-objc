@@ -54,7 +54,7 @@
     NSXMLParser *parser = [self parserWithFixture:@"unathorized_response2.xml" delegate:self.parserDelegate];
     
     BOOL result = [parser parse];
-    
+
     assertThatBool(result,equalToBool(YES));
     assertThatBool(self.parserDelegate.notLogged,equalToBool(YES));
 }
@@ -63,16 +63,20 @@
 {
     NSArray *responses = @[
                            @"login_response.xml",
-                           @"proper_get_registers_response.xml"
+                           @"get_registers_response.xml",
+                           @"ls_response2.xml",
+                           @"error_response.xml"
                           ];
     
     for (NSString *file in responses) {
+        self.parserDelegate = [[NotAuthorizedResponseParserDelegate alloc] init];
         NSXMLParser *parser = [self parserWithFixture:file delegate:self.parserDelegate];
         
         BOOL result = [parser parse];
         
         assertThatBool(result,equalToBool(NO));
-        XCTAssertFalse(self.parserDelegate.notLogged, @"File: %@ not parsed as not unathorized response",file);
+        XCTAssertFalse(self.parserDelegate.notLogged, @"File: %@ should not be recognized as unathorized response",file);
+        self.parserDelegate = nil;
     }
 }
 
