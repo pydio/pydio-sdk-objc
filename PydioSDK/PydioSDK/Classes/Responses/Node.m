@@ -10,6 +10,19 @@
 
 @implementation Node
 
+-(NSString*)fullPath {
+    
+    NSString *path = self.path;
+    Node *node = self;
+    
+    while (node.parent) {
+        path = [NSString stringWithFormat:@"%@%@",node.parent,path];
+        node = node.parent;
+    }
+    
+    return path;
+}
+
 -(BOOL)isTreeEqual:(Node*)other {
     BOOL result = [self isValuesEqual:other];
     result = self.children.count == other.children.count;

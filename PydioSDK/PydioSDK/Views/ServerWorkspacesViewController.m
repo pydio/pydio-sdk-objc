@@ -9,6 +9,7 @@
 #import "ServerWorkspacesViewController.h"
 #import "Workspace.h"
 #import "PydioClient.h"
+#import "Node.h"
 #import "ServerContentViewController.h"
 
 
@@ -87,7 +88,8 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
     ServerContentViewController *destination = segue.destinationViewController;
     destination.workspace = (Workspace*)[self.workspaces objectAtIndex:row];
     destination.server = self.server;
-    destination.path = @"/";
+    destination.rootNode = [[Node alloc] init];
+    destination.rootNode.path = @"/";
    
 }
 

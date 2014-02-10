@@ -17,6 +17,7 @@
 @property (nonatomic,strong) NSDate* mTime;
 @property (nonatomic,strong) NSArray *children;
 
+-(NSString*)fullPath;
 -(BOOL)isTreeEqual:(Node*)node;
 -(BOOL)isValuesEqual:(Node*)other;
 @end

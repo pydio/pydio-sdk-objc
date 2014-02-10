@@ -15,11 +15,6 @@
 
 static NSString * const TABLE_CELL_ID = @"TableCell";
 
-
-@interface ServerContentViewController ()
-@property (nonatomic,strong) NSArray *files;
-@end
-
 @implementation ServerContentViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,21 +40,11 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    PydioClient *client = [[PydioClient alloc] initWithServer:[self.server absoluteString]];
-    
-    [client listFiles:[self listFilesRequest]
-               WithSuccess:^(NSArray *files) {
-                   if (files.count) {
-                       self.files = ((Node*)[files objectAtIndex:0]).children;
-                       [self.tableView reloadData];
-                   }
-               } failure:^(NSError *error) {
-                   NSLog(@"%s %@",__PRETTY_FUNCTION__,error);
-               }
-     ];
+    if (!self.rootNode.children.count) {
+        [self listFiles];
+    }
     
     self.navigationItem.title = self.workspace.label;
-    
 }
 
 #pragma mark - UITableViewDataSource
@@ -78,15 +63,7 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.files.count;
-}
-
--(NSString*)fileNameAt:(NSInteger)row {
-    return [self fileNodeAt:row].name;
-}
-
--(Node*)fileNodeAt:(NSInteger)row {
-    return (Node*)[self.files objectAtIndex:row];
+    return self.rootNode.children.count;
 }
 
 #pragma mark - Navigation
@@ -97,7 +74,7 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
     ServerContentViewController *destination = segue.destinationViewController;
     destination.workspace = self.workspace;
     destination.server = self.server;
-    destination.path = [NSString stringWithFormat:@"%@%@/",self.path,[self fileNodeAt:row].path];
+    destination.rootNode = [self fileNodeAt:row];
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
@@ -106,12 +83,40 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
     return ![self fileNodeAt:row].isLeaf;
 }
 
+#pragma mark - Helpers
+
+-(void)listFiles {
+    PydioClient *client = [[PydioClient alloc] initWithServer:[self.server absoluteString]];
+    [client listFiles:[self listFilesRequest]
+          WithSuccess:^(NSArray *files) {
+              if (files.count) {
+                  self.rootNode.children = ((Node*)[files objectAtIndex:0]).children;
+                  [self.tableView reloadData];
+              }
+          } failure:^(NSError *error) {
+              NSLog(@"%s %@",__PRETTY_FUNCTION__,error);
+          }
+     ];
+}
+
 -(ListFilesRequest*)listFilesRequest {
     ListFilesRequest *request = [[ListFilesRequest alloc] init];
     request.workspaceId = self.workspace.workspaceId;
-    request.path = self.path;
+    request.path = self.rootNode.fullPath;
+//    request.additional = @{
+//                           @"recursive": @"true",
+//                           @"max_depth" : @"2"
+//                           };
 
     return request;
+}
+
+-(NSString*)fileNameAt:(NSInteger)row {
+    return [self fileNodeAt:row].name;
+}
+
+-(Node*)fileNodeAt:(NSInteger)row {
+    return (Node*)[self.rootNode.children objectAtIndex:row];
 }
 
 @end

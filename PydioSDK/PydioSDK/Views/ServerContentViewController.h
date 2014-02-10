@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class Workspace;
+@class Node;
 
 @interface ServerContentViewController : UIViewController<UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -16,5 +17,5 @@
 
 @property (nonatomic,strong) NSURL *server;
 @property (nonatomic,strong) Workspace *workspace;
-@property (nonatomic,strong) NSString *path;
+@property (nonatomic,strong) Node* rootNode;
 @end
