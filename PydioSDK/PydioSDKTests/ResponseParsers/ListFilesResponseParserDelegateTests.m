@@ -43,14 +43,13 @@
     BOOL result = [parser parse];
     
     assertThatBool(result,equalToBool(YES));
-    assertThatUnsignedInteger(self.parserDelegate.files.count,equalToUnsignedInteger(2));
-    assertThatBool([((Node*)[self.parserDelegate.files objectAtIndex:0]) isTreeEqual:[expectedTree.children objectAtIndex:0]],equalToBool(YES));
-    assertThatBool([((Node*)[self.parserDelegate.files objectAtIndex:1]) isTreeEqual:[expectedTree.children objectAtIndex:1]],equalToBool(YES));
+    assertThatUnsignedInteger(self.parserDelegate.files.count,equalToUnsignedInteger(1));
+    assertThatBool([((Node*)[self.parserDelegate.files objectAtIndex:0]) isTreeEqual:expectedTree],equalToBool(YES));
 }
 
 #pragma mark - Helpers
 
--(Node*)root {
+-(Node*)expectedFilesTree {
     Node *node = [[Node alloc] init];
     
     node.name = @"";
@@ -58,13 +57,6 @@
     node.path = @"";
     node.size = 0;
     node.mTime = [NSDate dateWithTimeIntervalSince1970:1389931615];
-
-    return node;
-}
-
--(Node*)expectedFilesTree {
-    Node* node = [self root];
-    
     node.children = @[
                       [self child1:node],
                       [self child2:node]

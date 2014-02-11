@@ -65,15 +65,7 @@ static NSString * const MODIFTIME_ELEMENT = @"ajxp_modiftime";
 }
 
 -(NSArray*)files {
-    //Returning array of children instead of root object
-    NSArray *result = nil;
-    if (_files.count) {
-        result = [NSArray arrayWithArray:((Node*)[_files objectAtIndex:0]).children];
-    } else {
-        result = [NSArray array];
-    }
-    
-    return result;
+    return [NSArray arrayWithArray:_files];
 }
 
 -(void)appendFile:(Node*)file {
