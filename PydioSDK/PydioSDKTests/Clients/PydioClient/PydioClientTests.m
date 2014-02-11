@@ -270,7 +270,7 @@ typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
     FailureBlock failureBlock = ^(NSError *error) {
     };
     
-    BOOL startResult = [self.client listFiles:request WithSuccess:^(NSArray *files) {
+    BOOL startResult = [self.client listNodes:request WithSuccess:^(NSArray *files) {
     } failure:failureBlock];
 
     [self assertNotStartInProgress:startResult];
@@ -284,7 +284,7 @@ typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
     FailureBlock failureBlock = ^(NSError *error) {
     };
     
-    BOOL startResult = [self.client listFiles:request WithSuccess:^(NSArray *files) {
+    BOOL startResult = [self.client listNodes:request WithSuccess:^(NSArray *files) {
     } failure:failureBlock];
     
     [self assertStartNotInProgress:startResult failure:failureBlock];
@@ -300,7 +300,7 @@ typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
     __block BOOL successBlockCalled = NO;
     __block BOOL failureBlockCalled = NO;
     
-    [self.client listFiles:request WithSuccess:^(NSArray *files) {
+    [self.client listNodes:request WithSuccess:^(NSArray *files) {
         successBlockCalled = YES;
         receivedArray = files;
     } failure:^(NSError *error) {
@@ -328,7 +328,7 @@ typedef void (^ListWorkspacesSuccessBlock)(NSArray* files);
     __block BOOL successBlockCalled = NO;
     __block BOOL failureBlockCalled = NO;
     
-    [self.client listFiles:request WithSuccess:^(NSArray *files) {
+    [self.client listNodes:request WithSuccess:^(NSArray *files) {
         successBlockCalled = YES;
     } failure:^(NSError *error) {
         failureBlockCalled = YES;

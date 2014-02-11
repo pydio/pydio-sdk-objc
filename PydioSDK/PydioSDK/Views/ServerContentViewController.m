@@ -87,7 +87,7 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 
 -(void)listFiles {
     PydioClient *client = [[PydioClient alloc] initWithServer:[self.server absoluteString]];
-    [client listFiles:[self listFilesRequest]
+    [client listNodes:[self listFilesRequest]
           WithSuccess:^(NSArray *files) {
               if (files.count) {
                   self.rootNode.children = ((Node*)[files objectAtIndex:0]).children;

@@ -78,7 +78,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return YES;
 }
 
--(BOOL)listFiles:(ListFilesRequest *)request WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
+-(BOOL)listNodes:(ListFilesRequest *)request WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
     if (self.progress) {
         return NO;
     }
