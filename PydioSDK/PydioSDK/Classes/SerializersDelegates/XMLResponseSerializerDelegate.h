@@ -34,3 +34,7 @@
 @interface ListFilesResponseSerializerDelegate : NSObject<XMLResponseSerializerDelegate>
 
 @end
+
+@interface ErrorResponseSerializerDelegate : NSObject<XMLResponseSerializerDelegate>
+
+@end

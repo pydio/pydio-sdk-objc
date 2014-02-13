@@ -67,6 +67,7 @@
 		89ABACFD1893BDC800E1420D /* unathorized_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89ABACFC1893BDC800E1420D /* unathorized_response.xml */; };
 		89ABACFF1893BEF700E1420D /* unathorized_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89ABACFE1893BEF700E1420D /* unathorized_response2.xml */; };
 		89ABAD021893D51400E1420D /* XCTestCase+XMLFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ABAD011893D51400E1420D /* XCTestCase+XMLFixture.m */; };
+		89ABF21518AD773500594B2E /* ErrorResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ABF21418AD773500594B2E /* ErrorResponseSerializerDelegateTests.m */; };
 		89AC1AC8188D8CAD00ACAD7C /* GetRepositoriesParserStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1AC7188D8CAD00ACAD7C /* GetRepositoriesParserStates.m */; };
 		89AC1ACB188DA30800ACAD7C /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1ACA188DA30800ACAD7C /* Workspace.m */; };
 		89AC1AD2188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */; };
@@ -197,6 +198,7 @@
 		89ABACFE1893BEF700E1420D /* unathorized_response2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = unathorized_response2.xml; sourceTree = "<group>"; };
 		89ABAD001893D51400E1420D /* XCTestCase+XMLFixture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+XMLFixture.h"; sourceTree = "<group>"; };
 		89ABAD011893D51400E1420D /* XCTestCase+XMLFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+XMLFixture.m"; sourceTree = "<group>"; };
+		89ABF21418AD773500594B2E /* ErrorResponseSerializerDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorResponseSerializerDelegateTests.m; sourceTree = "<group>"; };
 		89AC1AC6188D8CAD00ACAD7C /* GetRepositoriesParserStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetRepositoriesParserStates.h; sourceTree = "<group>"; };
 		89AC1AC7188D8CAD00ACAD7C /* GetRepositoriesParserStates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetRepositoriesParserStates.m; sourceTree = "<group>"; };
 		89AC1AC9188DA30800ACAD7C /* Workspace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Workspace.h; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 		89AA6A1B18957B5F006A22DB /* SerializersDelegates */ = {
 			isa = PBXGroup;
 			children = (
+				89ABF21418AD773500594B2E /* ErrorResponseSerializerDelegateTests.m */,
 				89AA6A1E18957FE9006A22DB /* LoginResponseSerializerDelegateTests.m */,
 				89AA6A2018957FF9006A22DB /* NotAuthorizedResponseSerializerDelegateTests.m */,
 				89AA6A221895800A006A22DB /* WorkspacesResponseSerializerDelegateTests.m */,
@@ -758,6 +761,7 @@
 				89A58F0818A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m in Sources */,
 				89A6C8AE18947ED600EA5D13 /* XMLResponseSerializerTests.m in Sources */,
 				89B1B6F318A41B1500EC79C5 /* FailingResponseSerializerTests.m in Sources */,
+				89ABF21518AD773500594B2E /* ErrorResponseSerializerDelegateTests.m in Sources */,
 				89A5A6661888F7B300365E24 /* OperationsClientGetWorkspacesTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -6,6 +6,8 @@
 #import "NotAuthorizedResponse.h"
 #import "RepositoriesParserDelegate.h"
 #import "ListFilesResponseParserDelegate.h"
+#import "ErrorResponseParserDelegate.h"
+
 
 #pragma mark - Login response
 
@@ -156,6 +158,42 @@
              NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"Error when parsing list files response", nil, @"PydioSDK"),
              NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedStringFromTable(@"Could not extract list files result: %@", nil, @"PydioSDK"), response]
              };
+}
+
+@end
+
+#pragma mark - Error Response
+
+@interface ErrorResponseSerializerDelegate ()
+@property (nonatomic,strong) ErrorResponseParserDelegate* parserDelegate;
+@end
+
+@implementation ErrorResponseSerializerDelegate
+
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+        self.parserDelegate = [[ErrorResponseParserDelegate alloc] init];
+    }
+    
+    return self;
+}
+
+-(id <NSXMLParserDelegate>)xmlParserDelegate {
+    return self.parserDelegate;
+}
+
+-(id)parseResult {
+    NSString *result = nil;
+    if (self.parserDelegate.errorMessage) {
+        result = [NSString stringWithString:self.parserDelegate.errorMessage];
+    }
+    
+    return result;
+}
+
+-(NSDictionary*)errorUserInfo:(id)response {
+    return nil;
 }
 
 @end

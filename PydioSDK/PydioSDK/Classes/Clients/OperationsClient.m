@@ -142,6 +142,11 @@ extern NSString * const PydioErrorDomain;
     return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
 }
 
+-(XMLResponseSerializer*)createSerializerForErrorResponse {
+    ErrorResponseSerializerDelegate *delegate = [[ErrorResponseSerializerDelegate alloc] init];
+    return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
+}
+
 -(XMLResponseSerializer*)createSerializerForRepositories {
     WorkspacesResponseSerializerDelegate *delegate = [[WorkspacesResponseSerializerDelegate alloc] init];
     return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
