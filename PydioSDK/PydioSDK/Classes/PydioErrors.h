@@ -13,7 +13,8 @@ extern NSString * const PydioErrorDomain;
 
 enum {
     PydioErrorUnableToParseAnswer = 1,
-    PydioErrorUnableToLogin = 2, //TODO: Rename to Authorization error
+    PydioErrorUnableToLogin = 2, //TODO: Consider renaming to Authorization error
+    PydioErrorErrorResponse, //TODO: Maybe add another domain for server error responses
     PydioErrorReceivedNotExpectedAnswer    
 };
 

@@ -57,6 +57,7 @@
 		89A71BE7189AE61200DCD566 /* OperationsClientListFilesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A71BE6189AE61200DCD566 /* OperationsClientListFilesTests.m */; };
 		89A7691918A4391A0056A61F /* ListFilesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A7691818A4391A0056A61F /* ListFilesRequest.m */; };
 		89A76DD018B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DCF18B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m */; };
+		89A76DD318B2BF28000D0AF1 /* PydioErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */; };
 		89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A84FF31885F5B800AFC2F0 /* OperationsClient.m */; };
 		89AA1A751879AF0900679E04 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */; };
 		89AA1A791879B54C00679E04 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */; };
@@ -187,6 +188,8 @@
 		89A7691718A4391A0056A61F /* ListFilesRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListFilesRequest.h; sourceTree = "<group>"; };
 		89A7691818A4391A0056A61F /* ListFilesRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListFilesRequest.m; sourceTree = "<group>"; };
 		89A76DCF18B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListFilesResponseSerializerDelegateTests.m; sourceTree = "<group>"; };
+		89A76DD118B2BF28000D0AF1 /* PydioErrorResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioErrorResponse.h; sourceTree = "<group>"; };
+		89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioErrorResponse.m; sourceTree = "<group>"; };
 		89A84FF21885F5B800AFC2F0 /* OperationsClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationsClient.h; sourceTree = "<group>"; };
 		89A84FF31885F5B800AFC2F0 /* OperationsClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClient.m; sourceTree = "<group>"; };
 		89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = Frameworks/OCHamcrestIOS.framework; sourceTree = "<group>"; };
@@ -546,12 +549,14 @@
 			children = (
 				89C2A9C81878CD440051B8E6 /* LoginResponse.h */,
 				89C2A9C91878CD440051B8E6 /* LoginResponse.m */,
-				89A554FD188C03F1008C1B64 /* NotAuthorizedResponse.h */,
-				89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */,
-				89AC1AC9188DA30800ACAD7C /* Workspace.h */,
-				89AC1ACA188DA30800ACAD7C /* Workspace.m */,
 				89A6F303189E73FF00F1763E /* Node.h */,
 				89A6F304189E73FF00F1763E /* Node.m */,
+				89A554FD188C03F1008C1B64 /* NotAuthorizedResponse.h */,
+				89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */,
+				89A76DD118B2BF28000D0AF1 /* PydioErrorResponse.h */,
+				89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */,
+				89AC1AC9188DA30800ACAD7C /* Workspace.h */,
+				89AC1ACA188DA30800ACAD7C /* Workspace.m */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -716,6 +721,7 @@
 				3D03A6791867171200DC5839 /* PydioConnector.m in Sources */,
 				89AA6A1A18956EFE006A22DB /* XMLResponseSerializerDelegate.m in Sources */,
 				3DFF3B3218664EEF00A766D7 /* AFNetworkReachabilityManager.m in Sources */,
+				89A76DD318B2BF28000D0AF1 /* PydioErrorResponse.m in Sources */,
 				3DFF3B3618664EEF00A766D7 /* AFURLResponseSerialization.m in Sources */,
 				89AD73B4189D2C69003C8DD4 /* ListFilesResponseParserDelegate.m in Sources */,
 				89A6F305189E73FF00F1763E /* Node.m in Sources */,

@@ -11,9 +11,11 @@
 #import "CookieManager.h"
 #import "XMLResponseSerializer.h"
 #import "XMLResponseSerializerDelegate.h"
-#import "NotAuthorizedResponse.h"
 #import "FailingResponseSerializer.h"
+#import "NotAuthorizedResponse.h"
+#import "PydioErrorResponse.h"
 #import "PydioErrors.h"
+
 
 extern NSString * const PydioErrorDomain;
 
@@ -38,7 +40,7 @@ extern NSString * const PydioErrorDomain;
     
     [self.operationManager GET:listRegisters parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.progress = NO;
-        NSError *error = [self authorizationError:responseObject];
+        NSError *error = [self identifyError:responseObject];
         if (error) {
             failure(error);
         } else {
@@ -65,7 +67,7 @@ extern NSString * const PydioErrorDomain;
 
     [self.operationManager GET:listFilesURL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.progress = NO;
-        NSError *error = [self authorizationError:responseObject];
+        NSError *error = [self identifyError:responseObject];
         if (error) {
             failure(error);
         } else {
@@ -158,10 +160,13 @@ extern NSString * const PydioErrorDomain;
     return [[FailingResponseSerializer alloc] init];
 }
 
--(NSError *)authorizationError:(id)potentialError {
+-(NSError *)identifyError:(id)potentialError {
     NSError *error = nil;
     if ([potentialError isKindOfClass:[NotAuthorizedResponse class]]) {
         error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
+    } else if ([potentialError isKindOfClass:[PydioErrorResponse class]]) {
+        error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorErrorResponse userInfo:
+                 @{NSLocalizedFailureReasonErrorKey: [potentialError message]}];
     }
     
     return error;

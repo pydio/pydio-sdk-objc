@@ -14,6 +14,7 @@
 
 #import "XMLResponseSerializerDelegate.h"
 #import "ErrorResponseParserDelegate.h"
+#import "PydioErrorResponse.h"
 
 
 #pragma mark - Access to private data of tested class
@@ -49,11 +50,12 @@
 
 -(void)test_ShouldReturnErrorMessage_WhenParsedErrorMessage
 {
+    PydioErrorResponse *expectedResponse = [PydioErrorResponse errorResponseWithString:@"Example error"];
     ErrorResponseParserDelegate *parserDelegate = mock([ErrorResponseParserDelegate class]);
     [given(parserDelegate.errorMessage) willReturn:@"Example error"];
     self.serializerDelegate.parserDelegate = parserDelegate;
     
-    assertThat([self.serializerDelegate parseResult],equalTo(@"Example error"));
+    assertThat([self.serializerDelegate parseResult],equalTo(expectedResponse));
 }
 
 -(void)test_ShouldReturnNilErrorMessage_WhenNotParsedErrorMessage

@@ -19,6 +19,7 @@
 #import "XMLResponseSerializerDelegate.h"
 #import "FailingResponseSerializer.h"
 #import "NotAuthorizedResponse.h"
+#import "PydioErrorResponse.h"
 #import "PydioErrors.h"
 
 
@@ -181,6 +182,33 @@ static const NSString * const LS_ACTION_URL_PART = @"index.php?get_action=ls";
     assertThat(receivedArray,sameInstance(response));
 }
 
+-(void)test_ListFilesShouldFailure_WhenRecognizedPydioServerError
+{
+    NSDictionary *params = [NSDictionary dictionary];
+    PydioErrorResponse *response = [PydioErrorResponse errorResponseWithString:@"Error message"];
+    __block BOOL successBlockCalled = NO;
+    __block BOOL failureBlockCalled = NO;
+    __block NSArray *receivedArray = nil;
+    __block NSError *receivedError = nil;
+    
+    [self.client listFiles:params WithSuccess:^(NSArray *files) {
+        successBlockCalled = YES;
+        receivedArray = files;
+    } failure:^(NSError *error) {
+        failureBlockCalled = YES;
+        receivedError = error;
+    }];
+    
+    MKTArgumentCaptor *success = [[MKTArgumentCaptor alloc] init];
+    [verify(self.operationManager) GET:[self urlListFilesNoToken] parameters:params success:[success capture] failure:anything()];
+    ((SuccessBlock)[success value])(nil,response);
+    assertThatBool(successBlockCalled,equalToBool(NO));
+    assertThatBool(failureBlockCalled,equalToBool(YES));
+    assertThatBool(self.client.progress,equalToBool(NO));
+    assertThat(receivedArray,nilValue());
+    assertThat(receivedError.domain,equalTo(PydioErrorDomain));
+    assertThatInteger(receivedError.code,equalToInteger(PydioErrorErrorResponse));
+}
 
 #pragma mark - Asserts
 

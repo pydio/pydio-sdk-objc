@@ -4,6 +4,7 @@
 #import "LoginResponse.h"
 #import "NotAuthorizedResponseParserDelegate.h"
 #import "NotAuthorizedResponse.h"
+#import "PydioErrorResponse.h"
 #import "RepositoriesParserDelegate.h"
 #import "ListFilesResponseParserDelegate.h"
 #import "ErrorResponseParserDelegate.h"
@@ -184,9 +185,9 @@
 }
 
 -(id)parseResult {
-    NSString *result = nil;
+    PydioErrorResponse *result = nil;
     if (self.parserDelegate.errorMessage) {
-        result = [NSString stringWithString:self.parserDelegate.errorMessage];
+        result = [PydioErrorResponse errorResponseWithString:self.parserDelegate.errorMessage];
     }
     
     return result;
