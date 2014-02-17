@@ -56,6 +56,7 @@
 		89A71BE4189ADE6600DCD566 /* OperationsClientBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A71BE3189ADE6600DCD566 /* OperationsClientBaseTests.m */; };
 		89A71BE7189AE61200DCD566 /* OperationsClientListFilesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A71BE6189AE61200DCD566 /* OperationsClientListFilesTests.m */; };
 		89A7691918A4391A0056A61F /* ListFilesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A7691818A4391A0056A61F /* ListFilesRequest.m */; };
+		89A76DD018B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DCF18B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m */; };
 		89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A84FF31885F5B800AFC2F0 /* OperationsClient.m */; };
 		89AA1A751879AF0900679E04 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */; };
 		89AA1A791879B54C00679E04 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */; };
@@ -185,6 +186,7 @@
 		89A71BE6189AE61200DCD566 /* OperationsClientListFilesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClientListFilesTests.m; sourceTree = "<group>"; };
 		89A7691718A4391A0056A61F /* ListFilesRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListFilesRequest.h; sourceTree = "<group>"; };
 		89A7691818A4391A0056A61F /* ListFilesRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListFilesRequest.m; sourceTree = "<group>"; };
+		89A76DCF18B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListFilesResponseSerializerDelegateTests.m; sourceTree = "<group>"; };
 		89A84FF21885F5B800AFC2F0 /* OperationsClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationsClient.h; sourceTree = "<group>"; };
 		89A84FF31885F5B800AFC2F0 /* OperationsClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClient.m; sourceTree = "<group>"; };
 		89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = Frameworks/OCHamcrestIOS.framework; sourceTree = "<group>"; };
@@ -446,9 +448,9 @@
 			isa = PBXGroup;
 			children = (
 				89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */,
+				89B1B6F218A41B1500EC79C5 /* FailingResponseSerializerTests.m */,
 				89A6C8A4189469A200EA5D13 /* GetSeedResponseSerializerTests.m */,
 				89A6C8AD18947ED600EA5D13 /* XMLResponseSerializerTests.m */,
-				89B1B6F218A41B1500EC79C5 /* FailingResponseSerializerTests.m */,
 			);
 			path = ResponseSerializers;
 			sourceTree = "<group>";
@@ -513,6 +515,7 @@
 			isa = PBXGroup;
 			children = (
 				89ABF21418AD773500594B2E /* ErrorResponseSerializerDelegateTests.m */,
+				89A76DCF18B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m */,
 				89AA6A1E18957FE9006A22DB /* LoginResponseSerializerDelegateTests.m */,
 				89AA6A2018957FF9006A22DB /* NotAuthorizedResponseSerializerDelegateTests.m */,
 				89AA6A221895800A006A22DB /* WorkspacesResponseSerializerDelegateTests.m */,
@@ -556,13 +559,13 @@
 		89AC1AD0188DDD2700ACAD7C /* ResponseParsers */ = {
 			isa = PBXGroup;
 			children = (
+				89A58F0718A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m */,
 				89AD73B5189D3449003C8DD4 /* ListFilesResponseParserDelegateTests.m */,
 				89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */,
 				89ABACFA1893B3E200E1420D /* NotAuthorizedResponseParserDelegateTests.m */,
 				89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */,
 				89ABAD001893D51400E1420D /* XCTestCase+XMLFixture.h */,
 				89ABAD011893D51400E1420D /* XCTestCase+XMLFixture.m */,
-				89A58F0718A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m */,
 			);
 			path = ResponseParsers;
 			sourceTree = "<group>";
@@ -761,6 +764,7 @@
 				89A58F0818A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m in Sources */,
 				89A6C8AE18947ED600EA5D13 /* XMLResponseSerializerTests.m in Sources */,
 				89B1B6F318A41B1500EC79C5 /* FailingResponseSerializerTests.m in Sources */,
+				89A76DD018B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m in Sources */,
 				89ABF21518AD773500594B2E /* ErrorResponseSerializerDelegateTests.m in Sources */,
 				89A5A6661888F7B300365E24 /* OperationsClientGetWorkspacesTests.m in Sources */,
 			);

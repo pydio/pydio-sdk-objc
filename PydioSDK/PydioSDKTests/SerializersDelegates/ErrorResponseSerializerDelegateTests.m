@@ -42,12 +42,12 @@
     [super tearDown];
 }
 
-- (void)testShouldReturnProperXMLParserDelegate
+- (void)test_ShouldReturnProperXMLParserDelegate
 {
     assertThat([self.serializerDelegate xmlParserDelegate],instanceOf([ErrorResponseParserDelegate class]));
 }
 
--(void)testShouldReturnNotAuthorizedResponseWhenNotLoggedIsYes
+-(void)test_ShouldReturnErrorMessage_WhenParsedErrorMessage
 {
     ErrorResponseParserDelegate *parserDelegate = mock([ErrorResponseParserDelegate class]);
     [given(parserDelegate.errorMessage) willReturn:@"Example error"];
@@ -56,7 +56,7 @@
     assertThat([self.serializerDelegate parseResult],equalTo(@"Example error"));
 }
 
--(void)testShouldReturnNilWhenNotLoggedIsNo
+-(void)test_ShouldReturnNilErrorMessage_WhenNotParsedErrorMessage
 {
     ErrorResponseParserDelegate *parserDelegate = mock([ErrorResponseParserDelegate class]);
     [given(parserDelegate.errorMessage) willReturn:nil];
@@ -65,7 +65,7 @@
     assertThat([self.serializerDelegate parseResult],nilValue());
 }
 
--(void)testErrorUserInfoSholdBeNil
+-(void)test_ShouldReturnNilErrorUserInfo
 {
     NSObject *object = [[NSObject alloc] init];
     assertThat([self.serializerDelegate errorUserInfo:object],nilValue());
