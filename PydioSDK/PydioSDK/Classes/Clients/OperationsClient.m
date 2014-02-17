@@ -114,27 +114,24 @@ extern NSString * const PydioErrorDomain;
 }
 
 -(AFHTTPResponseSerializer*)responseSerializerForGetRegisters {
+    NSArray *serializers = [self defaultResponseSerializersWithSerializer:[self createSerializerForRepositories]];
     
-    NSMutableArray *serializers = [NSMutableArray array];
-    [serializers addObject:[self createSerializerForNotAuthorized]];
-    [serializers addObject:[self createSerializerForRepositories]];
-    [serializers addObject:[self createFailingSerializer]];
-    
-    AFCompoundResponseSerializer *serializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
-        
-    return serializer;
+    return [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
 }
 
 -(AFHTTPResponseSerializer*)responseSerializerForListFiles {
+    NSArray *serializers = [self defaultResponseSerializersWithSerializer:[self createSerializerForListFiles]];
     
-    NSMutableArray *serializers = [NSMutableArray array];
-    [serializers addObject:[self createSerializerForNotAuthorized]];
-    [serializers addObject:[self createSerializerForListFiles]];
-    [serializers addObject:[self createFailingSerializer]];
-    
-    AFCompoundResponseSerializer *serializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
-    
-    return serializer;
+    return [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
+}
+
+-(NSArray*)defaultResponseSerializersWithSerializer:(XMLResponseSerializer*)serializer {
+    return @[
+             [self createSerializerForNotAuthorized],
+             [self createSerializerForErrorResponse],
+             serializer,
+             [self createFailingSerializer]
+            ];
 }
 
 -(XMLResponseSerializer*)createSerializerForNotAuthorized {
@@ -169,4 +166,5 @@ extern NSString * const PydioErrorDomain;
     
     return error;
 }
+
 @end
