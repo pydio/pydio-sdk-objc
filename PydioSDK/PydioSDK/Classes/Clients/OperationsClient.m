@@ -21,6 +21,10 @@ extern NSString * const PydioErrorDomain;
 
 @interface OperationsClient ()
 @property (readwrite,nonatomic,assign) BOOL progress;
+@property (nonatomic,copy) void(^successBlock)(id response);
+@property (nonatomic,copy) void(^failureBlock)(NSError* error);
+@property (nonatomic,copy) void(^successResponseBlock)(AFHTTPRequestOperation *operation, id responseObject);
+@property (nonatomic,copy) void(^failureResponseBlock)(AFHTTPRequestOperation *operation, NSError *error);
 
 -(NSString*)actionWithTokenIfNeeded:(NSString*)action;
 -(NSString*)urlStringForGetRegisters;
@@ -28,29 +32,57 @@ extern NSString * const PydioErrorDomain;
 @end
 
 @implementation OperationsClient
+
+-(void)setupResponseBlocks {
+    [self setupSuccessResponseBlock];
+    [self setupFailureResponseBlock];
+}
+
+-(void)setupSuccessResponseBlock {
+    typeof(self) strongSelf = self;
+    self.successResponseBlock = ^(AFHTTPRequestOperation *operation, id responseObject) {
+        strongSelf.progress = NO;
+        NSError *error = [strongSelf identifyError:responseObject];
+        if (error) {
+            strongSelf.failureBlock(error);
+        } else {
+            strongSelf.successBlock(responseObject);
+        }
+        [strongSelf clearBlocks];
+    };
+}
+
+-(void)setupFailureResponseBlock {
+    typeof(self) strongSelf = self;
+    self.failureResponseBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        strongSelf.progress = NO;
+        strongSelf.failureBlock(error);
+        [strongSelf clearBlocks];
+    };
+}
+
+-(void)clearBlocks {
+    _successBlock = nil;
+    _failureBlock = nil;
+    _failureResponseBlock = nil;
+}
+
+#pragma mark - Public operations
+
 -(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray *workspaces))success failure:(void(^)(NSError *error))failure {
     if (self.progress) {
         return NO;
     }
     self.progress = YES;
     
-    NSString *listRegisters = [self urlStringForGetRegisters];
     self.operationManager.requestSerializer = [self defaultRequestSerializer];
     self.operationManager.responseSerializer = [self responseSerializerForGetRegisters];
     
-    [self.operationManager GET:listRegisters parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.progress = NO;
-        NSError *error = [self identifyError:responseObject];
-        if (error) {
-            failure(error);
-        } else {
-            success(responseObject);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        self.progress = NO;
-        failure(error);
-    }];
+    self.successBlock = success;
+    self.failureBlock = failure;
+    [self setupResponseBlocks];
     
+    [self.operationManager GET:[self urlStringForGetRegisters] parameters:nil success:self.successResponseBlock failure:self.failureResponseBlock];
     
     return YES;
 }
@@ -61,24 +93,15 @@ extern NSString * const PydioErrorDomain;
     }
     self.progress = YES;
     
-    NSString *listFilesURL = [self urlStringForListFiles];
     self.operationManager.requestSerializer = [self defaultRequestSerializer];
     self.operationManager.responseSerializer = [self responseSerializerForListFiles];
 
-    [self.operationManager GET:listFilesURL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.progress = NO;
-        NSError *error = [self identifyError:responseObject];
-        if (error) {
-            failure(error);
-        } else {
-            success(responseObject);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        self.progress = NO;
-        failure(error);
-    }];
-
+    self.successBlock = success;
+    self.failureBlock = failure;
+    [self setupResponseBlocks];
     
+    [self.operationManager GET:[self urlStringForListFiles] parameters:params success:self.successResponseBlock failure:self.failureResponseBlock];
+
     return YES;
 }
 
