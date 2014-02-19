@@ -65,6 +65,7 @@ extern NSString * const PydioErrorDomain;
     _successBlock = nil;
     _failureBlock = nil;
     _failureResponseBlock = nil;
+    _successResponseBlock = nil;
 }
 
 #pragma mark - Public operations
@@ -105,7 +106,7 @@ extern NSString * const PydioErrorDomain;
     return YES;
 }
 
-#pragma mark -
+#pragma mark - Helper methods
 
 -(NSString*)actionWithTokenIfNeeded:(NSString*)action {
     NSString *secureToken = [[CookieManager sharedManager] secureTokenForServer:self.operationManager.baseURL];

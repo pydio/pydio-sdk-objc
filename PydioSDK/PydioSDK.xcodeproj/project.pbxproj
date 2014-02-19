@@ -40,7 +40,6 @@
 		89A58F0618A9796C00FCEDE5 /* ErrorResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A58F0518A9796C00FCEDE5 /* ErrorResponseParserDelegate.m */; };
 		89A58F0818A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A58F0718A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m */; };
 		89A58F0A18A9878600FCEDE5 /* error_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A58F0918A9878600FCEDE5 /* error_response.xml */; };
-		89A5A6661888F7B300365E24 /* OperationsClientGetWorkspacesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A5A6651888F7B300365E24 /* OperationsClientGetWorkspacesTests.m */; };
 		89A6155118A036300079D21B /* NewServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6155018A036300079D21B /* NewServerViewController.m */; };
 		89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */; };
 		89A6AA42187B1E31003A6BDA /* AuthorizationClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */; };
@@ -53,8 +52,6 @@
 		89A6F2FA189E3FDA00F1763E /* ls_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A6F2F9189E3FDA00F1763E /* ls_response2.xml */; };
 		89A6F2FE189E5A9600F1763E /* XMLParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F2FD189E5A9600F1763E /* XMLParserState.m */; };
 		89A6F305189E73FF00F1763E /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F304189E73FF00F1763E /* Node.m */; };
-		89A71BE4189ADE6600DCD566 /* OperationsClientBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A71BE3189ADE6600DCD566 /* OperationsClientBaseTests.m */; };
-		89A71BE7189AE61200DCD566 /* OperationsClientListFilesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A71BE6189AE61200DCD566 /* OperationsClientListFilesTests.m */; };
 		89A7691918A4391A0056A61F /* ListFilesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A7691818A4391A0056A61F /* ListFilesRequest.m */; };
 		89A76DD018B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DCF18B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m */; };
 		89A76DD318B2BF28000D0AF1 /* PydioErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */; };
@@ -88,6 +85,8 @@
 		89BAC56A18A1198400799C1C /* ServerContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BAC56918A1198400799C1C /* ServerContentViewController.m */; };
 		89BD973E1891A20C0054CFA2 /* login_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89BD973D1891A20C0054CFA2 /* login_response.xml */; };
 		89BD97401891A2710054CFA2 /* LoginResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */; };
+		89C0880218B52A6100103985 /* OperationsClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C0880118B52A6100103985 /* OperationsClientTests.m */; };
+		89C0880518B532F900103985 /* BlocksCallResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C0880418B532F900103985 /* BlocksCallResult.m */; };
 		89C2A9C71878C4EE0051B8E6 /* LoginResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C61878C4EE0051B8E6 /* LoginResponseParserDelegate.m */; };
 		89C2A9CA1878CD440051B8E6 /* LoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C91878CD440051B8E6 /* LoginResponse.m */; };
 /* End PBXBuildFile section */
@@ -160,7 +159,6 @@
 		89A58F0518A9796C00FCEDE5 /* ErrorResponseParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorResponseParserDelegate.m; sourceTree = "<group>"; };
 		89A58F0718A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorResponseParserDelegateTests.m; sourceTree = "<group>"; };
 		89A58F0918A9878600FCEDE5 /* error_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = error_response.xml; sourceTree = "<group>"; };
-		89A5A6651888F7B300365E24 /* OperationsClientGetWorkspacesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClientGetWorkspacesTests.m; sourceTree = "<group>"; };
 		89A6154F18A036300079D21B /* NewServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewServerViewController.h; sourceTree = "<group>"; };
 		89A6155018A036300079D21B /* NewServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewServerViewController.m; sourceTree = "<group>"; };
 		89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BootConfResponseSerializerTests.m; sourceTree = "<group>"; };
@@ -182,9 +180,6 @@
 		89A6F2FD189E5A9600F1763E /* XMLParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParserState.m; sourceTree = "<group>"; };
 		89A6F303189E73FF00F1763E /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
 		89A6F304189E73FF00F1763E /* Node.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Node.m; sourceTree = "<group>"; };
-		89A71BE3189ADE6600DCD566 /* OperationsClientBaseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClientBaseTests.m; sourceTree = "<group>"; };
-		89A71BE5189ADE9000DCD566 /* OperationsClientBaseTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperationsClientBaseTests.h; sourceTree = "<group>"; };
-		89A71BE6189AE61200DCD566 /* OperationsClientListFilesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClientListFilesTests.m; sourceTree = "<group>"; };
 		89A7691718A4391A0056A61F /* ListFilesRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListFilesRequest.h; sourceTree = "<group>"; };
 		89A7691818A4391A0056A61F /* ListFilesRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListFilesRequest.m; sourceTree = "<group>"; };
 		89A76DCF18B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListFilesResponseSerializerDelegateTests.m; sourceTree = "<group>"; };
@@ -232,6 +227,9 @@
 		89BAC56918A1198400799C1C /* ServerContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerContentViewController.m; sourceTree = "<group>"; };
 		89BD973D1891A20C0054CFA2 /* login_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = login_response.xml; sourceTree = "<group>"; };
 		89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseParserDelegateTests.m; sourceTree = "<group>"; };
+		89C0880118B52A6100103985 /* OperationsClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClientTests.m; sourceTree = "<group>"; };
+		89C0880318B532F900103985 /* BlocksCallResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlocksCallResult.h; sourceTree = "<group>"; };
+		89C0880418B532F900103985 /* BlocksCallResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlocksCallResult.m; sourceTree = "<group>"; };
 		89C2A9C51878C4EE0051B8E6 /* LoginResponseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponseParserDelegate.h; sourceTree = "<group>"; };
 		89C2A9C61878C4EE0051B8E6 /* LoginResponseParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseParserDelegate.m; sourceTree = "<group>"; };
 		89C2A9C81878CD440051B8E6 /* LoginResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginResponse.h; sourceTree = "<group>"; };
@@ -347,6 +345,8 @@
 		3DFF3B0A186648CA00A766D7 /* PydioSDKTests */ = {
 			isa = PBXGroup;
 			children = (
+				89C0880318B532F900103985 /* BlocksCallResult.h */,
+				89C0880418B532F900103985 /* BlocksCallResult.m */,
 				89A6AA40187B1DE2003A6BDA /* Clients */,
 				89B13A9C18917A13007282EB /* CookieManagerTests.m */,
 				89AC1AD3188DE84900ACAD7C /* Fixtures */,
@@ -462,10 +462,7 @@
 			isa = PBXGroup;
 			children = (
 				89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */,
-				89A71BE5189ADE9000DCD566 /* OperationsClientBaseTests.h */,
-				89A71BE3189ADE6600DCD566 /* OperationsClientBaseTests.m */,
-				89A5A6651888F7B300365E24 /* OperationsClientGetWorkspacesTests.m */,
-				89A71BE6189AE61200DCD566 /* OperationsClientListFilesTests.m */,
+				89C0880118B52A6100103985 /* OperationsClientTests.m */,
 				89B4ED7518984AB70033CFBA /* PydioClient */,
 			);
 			path = Clients;
@@ -752,14 +749,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89A71BE7189AE61200DCD566 /* OperationsClientListFilesTests.m in Sources */,
 				89AA6A2118957FF9006A22DB /* NotAuthorizedResponseSerializerDelegateTests.m in Sources */,
 				89A6C8A5189469A200EA5D13 /* GetSeedResponseSerializerTests.m in Sources */,
 				89AD73B6189D3449003C8DD4 /* ListFilesResponseParserDelegateTests.m in Sources */,
 				89BD97401891A2710054CFA2 /* LoginResponseParserDelegateTests.m in Sources */,
-				89A71BE4189ADE6600DCD566 /* OperationsClientBaseTests.m in Sources */,
 				89AC1AD2188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m in Sources */,
 				89B13A9D18917A13007282EB /* CookieManagerTests.m in Sources */,
+				89C0880218B52A6100103985 /* OperationsClientTests.m in Sources */,
 				89A6AA42187B1E31003A6BDA /* AuthorizationClientTests.m in Sources */,
 				89B429ED187F4BD0005F6580 /* PydioClientTests.m in Sources */,
 				89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */,
@@ -772,7 +768,7 @@
 				89B1B6F318A41B1500EC79C5 /* FailingResponseSerializerTests.m in Sources */,
 				89A76DD018B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m in Sources */,
 				89ABF21518AD773500594B2E /* ErrorResponseSerializerDelegateTests.m in Sources */,
-				89A5A6661888F7B300365E24 /* OperationsClientGetWorkspacesTests.m in Sources */,
+				89C0880518B532F900103985 /* BlocksCallResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
