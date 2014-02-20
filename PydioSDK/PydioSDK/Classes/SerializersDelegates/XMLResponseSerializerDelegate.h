@@ -35,6 +35,10 @@
 
 @end
 
+@interface MkdirResponseSerializerDelegate : NSObject<XMLResponseSerializerDelegate>
+
+@end
+
 @interface ErrorResponseSerializerDelegate : NSObject<XMLResponseSerializerDelegate>
 
 @end

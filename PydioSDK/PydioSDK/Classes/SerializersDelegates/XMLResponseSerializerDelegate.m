@@ -163,6 +163,48 @@
 
 @end
 
+#pragma mark - Mkdir Response
+
+@interface MkdirResponseSerializerDelegate ()
+//@property (nonatomic, strong) MkdirResponseParserDelegate* parserDelegate;
+@end
+
+@implementation MkdirResponseSerializerDelegate
+
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+//        self.parserDelegate = [[MkdirResponseParserDelegate alloc] init];
+    }
+    
+    return self;
+}
+
+-(id <NSXMLParserDelegate>)xmlParserDelegate {
+//    return self.parserDelegate;
+    return nil;
+}
+
+-(id)parseResult {
+//    PydioSuccessResponse *result = nil;
+//    if (self.parserDelegate.success) {
+//        result = [[PydioSuccessResponse alloc] init];
+//    }
+//    
+//    return result;
+    return nil;
+}
+
+-(NSDictionary*)errorUserInfo:(id)response {
+//    return @{
+//             NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"Error when parsing mkdir response", nil, @"PydioSDK"),
+//             NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedStringFromTable(@"mkdir result not recognizd as success: %@", nil, @"PydioSDK"), response]
+//            };
+    return nil;
+}
+
+@end
+
 #pragma mark - Error Response
 
 @interface ErrorResponseSerializerDelegate ()

@@ -74,14 +74,9 @@ extern NSString * const PydioErrorDomain;
     if (self.progress) {
         return NO;
     }
-    self.progress = YES;
-    
-    self.operationManager.requestSerializer = [self defaultRequestSerializer];
+
+    [self setupCommons:success failure:failure];
     self.operationManager.responseSerializer = [self responseSerializerForGetRegisters];
-    
-    self.successBlock = success;
-    self.failureBlock = failure;
-    [self setupResponseBlocks];
     
     [self.operationManager GET:[self urlStringForGetRegisters] parameters:nil success:self.successResponseBlock failure:self.failureResponseBlock];
     
@@ -92,21 +87,39 @@ extern NSString * const PydioErrorDomain;
     if (self.progress) {
         return NO;
     }
-    self.progress = YES;
-    
-    self.operationManager.requestSerializer = [self defaultRequestSerializer];
-    self.operationManager.responseSerializer = [self responseSerializerForListFiles];
 
-    self.successBlock = success;
-    self.failureBlock = failure;
-    [self setupResponseBlocks];
+    [self setupCommons:success failure:failure];
+    self.operationManager.responseSerializer = [self responseSerializerForListFiles];
     
     [self.operationManager GET:[self urlStringForListFiles] parameters:params success:self.successResponseBlock failure:self.failureResponseBlock];
 
     return YES;
 }
 
+-(BOOL)mkdir:(NSDictionary*)params WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
+    if (self.progress) {
+        return NO;
+    }
+    
+    [self setupCommons:success failure:failure];
+    self.operationManager.responseSerializer = [self responseSerializerForMkdir];
+    
+    [self.operationManager POST:@"" parameters:params success:self.successResponseBlock failure:self.failureResponseBlock];
+    
+    return YES;
+}
+
 #pragma mark - Helper methods
+
+-(void)setupCommons:(void(^)(id result))success failure:(void(^)(NSError *))failure {
+    self.progress = YES;
+    
+    self.operationManager.requestSerializer = [self defaultRequestSerializer];
+    
+    self.successBlock = success;
+    self.failureBlock = failure;
+    [self setupResponseBlocks];
+}
 
 -(NSString*)actionWithTokenIfNeeded:(NSString*)action {
     NSString *secureToken = [[CookieManager sharedManager] secureTokenForServer:self.operationManager.baseURL];
@@ -151,6 +164,12 @@ extern NSString * const PydioErrorDomain;
     return [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
 }
 
+-(AFHTTPResponseSerializer*)responseSerializerForMkdir {
+    NSArray *serializers = [self defaultResponseSerializersWithSerializer:[self createSerializerForMkdir]];
+    
+    return [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
+}
+
 -(NSArray*)defaultResponseSerializersWithSerializer:(XMLResponseSerializer*)serializer {
     return @[
              [self createSerializerForNotAuthorized],
@@ -177,6 +196,11 @@ extern NSString * const PydioErrorDomain;
 
 -(XMLResponseSerializer*)createSerializerForListFiles {
     ListFilesResponseSerializerDelegate *delegate = [[ListFilesResponseSerializerDelegate alloc] init];
+    return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
+}
+
+-(XMLResponseSerializer*)createSerializerForMkdir {
+    MkdirResponseSerializerDelegate *delegate = [[MkdirResponseSerializerDelegate alloc] init];
     return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
 }
 

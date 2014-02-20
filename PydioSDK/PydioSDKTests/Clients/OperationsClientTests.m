@@ -124,14 +124,22 @@ static id mockedCookieManager(id self, SEL _cmd) {
     assertThat([self xmlResponseSerializerFrom:serializer AtIndex:1],instanceOf([ErrorResponseSerializerDelegate class]));
 }
 
--(void)assertWorkspaceResponseSerializer:(AFCompoundResponseSerializer*)serializer {
+-(void)assertResponseSerializer:(AFCompoundResponseSerializer*)serializer AtResponsePositionHas:(Class)class {
     assertThat([serializer.responseSerializers objectAtIndex:2],instanceOf([XMLResponseSerializer class]));
-    assertThat([self xmlResponseSerializerFrom:serializer AtIndex:2],instanceOf([WorkspacesResponseSerializerDelegate class]));
+    assertThat([self xmlResponseSerializerFrom:serializer AtIndex:2],instanceOf(class));
 }
 
--(void)assertListFilesResponseSerializer:(AFCompoundResponseSerializer*)serializer {
-    assertThat([serializer.responseSerializers objectAtIndex:2],instanceOf([XMLResponseSerializer class]));
-    assertThat([self xmlResponseSerializerFrom:serializer AtIndex:2],instanceOf([ListFilesResponseSerializerDelegate class]));
+-(void)assertDefaultResponseSerializerWithClass:(Class)class {
+    AFCompoundResponseSerializer *compound = [self compundResponseSerializer];
+    [self assertDefaultResponseSerializer:compound];
+    [self assertResponseSerializer:compound AtResponsePositionHas:class];
+}
+
+-(void)assertClientBlocksSuccess:(SuccessBlock)success AndFailure:(FailureBlock)failure {
+    assertThat(self.client.successBlock,sameInstance(success));
+    assertThat(self.client.successBlock,notNilValue());
+    assertThat(self.client.failureBlock,sameInstance(failure));
+    assertThat(self.client.failureBlock,notNilValue());
 }
 
 #pragma mark - Tests setup
@@ -258,7 +266,17 @@ static id mockedCookieManager(id self, SEL _cmd) {
     [verifyCount([self operationManager], never()) GET:anything() parameters:anything() success:anything() failure:anything()];
 }
 
-#pragma mark - Test correctness of invocation
+-(void)test_shouldNotStartMkdir_whenOtherOperationIsInProgress
+{
+    self.client.progress = YES;
+    
+    BOOL startResult = [self.client mkdir:@{} WithSuccess:nil failure:nil];
+    
+    assertThatBool(startResult,equalToBool(NO));
+    [verifyCount([self operationManager], never()) POST:anything() parameters:anything() success:anything() failure:anything()];
+}
+
+#pragma mark - Test starting when operations client is not in progress
 
 -(void)test_shouldStartListWorkspaces_whenNoOperationIsInProgress
 {
@@ -271,11 +289,8 @@ static id mockedCookieManager(id self, SEL _cmd) {
     assertThatBool(startResult,equalToBool(YES));
     [verify([self operationManager]) GET:[self workspacesURL] parameters:nil success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
     [self assertOperationManagerHasDefaultRequestSerializerSet];
-    AFCompoundResponseSerializer *compound = [self compundResponseSerializer];
-    [self assertDefaultResponseSerializer:compound];
-    [self assertWorkspaceResponseSerializer:compound];
-    assertThat(self.client.successBlock,sameInstance(successBlock));
-    assertThat(self.client.failureBlock,sameInstance(failureBlock));
+    [self assertDefaultResponseSerializerWithClass:[WorkspacesResponseSerializerDelegate class]];
+    [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];
 }
 
 -(void)test_shouldStartListNodes_whenNoOperationIsInProgress
@@ -290,11 +305,24 @@ static id mockedCookieManager(id self, SEL _cmd) {
     assertThatBool(startResult,equalToBool(YES));
     [verify([self operationManager]) GET:[self listFilesURL] parameters:params success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
     [self assertOperationManagerHasDefaultRequestSerializerSet];
-    AFCompoundResponseSerializer *compound = [self compundResponseSerializer];
-    [self assertDefaultResponseSerializer:compound];
-    [self assertListFilesResponseSerializer:compound];
-    assertThat(self.client.successBlock,sameInstance(successBlock));
-    assertThat(self.client.failureBlock,sameInstance(failureBlock));
+    [self assertDefaultResponseSerializerWithClass:[ListFilesResponseSerializerDelegate class]];
+    [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];
+}
+
+-(void)test_shouldStartMkdir_whenNoOperationIsInProgress
+{
+    NSDictionary *params = @{};
+    BlocksCallResult *result = [BlocksCallResult result];
+    SuccessBlock successBlock = [result successBlock];
+    FailureBlock failureBlock = [result failureBlock];
+    
+    BOOL startResult = [self.client mkdir:params WithSuccess:successBlock failure:failureBlock];
+    
+    assertThatBool(startResult,equalToBool(YES));
+    [verify([self operationManager]) POST:@"" parameters:params success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    [self assertOperationManagerHasDefaultRequestSerializerSet];
+    [self assertDefaultResponseSerializerWithClass:[MkdirResponseSerializerDelegate class]];
+    [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];
 }
 
 @end
