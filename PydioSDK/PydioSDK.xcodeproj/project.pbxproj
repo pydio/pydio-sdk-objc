@@ -56,6 +56,7 @@
 		89A76DD018B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DCF18B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m */; };
 		89A76DD318B2BF28000D0AF1 /* PydioErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */; };
 		89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A84FF31885F5B800AFC2F0 /* OperationsClient.m */; };
+		89A8C22A18B687930027B715 /* mkdir_success_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A8C22918B687930027B715 /* mkdir_success_response.xml */; };
 		89AA1A751879AF0900679E04 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */; };
 		89AA1A791879B54C00679E04 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */; };
 		89AA6A1A18956EFE006A22DB /* XMLResponseSerializerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA6A1918956EFE006A22DB /* XMLResponseSerializerDelegate.m */; };
@@ -187,6 +188,7 @@
 		89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioErrorResponse.m; sourceTree = "<group>"; };
 		89A84FF21885F5B800AFC2F0 /* OperationsClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationsClient.h; sourceTree = "<group>"; };
 		89A84FF31885F5B800AFC2F0 /* OperationsClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClient.m; sourceTree = "<group>"; };
+		89A8C22918B687930027B715 /* mkdir_success_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = mkdir_success_response.xml; sourceTree = "<group>"; };
 		89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = Frameworks/OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMockitoIOS.framework; path = Frameworks/OCMockitoIOS.framework; sourceTree = "<group>"; };
 		89AA6A1918956EFE006A22DB /* XMLResponseSerializerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLResponseSerializerDelegate.m; sourceTree = "<group>"; };
@@ -580,6 +582,7 @@
 				89BD973D1891A20C0054CFA2 /* login_response.xml */,
 				89AD73B7189D3602003C8DD4 /* ls_response.xml */,
 				89A6F2F9189E3FDA00F1763E /* ls_response2.xml */,
+				89A8C22918B687930027B715 /* mkdir_success_response.xml */,
 				89ABACFC1893BDC800E1420D /* unathorized_response.xml */,
 				89ABACFE1893BEF700E1420D /* unathorized_response2.xml */,
 			);
@@ -683,6 +686,7 @@
 			files = (
 				89ABACFD1893BDC800E1420D /* unathorized_response.xml in Resources */,
 				89A58F0A18A9878600FCEDE5 /* error_response.xml in Resources */,
+				89A8C22A18B687930027B715 /* mkdir_success_response.xml in Resources */,
 				89BD973E1891A20C0054CFA2 /* login_response.xml in Resources */,
 				89ABACFF1893BEF700E1420D /* unathorized_response2.xml in Resources */,
 				89AD73B8189D3602003C8DD4 /* ls_response.xml in Resources */,

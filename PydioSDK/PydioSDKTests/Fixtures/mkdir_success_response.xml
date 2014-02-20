@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tree >
+    <message type="SUCCESS">The directory alama has been created in /</message>
+    <nodes_diff>
+        <add>
+            <tree is_file="false" filename="/alama" mimestring_id="8" icon="folder.png" openicon="folder_open.png" ajxp_mime="ajxp_folder" file_group="1" file_owner="1" file_perms="0700" ajxp_modiftime="1392326873" bytesize="0" filesize="-" meta_fields="tags" meta_labels="Tags" meta_types="string" mimestring="Directory" text="alama"/>
+        </add>
+    </nodes_diff>
+</tree>

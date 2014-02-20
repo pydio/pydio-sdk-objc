@@ -12,6 +12,7 @@
 static NSString * const TREE_NODE = @"tree";
 static NSString * const MESSAGE_NODE = @"message";
 static NSString * const TYPE_ATTRIBUTE = @"type";
+static NSString * const TYPE_ATTRIBUTE_VALUE = @"ERROR";
 
 typedef NS_ENUM(NSUInteger,State) {
     InitialState,
@@ -43,7 +44,7 @@ typedef NS_ENUM(NSUInteger,State) {
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     if (self.state == InitialState && [elementName isEqualToString:TREE_NODE]) {
         self.state = ExpectErrorMessageStart;
-    } else if (self.state == ExpectErrorMessageStart && [elementName isEqualToString:MESSAGE_NODE] && [attributeDict valueForKey:TYPE_ATTRIBUTE]) {
+    } else if (self.state == ExpectErrorMessageStart && [elementName isEqualToString:MESSAGE_NODE] && [[attributeDict valueForKey:TYPE_ATTRIBUTE] isEqualToString:TYPE_ATTRIBUTE_VALUE]) {
         self.state = ExpectErrorMessageEnd;
     } else if (self.state != IgnoreState) {
         [parser abortParsing];

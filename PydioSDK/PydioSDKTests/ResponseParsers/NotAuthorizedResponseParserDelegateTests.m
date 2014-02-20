@@ -65,7 +65,8 @@
                            @"login_response.xml",
                            @"get_registers_response.xml",
                            @"ls_response2.xml",
-                           @"error_response.xml"
+                           @"error_response.xml",
+                           @"mkdir_success_response.xml"
                           ];
     
     for (NSString *file in responses) {

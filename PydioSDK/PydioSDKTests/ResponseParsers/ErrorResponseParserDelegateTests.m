@@ -49,7 +49,8 @@
     NSArray *responses = @[
                            @"login_response.xml",
                            @"get_registers_response.xml",
-                           @"ls_response2.xml"
+                           @"ls_response2.xml",
+                           @"mkdir_success_response.xml"
                            ];
     
     for (NSString *file in responses) {
