@@ -7,7 +7,9 @@
 #import "PydioErrorResponse.h"
 #import "RepositoriesParserDelegate.h"
 #import "ListFilesResponseParserDelegate.h"
+#import "MkdirResponseParserDelegate.h"
 #import "ErrorResponseParserDelegate.h"
+#import "PydioSuccessResponse.h"
 
 
 #pragma mark - Login response
@@ -166,7 +168,7 @@
 #pragma mark - Mkdir Response
 
 @interface MkdirResponseSerializerDelegate ()
-//@property (nonatomic, strong) MkdirResponseParserDelegate* parserDelegate;
+@property (nonatomic, strong) MkdirResponseParserDelegate* parserDelegate;
 @end
 
 @implementation MkdirResponseSerializerDelegate
@@ -174,33 +176,30 @@
 -(instancetype)init {
     self = [super init];
     if (self) {
-//        self.parserDelegate = [[MkdirResponseParserDelegate alloc] init];
+        self.parserDelegate = [[MkdirResponseParserDelegate alloc] init];
     }
     
     return self;
 }
 
 -(id <NSXMLParserDelegate>)xmlParserDelegate {
-//    return self.parserDelegate;
-    return nil;
+    return self.parserDelegate;
 }
 
 -(id)parseResult {
-//    PydioSuccessResponse *result = nil;
-//    if (self.parserDelegate.success) {
-//        result = [[PydioSuccessResponse alloc] init];
-//    }
-//    
-//    return result;
-    return nil;
+    PydioSuccessResponse *result = nil;
+    if (self.parserDelegate.success) {
+        result = [[PydioSuccessResponse alloc] init];
+    }
+    
+    return result;
 }
 
 -(NSDictionary*)errorUserInfo:(id)response {
-//    return @{
-//             NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"Error when parsing mkdir response", nil, @"PydioSDK"),
-//             NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedStringFromTable(@"mkdir result not recognizd as success: %@", nil, @"PydioSDK"), response]
-//            };
-    return nil;
+    return @{
+             NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"Error when parsing mkdir response", nil, @"PydioSDK"),
+             NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedStringFromTable(@"mkdir result not recognizd as success: %@", nil, @"PydioSDK"), response]
+            };
 }
 
 @end
