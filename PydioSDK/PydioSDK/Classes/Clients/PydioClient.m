@@ -32,8 +32,10 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 -(AFHTTPRequestOperationManager*)createOperationManager:(NSString*)server;
 -(AuthorizationClient*)createAuthorizationClient;
 -(OperationsClient*)createOperationsClient;
--(void)performAuthorizationAndOperation;
--(void)handleOperationFailure:(NSError*)error;
+-(void)setupResponseBlocks;
+-(void)setupSuccessResponseBlock;
+-(void)setupFailureResponseBlock;
+-(void)setupCommons:(void(^)(id result))success failure:(void(^)(NSError *))failure;
 @end
 
 
@@ -60,6 +62,8 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return self;
 }
 
+#pragma mark - Setup operations common parts
+
 -(void)setupResponseBlocks {
     [self setupSuccessResponseBlock];
     [self setupFailureResponseBlock];
@@ -78,7 +82,13 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     __weak typeof(self) weakSelf = self;
     self.failureResponseBlock = ^(NSError *error){
         __strong typeof(self) strongSelf = weakSelf;
-        [strongSelf handleOperationFailure:error];
+        if ([strongSelf isAuthorizationError:error] && strongSelf.authorizationsTriesCount > 0) {
+            strongSelf.authorizationsTriesCount--;
+            [strongSelf.authorizationClient authorizeWithSuccess:strongSelf.operationBlock failure:strongSelf.failureResponseBlock];
+        } else {
+            strongSelf.failureBlock(error);
+            [strongSelf clearBlocks];
+        }
     };
 }
 
@@ -96,7 +106,6 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     if (self.progress) {
         return NO;
     }
-    
     [self setupCommons:success failure:failure];
     
     typeof(self) strongSelf = self;
@@ -113,7 +122,6 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     if (self.progress) {
         return NO;
     }
-    
     [self setupCommons:success failure:failure];
     
     typeof(self) strongSelf = self;
@@ -122,12 +130,11 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     };
     
     self.operationBlock();
-
     
     return YES;
 }
 
-#pragma mark -
+#pragma mark - Helper methods
 
 -(void)clearBlocks {
     self.operationBlock = nil;
@@ -153,25 +160,6 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     client.operationManager = self.operationManager;
     
     return client;
-}
-
--(void)performAuthorizationAndOperation {
-    self.authorizationsTriesCount--;
-    [self.authorizationClient authorizeWithSuccess:^{
-        self.operationBlock();
-    } failure:^(NSError *error) {
-        self.failureBlock(error);
-        [self clearBlocks];
-    }];
-}
-
--(void)handleOperationFailure:(NSError*)error {
-    if ([self isAuthorizationError:error] && self.authorizationsTriesCount > 0) {
-        [self performAuthorizationAndOperation];
-    } else {
-        self.failureBlock(error);
-        [self clearBlocks];
-    }
 }
 
 -(BOOL)isAuthorizationError:(NSError *)error {

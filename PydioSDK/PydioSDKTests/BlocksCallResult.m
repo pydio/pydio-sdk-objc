@@ -48,6 +48,24 @@
     };
 }
 
+#pragma mark - From NSObject
+
+-(NSString*)description {
+#define BOOLSTRING(x) ((x) ? @"YES" : @"NO")
+    
+    return [NSString stringWithFormat:@"%@\n"
+            " successBlockCalled: %@"
+            " failureBlockCalled: %@"
+            " receivedResponse: %@"
+            " receivedError: %@"
+            ,[super description]
+            ,BOOLSTRING(self.successBlockCalled)
+            ,BOOLSTRING(self.failureBlockCalled)
+            ,self.receivedResponse
+            ,self.receivedError
+           ];
+}
+
 -(BOOL)isEqual:(id)object {
     if (object == self) {
         return YES;

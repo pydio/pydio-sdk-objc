@@ -71,14 +71,6 @@ static id mockedCookieManager(id self, SEL _cmd) {
     [self.client setupResponseBlocks];
 }
 
--(void)assertClientCleanStateAfterBlockCall {
-    assertThatBool(self.client.progress,equalToBool(NO));
-    assertThat(self.client.successBlock,nilValue());
-    assertThat(self.client.failureBlock,nilValue());
-    assertThat(self.client.successResponseBlock,nilValue());
-    assertThat(self.client.failureResponseBlock,nilValue());
-}
-
 -(NSString*)workspacesURL {
     return [NSString stringWithFormat:@"%@%@",GET_ACTION_BASE,@"get_xml_registry&xPath=user/repositories"];
 }
@@ -98,14 +90,24 @@ static id mockedCookieManager(id self, SEL _cmd) {
              };
 }
 
+-(id<XMLResponseSerializerDelegate>)xmlResponseSerializerFrom:(AFCompoundResponseSerializer*)compound AtIndex:(NSUInteger)index {
+    return ((XMLResponseSerializer*)[compound.responseSerializers objectAtIndex:index]).serializerDelegate;
+}
+
+#pragma mark - Test verification
+
+-(void)assertClientCleanStateAfterBlockCall {
+    assertThatBool(self.client.progress,equalToBool(NO));
+    assertThat(self.client.successBlock,nilValue());
+    assertThat(self.client.failureBlock,nilValue());
+    assertThat(self.client.successResponseBlock,nilValue());
+    assertThat(self.client.failureResponseBlock,nilValue());
+}
+
 -(void) assertOperationManagerHasDefaultRequestSerializerSet {
     MKTArgumentCaptor *requestSerializerCaptor = [[MKTArgumentCaptor alloc] init];
     [verify(self.operationManager) setRequestSerializer:[requestSerializerCaptor capture]];
     assertThat(((AFHTTPRequestSerializer*)[requestSerializerCaptor value]).HTTPRequestHeaders,equalTo(self.defaultRequestParams));
-}
-
--(id<XMLResponseSerializerDelegate>)xmlResponseSerializerFrom:(AFCompoundResponseSerializer*)compound AtIndex:(NSUInteger)index {
-    return ((XMLResponseSerializer*)[compound.responseSerializers objectAtIndex:index]).serializerDelegate;
 }
 
 -(AFCompoundResponseSerializer*)compundResponseSerializer {
@@ -168,7 +170,7 @@ static id mockedCookieManager(id self, SEL _cmd) {
 
 #pragma mark - Tests
 
-- (void)test_shouldReturnActionWithAccessToken_whenAccessTokenIsPresentInCookieManager
+- (void)test_shouldReturnActionNameWithAccessToken_whenAccessTokenIsPresentInCookieManager
 {
     NSString *action = @"action";
     NSString *expectedFormedAction = [NSString stringWithFormat:@"%@%@&secure_token=%@",GET_ACTION_BASE,action,TEST_TOKEN];
@@ -179,7 +181,7 @@ static id mockedCookieManager(id self, SEL _cmd) {
     assertThat(formedAction,equalTo(expectedFormedAction));
 }
 
-- (void)test_shouldReturnActionWithoutAccessToken_whenAccessTokenNotPresentInCookieManager
+- (void)test_shouldReturnActionNameWithoutAccessToken_whenAccessTokenNotPresentInCookieManager
 {
     NSString *action = @"action";
     NSString *expectedFormedAction = [NSString stringWithFormat:@"%@%@",GET_ACTION_BASE,action];

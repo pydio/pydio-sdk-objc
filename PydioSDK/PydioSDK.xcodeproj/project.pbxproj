@@ -232,7 +232,6 @@
 		89B429EC187F4BD0005F6580 /* PydioClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClientTests.m; sourceTree = "<group>"; };
 		89B47808187DFCE700A9CFC5 /* AuthCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthCredentials.h; sourceTree = "<group>"; };
 		89B47809187DFCE700A9CFC5 /* AuthCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthCredentials.m; sourceTree = "<group>"; };
-		89B4ED7618984BB30033CFBA /* Commons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commons.h; sourceTree = "<group>"; };
 		89BAC56818A1198400799C1C /* ServerContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerContentViewController.h; sourceTree = "<group>"; };
 		89BAC56918A1198400799C1C /* ServerContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerContentViewController.m; sourceTree = "<group>"; };
 		89BD973D1891A20C0054CFA2 /* login_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = login_response.xml; sourceTree = "<group>"; };
@@ -473,7 +472,7 @@
 			children = (
 				89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */,
 				89C0880118B52A6100103985 /* OperationsClientTests.m */,
-				89B4ED7518984AB70033CFBA /* PydioClient */,
+				89B429EC187F4BD0005F6580 /* PydioClientTests.m */,
 			);
 			path = Clients;
 			sourceTree = "<group>";
@@ -600,15 +599,6 @@
 				89ABACFE1893BEF700E1420D /* unathorized_response2.xml */,
 			);
 			path = Fixtures;
-			sourceTree = "<group>";
-		};
-		89B4ED7518984AB70033CFBA /* PydioClient */ = {
-			isa = PBXGroup;
-			children = (
-				89B429EC187F4BD0005F6580 /* PydioClientTests.m */,
-				89B4ED7618984BB30033CFBA /* Commons.h */,
-			);
-			path = PydioClient;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
