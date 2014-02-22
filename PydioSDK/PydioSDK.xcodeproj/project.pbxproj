@@ -34,7 +34,7 @@
 		8910F5F818788A7A0005BED4 /* GetSeedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F718788A7A0005BED4 /* GetSeedResponseSerializer.m */; };
 		8910F6011878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F6001878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m */; };
 		8940130A188443C90044001D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401309188443C90044001D /* User.m */; };
-		89401D231883318F005A030A /* CookieManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401D221883318F005A030A /* CookieManager.m */; };
+		89401D231883318F005A030A /* ServerDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401D221883318F005A030A /* ServerDataManager.m */; };
 		89A554FF188C03F1008C1B64 /* NotAuthorizedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */; };
 		89A58F0618A9796C00FCEDE5 /* ErrorResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A58F0518A9796C00FCEDE5 /* ErrorResponseParserDelegate.m */; };
 		89A58F0818A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A58F0718A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m */; };
@@ -74,11 +74,10 @@
 		89AC1ACB188DA30800ACAD7C /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1ACA188DA30800ACAD7C /* Workspace.m */; };
 		89AC1AD2188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */; };
 		89AC1AD5188DE98600ACAD7C /* get_registers_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AC1AD4188DE98600ACAD7C /* get_registers_response.xml */; };
-		89AD27671878198300033083 /* ServerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD27661878198300033083 /* ServerConfig.m */; };
 		89AD73B4189D2C69003C8DD4 /* ListFilesResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD73B3189D2C69003C8DD4 /* ListFilesResponseParserDelegate.m */; };
 		89AD73B6189D3449003C8DD4 /* ListFilesResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD73B5189D3449003C8DD4 /* ListFilesResponseParserDelegateTests.m */; };
 		89AD73B8189D3602003C8DD4 /* ls_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AD73B7189D3602003C8DD4 /* ls_response.xml */; };
-		89B13A9D18917A13007282EB /* CookieManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B13A9C18917A13007282EB /* CookieManagerTests.m */; };
+		89B13A9D18917A13007282EB /* ServerDataManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B13A9C18917A13007282EB /* ServerDataManagerTests.m */; };
 		89B1B6F118A4170400EC79C5 /* FailingResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1B6F018A4170400EC79C5 /* FailingResponseSerializer.m */; };
 		89B1B6F318A41B1500EC79C5 /* FailingResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1B6F218A41B1500EC79C5 /* FailingResponseSerializerTests.m */; };
 		89B3560C188C70A500C62728 /* RepositoriesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B3560B188C70A500C62728 /* RepositoriesParserDelegate.m */; };
@@ -152,8 +151,8 @@
 		8910F6001878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedResponseParserDelegate.m; sourceTree = "<group>"; };
 		89401308188443C90044001D /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		89401309188443C90044001D /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		89401D211883318F005A030A /* CookieManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CookieManager.h; sourceTree = "<group>"; };
-		89401D221883318F005A030A /* CookieManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieManager.m; sourceTree = "<group>"; };
+		89401D211883318F005A030A /* ServerDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerDataManager.h; sourceTree = "<group>"; };
+		89401D221883318F005A030A /* ServerDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerDataManager.m; sourceTree = "<group>"; };
 		89A554FD188C03F1008C1B64 /* NotAuthorizedResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedResponse.h; sourceTree = "<group>"; };
 		89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedResponse.m; sourceTree = "<group>"; };
 		89A58F0418A9796C00FCEDE5 /* ErrorResponseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorResponseParserDelegate.h; sourceTree = "<group>"; };
@@ -212,13 +211,11 @@
 		89AC1ACA188DA30800ACAD7C /* Workspace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Workspace.m; sourceTree = "<group>"; };
 		89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesParserDelegateTests.m; sourceTree = "<group>"; };
 		89AC1AD4188DE98600ACAD7C /* get_registers_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = get_registers_response.xml; sourceTree = "<group>"; };
-		89AD27651878198300033083 /* ServerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConfig.h; sourceTree = "<group>"; };
-		89AD27661878198300033083 /* ServerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerConfig.m; sourceTree = "<group>"; };
 		89AD73B2189D2C69003C8DD4 /* ListFilesResponseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListFilesResponseParserDelegate.h; sourceTree = "<group>"; };
 		89AD73B3189D2C69003C8DD4 /* ListFilesResponseParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListFilesResponseParserDelegate.m; sourceTree = "<group>"; };
 		89AD73B5189D3449003C8DD4 /* ListFilesResponseParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListFilesResponseParserDelegateTests.m; sourceTree = "<group>"; };
 		89AD73B7189D3602003C8DD4 /* ls_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ls_response.xml; sourceTree = "<group>"; };
-		89B13A9C18917A13007282EB /* CookieManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieManagerTests.m; sourceTree = "<group>"; };
+		89B13A9C18917A13007282EB /* ServerDataManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerDataManagerTests.m; sourceTree = "<group>"; };
 		89B1B6EF18A4170400EC79C5 /* FailingResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FailingResponseSerializer.h; sourceTree = "<group>"; };
 		89B1B6F018A4170400EC79C5 /* FailingResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailingResponseSerializer.m; sourceTree = "<group>"; };
 		89B1B6F218A41B1500EC79C5 /* FailingResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailingResponseSerializerTests.m; sourceTree = "<group>"; };
@@ -275,8 +272,8 @@
 				3DFF3AF4186648C900A766D7 /* AppDelegate.h */,
 				3DFF3AF5186648C900A766D7 /* AppDelegate.m */,
 				89A6AA43187B440A003A6BDA /* Clients */,
-				89401D211883318F005A030A /* CookieManager.h */,
-				89401D221883318F005A030A /* CookieManager.m */,
+				89401D211883318F005A030A /* ServerDataManager.h */,
+				89401D221883318F005A030A /* ServerDataManager.m */,
 				8910F5FE18789F870005BED4 /* Data */,
 				89A6D1CD18A16F0A00B3A4AF /* NSURL+Normalization.h */,
 				89A6D1CE18A16F0A00B3A4AF /* NSURL+Normalization.m */,
@@ -352,7 +349,7 @@
 				89C0880318B532F900103985 /* BlocksCallResult.h */,
 				89C0880418B532F900103985 /* BlocksCallResult.m */,
 				89A6AA40187B1DE2003A6BDA /* Clients */,
-				89B13A9C18917A13007282EB /* CookieManagerTests.m */,
+				89B13A9C18917A13007282EB /* ServerDataManagerTests.m */,
 				89AC1AD3188DE84900ACAD7C /* Fixtures */,
 				89AC1AD0188DDD2700ACAD7C /* ResponseParsers */,
 				89A6AA3D187B0A03003A6BDA /* ResponseSerializers */,
@@ -428,8 +425,6 @@
 				89B47809187DFCE700A9CFC5 /* AuthCredentials.m */,
 				8910F5F018786EFA0005BED4 /* NSString+Hash.h */,
 				8910F5F118786EFA0005BED4 /* NSString+Hash.m */,
-				89AD27651878198300033083 /* ServerConfig.h */,
-				89AD27661878198300033083 /* ServerConfig.m */,
 				89401308188443C90044001D /* User.h */,
 				89401309188443C90044001D /* User.m */,
 			);
@@ -713,7 +708,7 @@
 				89A6AA46187B4436003A6BDA /* AuthorizationClient.m in Sources */,
 				89A6F2FE189E5A9600F1763E /* XMLParserState.m in Sources */,
 				89C2A9CA1878CD440051B8E6 /* LoginResponse.m in Sources */,
-				89401D231883318F005A030A /* CookieManager.m in Sources */,
+				89401D231883318F005A030A /* ServerDataManager.m in Sources */,
 				89A58F0618A9796C00FCEDE5 /* ErrorResponseParserDelegate.m in Sources */,
 				3DFF3B3018664EEF00A766D7 /* AFHTTPRequestOperationManager.m in Sources */,
 				89A6155118A036300079D21B /* NewServerViewController.m in Sources */,
@@ -742,7 +737,6 @@
 				89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */,
 				89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */,
 				89A7691918A4391A0056A61F /* ListFilesRequest.m in Sources */,
-				89AD27671878198300033083 /* ServerConfig.m in Sources */,
 				89AC1AC8188D8CAD00ACAD7C /* GetRepositoriesParserStates.m in Sources */,
 				3DFF3AF2186648C900A766D7 /* main.m in Sources */,
 			);
@@ -758,7 +752,7 @@
 				89BD97401891A2710054CFA2 /* LoginResponseParserDelegateTests.m in Sources */,
 				89A8C22F18B68F780027B715 /* MkdirResponseParserDelegateTests.m in Sources */,
 				89AC1AD2188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m in Sources */,
-				89B13A9D18917A13007282EB /* CookieManagerTests.m in Sources */,
+				89B13A9D18917A13007282EB /* ServerDataManagerTests.m in Sources */,
 				89C0880218B52A6100103985 /* OperationsClientTests.m in Sources */,
 				89A6AA42187B1E31003A6BDA /* AuthorizationClientTests.m in Sources */,
 				89B429ED187F4BD0005F6580 /* PydioClientTests.m in Sources */,

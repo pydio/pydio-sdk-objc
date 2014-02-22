@@ -8,7 +8,7 @@
 
 #import "PydioClient.h"
 #import "AFHTTPRequestOperationManager.h"
-#import "CookieManager.h"
+#import "ServerDataManager.h"
 #import "User.h"
 #import "ListFilesRequest.h"
 #import "AuthorizationClient.h"
@@ -118,7 +118,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return YES;
 }
 
--(BOOL)listNodes:(ListFilesRequest *)request WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
+-(BOOL)listNodes:(ListFilesRequest *)request WithSuccess:(void(^)(NSArray* nodes))success failure:(void(^)(NSError* error))failure {
     if (self.progress) {
         return NO;
     }

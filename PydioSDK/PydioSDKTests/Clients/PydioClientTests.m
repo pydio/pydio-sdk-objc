@@ -16,7 +16,7 @@
 
 #import "PydioClient.h"
 #import "AuthorizationClient.h"
-#import "CookieManager.h"
+#import "ServerDataManager.h"
 #import <objc/runtime.h>
 #import "AFHTTPRequestOperationManager.h"
 #import "User.h"

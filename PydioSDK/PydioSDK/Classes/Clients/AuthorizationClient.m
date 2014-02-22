@@ -9,7 +9,7 @@
 #import "AuthorizationClient.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "GetSeedResponseSerializer.h"
-#import "CookieManager.h"
+#import "ServerDataManager.h"
 #import "AuthCredentials.h"
 #import "NSString+Hash.h"
 #import "User.h"
@@ -40,7 +40,7 @@ static NSString * const LOGIN_SEED = @"login_seed";
     self.progress = YES;
     [self ping:^{
         [self getSeed:^(NSString *seed) {
-            User *user = [[CookieManager sharedManager] userForServer:self.operationManager.baseURL];;
+            User *user = [[ServerDataManager sharedManager] userForServer:self.operationManager.baseURL];;
             
             AuthCredentials *authCredentials = [AuthCredentials credentialsWith:user AndSeed:seed];
             
@@ -50,7 +50,7 @@ static NSString * const LOGIN_SEED = @"login_seed";
                     NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
                     failure(error);
                 } else {
-                    [[CookieManager sharedManager] setSecureToken:resposne.secureToken ForServer:self.operationManager.baseURL];
+                    [[ServerDataManager sharedManager] setSecureToken:resposne.secureToken ForServer:self.operationManager.baseURL];
                     success();
                 }
                 

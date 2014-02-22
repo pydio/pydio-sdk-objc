@@ -18,7 +18,6 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "AFURLRequestSerialization.h"
 #import "GetSeedResponseSerializer.h"
-#import "BootConfResponseSerializer.h"
 #import "AuthCredentials.h"
 #import "NSString+Hash.h"
 #import "LoginResponse.h"

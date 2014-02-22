@@ -7,7 +7,7 @@
 //
 
 #import "ServersViewController.h"
-#import "CookieManager.h"
+#import "ServerDataManager.h"
 #import "User.h"
 #import "PydioClient.h"
 #import "Workspace.h"
@@ -39,7 +39,7 @@ static NSString * const SERVER_CONTENT_SEGUE = @"ServerContent";
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    self.servers = [[CookieManager sharedManager] serversList];
+    self.servers = [[ServerDataManager sharedManager] serversList];
     [self.tableView reloadData];
 }
 

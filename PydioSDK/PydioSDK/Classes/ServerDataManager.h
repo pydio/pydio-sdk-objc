@@ -10,8 +10,8 @@
 
 @class User;
 
-@interface CookieManager : NSObject
-+(CookieManager*)sharedManager;
+@interface ServerDataManager : NSObject
++(ServerDataManager*)sharedManager;
 
 -(NSArray *)allServerCookies:(NSURL *)server;
 -(void)clearAllCookies:(NSURL *)server;

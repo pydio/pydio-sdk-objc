@@ -14,8 +14,6 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[self.workspaceId,self.path,@"al"]
                                                                      forKeys:@[@"tmp_repository_id", @"dir", @"options"]];
     
-    
-
     for (NSString *key in [self.additional allKeys]) {
         [params setValue:[self.additional valueForKey:key] forKey:key];
     }

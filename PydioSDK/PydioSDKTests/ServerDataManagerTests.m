@@ -13,7 +13,7 @@
 #define MOCKITO_SHORTHAND
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
-#import "CookieManager.h"
+#import "ServerDataManager.h"
 #import <objc/runtime.h>
 #import "User.h"
 
@@ -26,12 +26,12 @@ id mockedSharedStorage(id slf,SEL cmd) {
 
 //AjaXplorer=phh8hhe8ibhrgrc2nuv4ec2sv4
 
-@interface CookieManagerTests : XCTestCase
+@interface ServerDataManagerTests : XCTestCase
 @property (nonatomic,strong) NSURL* serverURL;
 @property (nonatomic,strong) NSArray* arrayWithCookie;
 @end
 
-@implementation CookieManagerTests {
+@implementation ServerDataManagerTests {
     Method _method;
     IMP _originalIMP;
 }
@@ -62,15 +62,15 @@ id mockedSharedStorage(id slf,SEL cmd) {
 
 - (void)testInitialization
 {
-    CookieManager *manager = [CookieManager sharedManager];
+    ServerDataManager *manager = [ServerDataManager sharedManager];
     
     assertThat(manager,notNilValue());
 }
 
 - (void)testShouldReturnSameInstanceWhenCalled2Times
 {
-    CookieManager *manager = [CookieManager sharedManager];
-    CookieManager *manager2 = [CookieManager sharedManager];
+    ServerDataManager *manager = [ServerDataManager sharedManager];
+    ServerDataManager *manager2 = [ServerDataManager sharedManager];
     
     assertThat(manager,sameInstance(manager2));
 }
@@ -97,7 +97,7 @@ id mockedSharedStorage(id slf,SEL cmd) {
 
 -(void)testShouldSetUserForGivenServer
 {
-    CookieManager *manager = [CookieManager sharedManager];
+    ServerDataManager *manager = [ServerDataManager sharedManager];
     User *user = [User userWithId:@"userid" AndPassword:@"userpassword"];
     
     [manager setUser:user ForServer:self.serverURL];
@@ -107,7 +107,7 @@ id mockedSharedStorage(id slf,SEL cmd) {
 
 -(void)testShouldSetTokenForGivenServer
 {
-    CookieManager *manager = [CookieManager sharedManager];
+    ServerDataManager *manager = [ServerDataManager sharedManager];
     NSString *token = @"faketoken";
     
     [manager setSecureToken:token ForServer:self.serverURL];
@@ -117,14 +117,14 @@ id mockedSharedStorage(id slf,SEL cmd) {
 
 -(void)testShouldReturnNilWhenNoUserForGivenServer
 {
-    CookieManager *manager = [CookieManager sharedManager];
+    ServerDataManager *manager = [ServerDataManager sharedManager];
     
     assertThat([manager userForServer:self.serverURL],nilValue());
 }
 
 -(void)testShouldReturnNilWhenNoTokenForGivenServer
 {
-    CookieManager *manager = [CookieManager sharedManager];
+    ServerDataManager *manager = [ServerDataManager sharedManager];
     
     assertThat([manager secureTokenForServer:self.serverURL],nilValue());
 }

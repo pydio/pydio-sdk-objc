@@ -8,7 +8,7 @@
 
 #import "OperationsClient.h"
 #import "AFHTTPRequestOperationManager.h"
-#import "CookieManager.h"
+#import "ServerDataManager.h"
 #import "XMLResponseSerializer.h"
 #import "XMLResponseSerializerDelegate.h"
 #import "FailingResponseSerializer.h"
@@ -124,7 +124,7 @@ extern NSString * const PydioErrorDomain;
 }
 
 -(NSString*)actionWithTokenIfNeeded:(NSString*)action {
-    NSString *secureToken = [[CookieManager sharedManager] secureTokenForServer:self.operationManager.baseURL];
+    NSString *secureToken = [[ServerDataManager sharedManager] secureTokenForServer:self.operationManager.baseURL];
     
     NSString *result = [NSString stringWithFormat:@"index.php?get_action=%@",action];
     if (secureToken) {

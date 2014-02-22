@@ -14,7 +14,7 @@
 
 #import "OperationsClient.h"
 #import <objc/runtime.h>
-#import "CookieManager.h"
+#import "ServerDataManager.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "BlocksCallResult.h"
 #import "PydioErrors.h"
@@ -30,7 +30,7 @@
 static const NSString * const TEST_TOKEN = @"j9tJRcVJYjKyfphibjRX47YgyVN1eoIv";
 static const NSString * const GET_ACTION_BASE = @"index.php?get_action=";
 
-static CookieManager *cookieManager = nil;
+static ServerDataManager *cookieManager = nil;
 
 static id mockedCookieManager(id self, SEL _cmd) {
     return cookieManager;
@@ -149,9 +149,9 @@ static id mockedCookieManager(id self, SEL _cmd) {
 - (void)setUp
 {
     [super setUp];
-    _methodToExchange = class_getClassMethod([CookieManager class], @selector(sharedManager));
+    _methodToExchange = class_getClassMethod([ServerDataManager class], @selector(sharedManager));
     _originalIMP = method_setImplementation(_methodToExchange, (IMP)mockedCookieManager);
-    cookieManager = mock([CookieManager class]);
+    cookieManager = mock([ServerDataManager class]);
     self.operationManager = mock([AFHTTPRequestOperationManager class]);
     self.client = [[OperationsClient alloc] init];
     self.client.operationManager = self.operationManager;
