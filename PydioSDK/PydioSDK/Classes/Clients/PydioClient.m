@@ -23,7 +23,10 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 @property(nonatomic,strong) AuthorizationClient* authorizationClient;
 @property(nonatomic,strong) OperationsClient* operationsClient;
 @property(nonatomic,copy) void(^operationBlock)();
+@property (nonatomic,copy) void(^successBlock)(id response);
 @property(nonatomic,copy) void(^failureBlock)(NSError* error);
+@property (nonatomic,copy) void(^successResponseBlock)(id responseObject);
+@property (nonatomic,copy) void(^failureResponseBlock)(NSError *error);
 @property(nonatomic,assign) int authorizationsTriesCount;
 
 -(AFHTTPRequestOperationManager*)createOperationManager:(NSString*)server;
@@ -35,6 +38,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 
 
 @implementation PydioClient
+
 -(NSURL*)serverURL {
     return self.operationManager.baseURL;
 }
@@ -42,6 +46,8 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 -(BOOL)progress {
     return self.authorizationClient.progress || self.operationsClient.progress;
 }
+
+#pragma mark - Initialization
 
 -(instancetype)initWithServer:(NSString *)server {
     self = [super init];
@@ -54,23 +60,48 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return self;
 }
 
+-(void)setupResponseBlocks {
+    [self setupSuccessResponseBlock];
+    [self setupFailureResponseBlock];
+}
+
+-(void)setupSuccessResponseBlock {
+    __weak typeof(self) weakSelf = self;
+    self.successResponseBlock = ^(id response){
+        __strong typeof(self) strongSelf = weakSelf;
+        strongSelf.successBlock(response);
+        [strongSelf clearBlocks];
+    };
+}
+
+-(void)setupFailureResponseBlock {
+    __weak typeof(self) weakSelf = self;
+    self.failureResponseBlock = ^(NSError *error){
+        __strong typeof(self) strongSelf = weakSelf;
+        [strongSelf handleOperationFailure:error];
+    };
+}
+
+-(void)setupCommons:(void(^)(id result))success failure:(void(^)(NSError *))failure {
+    [self resetAuthorizationTriesCount];
+    self.successBlock = success;
+    self.failureBlock = failure;
+    [self setupResponseBlocks];
+}
+
+
+#pragma mark -
+
 -(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray* workspaces))success failure:(void(^)(NSError* error))failure {
     if (self.progress) {
         return NO;
     }
     
-    [self resetAuthorizationTriesCount];
-    self.failureBlock = failure;
+    [self setupCommons:success failure:failure];
     
     typeof(self) strongSelf = self;
     self.operationBlock = ^{
-        [strongSelf.operationsClient listWorkspacesWithSuccess:^(NSArray *workspaces){
-            success(workspaces);
-            strongSelf.operationBlock = nil;
-            strongSelf.failureBlock = nil;
-        } failure:^(NSError *error) {
-            [strongSelf handleOperationFailure:error];
-        }];
+        [strongSelf.operationsClient listWorkspacesWithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
     self.operationBlock();
@@ -83,18 +114,11 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         return NO;
     }
     
-    [self resetAuthorizationTriesCount];
-    self.failureBlock = failure;
+    [self setupCommons:success failure:failure];
     
     typeof(self) strongSelf = self;
     self.operationBlock = ^{
-        [strongSelf.operationsClient listFiles:[request dictionaryRepresentation] WithSuccess:^(NSArray *files){
-            success(files);
-            strongSelf.operationBlock = nil;
-            strongSelf.failureBlock = nil;
-        } failure:^(NSError *error) {
-            [strongSelf handleOperationFailure:error];
-        }];
+        [strongSelf.operationsClient listFiles:[request dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
     self.operationBlock();
@@ -104,6 +128,14 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 }
 
 #pragma mark -
+
+-(void)clearBlocks {
+    self.operationBlock = nil;
+    self.successBlock = nil;
+    self.failureBlock = nil;
+    self.successResponseBlock = nil;
+    self.failureResponseBlock = nil;
+}
 
 -(AFHTTPRequestOperationManager*)createOperationManager:(NSString*)server {
     return [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:server]];
@@ -129,8 +161,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         self.operationBlock();
     } failure:^(NSError *error) {
         self.failureBlock(error);
-        self.operationBlock = nil;
-        self.failureBlock = nil;
+        [self clearBlocks];
     }];
 }
 
@@ -139,8 +170,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         [self performAuthorizationAndOperation];
     } else {
         self.failureBlock(error);
-        self.operationBlock = nil;
-        self.failureBlock = nil;
+        [self clearBlocks];
     }
 }
 
