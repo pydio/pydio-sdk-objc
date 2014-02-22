@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D03A6791867171200DC5839 /* PydioConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D03A6781867171200DC5839 /* PydioConnector.m */; };
 		3DFF3AE6186648C900A766D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3AE5186648C900A766D7 /* Foundation.framework */; };
 		3DFF3AE8186648C900A766D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3AE7186648C900A766D7 /* CoreGraphics.framework */; };
 		3DFF3AEA186648C900A766D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3AE9186648C900A766D7 /* UIKit.framework */; };
@@ -106,8 +105,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3D03A6771867171200DC5839 /* PydioConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioConnector.h; sourceTree = "<group>"; };
-		3D03A6781867171200DC5839 /* PydioConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioConnector.m; sourceTree = "<group>"; };
 		3DFF3AE2186648C900A766D7 /* PydioSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PydioSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DFF3AE5186648C900A766D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3DFF3AE7186648C900A766D7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -283,8 +280,6 @@
 				8910F5FE18789F870005BED4 /* Data */,
 				89A6D1CD18A16F0A00B3A4AF /* NSURL+Normalization.h */,
 				89A6D1CE18A16F0A00B3A4AF /* NSURL+Normalization.m */,
-				3D03A6771867171200DC5839 /* PydioConnector.h */,
-				3D03A6781867171200DC5839 /* PydioConnector.m */,
 				89E5A14B1887156F001CE77D /* PydioErrors.h */,
 				89A7691618A4388C0056A61F /* Requests */,
 				89AC1ACC188DAEDD00ACAD7C /* ResponseParsers */,
@@ -722,7 +717,6 @@
 				89A58F0618A9796C00FCEDE5 /* ErrorResponseParserDelegate.m in Sources */,
 				3DFF3B3018664EEF00A766D7 /* AFHTTPRequestOperationManager.m in Sources */,
 				89A6155118A036300079D21B /* NewServerViewController.m in Sources */,
-				3D03A6791867171200DC5839 /* PydioConnector.m in Sources */,
 				89AA6A1A18956EFE006A22DB /* XMLResponseSerializerDelegate.m in Sources */,
 				3DFF3B3218664EEF00A766D7 /* AFNetworkReachabilityManager.m in Sources */,
 				89A76DD318B2BF28000D0AF1 /* PydioErrorResponse.m in Sources */,
