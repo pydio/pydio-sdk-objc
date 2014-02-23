@@ -105,8 +105,9 @@ extern NSString * const PydioErrorDomain;
     
     [self setupCommons:success failure:failure];
     self.operationManager.responseSerializer = [self responseSerializerForMkdir];
+    params = [self paramsForMkDir:params];
     
-    [self.operationManager POST:@"" parameters:params success:self.successResponseBlock failure:self.failureResponseBlock];
+    [self.operationManager POST:@"index.php" parameters:params success:self.successResponseBlock failure:self.failureResponseBlock];
     
     return YES;
 }
@@ -140,6 +141,22 @@ extern NSString * const PydioErrorDomain;
 
 -(NSString*)urlStringForListFiles {
     return [self actionWithTokenIfNeeded:@"ls"];
+}
+
+-(NSDictionary*)paramsWithTokenIfNeeded:(NSDictionary*)params forAction:(NSString*)action {
+    NSString *secureToken = [[ServerDataManager sharedManager] secureTokenForServer:self.operationManager.baseURL];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:params];
+    
+    if (secureToken) {
+        [dict setValue:secureToken forKey:@"secure_token"];
+    }
+    [dict setValue:action forKey:@"get_action"];
+    
+    return [NSDictionary dictionaryWithDictionary:dict];
+}
+
+-(NSDictionary*)paramsForMkDir:(NSDictionary*)params {
+    return [self paramsWithTokenIfNeeded:params forAction:@"mkdir"];
 }
 
 -(AFHTTPRequestSerializer*)defaultRequestSerializer {

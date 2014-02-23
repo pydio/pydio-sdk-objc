@@ -29,6 +29,10 @@
 
 static const NSString * const TEST_TOKEN = @"j9tJRcVJYjKyfphibjRX47YgyVN1eoIv";
 static const NSString * const GET_ACTION_BASE = @"index.php?get_action=";
+static const NSString * const INDEX_URL = @"index.php";
+static NSString * const GET_ACTION = @"get_action";
+static NSString * const SECURE_TOKEN = @"secure_token";
+
 
 static ServerDataManager *cookieManager = nil;
 
@@ -47,6 +51,7 @@ static id mockedCookieManager(id self, SEL _cmd) {
 
 -(void)setupResponseBlocks;
 -(NSString*)actionWithTokenIfNeeded:(NSString*)action;
+-(NSDictionary*)paramsWithTokenIfNeeded:(NSDictionary*)params forAction:(NSString*)action;
 @end
 
 #pragma mark - Test class
@@ -77,6 +82,13 @@ static id mockedCookieManager(id self, SEL _cmd) {
 
 -(NSString*)listFilesURL {
     return [NSString stringWithFormat:@"%@%@",GET_ACTION_BASE,@"ls"];
+}
+
+-(NSDictionary*)mkDirParams:(NSDictionary*)params {
+    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary:params];
+    [dict setValue:@"mkdir" forKey:GET_ACTION];
+    
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
 -(NSDictionary*)defaultRequestParams {
@@ -168,9 +180,9 @@ static id mockedCookieManager(id self, SEL _cmd) {
     [super tearDown];
 }
 
-#pragma mark - Tests
+#pragma mark - Tests for secure token
 
-- (void)test_shouldReturnActionNameWithAccessToken_whenAccessTokenIsPresentInCookieManager
+- (void)test_shouldReturnActionNameWithAccessToken_whenAccessTokenIsPresentInServerDataManager
 {
     NSString *action = @"action";
     NSString *expectedFormedAction = [NSString stringWithFormat:@"%@%@&secure_token=%@",GET_ACTION_BASE,action,TEST_TOKEN];
@@ -181,7 +193,7 @@ static id mockedCookieManager(id self, SEL _cmd) {
     assertThat(formedAction,equalTo(expectedFormedAction));
 }
 
-- (void)test_shouldReturnActionNameWithoutAccessToken_whenAccessTokenNotPresentInCookieManager
+- (void)test_shouldReturnActionNameWithoutAccessToken_whenAccessTokenNotPresentInServerDataManager
 {
     NSString *action = @"action";
     NSString *expectedFormedAction = [NSString stringWithFormat:@"%@%@",GET_ACTION_BASE,action];
@@ -190,6 +202,40 @@ static id mockedCookieManager(id self, SEL _cmd) {
     
     assertThat(formedAction,equalTo(expectedFormedAction));
 }
+
+- (void)test_shouldReturnActionParamsWithAccessToken_whenAccessTokenIsPresentInServerDataManager
+{
+    //given
+    NSString *action = @"action";
+    NSDictionary *params = @{};
+    NSDictionary *expectedParams = @{
+                                     GET_ACTION : action,
+                                     SECURE_TOKEN : TEST_TOKEN
+                                    };
+    [given([cookieManager secureTokenForServer:anything()]) willReturn:TEST_TOKEN];
+
+    //when
+    NSDictionary* formedParams = [self.client paramsWithTokenIfNeeded:params forAction:action];
+    
+    //then
+    assertThat(formedParams,equalTo(expectedParams));
+}
+
+- (void)test_shouldReturnActionParamsWithoutAccessToken_whenAccessTokenNotPresentInServerDataManager
+{
+    //given
+    NSString *action = @"action";
+    NSDictionary *params = @{};
+    NSDictionary *expectedParams = [NSDictionary dictionaryWithObject:action forKey:GET_ACTION];
+    
+    //when
+    NSDictionary* formedParams = [self.client paramsWithTokenIfNeeded:params forAction:action];
+    
+    //then
+    assertThat(formedParams,equalTo(expectedParams));
+}
+
+#pragma mark - Tests for common part of requests flow
 
 -(void)test_shouldFailureWithUnableToLoginError_whenResponseFromAFNetworkingIsNotAuthorizedResponse
 {
@@ -321,7 +367,7 @@ static id mockedCookieManager(id self, SEL _cmd) {
     BOOL startResult = [self.client mkdir:params WithSuccess:successBlock failure:failureBlock];
     
     assertThatBool(startResult,equalToBool(YES));
-    [verify([self operationManager]) POST:@"" parameters:params success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    [verify([self operationManager]) POST:equalTo(INDEX_URL) parameters:equalTo([self mkDirParams:params]) success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
     [self assertOperationManagerHasDefaultRequestSerializerSet];
     [self assertDefaultResponseSerializerWithClass:[MkdirResponseSerializerDelegate class]];
     [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];

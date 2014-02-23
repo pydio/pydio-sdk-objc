@@ -11,11 +11,11 @@
 @class Workspace;
 @class Node;
 
-@interface ServerContentViewController : UIViewController<UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@interface ServerContentViewController : UITableViewController
 
 @property (nonatomic,strong) NSURL *server;
 @property (nonatomic,strong) Workspace *workspace;
 @property (nonatomic,strong) Node* rootNode;
+
+- (IBAction)addDirClicked:(id)sender;
 @end

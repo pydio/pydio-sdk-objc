@@ -11,9 +11,12 @@
 #import "PydioClient.h"
 #import "Workspace.h"
 #import "ListNodesRequestParams.h"
+#import "MkDirRequestParams.h"
 
 
 static NSString * const TABLE_CELL_ID = @"TableCell";
+static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
+
 
 @implementation ServerContentViewController
 
@@ -28,7 +31,6 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.activityIndicator stopAnimating];
     self.tableView.dataSource = self;
 }
 
@@ -38,6 +40,7 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    NSLog(@"%s",__PRETTY_FUNCTION__);
     [super viewWillAppear:animated];
     
     if (!self.rootNode.children.count) {
@@ -69,6 +72,11 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if (![segue.identifier isEqualToString:SHOW_DIR_CONTENT]) {
+        return;
+    }
+    
     int row = [self.tableView indexPathForSelectedRow].row;
     
     ServerContentViewController *destination = segue.destinationViewController;
@@ -78,6 +86,10 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if (![identifier isEqualToString:SHOW_DIR_CONTENT]) {
+        return YES;
+    }
+    
     int row = [self.tableView indexPathForSelectedRow].row;
     
     return ![self fileNodeAt:row].isLeaf;
@@ -85,8 +97,12 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 
 #pragma mark - Helpers
 
+-(PydioClient*)pydioClient {
+    return [[PydioClient alloc] initWithServer:[self.server absoluteString]];
+}
+
 -(void)listFiles {
-    PydioClient *client = [[PydioClient alloc] initWithServer:[self.server absoluteString]];
+    PydioClient *client = [self pydioClient];
     [client listNodes:[self listFilesRequest]
           WithSuccess:^(NSArray *files) {
               if (files.count) {
@@ -117,6 +133,46 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 
 -(Node*)fileNodeAt:(NSInteger)row {
     return (Node*)[self.rootNode.children objectAtIndex:row];
+}
+
+#pragma mark - Add Directory
+
+- (IBAction)addDirClicked:(id)sender {
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add directory:"
+                                                     message:@"Please provide directory name"
+                                                    delegate:self
+                                           cancelButtonTitle:@"Cancel"
+                                           otherButtonTitles:@"Add", nil];
+    
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    [alert show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1 && [alertView textFieldAtIndex:0].text.length) {
+        [self mkDir:[alertView textFieldAtIndex:0].text];
+    }
+}
+
+-(void)mkDir:(NSString*)dirname {
+    PydioClient *client = [self pydioClient];
+    [client mkdir:[self mkdirRequestParams:dirname] WithSuccess:^{
+        [self listFiles];
+    } failure:^(NSError *error) {
+        NSLog(@"%s FAILURE: %@",__PRETTY_FUNCTION__,error);
+    }];
+}
+
+-(MkDirRequestParams*)mkdirRequestParams:(NSString*)dirname {
+    MkDirRequestParams *params = [[MkDirRequestParams alloc] init];
+    params.workspaceId = self.workspace.workspaceId;
+    params.dir = self.rootNode.fullPath;
+    params.dirname = dirname;
+    
+    return params;
 }
 
 @end

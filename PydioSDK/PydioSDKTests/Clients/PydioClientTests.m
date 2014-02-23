@@ -15,15 +15,16 @@
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
 #import "PydioClient.h"
+#import <objc/runtime.h>
+#import "BlocksCallResult.h"
 #import "AuthorizationClient.h"
 #import "ServerDataManager.h"
-#import <objc/runtime.h>
 #import "AFHTTPRequestOperationManager.h"
 #import "User.h"
 #import "OperationsClient.h"
 #import "PydioErrors.h"
 #import "ListNodesRequestParams.h"
-#import "BlocksCallResult.h"
+#import "MkDirRequestParams.h"
 
 
 static const int DEFAULT_TRIES_COUNT = 1;
@@ -261,6 +262,38 @@ static OperationsClient* operationsClient = nil;
     [verify(operationsClient) listFiles:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
 }
 
+#pragma mark - Test mk dir
+
+-(void)test_ShouldNotStartMkDir_WhenInProgress
+{
+    MkDirRequestParams *request = [self exampleMkDirRequestParams];
+    [self setupAuthorizationClient:YES AndOperationsClient:NO];
+    BlocksCallResult *expectedResult = [BlocksCallResult result];
+    BlocksCallResult *result = [BlocksCallResult result];
+    
+    BOOL startResult = [self.client mkdir:request WithSuccess:[result successBlock] failure:[result failureBlock]];
+    
+    assertThatBool(startResult, equalToBool(NO));
+    assertThat(result,equalTo(expectedResult));
+    [verifyCount(operationsClient,never()) mkdir:anything() WithSuccess:anything() failure:anything()];
+    [self assertClientBlocksNiled];
+}
+
+-(void)test_ShouldStartMkDir_WhenNotInProgress
+{
+    MkDirRequestParams *request = [self exampleMkDirRequestParams];
+    NSDictionary *expectedParams = [self exampleMkDirRequestParamsDictionary];
+    BlocksCallResult *result = [BlocksCallResult result];
+    SuccessBlock successBlock = [result successBlock];
+    FailureBlock failureBlock = [result failureBlock];
+    
+    BOOL startResult = [self.client mkdir:request WithSuccess:successBlock failure:failureBlock];
+    
+    [self assertOperationPreparationStartResult:startResult andSuccess:successBlock andFailure:failureBlock];
+    [verify(operationsClient) mkdir:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+}
+
+
 #pragma mark - Test Verification
 
 -(void)setupAuthorizationClient:(BOOL) authProgress AndOperationsClient: (BOOL)operationsProgress {
@@ -311,7 +344,24 @@ static OperationsClient* operationsClient = nil;
              @"tmp_repository_id": @"testworkspaceid",
              @"dir" : @"/testpath",
              @"options" : @"al"
-             };
+            };
+}
+
+-(MkDirRequestParams*) exampleMkDirRequestParams {
+    MkDirRequestParams *request = [[MkDirRequestParams alloc] init];
+    request.workspaceId = @"testworkspaceid";
+    request.dir = @"/testdir/testdir";
+    request.dirname = @"nameofdir";
+    
+    return request;
+}
+
+-(NSDictionary*) exampleMkDirRequestParamsDictionary {
+    return @{
+             @"tmp_repository_id": @"testworkspaceid",
+             @"dir" : @"/testdir/testdir",
+             @"dirname" : @"nameofdir"
+            };
 }
 
 @end
