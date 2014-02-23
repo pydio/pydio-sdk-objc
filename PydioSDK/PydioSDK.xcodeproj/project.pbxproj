@@ -55,6 +55,8 @@
 		89A76DD018B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DCF18B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m */; };
 		89A76DD318B2BF28000D0AF1 /* PydioErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */; };
 		89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A84FF31885F5B800AFC2F0 /* OperationsClient.m */; };
+		89A88C1C18BA951600DAE087 /* DeleteNodesRequestParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A88C1B18BA951600DAE087 /* DeleteNodesRequestParams.m */; };
+		89A88C1F18BA9E5100DAE087 /* DeleteNodesResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A88C1E18BA9E5100DAE087 /* DeleteNodesResponseParserDelegate.m */; };
 		89A8C22A18B687930027B715 /* mkdir_success_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A8C22918B687930027B715 /* mkdir_success_response.xml */; };
 		89A8C22D18B68EC30027B715 /* MkdirResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A8C22C18B68EC30027B715 /* MkdirResponseParserDelegate.m */; };
 		89A8C22F18B68F780027B715 /* MkdirResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A8C22E18B68F780027B715 /* MkdirResponseParserDelegateTests.m */; };
@@ -188,6 +190,10 @@
 		89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioErrorResponse.m; sourceTree = "<group>"; };
 		89A84FF21885F5B800AFC2F0 /* OperationsClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationsClient.h; sourceTree = "<group>"; };
 		89A84FF31885F5B800AFC2F0 /* OperationsClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClient.m; sourceTree = "<group>"; };
+		89A88C1A18BA951600DAE087 /* DeleteNodesRequestParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteNodesRequestParams.h; sourceTree = "<group>"; };
+		89A88C1B18BA951600DAE087 /* DeleteNodesRequestParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteNodesRequestParams.m; sourceTree = "<group>"; };
+		89A88C1D18BA9E5100DAE087 /* DeleteNodesResponseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteNodesResponseParserDelegate.h; sourceTree = "<group>"; };
+		89A88C1E18BA9E5100DAE087 /* DeleteNodesResponseParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteNodesResponseParserDelegate.m; sourceTree = "<group>"; };
 		89A8C22918B687930027B715 /* mkdir_success_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = mkdir_success_response.xml; sourceTree = "<group>"; };
 		89A8C22B18B68EC30027B715 /* MkdirResponseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MkdirResponseParserDelegate.h; sourceTree = "<group>"; };
 		89A8C22C18B68EC30027B715 /* MkdirResponseParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MkdirResponseParserDelegate.m; sourceTree = "<group>"; };
@@ -507,6 +513,8 @@
 		89A7691618A4388C0056A61F /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				89A88C1A18BA951600DAE087 /* DeleteNodesRequestParams.h */,
+				89A88C1B18BA951600DAE087 /* DeleteNodesRequestParams.m */,
 				89A7691718A4391A0056A61F /* ListNodesRequestParams.h */,
 				89A7691818A4391A0056A61F /* ListNodesRequestParams.m */,
 				89ADF98F18BA0EE900E418CA /* MkDirRequestParams.h */,
@@ -530,6 +538,8 @@
 		89AC1ACC188DAEDD00ACAD7C /* ResponseParsers */ = {
 			isa = PBXGroup;
 			children = (
+				89A88C1D18BA9E5100DAE087 /* DeleteNodesResponseParserDelegate.h */,
+				89A88C1E18BA9E5100DAE087 /* DeleteNodesResponseParserDelegate.m */,
 				89A58F0418A9796C00FCEDE5 /* ErrorResponseParserDelegate.h */,
 				89A58F0518A9796C00FCEDE5 /* ErrorResponseParserDelegate.m */,
 				89AD73B2189D2C69003C8DD4 /* ListFilesResponseParserDelegate.h */,
@@ -716,6 +726,7 @@
 				89401D231883318F005A030A /* ServerDataManager.m in Sources */,
 				89A58F0618A9796C00FCEDE5 /* ErrorResponseParserDelegate.m in Sources */,
 				3DFF3B3018664EEF00A766D7 /* AFHTTPRequestOperationManager.m in Sources */,
+				89A88C1F18BA9E5100DAE087 /* DeleteNodesResponseParserDelegate.m in Sources */,
 				89A6155118A036300079D21B /* NewServerViewController.m in Sources */,
 				89AA6A1A18956EFE006A22DB /* XMLResponseSerializerDelegate.m in Sources */,
 				3DFF3B3218664EEF00A766D7 /* AFNetworkReachabilityManager.m in Sources */,
@@ -742,6 +753,7 @@
 				89B3560C188C70A500C62728 /* RepositoriesParserDelegate.m in Sources */,
 				89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */,
 				89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */,
+				89A88C1C18BA951600DAE087 /* DeleteNodesRequestParams.m in Sources */,
 				89A7691918A4391A0056A61F /* ListNodesRequestParams.m in Sources */,
 				89AC1AC8188D8CAD00ACAD7C /* GetRepositoriesParserStates.m in Sources */,
 				3DFF3AF2186648C900A766D7 /* main.m in Sources */,

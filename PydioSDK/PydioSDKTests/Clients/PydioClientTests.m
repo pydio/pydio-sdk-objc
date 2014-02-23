@@ -25,6 +25,7 @@
 #import "PydioErrors.h"
 #import "ListNodesRequestParams.h"
 #import "MkDirRequestParams.h"
+#import "DeleteNodesRequestParams.h"
 
 
 static const int DEFAULT_TRIES_COUNT = 1;
@@ -317,6 +318,37 @@ static OperationsClient* operationsClient = nil;
     [verify(authorizationClient) authorizeWithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
 }
 
+#pragma mark - Test delete nodes
+
+-(void)test_ShouldNotStartDeleteNodes_WhenInProgress
+{
+    DeleteNodesRequestParams *request = [self exampleDeleteNodesRequestParams];
+    [self setupAuthorizationClient:YES AndOperationsClient:NO];
+    BlocksCallResult *expectedResult = [BlocksCallResult result];
+    BlocksCallResult *result = [BlocksCallResult result];
+    
+    BOOL startResult = [self.client deleteNodes:request WithSuccess:[result successBlock] failure:[result failureBlock]];
+    
+    assertThatBool(startResult, equalToBool(NO));
+    assertThat(result,equalTo(expectedResult));
+    [verifyCount(operationsClient,never()) deleteNodes:anything() WithSuccess:anything() failure:anything()];
+    [self assertClientBlocksNiled];
+}
+
+-(void)test_ShouldStartDeleteNodes_WhenNotInProgress
+{
+    DeleteNodesRequestParams *request = [self exampleDeleteNodesRequestParams];
+    NSDictionary *expectedParams = [self exampleDeleteNodesDictionary];
+    BlocksCallResult *result = [BlocksCallResult result];
+    SuccessBlock successBlock = [result successBlock];
+    FailureBlock failureBlock = [result failureBlock];
+    
+    BOOL startResult = [self.client deleteNodes:request WithSuccess:successBlock failure:failureBlock];
+    
+    [self assertOperationSetupDefaultAuthTries:startResult success:successBlock failure:failureBlock];
+    [verify(operationsClient) deleteNodes:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+}
+
 #pragma mark - Tests Verification
 
 -(void)setupAuthorizationClient:(BOOL) authProgress AndOperationsClient: (BOOL)operationsProgress {
@@ -394,6 +426,21 @@ static OperationsClient* operationsClient = nil;
              @"dir" : @"/testdir/testdir",
              @"dirname" : @"nameofdir"
             };
+}
+
+-(DeleteNodesRequestParams*)exampleDeleteNodesRequestParams {
+    DeleteNodesRequestParams *params = [[DeleteNodesRequestParams alloc] init];
+    params.workspaceId = @"testworkspaceid";
+    params.nodes = [NSArray arrayWithObject:@"/testdir/testdir"];
+    
+    return params;
+}
+
+-(NSDictionary*)exampleDeleteNodesDictionary {
+    return @{
+             @"tmp_repository_id": @"testworkspaceid",
+             @"nodes" : [NSArray arrayWithObject:@"/testdir/testdir"]
+             };
 }
 
 @end

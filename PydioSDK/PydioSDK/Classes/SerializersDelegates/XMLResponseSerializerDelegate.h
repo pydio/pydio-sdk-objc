@@ -21,8 +21,11 @@
 
 @end
 
-
 @interface NotAuthorizedResponseSerializerDelegate : NSObject<XMLResponseSerializerDelegate>
+
+@end
+
+@interface ErrorResponseSerializerDelegate : NSObject<XMLResponseSerializerDelegate>
 
 @end
 
@@ -39,6 +42,6 @@
 
 @end
 
-@interface ErrorResponseSerializerDelegate : NSObject<XMLResponseSerializerDelegate>
+@interface DeleteNodesResponseSerializerDelegate : NSObject<XMLResponseSerializerDelegate>
 
 @end

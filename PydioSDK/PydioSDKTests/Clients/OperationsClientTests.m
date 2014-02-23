@@ -91,6 +91,13 @@ static id mockedCookieManager(id self, SEL _cmd) {
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 
+-(NSDictionary*)deleteNodesParams:(NSDictionary*)params {
+    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary:params];
+    [dict setValue:@"delete" forKey:GET_ACTION];
+    
+    return [NSDictionary dictionaryWithDictionary:dict];
+}
+
 -(NSDictionary*)defaultRequestParams {
     return @{
              @"Accept-Encoding": @"gzip, deflate",
@@ -324,6 +331,16 @@ static id mockedCookieManager(id self, SEL _cmd) {
     [verifyCount([self operationManager], never()) POST:anything() parameters:anything() success:anything() failure:anything()];
 }
 
+-(void)test_shouldNotStartDeleteNodes_whenOtherOperationIsInProgress
+{
+    self.client.progress = YES;
+    
+    BOOL startResult = [self.client deleteNodes:@{} WithSuccess:nil failure:nil];
+    
+    assertThatBool(startResult,equalToBool(NO));
+    [verifyCount([self operationManager], never()) GET:anything() parameters:anything() success:anything() failure:anything()];
+}
+
 #pragma mark - Test starting when operations client is not in progress
 
 -(void)test_shouldStartListWorkspaces_whenNoOperationIsInProgress
@@ -370,6 +387,22 @@ static id mockedCookieManager(id self, SEL _cmd) {
     [verify([self operationManager]) POST:equalTo(INDEX_URL) parameters:equalTo([self mkDirParams:params]) success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
     [self assertOperationManagerHasDefaultRequestSerializerSet];
     [self assertDefaultResponseSerializerWithClass:[MkdirResponseSerializerDelegate class]];
+    [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];
+}
+
+-(void)test_shouldStartDeleteNodes_whenNoOperationIsInProgress
+{
+    NSDictionary *params = @{};
+    BlocksCallResult *result = [BlocksCallResult result];
+    SuccessBlock successBlock = [result successBlock];
+    FailureBlock failureBlock = [result failureBlock];
+    
+    BOOL startResult = [self.client deleteNodes:params WithSuccess:successBlock failure:failureBlock];
+    
+    assertThatBool(startResult,equalToBool(YES));
+    [verify([self operationManager]) POST:equalTo(INDEX_URL) parameters:equalTo([self deleteNodesParams:params]) success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    [self assertOperationManagerHasDefaultRequestSerializerSet];
+    [self assertDefaultResponseSerializerWithClass:[DeleteNodesResponseSerializerDelegate class]];
     [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];
 }
 

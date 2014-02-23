@@ -15,6 +15,7 @@
 #import "PydioErrors.h"
 #import "ListNodesRequestParams.h"
 #import "MkDirRequestParams.h"
+#import "DeleteNodesRequestParams.h"
 
 
 static const int AUTHORIZATION_TRIES_COUNT = 1;
@@ -161,6 +162,22 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     typeof(self) strongSelf = self;
     self.operationBlock = ^{
         [strongSelf.operationsClient mkdir:[params dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
+    };
+    
+    self.operationBlock();
+    
+    return YES;
+}
+
+-(BOOL)deleteNodes:(DeleteNodesRequestParams*)params WithSuccess:(void(^)())success failure:(void(^)(NSError* error))failure {
+    if (self.progress) {
+        return NO;
+    }
+    [self setupCommons:success failure:failure];
+    
+    typeof(self) strongSelf = self;
+    self.operationBlock = ^{
+        [strongSelf.operationsClient deleteNodes:[params dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
     self.operationBlock();

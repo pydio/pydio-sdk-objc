@@ -10,6 +10,8 @@
 
 @class ListNodesRequestParams;
 @class MkDirRequestParams;
+@class DeleteNodesRequestParams;
+
 
 @interface PydioClient : NSObject
 @property (readonly,nonatomic,strong) NSURL* serverURL;
@@ -21,4 +23,5 @@
 -(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray* workspaces))success failure:(void(^)(NSError* error))failure;
 -(BOOL)listNodes:(ListNodesRequestParams*)params WithSuccess:(void(^)(NSArray* nodes))success failure:(void(^)(NSError* error))failure;
 -(BOOL)mkdir:(MkDirRequestParams*)params WithSuccess:(void(^)())success failure:(void(^)(NSError* error))failure;
+-(BOOL)deleteNodes:(DeleteNodesRequestParams*)params WithSuccess:(void(^)())success failure:(void(^)(NSError* error))failure;
 @end

@@ -1,15 +1,18 @@
 
-#import "XMLResponseSerializerDelegate.h"
-#import "LoginResponseParserDelegate.h"
 #import "LoginResponse.h"
-#import "NotAuthorizedResponseParserDelegate.h"
 #import "NotAuthorizedResponse.h"
 #import "PydioErrorResponse.h"
+#import "PydioSuccessResponse.h"
+
+#import "XMLResponseSerializerDelegate.h"
+#import "LoginResponseParserDelegate.h"
+#import "NotAuthorizedResponseParserDelegate.h"
 #import "RepositoriesParserDelegate.h"
 #import "ListFilesResponseParserDelegate.h"
 #import "MkdirResponseParserDelegate.h"
 #import "ErrorResponseParserDelegate.h"
-#import "PydioSuccessResponse.h"
+#import "DeleteNodesResponseParserDelegate.h"
+
 
 
 #pragma mark - Login response
@@ -76,6 +79,42 @@
     NotAuthorizedResponse *result = nil;
     if (self.parserDelegate.notLogged) {
         result = [[NotAuthorizedResponse alloc] init];
+    }
+    
+    return result;
+}
+
+-(NSDictionary*)errorUserInfo:(id)response {
+    return nil;
+}
+
+@end
+
+#pragma mark - Error Response
+
+@interface ErrorResponseSerializerDelegate ()
+@property (nonatomic,strong) ErrorResponseParserDelegate* parserDelegate;
+@end
+
+@implementation ErrorResponseSerializerDelegate
+
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+        self.parserDelegate = [[ErrorResponseParserDelegate alloc] init];
+    }
+    
+    return self;
+}
+
+-(id <NSXMLParserDelegate>)xmlParserDelegate {
+    return self.parserDelegate;
+}
+
+-(id)parseResult {
+    PydioErrorResponse *result = nil;
+    if (self.parserDelegate.errorMessage) {
+        result = [PydioErrorResponse errorResponseWithString:self.parserDelegate.errorMessage];
     }
     
     return result;
@@ -204,18 +243,18 @@
 
 @end
 
-#pragma mark - Error Response
+#pragma mark - Mkdir Response
 
-@interface ErrorResponseSerializerDelegate ()
-@property (nonatomic,strong) ErrorResponseParserDelegate* parserDelegate;
+@interface DeleteNodesResponseSerializerDelegate ()
+@property (nonatomic, strong) DeleteNodesResponseParserDelegate* parserDelegate;
 @end
 
-@implementation ErrorResponseSerializerDelegate
+@implementation DeleteNodesResponseSerializerDelegate
 
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.parserDelegate = [[ErrorResponseParserDelegate alloc] init];
+        self.parserDelegate = [[DeleteNodesResponseParserDelegate alloc] init];
     }
     
     return self;
@@ -226,16 +265,19 @@
 }
 
 -(id)parseResult {
-    PydioErrorResponse *result = nil;
-    if (self.parserDelegate.errorMessage) {
-        result = [PydioErrorResponse errorResponseWithString:self.parserDelegate.errorMessage];
+    PydioSuccessResponse *result = nil;
+    if (self.parserDelegate.success) {
+        result = [[PydioSuccessResponse alloc] init];
     }
     
     return result;
 }
 
 -(NSDictionary*)errorUserInfo:(id)response {
-    return nil;
+    return @{
+             NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"Error when parsing delete response", nil, @"PydioSDK"),
+             NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedStringFromTable(@"delete result not recognizd as success: %@", nil, @"PydioSDK"), response]
+             };
 }
 
 @end

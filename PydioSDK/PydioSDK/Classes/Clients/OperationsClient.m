@@ -112,6 +112,20 @@ extern NSString * const PydioErrorDomain;
     return YES;
 }
 
+-(BOOL)deleteNodes:(NSDictionary*)params WithSuccess:(void(^)())success failure:(void(^)(NSError* error))failure {
+    if (self.progress) {
+        return NO;
+    }
+    
+    [self setupCommons:success failure:failure];
+    self.operationManager.responseSerializer = [self responseSerializerForDeleteNodes];
+    params = [self paramsForDeleteNodes:params];
+    
+    [self.operationManager POST:@"index.php" parameters:params success:self.successResponseBlock failure:self.failureResponseBlock];
+    
+    return YES;
+}
+
 #pragma mark - Helper methods
 
 -(void)setupCommons:(void(^)(id result))success failure:(void(^)(NSError *))failure {
@@ -159,6 +173,10 @@ extern NSString * const PydioErrorDomain;
     return [self paramsWithTokenIfNeeded:params forAction:@"mkdir"];
 }
 
+-(NSDictionary*)paramsForDeleteNodes:(NSDictionary*)params {
+    return [self paramsWithTokenIfNeeded:params forAction:@"delete"];
+}
+
 -(AFHTTPRequestSerializer*)defaultRequestSerializer {
     AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
     [serializer setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
@@ -185,6 +203,12 @@ extern NSString * const PydioErrorDomain;
 
 -(AFHTTPResponseSerializer*)responseSerializerForMkdir {
     NSArray *serializers = [self defaultResponseSerializersWithSerializer:[self createSerializerForMkdir]];
+    
+    return [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
+}
+
+-(AFHTTPResponseSerializer*)responseSerializerForDeleteNodes {
+    NSArray *serializers = [self defaultResponseSerializersWithSerializer:[self createSerializerForDeleteNodes]];
     
     return [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
 }
@@ -220,6 +244,11 @@ extern NSString * const PydioErrorDomain;
 
 -(XMLResponseSerializer*)createSerializerForMkdir {
     MkdirResponseSerializerDelegate *delegate = [[MkdirResponseSerializerDelegate alloc] init];
+    return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
+}
+
+-(XMLResponseSerializer*)createSerializerForDeleteNodes {
+    DeleteNodesResponseSerializerDelegate *delegate = [[DeleteNodesResponseSerializerDelegate alloc] init];
     return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
 }
 
