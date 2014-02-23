@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 MINI. All rights reserved.
 //
 
-#import "ListFilesRequest.h"
+#import "ListNodesRequestParams.h"
 
-@implementation ListFilesRequest
+@implementation ListNodesRequestParams
 
 -(NSDictionary *)dictionaryRepresentation {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[self.workspaceId,self.path,@"al"]

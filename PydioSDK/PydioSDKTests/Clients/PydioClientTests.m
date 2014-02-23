@@ -22,7 +22,7 @@
 #import "User.h"
 #import "OperationsClient.h"
 #import "PydioErrors.h"
-#import "ListFilesRequest.h"
+#import "ListNodesRequestParams.h"
 #import "BlocksCallResult.h"
 
 
@@ -234,7 +234,7 @@ static OperationsClient* operationsClient = nil;
 
 -(void)test_ShouldNotStartListFiles_WhenInProgress
 {
-    ListFilesRequest *request = [self exampleListFilesRequest];
+    ListNodesRequestParams *request = [self exampleListFilesRequest];
     [self setupAuthorizationClient:YES AndOperationsClient:NO];
     BlocksCallResult *expectedResult = [BlocksCallResult result];
     BlocksCallResult *result = [BlocksCallResult result];
@@ -249,7 +249,7 @@ static OperationsClient* operationsClient = nil;
 
 -(void)test_ShouldStartListFiles_WhenNotInProgress
 {
-    ListFilesRequest *request = [self exampleListFilesRequest];
+    ListNodesRequestParams *request = [self exampleListFilesRequest];
     NSDictionary *expectedParams = [self exampleListFilesDictionary];
     BlocksCallResult *result = [BlocksCallResult result];
     SuccessBlock successBlock = [result successBlock];
@@ -298,8 +298,8 @@ static OperationsClient* operationsClient = nil;
     return [User userWithId:TEST_USER_ID AndPassword:TEST_USER_PASSWORD];
 }
 
--(ListFilesRequest*) exampleListFilesRequest {
-    ListFilesRequest *request = [[ListFilesRequest alloc] init];
+-(ListNodesRequestParams*) exampleListFilesRequest {
+    ListNodesRequestParams *request = [[ListNodesRequestParams alloc] init];
     request.workspaceId = @"testworkspaceid";
     request.path = @"/testpath";
     

@@ -10,7 +10,7 @@
 #import "Node.h"
 #import "PydioClient.h"
 #import "Workspace.h"
-#import "ListFilesRequest.h"
+#import "ListNodesRequestParams.h"
 
 
 static NSString * const TABLE_CELL_ID = @"TableCell";
@@ -99,8 +99,8 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
      ];
 }
 
--(ListFilesRequest*)listFilesRequest {
-    ListFilesRequest *request = [[ListFilesRequest alloc] init];
+-(ListNodesRequestParams*)listFilesRequest {
+    ListNodesRequestParams *request = [[ListNodesRequestParams alloc] init];
     request.workspaceId = self.workspace.workspaceId;
     request.path = self.rootNode.fullPath;
 //    request.additional = @{

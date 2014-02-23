@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class ListFilesRequest;
+@class ListNodesRequestParams;
 
 
 @interface PydioClient : NSObject
@@ -18,5 +18,5 @@
 -(instancetype)initWithServer:(NSString *)server;
 
 -(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray* workspaces))success failure:(void(^)(NSError* error))failure;
--(BOOL)listNodes:(ListFilesRequest*)request WithSuccess:(void(^)(NSArray* nodes))success failure:(void(^)(NSError* error))failure;
+-(BOOL)listNodes:(ListNodesRequestParams*)params WithSuccess:(void(^)(NSArray* nodes))success failure:(void(^)(NSError* error))failure;
 @end

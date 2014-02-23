@@ -10,7 +10,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "ServerDataManager.h"
 #import "User.h"
-#import "ListFilesRequest.h"
+#import "ListNodesRequestParams.h"
 #import "AuthorizationClient.h"
 #import "OperationsClient.h"
 #import "PydioErrors.h"
@@ -118,7 +118,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return YES;
 }
 
--(BOOL)listNodes:(ListFilesRequest *)request WithSuccess:(void(^)(NSArray* nodes))success failure:(void(^)(NSError* error))failure {
+-(BOOL)listNodes:(ListNodesRequestParams *)params WithSuccess:(void(^)(NSArray* nodes))success failure:(void(^)(NSError* error))failure {
     if (self.progress) {
         return NO;
     }
@@ -126,7 +126,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     
     typeof(self) strongSelf = self;
     self.operationBlock = ^{
-        [strongSelf.operationsClient listFiles:[request dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
+        [strongSelf.operationsClient listFiles:[params dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
     self.operationBlock();

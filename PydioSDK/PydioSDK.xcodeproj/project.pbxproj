@@ -51,7 +51,7 @@
 		89A6F2FA189E3FDA00F1763E /* ls_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A6F2F9189E3FDA00F1763E /* ls_response2.xml */; };
 		89A6F2FE189E5A9600F1763E /* XMLParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F2FD189E5A9600F1763E /* XMLParserState.m */; };
 		89A6F305189E73FF00F1763E /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F304189E73FF00F1763E /* Node.m */; };
-		89A7691918A4391A0056A61F /* ListFilesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A7691818A4391A0056A61F /* ListFilesRequest.m */; };
+		89A7691918A4391A0056A61F /* ListNodesRequestParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A7691818A4391A0056A61F /* ListNodesRequestParams.m */; };
 		89A76DD018B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DCF18B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m */; };
 		89A76DD318B2BF28000D0AF1 /* PydioErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */; };
 		89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A84FF31885F5B800AFC2F0 /* OperationsClient.m */; };
@@ -180,8 +180,8 @@
 		89A6F2FD189E5A9600F1763E /* XMLParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParserState.m; sourceTree = "<group>"; };
 		89A6F303189E73FF00F1763E /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
 		89A6F304189E73FF00F1763E /* Node.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Node.m; sourceTree = "<group>"; };
-		89A7691718A4391A0056A61F /* ListFilesRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListFilesRequest.h; sourceTree = "<group>"; };
-		89A7691818A4391A0056A61F /* ListFilesRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListFilesRequest.m; sourceTree = "<group>"; };
+		89A7691718A4391A0056A61F /* ListNodesRequestParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListNodesRequestParams.h; sourceTree = "<group>"; };
+		89A7691818A4391A0056A61F /* ListNodesRequestParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListNodesRequestParams.m; sourceTree = "<group>"; };
 		89A76DCF18B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListFilesResponseSerializerDelegateTests.m; sourceTree = "<group>"; };
 		89A76DD118B2BF28000D0AF1 /* PydioErrorResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioErrorResponse.h; sourceTree = "<group>"; };
 		89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioErrorResponse.m; sourceTree = "<group>"; };
@@ -504,8 +504,8 @@
 		89A7691618A4388C0056A61F /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				89A7691718A4391A0056A61F /* ListFilesRequest.h */,
-				89A7691818A4391A0056A61F /* ListFilesRequest.m */,
+				89A7691718A4391A0056A61F /* ListNodesRequestParams.h */,
+				89A7691818A4391A0056A61F /* ListNodesRequestParams.m */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -736,7 +736,7 @@
 				89B3560C188C70A500C62728 /* RepositoriesParserDelegate.m in Sources */,
 				89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */,
 				89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */,
-				89A7691918A4391A0056A61F /* ListFilesRequest.m in Sources */,
+				89A7691918A4391A0056A61F /* ListNodesRequestParams.m in Sources */,
 				89AC1AC8188D8CAD00ACAD7C /* GetRepositoriesParserStates.m in Sources */,
 				3DFF3AF2186648C900A766D7 /* main.m in Sources */,
 			);

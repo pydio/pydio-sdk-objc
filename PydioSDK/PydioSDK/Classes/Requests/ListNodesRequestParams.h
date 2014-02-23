@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ListFilesRequest : NSObject
+@interface ListNodesRequestParams : NSObject
 @property (nonatomic,strong) NSString* workspaceId;
 @property (nonatomic,strong) NSString* path;
 @property (nonatomic,strong) NSDictionary* additional;
