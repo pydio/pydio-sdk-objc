@@ -103,6 +103,23 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 
 #pragma mark -
 
+-(BOOL)authorizeWithSuccess:(void(^)())success failure:(void(^)(NSError* error))failure {
+    if (self.progress) {
+        return NO;
+    }
+    [self setupCommons:success failure:failure];
+    self.authorizationsTriesCount = 0;
+    
+    typeof(self) strongSelf = self;
+    self.operationBlock = ^{
+        [strongSelf.authorizationClient authorizeWithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
+    };
+    
+    self.operationBlock();
+    
+    return YES;
+}
+
 -(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray* workspaces))success failure:(void(^)(NSError* error))failure {
     if (self.progress) {
         return NO;

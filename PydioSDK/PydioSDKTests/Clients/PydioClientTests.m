@@ -223,11 +223,7 @@ static OperationsClient* operationsClient = nil;
     
     BOOL startResult = [self.client listWorkspacesWithSuccess:successBlock failure:failureBlock];
     
-    assertThatBool(startResult, equalToBool(YES));
-    assertThatInt(self.client.authorizationsTriesCount,equalToInt(DEFAULT_TRIES_COUNT));
-    assertThat(self.client.successBlock,sameInstance(successBlock));
-    assertThat(self.client.failureBlock,sameInstance(failureBlock));
-    assertThat(self.client.operationBlock,notNilValue());
+    [self assertOperationSetupDefaultAuthTries:startResult success:successBlock failure:failureBlock];
     [verify(operationsClient) listWorkspacesWithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
 }
 
@@ -258,11 +254,11 @@ static OperationsClient* operationsClient = nil;
     
     BOOL startResult = [self.client listNodes:request WithSuccess:successBlock failure:failureBlock];
     
-    [self assertOperationPreparationStartResult:startResult andSuccess:successBlock andFailure:failureBlock];
+    [self assertOperationSetupDefaultAuthTries:startResult success:successBlock failure:failureBlock];
     [verify(operationsClient) listFiles:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
 }
 
-#pragma mark - Test mk dir
+#pragma mark - Test mkdir
 
 -(void)test_ShouldNotStartMkDir_WhenInProgress
 {
@@ -289,12 +285,39 @@ static OperationsClient* operationsClient = nil;
     
     BOOL startResult = [self.client mkdir:request WithSuccess:successBlock failure:failureBlock];
     
-    [self assertOperationPreparationStartResult:startResult andSuccess:successBlock andFailure:failureBlock];
+    [self assertOperationSetupDefaultAuthTries:startResult success:successBlock failure:failureBlock];
     [verify(operationsClient) mkdir:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
 }
 
+#pragma mark - Test authorize
 
-#pragma mark - Test Verification
+-(void)test_ShouldNotStartAuthorize_WhenInProgress
+{
+    [self setupAuthorizationClient:YES AndOperationsClient:NO];
+    BlocksCallResult *expectedResult = [BlocksCallResult result];
+    BlocksCallResult *result = [BlocksCallResult result];
+    
+    BOOL startResult = [self.client authorizeWithSuccess:[result successBlock] failure:[result failureBlock]];
+    
+    assertThatBool(startResult, equalToBool(NO));
+    assertThat(result,equalTo(expectedResult));
+    [verifyCount(authorizationClient,never()) authorizeWithSuccess:anything() failure:anything()];
+    [self assertClientBlocksNiled];
+}
+
+-(void)test_ShouldStartAuthorize_WhenNotInProgress
+{
+    BlocksCallResult *result = [BlocksCallResult result];
+    SuccessBlock successBlock = [result successBlock];
+    FailureBlock failureBlock = [result failureBlock];
+    
+    BOOL startResult = [self.client authorizeWithSuccess:successBlock failure:failureBlock];
+    
+    [self assertOperationSetup0AuthTries:startResult success:successBlock failure:failureBlock];
+    [verify(authorizationClient) authorizeWithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+}
+
+#pragma mark - Tests Verification
 
 -(void)setupAuthorizationClient:(BOOL) authProgress AndOperationsClient: (BOOL)operationsProgress {
     [given([authorizationClient progress]) willReturnBool:authProgress];
@@ -309,9 +332,18 @@ static OperationsClient* operationsClient = nil;
     assertThat(self.client.failureResponseBlock,nilValue());
 }
 
--(void)assertOperationPreparationStartResult:(BOOL)startResult andSuccess:(SuccessBlock)successBlock andFailure:(FailureBlock)failureBlock {
-    assertThatBool(startResult, equalToBool(YES));
+-(void)assertOperationSetupDefaultAuthTries:(BOOL)startResult success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock {
     assertThatInt(self.client.authorizationsTriesCount,equalToInt(DEFAULT_TRIES_COUNT));
+    [self assertOperationSetup:startResult success:successBlock failure:failureBlock];
+}
+
+-(void)assertOperationSetup0AuthTries:(BOOL)startResult success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock {
+    assertThatInt(self.client.authorizationsTriesCount,equalToInt(0));
+    [self assertOperationSetup:startResult success:successBlock failure:failureBlock];
+}
+
+-(void)assertOperationSetup:(BOOL)startResult success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock {
+    assertThatBool(startResult, equalToBool(YES));
     assertThat(self.client.successBlock,sameInstance(successBlock));
     assertThat(self.client.failureBlock,sameInstance(failureBlock));
     assertThat(self.client.operationBlock,notNilValue());
