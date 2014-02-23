@@ -12,6 +12,7 @@
 #import "Workspace.h"
 #import "ListNodesRequestParams.h"
 #import "MkDirRequestParams.h"
+#import "DeleteNodesRequestParams.h"
 
 
 static NSString * const TABLE_CELL_ID = @"TableCell";
@@ -40,7 +41,6 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
     [super viewWillAppear:animated];
     
     if (!self.rootNode.children.count) {
@@ -67,6 +67,12 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.rootNode.children.count;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self deleteNode:[self fileNodeAt:indexPath.row]];
+    }
 }
 
 #pragma mark - Navigation
@@ -138,8 +144,6 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
 #pragma mark - Add Directory
 
 - (IBAction)addDirClicked:(id)sender {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
-    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Add directory:"
                                                      message:@"Please provide directory name"
                                                     delegate:self
@@ -171,6 +175,23 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
     params.workspaceId = self.workspace.workspaceId;
     params.dir = self.rootNode.fullPath;
     params.dirname = dirname;
+    
+    return params;
+}
+
+-(void)deleteNode:(Node*)node {
+    PydioClient *client = [self pydioClient];
+    [client deleteNodes:[self deleteNodeParams:node] WithSuccess:^{
+        [self listFiles];
+    } failure:^(NSError *error) {
+        NSLog(@"%s FAILURE: %@",__PRETTY_FUNCTION__,error);
+    }];    
+}
+
+-(DeleteNodesRequestParams *)deleteNodeParams:(Node*)node {
+    DeleteNodesRequestParams *params = [[DeleteNodesRequestParams alloc] init];
+    params.workspaceId = self.workspace.workspaceId;
+    params.nodes = [NSArray arrayWithObject:node.fullPath];
     
     return params;
 }
