@@ -38,10 +38,7 @@
 
 @end
 
-@interface MkdirResponseSerializerDelegate : NSObject<XMLResponseSerializerDelegate>
+@interface SuccessResponseSerializerDelegate : NSObject<XMLResponseSerializerDelegate>
 
-@end
-
-@interface DeleteNodesResponseSerializerDelegate : NSObject<XMLResponseSerializerDelegate>
-
+-(instancetype)initWithAction:(NSString*)name;
 @end

@@ -9,9 +9,8 @@
 #import "NotAuthorizedResponseParserDelegate.h"
 #import "RepositoriesParserDelegate.h"
 #import "ListFilesResponseParserDelegate.h"
-#import "MkdirResponseParserDelegate.h"
+#import "SuccessResponseParserDelegate.h"
 #import "ErrorResponseParserDelegate.h"
-#import "DeleteNodesResponseParserDelegate.h"
 
 
 
@@ -206,16 +205,18 @@
 
 #pragma mark - Mkdir Response
 
-@interface MkdirResponseSerializerDelegate ()
-@property (nonatomic, strong) MkdirResponseParserDelegate* parserDelegate;
+@interface SuccessResponseSerializerDelegate ()
+@property (nonatomic, strong) SuccessResponseParserDelegate* parserDelegate;
+@property (nonatomic, strong) NSString *actionName;
 @end
 
-@implementation MkdirResponseSerializerDelegate
+@implementation SuccessResponseSerializerDelegate
 
--(instancetype)init {
+-(instancetype)initWithAction:(NSString*)name {
     self = [super init];
     if (self) {
-        self.parserDelegate = [[MkdirResponseParserDelegate alloc] init];
+        self.parserDelegate = [[SuccessResponseParserDelegate alloc] init];
+        self.actionName = name;
     }
     
     return self;
@@ -236,48 +237,10 @@
 
 -(NSDictionary*)errorUserInfo:(id)response {
     return @{
-             NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"Error when parsing mkdir response", nil, @"PydioSDK"),
-             NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedStringFromTable(@"mkdir result not recognizd as success: %@", nil, @"PydioSDK"), response]
+             NSLocalizedDescriptionKey : [NSString stringWithFormat:NSLocalizedStringFromTable(@"Error when parsing %@ response", nil, @"PydioSDK"), self.actionName],
+             NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ result not recognizd as success: %@", nil, @"PydioSDK"), self.actionName, response]
             };
 }
 
 @end
 
-#pragma mark - Mkdir Response
-
-@interface DeleteNodesResponseSerializerDelegate ()
-@property (nonatomic, strong) DeleteNodesResponseParserDelegate* parserDelegate;
-@end
-
-@implementation DeleteNodesResponseSerializerDelegate
-
--(instancetype)init {
-    self = [super init];
-    if (self) {
-        self.parserDelegate = [[DeleteNodesResponseParserDelegate alloc] init];
-    }
-    
-    return self;
-}
-
--(id <NSXMLParserDelegate>)xmlParserDelegate {
-    return self.parserDelegate;
-}
-
--(id)parseResult {
-    PydioSuccessResponse *result = nil;
-    if (self.parserDelegate.success) {
-        result = [[PydioSuccessResponse alloc] init];
-    }
-    
-    return result;
-}
-
--(NSDictionary*)errorUserInfo:(id)response {
-    return @{
-             NSLocalizedDescriptionKey : NSLocalizedStringFromTable(@"Error when parsing delete response", nil, @"PydioSDK"),
-             NSLocalizedFailureReasonErrorKey : [NSString stringWithFormat:NSLocalizedStringFromTable(@"delete result not recognizd as success: %@", nil, @"PydioSDK"), response]
-             };
-}
-
-@end

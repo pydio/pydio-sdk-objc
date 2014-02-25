@@ -104,7 +104,7 @@ extern NSString * const PydioErrorDomain;
     }
     
     [self setupCommons:success failure:failure];
-    self.operationManager.responseSerializer = [self responseSerializerForMkdir];
+    self.operationManager.responseSerializer = [self responseSerializerForSuccessResponseToAction:@"mkdir"];
     params = [self paramsForMkDir:params];
     
     [self.operationManager POST:@"index.php" parameters:params success:self.successResponseBlock failure:self.failureResponseBlock];
@@ -118,7 +118,7 @@ extern NSString * const PydioErrorDomain;
     }
     
     [self setupCommons:success failure:failure];
-    self.operationManager.responseSerializer = [self responseSerializerForDeleteNodes];
+    self.operationManager.responseSerializer = [self responseSerializerForSuccessResponseToAction:@"delete"];
     params = [self paramsForDeleteNodes:params];
     
     [self.operationManager POST:@"index.php" parameters:params success:self.successResponseBlock failure:self.failureResponseBlock];
@@ -201,14 +201,8 @@ extern NSString * const PydioErrorDomain;
     return [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
 }
 
--(AFHTTPResponseSerializer*)responseSerializerForMkdir {
-    NSArray *serializers = [self defaultResponseSerializersWithSerializer:[self createSerializerForMkdir]];
-    
-    return [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
-}
-
--(AFHTTPResponseSerializer*)responseSerializerForDeleteNodes {
-    NSArray *serializers = [self defaultResponseSerializersWithSerializer:[self createSerializerForDeleteNodes]];
+-(AFHTTPResponseSerializer*)responseSerializerForSuccessResponseToAction:(NSString*)name {
+    NSArray *serializers = [self defaultResponseSerializersWithSerializer:[self createSerializerForSuccessResponseToAction:name]];
     
     return [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
 }
@@ -242,13 +236,8 @@ extern NSString * const PydioErrorDomain;
     return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
 }
 
--(XMLResponseSerializer*)createSerializerForMkdir {
-    MkdirResponseSerializerDelegate *delegate = [[MkdirResponseSerializerDelegate alloc] init];
-    return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
-}
-
--(XMLResponseSerializer*)createSerializerForDeleteNodes {
-    DeleteNodesResponseSerializerDelegate *delegate = [[DeleteNodesResponseSerializerDelegate alloc] init];
+-(XMLResponseSerializer*)createSerializerForSuccessResponseToAction:(NSString*)name {
+    SuccessResponseSerializerDelegate *delegate = [[SuccessResponseSerializerDelegate alloc] initWithAction:name];
     return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
 }
 

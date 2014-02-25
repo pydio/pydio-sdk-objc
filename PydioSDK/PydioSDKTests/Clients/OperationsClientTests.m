@@ -386,7 +386,7 @@ static id mockedCookieManager(id self, SEL _cmd) {
     assertThatBool(startResult,equalToBool(YES));
     [verify([self operationManager]) POST:equalTo(INDEX_URL) parameters:equalTo([self mkDirParams:params]) success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
     [self assertOperationManagerHasDefaultRequestSerializerSet];
-    [self assertDefaultResponseSerializerWithClass:[MkdirResponseSerializerDelegate class]];
+    [self assertDefaultResponseSerializerWithClass:[SuccessResponseSerializerDelegate class]];
     [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];
 }
 
@@ -402,7 +402,7 @@ static id mockedCookieManager(id self, SEL _cmd) {
     assertThatBool(startResult,equalToBool(YES));
     [verify([self operationManager]) POST:equalTo(INDEX_URL) parameters:equalTo([self deleteNodesParams:params]) success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
     [self assertOperationManagerHasDefaultRequestSerializerSet];
-    [self assertDefaultResponseSerializerWithClass:[DeleteNodesResponseSerializerDelegate class]];
+    [self assertDefaultResponseSerializerWithClass:[SuccessResponseSerializerDelegate class]];
     [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];
 }
 

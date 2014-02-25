@@ -1,12 +1,12 @@
 //
-//  DeleteNodesResponseParserDelegate.m
+//  MkdirResponseParserDelegate.m
 //  PydioSDK
 //
-//  Created by Michal Kloczko on 23/02/14.
+//  Created by Michal Kloczko on 20/02/14.
 //  Copyright (c) 2014 MINI. All rights reserved.
 //
 
-#import "DeleteNodesResponseParserDelegate.h"
+#import "SuccessResponseParserDelegate.h"
 
 static NSString * const TREE_NODE = @"tree";
 static NSString * const MESSAGE_NODE = @"message";
@@ -19,12 +19,12 @@ typedef NS_ENUM(NSUInteger,State) {
     IgnoreState
 };
 
-@interface DeleteNodesResponseParserDelegate ()
+@interface SuccessResponseParserDelegate ()
 @property (nonatomic,assign) State state;
 @property (readwrite,nonatomic,assign) BOOL success;
 @end
 
-@implementation DeleteNodesResponseParserDelegate
+@implementation SuccessResponseParserDelegate
 
 -(instancetype)init {
     self = [super init];

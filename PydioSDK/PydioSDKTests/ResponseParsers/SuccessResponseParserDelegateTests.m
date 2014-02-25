@@ -12,20 +12,20 @@
 #define MOCKITO_SHORTHAND
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
-#import "MkdirResponseParserDelegate.h"
+#import "SuccessResponseParserDelegate.h"
 #import "XCTestCase+XMLFixture.h"
 
 
-@interface MkdirResponseParserDelegateTests : XCTestCase
-@property (nonatomic,strong) MkdirResponseParserDelegate* parserDelegate;
+@interface SuccessResponseParserDelegateTests : XCTestCase
+@property (nonatomic,strong) SuccessResponseParserDelegate* parserDelegate;
 @end
 
-@implementation MkdirResponseParserDelegateTests
+@implementation SuccessResponseParserDelegateTests
 
 - (void)setUp
 {
     [super setUp];
-    self.parserDelegate = [[MkdirResponseParserDelegate alloc] init];
+    self.parserDelegate = [[SuccessResponseParserDelegate alloc] init];
 }
 
 - (void)tearDown
