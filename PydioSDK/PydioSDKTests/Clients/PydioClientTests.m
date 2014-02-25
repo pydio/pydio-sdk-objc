@@ -54,6 +54,7 @@ static OperationsClient* operationsClient = nil;
 #pragma mark - Test client deriving original client
 
 @interface TestPydioClient : PydioClient
+@property (nonatomic,assign) BOOL wasSetupCommonsCalled;
 @end
 
 @implementation TestPydioClient
@@ -70,12 +71,21 @@ static OperationsClient* operationsClient = nil;
     return operationsClient;
 }
 
+-(void)setupCommons:(void (^)(id))success failure:(void (^)(NSError *))failure {
+    self.wasSetupCommonsCalled = YES;
+    [super setupCommons:success failure:failure];
+}
+
 @end
 
-#pragma mark - Testing class
+#pragma mark - Tests
 
 @interface PydioClientTests : XCTestCase
 @property (nonatomic,strong) TestPydioClient* client;
+@property (nonatomic,assign) BlocksCallResult *result;
+@property (nonatomic,assign) BlocksCallResult *expectedResult;
+@property (nonatomic,assign) SuccessBlock successBlock;
+@property (nonatomic,assign) FailureBlock failureBlock;
 @end
 
 
@@ -127,16 +137,11 @@ static OperationsClient* operationsClient = nil;
 
 -(void)test_shouldSetupAllBlocksAndResetTriesCount_whenSetingCommons
 {
-    BlocksCallResult *result = [BlocksCallResult result];
-    SuccessBlock successBlock = [result successBlock];
-    FailureBlock failureBlock = [result failureBlock];
-    [self.client setupCommons:successBlock failure:failureBlock];
+    [self setupEmptyResult];
+    [self.client setupCommons:self.successBlock failure:self.failureBlock];
     
     assertThatInt(self.client.authorizationsTriesCount,equalToInt(DEFAULT_TRIES_COUNT));
-    assertThat(self.client.successBlock,sameInstance(successBlock));
-    assertThat(self.client.failureBlock,sameInstance(failureBlock));
-    assertThat(self.client.successResponseBlock,notNilValue());
-    assertThat(self.client.failureResponseBlock,notNilValue());
+    [self assertClientBlocksSet];
 }
 
 #pragma mark - Test common handling of error and success responses
@@ -144,14 +149,13 @@ static OperationsClient* operationsClient = nil;
 -(void)test_shouldTryToAuthorizeWithBlocksAsArguments_WhenReceivedAuthorizationErrorAndTriesCountIsGreaterThan0
 {
     NSError *errorResponse = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
-    BlocksCallResult *expectedResult = [BlocksCallResult result];
-    BlocksCallResult *result = [BlocksCallResult result];
-    [self setupClientForBlockResponse:result];
+    [self setupExpectedAndEmptyResult];
+    [self setupClientForBlockResponse];
     self.client.operationBlock = ^{};
     
     self.client.failureResponseBlock(errorResponse);
     
-    assertThat(result,equalTo(expectedResult));
+    assertThat(self.result,equalTo(self.expectedResult));
     assertThatInt(self.client.authorizationsTriesCount,equalToInt(0));
     [verify(self.client.authorizationClient) authorizeWithSuccess:self.client.operationBlock failure:self.client.failureResponseBlock];
 }
@@ -159,14 +163,14 @@ static OperationsClient* operationsClient = nil;
 -(void)test_shouldFailureAndNotTryToAuthorize_WhenReceivedAuthorizationErrorAndTriesCountIs0
 {
     NSError *errorResponse = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
-    BlocksCallResult *expectedResult = [BlocksCallResult failureWithError:errorResponse];
-    BlocksCallResult *result = [BlocksCallResult result];
-    [self setupClientForBlockResponse:result];
+    self.expectedResult = [BlocksCallResult failureWithError:errorResponse];
+    [self setupEmptyResult];
+    [self setupClientForBlockResponse];
     self.client.authorizationsTriesCount = 0;
     
     self.client.failureResponseBlock(errorResponse);
     
-    assertThat(result,equalTo(expectedResult));
+    assertThat(self.result,equalTo(self.expectedResult));
     assertThatInt(self.client.authorizationsTriesCount,equalToInt(0));
     [verifyCount(self.client.authorizationClient,never()) authorizeWithSuccess:anything() failure:anything()];
     [self assertClientBlocksNiled];
@@ -175,13 +179,13 @@ static OperationsClient* operationsClient = nil;
 -(void)test_shouldFailureAndNotTryToAuthorize_WhenReceivedSomeError
 {
     NSError *errorResponse = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToParseAnswer userInfo:nil];
-    BlocksCallResult *expectedResult = [BlocksCallResult failureWithError:errorResponse];
-    BlocksCallResult *result = [BlocksCallResult result];
-    [self setupClientForBlockResponse:result];
+    self.expectedResult = [BlocksCallResult failureWithError:errorResponse];
+    [self setupEmptyResult];
+    [self setupClientForBlockResponse];
     
     self.client.failureResponseBlock(errorResponse);
     
-    assertThat(result,equalTo(expectedResult));
+    assertThat(self.result,equalTo(self.expectedResult));
     assertThatInt(self.client.authorizationsTriesCount,equalToInt(DEFAULT_TRIES_COUNT));
     [verifyCount(self.client.authorizationClient,never()) authorizeWithSuccess:anything() failure:anything()];
     [self assertClientBlocksNiled];
@@ -190,13 +194,13 @@ static OperationsClient* operationsClient = nil;
 -(void)test_shouldCallSuccessBlock_WhenReceivedSuccessAnswer
 {
     NSObject *object = [[NSObject alloc] init];
-    BlocksCallResult *expectedResult = [BlocksCallResult successWithResponse:object];
-    BlocksCallResult *result = [BlocksCallResult result];
-    [self setupClientForBlockResponse:result];
+    self.expectedResult = [BlocksCallResult successWithResponse:object];
+    [self setupEmptyResult];
+    [self setupClientForBlockResponse];
 
     self.client.successResponseBlock(object);
     
-    assertThat(result,equalTo(expectedResult));
+    assertThat(self.result,equalTo(self.expectedResult));
     [self assertClientBlocksNiled];
 }
 
@@ -205,26 +209,21 @@ static OperationsClient* operationsClient = nil;
 -(void)test_ShouldNotStartListWorkspaces_WhenInProgress
 {
     [self setupAuthorizationClient:YES AndOperationsClient:NO];
-    BlocksCallResult *expectedResult = [BlocksCallResult result];
-    BlocksCallResult *result = [BlocksCallResult result];
+    [self setupExpectedAndEmptyResult];
     
-    BOOL startResult = [self.client listWorkspacesWithSuccess:[result successBlock] failure:[result failureBlock]];
+    BOOL startResult = [self.client listWorkspacesWithSuccess:self.successBlock failure:self.successBlock];
     
-    assertThatBool(startResult, equalToBool(NO));
-    assertThat(result,equalTo(expectedResult));
     [verifyCount(operationsClient,never()) listWorkspacesWithSuccess:anything() failure:anything()];
-    [self assertClientBlocksNiled];
+    [self assertNotStartedOperationSetup:startResult];
 }
 
 -(void)test_ShouldStartListWorkspaces_WhenNotInProgress
 {
-    BlocksCallResult *result = [BlocksCallResult result];
-    SuccessBlock successBlock = [result successBlock];
-    FailureBlock failureBlock = [result failureBlock];
+    [self setupEmptyResult];
     
-    BOOL startResult = [self.client listWorkspacesWithSuccess:successBlock failure:failureBlock];
+    BOOL startResult = [self.client listWorkspacesWithSuccess:self.successBlock failure:self.failureBlock];
     
-    [self assertOperationSetupDefaultAuthTries:startResult success:successBlock failure:failureBlock];
+    [self assertStartedOperationSetupDefaultAuthTries:startResult];
     [verify(operationsClient) listWorkspacesWithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
 }
 
@@ -234,28 +233,23 @@ static OperationsClient* operationsClient = nil;
 {
     ListNodesRequestParams *request = [self exampleListFilesRequest];
     [self setupAuthorizationClient:YES AndOperationsClient:NO];
-    BlocksCallResult *expectedResult = [BlocksCallResult result];
-    BlocksCallResult *result = [BlocksCallResult result];
+    [self setupExpectedAndEmptyResult];
     
-    BOOL startResult = [self.client listNodes:request WithSuccess:[result successBlock] failure:[result failureBlock]];
+    BOOL startResult = [self.client listNodes:request WithSuccess:self.successBlock failure:self.failureBlock];
 
-    assertThatBool(startResult, equalToBool(NO));
-    assertThat(result,equalTo(expectedResult));
     [verifyCount(operationsClient,never()) listFiles:anything() WithSuccess:anything() failure:anything()];
-    [self assertClientBlocksNiled];
+    [self assertNotStartedOperationSetup:startResult];
 }
 
 -(void)test_ShouldStartListFiles_WhenNotInProgress
 {
     ListNodesRequestParams *request = [self exampleListFilesRequest];
     NSDictionary *expectedParams = [self exampleListFilesDictionary];
-    BlocksCallResult *result = [BlocksCallResult result];
-    SuccessBlock successBlock = [result successBlock];
-    FailureBlock failureBlock = [result failureBlock];
+    [self setupEmptyResult];
     
-    BOOL startResult = [self.client listNodes:request WithSuccess:successBlock failure:failureBlock];
+    BOOL startResult = [self.client listNodes:request WithSuccess:self.successBlock failure:self.failureBlock];
     
-    [self assertOperationSetupDefaultAuthTries:startResult success:successBlock failure:failureBlock];
+    [self assertStartedOperationSetupDefaultAuthTries:startResult];
     [verify(operationsClient) listFiles:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
 }
 
@@ -265,28 +259,23 @@ static OperationsClient* operationsClient = nil;
 {
     MkDirRequestParams *request = [self exampleMkDirRequestParams];
     [self setupAuthorizationClient:YES AndOperationsClient:NO];
-    BlocksCallResult *expectedResult = [BlocksCallResult result];
-    BlocksCallResult *result = [BlocksCallResult result];
+    [self setupExpectedAndEmptyResult];
     
-    BOOL startResult = [self.client mkdir:request WithSuccess:[result successBlock] failure:[result failureBlock]];
+    BOOL startResult = [self.client mkdir:request WithSuccess:self.successBlock failure:self.failureBlock];
     
-    assertThatBool(startResult, equalToBool(NO));
-    assertThat(result,equalTo(expectedResult));
     [verifyCount(operationsClient,never()) mkdir:anything() WithSuccess:anything() failure:anything()];
-    [self assertClientBlocksNiled];
+    [self assertNotStartedOperationSetup:startResult];
 }
 
 -(void)test_ShouldStartMkDir_WhenNotInProgress
 {
     MkDirRequestParams *request = [self exampleMkDirRequestParams];
     NSDictionary *expectedParams = [self exampleMkDirRequestParamsDictionary];
-    BlocksCallResult *result = [BlocksCallResult result];
-    SuccessBlock successBlock = [result successBlock];
-    FailureBlock failureBlock = [result failureBlock];
+    [self setupEmptyResult];
     
-    BOOL startResult = [self.client mkdir:request WithSuccess:successBlock failure:failureBlock];
+    BOOL startResult = [self.client mkdir:request WithSuccess:self.successBlock failure:self.failureBlock];
     
-    [self assertOperationSetupDefaultAuthTries:startResult success:successBlock failure:failureBlock];
+    [self assertStartedOperationSetupDefaultAuthTries:startResult];
     [verify(operationsClient) mkdir:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
 }
 
@@ -295,26 +284,21 @@ static OperationsClient* operationsClient = nil;
 -(void)test_ShouldNotStartAuthorize_WhenInProgress
 {
     [self setupAuthorizationClient:YES AndOperationsClient:NO];
-    BlocksCallResult *expectedResult = [BlocksCallResult result];
-    BlocksCallResult *result = [BlocksCallResult result];
+    [self setupExpectedAndEmptyResult];
     
-    BOOL startResult = [self.client authorizeWithSuccess:[result successBlock] failure:[result failureBlock]];
+    BOOL startResult = [self.client authorizeWithSuccess:self.successBlock failure:self.failureBlock];
     
-    assertThatBool(startResult, equalToBool(NO));
-    assertThat(result,equalTo(expectedResult));
     [verifyCount(authorizationClient,never()) authorizeWithSuccess:anything() failure:anything()];
-    [self assertClientBlocksNiled];
+    [self assertNotStartedOperationSetup:startResult];
 }
 
 -(void)test_ShouldStartAuthorize_WhenNotInProgress
 {
-    BlocksCallResult *result = [BlocksCallResult result];
-    SuccessBlock successBlock = [result successBlock];
-    FailureBlock failureBlock = [result failureBlock];
+    [self setupEmptyResult];
     
-    BOOL startResult = [self.client authorizeWithSuccess:successBlock failure:failureBlock];
+    BOOL startResult = [self.client authorizeWithSuccess:self.successBlock failure:self.failureBlock];
     
-    [self assertOperationSetup0AuthTries:startResult success:successBlock failure:failureBlock];
+    [self assertStartedOperationSetup0AuthTries:startResult];
     [verify(authorizationClient) authorizeWithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
 }
 
@@ -324,28 +308,23 @@ static OperationsClient* operationsClient = nil;
 {
     DeleteNodesRequestParams *request = [self exampleDeleteNodesRequestParams];
     [self setupAuthorizationClient:YES AndOperationsClient:NO];
-    BlocksCallResult *expectedResult = [BlocksCallResult result];
-    BlocksCallResult *result = [BlocksCallResult result];
+    [self setupExpectedAndEmptyResult];
     
-    BOOL startResult = [self.client deleteNodes:request WithSuccess:[result successBlock] failure:[result failureBlock]];
+    BOOL startResult = [self.client deleteNodes:request WithSuccess:self.successBlock failure:self.failureBlock];
     
-    assertThatBool(startResult, equalToBool(NO));
-    assertThat(result,equalTo(expectedResult));
     [verifyCount(operationsClient,never()) deleteNodes:anything() WithSuccess:anything() failure:anything()];
-    [self assertClientBlocksNiled];
+    [self assertNotStartedOperationSetup:startResult];
 }
 
 -(void)test_ShouldStartDeleteNodes_WhenNotInProgress
 {
     DeleteNodesRequestParams *request = [self exampleDeleteNodesRequestParams];
     NSDictionary *expectedParams = [self exampleDeleteNodesDictionary];
-    BlocksCallResult *result = [BlocksCallResult result];
-    SuccessBlock successBlock = [result successBlock];
-    FailureBlock failureBlock = [result failureBlock];
+    [self setupEmptyResult];
     
-    BOOL startResult = [self.client deleteNodes:request WithSuccess:successBlock failure:failureBlock];
+    BOOL startResult = [self.client deleteNodes:request WithSuccess:self.successBlock failure:self.failureBlock];
     
-    [self assertOperationSetupDefaultAuthTries:startResult success:successBlock failure:failureBlock];
+    [self assertStartedOperationSetupDefaultAuthTries:startResult];
     [verify(operationsClient) deleteNodes:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
 }
 
@@ -364,27 +343,52 @@ static OperationsClient* operationsClient = nil;
     assertThat(self.client.failureResponseBlock,nilValue());
 }
 
--(void)assertOperationSetupDefaultAuthTries:(BOOL)startResult success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock {
+-(void)assertClientBlocksSet {
+    assertThat(self.client.successBlock,sameInstance(self.successBlock));
+    assertThat(self.client.failureBlock,sameInstance(self.failureBlock));
+    assertThat(self.client.successResponseBlock,notNilValue());
+    assertThat(self.client.failureResponseBlock,notNilValue());
+}
+
+-(void)assertStartedOperationSetupDefaultAuthTries:(BOOL)startResult {
     assertThatInt(self.client.authorizationsTriesCount,equalToInt(DEFAULT_TRIES_COUNT));
-    [self assertOperationSetup:startResult success:successBlock failure:failureBlock];
+    [self assertStartedOperationSetup:startResult];
 }
 
--(void)assertOperationSetup0AuthTries:(BOOL)startResult success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock {
+-(void)assertStartedOperationSetup0AuthTries:(BOOL)startResult {
     assertThatInt(self.client.authorizationsTriesCount,equalToInt(0));
-    [self assertOperationSetup:startResult success:successBlock failure:failureBlock];
+    [self assertStartedOperationSetup:startResult];
 }
 
--(void)assertOperationSetup:(BOOL)startResult success:(SuccessBlock)successBlock failure:(FailureBlock)failureBlock {
+-(void)assertStartedOperationSetup:(BOOL)startResult {
+    assertThatBool(self.client.wasSetupCommonsCalled, equalToBool(YES));
     assertThatBool(startResult, equalToBool(YES));
-    assertThat(self.client.successBlock,sameInstance(successBlock));
-    assertThat(self.client.failureBlock,sameInstance(failureBlock));
+    [self assertClientBlocksSet];
     assertThat(self.client.operationBlock,notNilValue());
+}
+
+-(void)assertNotStartedOperationSetup:(BOOL)startResult {
+    assertThatBool(self.client.wasSetupCommonsCalled, equalToBool(NO));
+    assertThatBool(startResult, equalToBool(NO));
+    assertThat(self.result,equalTo(self.expectedResult));
+    [self assertClientBlocksNiled];
 }
 
 #pragma mark - Helpers
 
--(void)setupClientForBlockResponse:(BlocksCallResult*)result {
-    [self.client setupCommons:[result successBlock] failure:[result failureBlock]];
+-(void)setupExpectedAndEmptyResult {
+    self.expectedResult = [BlocksCallResult result];
+    [self setupEmptyResult];
+}
+
+-(void)setupEmptyResult {
+    self.result = [BlocksCallResult result];
+    self.successBlock = [self.result successBlock];
+    self.failureBlock = [self.result failureBlock];
+}
+
+-(void)setupClientForBlockResponse {
+    [self.client setupCommons:self.successBlock failure:self.failureBlock];
 }
 
 -(NSURL*)helperServerURL {
