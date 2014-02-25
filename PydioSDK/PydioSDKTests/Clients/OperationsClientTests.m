@@ -28,7 +28,6 @@
 #pragma mark - Helpers
 
 static const NSString * const TEST_TOKEN = @"j9tJRcVJYjKyfphibjRX47YgyVN1eoIv";
-static const NSString * const GET_ACTION_BASE = @"index.php?get_action=";
 static const NSString * const INDEX_URL = @"index.php";
 static NSString * const GET_ACTION = @"get_action";
 static NSString * const SECURE_TOKEN = @"secure_token";
@@ -50,7 +49,6 @@ static id mockedCookieManager(id self, SEL _cmd) {
 @property (nonatomic,copy) void(^failureResponseBlock)(AFHTTPRequestOperation *operation, NSError *error);
 
 -(void)setupResponseBlocks;
--(NSString*)actionWithTokenIfNeeded:(NSString*)action;
 -(NSDictionary*)paramsWithTokenIfNeeded:(NSDictionary*)params forAction:(NSString*)action;
 @end
 
@@ -76,12 +74,19 @@ static id mockedCookieManager(id self, SEL _cmd) {
     [self.client setupResponseBlocks];
 }
 
--(NSString*)workspacesURL {
-    return [NSString stringWithFormat:@"%@%@",GET_ACTION_BASE,@"get_xml_registry&xPath=user/repositories"];
+-(NSDictionary*)getWorkspacesParams:(NSDictionary*)params {
+    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary:params];
+    [dict setValue:@"get_xml_registry" forKey:GET_ACTION];
+    [dict setValue:@"user/repositories" forKey:@"xPath"];
+    
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
--(NSString*)listFilesURL {
-    return [NSString stringWithFormat:@"%@%@",GET_ACTION_BASE,@"ls"];
+-(NSDictionary*)listFilesParams:(NSDictionary*)params {
+    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary:params];
+    [dict setValue:@"ls" forKey:GET_ACTION];
+    
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
 -(NSDictionary*)mkDirParams:(NSDictionary*)params {
@@ -188,27 +193,6 @@ static id mockedCookieManager(id self, SEL _cmd) {
 }
 
 #pragma mark - Tests for secure token
-
-- (void)test_shouldReturnActionNameWithAccessToken_whenAccessTokenIsPresentInServerDataManager
-{
-    NSString *action = @"action";
-    NSString *expectedFormedAction = [NSString stringWithFormat:@"%@%@&secure_token=%@",GET_ACTION_BASE,action,TEST_TOKEN];
-    [given([cookieManager secureTokenForServer:anything()]) willReturn:TEST_TOKEN];
-    
-    NSString* formedAction = [self.client actionWithTokenIfNeeded:@"action"];
-    
-    assertThat(formedAction,equalTo(expectedFormedAction));
-}
-
-- (void)test_shouldReturnActionNameWithoutAccessToken_whenAccessTokenNotPresentInServerDataManager
-{
-    NSString *action = @"action";
-    NSString *expectedFormedAction = [NSString stringWithFormat:@"%@%@",GET_ACTION_BASE,action];
-    
-    NSString* formedAction = [self.client actionWithTokenIfNeeded:@"action"];
-    
-    assertThat(formedAction,equalTo(expectedFormedAction));
-}
 
 - (void)test_shouldReturnActionParamsWithAccessToken_whenAccessTokenIsPresentInServerDataManager
 {
@@ -352,7 +336,7 @@ static id mockedCookieManager(id self, SEL _cmd) {
     BOOL startResult = [self.client listWorkspacesWithSuccess:successBlock failure:failureBlock];
     
     assertThatBool(startResult,equalToBool(YES));
-    [verify([self operationManager]) GET:[self workspacesURL] parameters:nil success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    [verify([self operationManager]) GET:equalTo(INDEX_URL) parameters:equalTo([self getWorkspacesParams:nil]) success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
     [self assertOperationManagerHasDefaultRequestSerializerSet];
     [self assertDefaultResponseSerializerWithClass:[WorkspacesResponseSerializerDelegate class]];
     [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];
@@ -368,7 +352,7 @@ static id mockedCookieManager(id self, SEL _cmd) {
     BOOL startResult = [self.client listFiles:params WithSuccess:successBlock failure:failureBlock];
     
     assertThatBool(startResult,equalToBool(YES));
-    [verify([self operationManager]) GET:[self listFilesURL] parameters:params success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    [verify([self operationManager]) GET:equalTo(INDEX_URL) parameters:equalTo([self listFilesParams:params]) success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
     [self assertOperationManagerHasDefaultRequestSerializerSet];
     [self assertDefaultResponseSerializerWithClass:[ListFilesResponseSerializerDelegate class]];
     [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];

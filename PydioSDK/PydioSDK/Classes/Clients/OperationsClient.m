@@ -17,18 +17,44 @@
 #import "PydioErrors.h"
 
 
+
+typedef void(^SuccessBlock)(id response);
+typedef void(^FailureBlock)(NSError* error);
+
 extern NSString * const PydioErrorDomain;
+
+#pragma mark -
+
+@interface AggregatedArgs : NSObject
+@property (nonatomic,copy) SuccessBlock success;
+@property (nonatomic,copy) FailureBlock failure;
+
++(AggregatedArgs*) argsWith:(SuccessBlock)success failure:(FailureBlock)failure;
+@end
+
+@implementation AggregatedArgs
+
++(AggregatedArgs*) argsWith:(SuccessBlock)success failure:(FailureBlock)failure {
+    AggregatedArgs *args = [[AggregatedArgs alloc] init];
+    args.success = success;
+    args.failure = failure;
+    
+    return args;
+}
+
+@end
+
+#pragma mark - Implementation started
 
 @interface OperationsClient ()
 @property (readwrite,nonatomic,assign) BOOL progress;
-@property (nonatomic,copy) void(^successBlock)(id response);
-@property (nonatomic,copy) void(^failureBlock)(NSError* error);
+@property (nonatomic,copy) SuccessBlock successBlock;
+@property (nonatomic,copy) FailureBlock failureBlock;
 @property (nonatomic,copy) void(^successResponseBlock)(AFHTTPRequestOperation *operation, id responseObject);
 @property (nonatomic,copy) void(^failureResponseBlock)(AFHTTPRequestOperation *operation, NSError *error);
 
--(NSString*)actionWithTokenIfNeeded:(NSString*)action;
--(NSString*)urlStringForGetRegisters;
--(NSString*)urlStringForListFiles;
+-(BOOL)performGETAction:(AFHTTPResponseSerializer*)serializer withParams:(NSDictionary *)params andArgs:(AggregatedArgs*)args;
+-(BOOL)performPOSTAction:(AFHTTPResponseSerializer*)serializer withParams:(NSDictionary *)params andArgs:(AggregatedArgs*)args;
 @end
 
 @implementation OperationsClient
@@ -72,58 +98,55 @@ extern NSString * const PydioErrorDomain;
 
 #pragma mark - Public operations
 
--(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray *workspaces))success failure:(void(^)(NSError *error))failure {
+-(BOOL)performGETAction:(AFHTTPResponseSerializer*)serializer withParams:(NSDictionary *)params andArgs:(AggregatedArgs*)args {
     if (self.progress) {
         return NO;
     }
-
-    [self setupCommons:success failure:failure];
-    self.operationManager.responseSerializer = [self responseSerializerForGetRegisters];
     
-    [self.operationManager GET:[self urlStringForGetRegisters] parameters:nil success:self.successResponseBlock failure:self.failureResponseBlock];
+    [self setupCommons:args.success failure:args.failure];
+    self.operationManager.responseSerializer = serializer;
+
+    [self.operationManager GET:@"index.php" parameters:params success:self.successResponseBlock failure:self.failureResponseBlock];
     
     return YES;
+}
+
+-(BOOL)performPOSTAction:(AFHTTPResponseSerializer*)serializer withParams:(NSDictionary *)params andArgs:(AggregatedArgs*)args {
+    if (self.progress) {
+        return NO;
+    }
+    
+    [self setupCommons:args.success failure:args.failure];
+    self.operationManager.responseSerializer = serializer;
+    
+    [self.operationManager POST:@"index.php" parameters:params success:self.successResponseBlock failure:self.failureResponseBlock];
+    
+    return YES;
+}
+
+-(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray *workspaces))success failure:(void(^)(NSError *error))failure {
+    
+    return [self performGETAction:[self responseSerializerForGetRegisters]
+                       withParams:[self paramsForGetRegisters]
+                          andArgs:[AggregatedArgs argsWith:success failure:failure]];
 }
 
 -(BOOL)listFiles:(NSDictionary*)params WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
-    if (self.progress) {
-        return NO;
-    }
-
-    [self setupCommons:success failure:failure];
-    self.operationManager.responseSerializer = [self responseSerializerForListFiles];
-    
-    [self.operationManager GET:[self urlStringForListFiles] parameters:params success:self.successResponseBlock failure:self.failureResponseBlock];
-
-    return YES;
+    return [self performGETAction:[self responseSerializerForListFiles]
+                       withParams:[self paramsForLs:params]
+                          andArgs:[AggregatedArgs argsWith:success failure:failure]];
 }
 
 -(BOOL)mkdir:(NSDictionary*)params WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
-    if (self.progress) {
-        return NO;
-    }
-    
-    [self setupCommons:success failure:failure];
-    self.operationManager.responseSerializer = [self responseSerializerForSuccessResponseToAction:@"mkdir"];
-    params = [self paramsForMkDir:params];
-    
-    [self.operationManager POST:@"index.php" parameters:params success:self.successResponseBlock failure:self.failureResponseBlock];
-    
-    return YES;
+    return [self performPOSTAction:[self responseSerializerForSuccessResponseToAction:@"mkdir"]
+                       withParams:[self paramsForMkDir:params]
+                          andArgs:[AggregatedArgs argsWith:success failure:failure]];
 }
 
 -(BOOL)deleteNodes:(NSDictionary*)params WithSuccess:(void(^)())success failure:(void(^)(NSError* error))failure {
-    if (self.progress) {
-        return NO;
-    }
-    
-    [self setupCommons:success failure:failure];
-    self.operationManager.responseSerializer = [self responseSerializerForSuccessResponseToAction:@"delete"];
-    params = [self paramsForDeleteNodes:params];
-    
-    [self.operationManager POST:@"index.php" parameters:params success:self.successResponseBlock failure:self.failureResponseBlock];
-    
-    return YES;
+    return [self performPOSTAction:[self responseSerializerForSuccessResponseToAction:@"delete"]
+                        withParams:[self paramsForDeleteNodes:params]
+                           andArgs:[AggregatedArgs argsWith:success failure:failure]];
 }
 
 #pragma mark - Helper methods
@@ -138,25 +161,6 @@ extern NSString * const PydioErrorDomain;
     [self setupResponseBlocks];
 }
 
--(NSString*)actionWithTokenIfNeeded:(NSString*)action {
-    NSString *secureToken = [[ServerDataManager sharedManager] secureTokenForServer:self.operationManager.baseURL];
-    
-    NSString *result = [NSString stringWithFormat:@"index.php?get_action=%@",action];
-    if (secureToken) {
-        result = [result stringByAppendingFormat:@"&secure_token=%@",secureToken];
-    }
-    
-    return result;
-}
-
--(NSString*)urlStringForGetRegisters {
-    return [[self actionWithTokenIfNeeded:@"get_xml_registry"] stringByAppendingString:@"&xPath=user/repositories"];
-}
-
--(NSString*)urlStringForListFiles {
-    return [self actionWithTokenIfNeeded:@"ls"];
-}
-
 -(NSDictionary*)paramsWithTokenIfNeeded:(NSDictionary*)params forAction:(NSString*)action {
     NSString *secureToken = [[ServerDataManager sharedManager] secureTokenForServer:self.operationManager.baseURL];
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:params];
@@ -167,6 +171,15 @@ extern NSString * const PydioErrorDomain;
     [dict setValue:action forKey:@"get_action"];
     
     return [NSDictionary dictionaryWithDictionary:dict];
+}
+
+-(NSDictionary*)paramsForGetRegisters {
+    NSDictionary *dict = [NSDictionary dictionaryWithObject:@"user/repositories" forKey:@"xPath"];
+    return [self paramsWithTokenIfNeeded:dict forAction:@"get_xml_registry"];
+}
+
+-(NSDictionary*)paramsForLs:(NSDictionary*)params {
+    return [self paramsWithTokenIfNeeded:params forAction:@"ls"];
 }
 
 -(NSDictionary*)paramsForMkDir:(NSDictionary*)params {
