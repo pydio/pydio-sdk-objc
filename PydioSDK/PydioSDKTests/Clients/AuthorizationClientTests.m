@@ -64,7 +64,8 @@ static NSString * const LOGIN_ACTION = @"";
 
 - (void)tearDown
 {
-    
+    self.client.operationManager = nil;
+    self.client = nil;
     [super tearDown];
 }
 
