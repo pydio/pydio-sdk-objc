@@ -46,6 +46,8 @@
     if ([self isUsernameAndPassEntered]) {
         [self dismissKeyboardByRemovingFocus];
         ServerDataManager *manager = [ServerDataManager sharedManager];
+        [manager clearAllCookies:[NSURL URLWithString:self.server.text]];
+        [manager clearSecureToken:[NSURL URLWithString:self.server.text]];
         User* user = [User userWithId:self.username.text AndPassword:self.password.text];
         [manager setUser:user ForServer:[NSURL URLWithString:self.server.text]];
         

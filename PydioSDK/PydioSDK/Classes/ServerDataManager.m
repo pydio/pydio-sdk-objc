@@ -76,6 +76,10 @@ static ServerDataManager *manager = nil;
     return [self.tokens valueForKey:[self serverKey:server]];
 }
 
+-(void)clearSecureToken:(NSURL *)server {
+    [self.tokens removeObjectForKey:[self serverKey:server]];
+}
+
 -(NSArray*)serversList {
     NSMutableArray *array = [NSMutableArray array];
     for (NSString *server in [self.users allKeys]) {
