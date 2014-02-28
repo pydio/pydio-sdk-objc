@@ -30,6 +30,15 @@
     return result;
 }
 
+-(VoidSuccessBlock)voidSuccessBlock {
+    return ^(){
+        self.successBlockCalled = YES;
+        self.failureBlockCalled = NO;
+        self.receivedResponse = nil;
+        self.receivedError = nil;
+    };
+}
+
 -(SuccessBlock)successBlock {
     return ^(id responseObject){
         self.successBlockCalled = YES;

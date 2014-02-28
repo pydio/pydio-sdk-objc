@@ -26,4 +26,28 @@
     return self;
 }
 
+-(BOOL) isEqual:(id)object {
+    if (self == object)
+        return YES;
+    
+    if (![object isKindOfClass:[AuthCredentials class]])
+        return NO;
+    
+    AuthCredentials *converted = (AuthCredentials*)object;
+    
+    if (self.userid != converted.userid && ![self.userid isEqualToString:converted.userid]) {
+        return NO;
+    }
+
+    if (self.password != converted.password && ![self.password isEqualToString:converted.password]) {
+        return NO;
+    }
+
+    if (self.seed != converted.seed && ![self.seed isEqualToString:converted.seed]) {
+        return NO;
+    }
+    
+    return YES;
+}
+
 @end

@@ -11,6 +11,7 @@
 
 @class AFHTTPRequestOperation;
 
+typedef void (^VoidSuccessBlock)();
 typedef void (^SuccessBlock)(id responseObject);
 typedef void (^FailureBlock)(NSError *error);
 
@@ -24,6 +25,7 @@ typedef void (^FailureBlock)(NSError *error);
 +(instancetype)successWithResponse:(id)response;
 +(instancetype)failureWithError:(NSError*)error;
 
+-(VoidSuccessBlock)voidSuccessBlock;
 -(SuccessBlock)successBlock;
 -(FailureBlock)failureBlock;
 @end

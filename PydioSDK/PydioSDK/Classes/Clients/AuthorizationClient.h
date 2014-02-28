@@ -21,7 +21,4 @@ extern NSString * const PydioErrorDomain;
 
 -(BOOL)authorizeWithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure;
 
--(BOOL)ping:(void(^)())success failure:(void(^)(NSError *error))failure;
--(BOOL)getSeed:(void(^)(NSString *seed))success failure:(void(^)(NSError *error))failure;
--(BOOL)loginWithCredentials:(AuthCredentials*)credentials success:(void(^)(LoginResponse *resposne))success failure:(void(^)(NSError *error))failure;
 @end

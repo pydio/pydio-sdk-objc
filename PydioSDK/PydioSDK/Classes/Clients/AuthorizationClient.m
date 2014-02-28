@@ -31,14 +31,22 @@ static NSString * const LOGIN_SEED = @"login_seed";
 
 @interface AuthorizationClient ()
 @property (readwrite,nonatomic,assign) BOOL progress;
-//@property (nonatomic,copy) void(^pingSuccessBlock)();
-//@property (nonatomic,copy) void(^getSeedSuccessBlock)(NSString *seed);
 @property (nonatomic,copy) AFSuccessBlock pingSuccessBlock;
 @property (nonatomic,copy) AFSuccessBlock seedSuccessBlock;
 @property (nonatomic,copy) AFSuccessBlock loginSuccessBlock;
 @property (nonatomic,copy) void(^afFailureBlock)(AFHTTPRequestOperation *operation, NSError *error);
+@property (nonatomic,copy) void(^successBlock)();
 @property (nonatomic,copy) void(^failureBlock)(NSError* error);
+
 -(void)clearBlocks;
+-(void)setupSuccess:(void(^)())success AndFailure:(void(^)(NSError*))failure;
+-(void)setupAFFailureBlock;
+-(void)setupPingSuccessBlock;
+-(void)setupSeedSuccessBlock;
+-(void)setupLoginSuccessBlock;
+-(void)ping;
+-(void)getSeed;
+-(void)loginWithCredentials:(AuthCredentials*)credentials;
 @end
 
 @implementation AuthorizationClient
@@ -46,19 +54,28 @@ static NSString * const LOGIN_SEED = @"login_seed";
 #pragma mark - Setup process
 
 -(void)clearBlocks {
-    _failureBlock = nil;
+    self.failureBlock = nil;
+    self.successBlock = nil;
     self.afFailureBlock = nil;
     _pingSuccessBlock = nil;
     _seedSuccessBlock = nil;
     _loginSuccessBlock = nil;
 }
 
--(void)setFailureBlock:(void (^)(NSError *))failureBlock {
+-(void)setupSuccess:(void(^)())success AndFailure:(void(^)(NSError*))failure {
+
     __weak typeof(self) weakSelf = self;
-    _failureBlock = ^(NSError *error) {
+    self.successBlock = ^{
         __strong typeof(self) strongSelf = weakSelf;
-        strongSelf.progress = NO;
-        failureBlock(error);
+        success();
+        strongSelf->_progress = NO;
+        [strongSelf clearBlocks];
+    };
+    
+    self.failureBlock = ^(NSError *error){
+        __strong typeof(self) strongSelf = weakSelf;
+        failure(error);
+        strongSelf->_progress = NO;
         [strongSelf clearBlocks];
     };
 }
@@ -71,43 +88,38 @@ static NSString * const LOGIN_SEED = @"login_seed";
     };
 }
 
--(void)setPingSuccessBlock:(AFSuccessBlock)pingSuccessBlock {
+-(void)setupPingSuccessBlock {
     __weak typeof(self) weakSelf = self;
-    _pingSuccessBlock = ^(AFHTTPRequestOperation *operation, id responseObject){
+    self.pingSuccessBlock = ^(AFHTTPRequestOperation *operation, id responseObject){
         __strong typeof(self) strongSelf = weakSelf;
-        pingSuccessBlock(operation,responseObject);
-//        [strongSelf clearBlocks];
-        strongSelf->_pingSuccessBlock = nil;
+        [strongSelf getSeed];
     };
 }
 
--(void)setSeedSuccessBlock:(AFSuccessBlock)seedSuccessBlock {
+-(void)setupSeedSuccessBlock {
     __weak typeof(self) weakSelf = self;
-    _seedSuccessBlock = ^(AFHTTPRequestOperation *operation, id responseObject){
+    self.seedSuccessBlock = ^(AFHTTPRequestOperation *operation, id responseObject) {
         __strong typeof(self) strongSelf = weakSelf;
-        seedSuccessBlock(operation,responseObject);
-//        [strongSelf clearBlocks];
-        strongSelf->_seedSuccessBlock = nil;
+        User *user = [[ServerDataManager sharedManager] userForServer:strongSelf.operationManager.baseURL];
+        AuthCredentials *authCredentials = [AuthCredentials credentialsWith:user AndSeed:responseObject];
+        [strongSelf loginWithCredentials:authCredentials];
     };
 }
 
--(void)setLoginSuccessBlock:(AFSuccessBlock)loginSuccessBlock {
+-(void)setupLoginSuccessBlock {
     __weak typeof(self) weakSelf = self;
-    _loginSuccessBlock = ^(AFHTTPRequestOperation *operation, id responseObject){
+    self.loginSuccessBlock = ^(AFHTTPRequestOperation *operation, LoginResponse *response) {
         __strong typeof(self) strongSelf = weakSelf;
-        loginSuccessBlock(operation,responseObject);
-        [strongSelf clearBlocks];
-//        strongSelf->_seedSuccessBlock = nil;
+        if (response.value != LRValueOK) {
+            NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
+            strongSelf.failureBlock(error);
+        } else {
+            [[ServerDataManager sharedManager] setSecureToken:response.secureToken ForServer:strongSelf.operationManager.baseURL];
+            strongSelf.successBlock();
+        }
     };
-}
 
-//-(void)setupPingBlock {
-//    __weak typeof(self) weakSelf = self;
-//    self.pingSuccessBlock = ^(void){
-//        __strong typeof(self) strongSelf = weakSelf;
-//        [strongSelf getSeed:strongSelf.getSeedSuccessBlock];
-//    };
-//}
+}
 
 #pragma mark - Authorization process
 
@@ -117,133 +129,25 @@ static NSString * const LOGIN_SEED = @"login_seed";
     }
     
     self.progress = YES;
-    self.failureBlock = failure;
-    
-    __weak typeof(self) weakSelf = self;
-    self.pingSuccessBlock = ^(AFHTTPRequestOperation *operation, id responseObject) {
-        __strong typeof(self) strongSelf = weakSelf;
-        [strongSelf getSeed];
-    };
-    self.seedSuccessBlock = ^(AFHTTPRequestOperation *operation, id responseObject) {
-        __strong typeof(self) strongSelf = weakSelf;
-        User *user = [[ServerDataManager sharedManager] userForServer:strongSelf.operationManager.baseURL];
-        AuthCredentials *authCredentials = [AuthCredentials credentialsWith:user AndSeed:responseObject];
-        [strongSelf loginWithCredentials:authCredentials];
-    };
-    self.loginSuccessBlock = ^(AFHTTPRequestOperation *operation, LoginResponse *response) {
-        __strong typeof(self) strongSelf = weakSelf;
-        strongSelf.progress = NO;
-        if (response.value != LRValueOK) {
-            NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
-            failure(error);
-        } else {
-            [[ServerDataManager sharedManager] setSecureToken:response.secureToken ForServer:strongSelf.operationManager.baseURL];
-            success();
-        }
-    };
-    
+    [self setupSuccess:success AndFailure:failure];    
+    [self setupPingSuccessBlock];
+    [self setupSeedSuccessBlock];
+    [self setupLoginSuccessBlock];
     [self setupAFFailureBlock];
     
-//    [self ping:^{
-//        [self getSeed:^(NSString *seed) {
-//            User *user = [[ServerDataManager sharedManager] userForServer:self.operationManager.baseURL];;
-//            
-//            AuthCredentials *authCredentials = [AuthCredentials credentialsWith:user AndSeed:seed];
-//            
-//            [self loginWithCredentials:authCredentials success:^(LoginResponse *resposne) {
-//                self.progress = NO;
-//                if (resposne.value != LRValueOK) {
-//                    NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
-//                    failure(error);
-//                } else {
-//                    [[ServerDataManager sharedManager] setSecureToken:resposne.secureToken ForServer:self.operationManager.baseURL];
-//                    success();
-//                }
-//                
-//            } failure:self.failureBlock];
-//        } failure:self.failureBlock];
-//    } failure:self.failureBlock];
-
     [self ping];
-    
-    
-    return YES;
-}
-
--(BOOL)ping:(void(^)())success failure:(void(^)(NSError *error))failure {
-    
-//    [self.operationManager GET:PING_ACTION parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        //Ignore result, we just want cookie
-//        success();
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        failure(error);
-//    }];
-
-    self.pingSuccessBlock = ^(AFHTTPRequestOperation *operation, id responseObject){
-        success(responseObject);
-    };
-    self.failureBlock = failure;
-    [self setupAFFailureBlock];
-    [self ping];
-
     
     return YES;
 }
 
 -(void)ping {
-    [self.operationManager GET:PING_ACTION parameters:nil success:self.pingSuccessBlock failure:self.afFailureBlock];
-}
-
--(BOOL)getSeed:(void(^)(NSString *seed))success failure:(void(^)(NSError *error))failure {
-    
-//    self.operationManager.responseSerializer = [[GetSeedResponseSerializer alloc] init];
-//    [self.operationManager GET:GET_SEED_ACTION parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        success(responseObject);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        failure(error);
-//    }];
-
-    self.seedSuccessBlock = ^(AFHTTPRequestOperation *operation, id responseObject){
-        success(responseObject);
-    };
-    self.failureBlock = failure;
-    [self setupAFFailureBlock];
-    [self getSeed];
-    
-    return YES;
+    [self.operationManager GET:@"index.php" parameters:@{GET_ACTION : @"ping"} success:self.pingSuccessBlock failure:self.afFailureBlock];
 }
 
 -(void)getSeed {
     self.operationManager.responseSerializer = [[GetSeedResponseSerializer alloc] init];
-    [self.operationManager GET:GET_SEED_ACTION parameters:nil success:self.seedSuccessBlock failure:self.afFailureBlock];
+    [self.operationManager GET:@"index.php" parameters:@{GET_ACTION : @"get_seed"} success:self.seedSuccessBlock failure:self.afFailureBlock];
     
-}
-
--(BOOL)loginWithCredentials:(AuthCredentials*)credentials success:(void(^)(LoginResponse *response))success failure:(void(^)(NSError *error))failure {
-    
-//    [self.operationManager.requestSerializer setValue:@"true" forHTTPHeaderField:@"Ajxp-Force-Login"];
-//    self.operationManager.responseSerializer = [self createLoginResponseSerializer];
-//    NSDictionary *params = @{GET_ACTION : @"login",
-//                             USERID : credentials.userid,
-//                             PASSWORD : [self hashedPass:credentials.password WithSeed:credentials.seed],
-//                             LOGIN_SEED : credentials.seed
-//                            };
-//    
-//    [self.operationManager POST:@"" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        success(responseObject);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        failure(error);
-//    }];
-
-    self.loginSuccessBlock = ^(AFHTTPRequestOperation *operation, id responseObject){
-        success(responseObject);
-    };
-    self.failureBlock = failure;
-    [self setupAFFailureBlock];
-    [self loginWithCredentials:credentials];
-
-    
-    return YES;
 }
 
 -(void)loginWithCredentials:(AuthCredentials*)credentials {
@@ -259,7 +163,7 @@ static NSString * const LOGIN_SEED = @"login_seed";
 }
 
 -(NSString *)hashedPass:(NSString*)pass WithSeed:(NSString *)seed {
-    return [seed compare:@"-1"] == NSOrderedSame ? pass : [[NSString stringWithFormat:@"%@%@", [pass md5], seed] md5];
+    return [seed isEqualToString:@"-1"] ? pass : [[NSString stringWithFormat:@"%@%@", [pass md5], seed] md5];
 }
 
 -(XMLResponseSerializer*)createLoginResponseSerializer {
@@ -267,7 +171,4 @@ static NSString * const LOGIN_SEED = @"login_seed";
     return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
 }
 
--(void)dealloc {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
-}
 @end
