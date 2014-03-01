@@ -19,10 +19,12 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "AFURLRequestSerialization.h"
 #import "ServerDataManager.h"
+#import "GetSeedTextResponseSerializer.h"
 #import "GetSeedResponseSerializer.h"
 #import "AuthCredentials.h"
 #import "NSString+Hash.h"
 #import "LoginResponse.h"
+#import "SeedResponse.h"
 #import "User.h"
 #import "XMLResponseSerializer.h"
 #import "XMLResponseSerializerDelegate.h"
@@ -317,16 +319,15 @@ static id mockedManager(id self, SEL _cmd) {
     
     assertThat(self.client.seedSuccessBlock,notNilValue());
     assertThat(self.client.afFailureBlock,notNilValue());
-    MKTArgumentCaptor *responseSerializer = [[MKTArgumentCaptor alloc] init];
-    [verify(self.operationManager)  setResponseSerializer:[responseSerializer capture]];
-    assertThat([responseSerializer value],instanceOf([GetSeedResponseSerializer class]));
+
+    [verify(self.operationManager) setResponseSerializer:instanceOf([GetSeedResponseSerializer class])];
     [verify(self.operationManager) GET:INDEX parameters:expectedParams success:self.client.seedSuccessBlock failure:self.client.afFailureBlock];
 }
 
 -(void)test_shouldSetupSeedResponseBlockAndCallLogin_WhenSeedSuccessBlockWasCalled {
     User* user = [self exampleUser];
-    NSString *seed = @"1234567";
-    AuthCredentials *expectedCredenials = [[AuthCredentials alloc] initWith:user AndSeed:seed];
+    SeedResponse *seed = [SeedResponse seed:@"1234567"];
+    AuthCredentials *expectedCredenials = [[AuthCredentials alloc] initWith:user AndSeed:@"1234567"];
     [given([serverParamsManager userForServer:anything()]) willReturn:user];
     self.client.callTestVariant = YES;
 
@@ -337,6 +338,21 @@ static id mockedManager(id self, SEL _cmd) {
     assertThatBool(self.client.wasLoginWithCredentialsCalled,equalToBool(YES));
     assertThat(self.client.loginAuthCredentials,equalTo(expectedCredenials));
 }
+
+-(void)test_shouldSetupSeedResponseBlockAndCallFailureWithLoginError_WhenReceivedSeedResponseWithCaptcha {
+    SeedResponse *seed = [SeedResponse seedWithCaptcha:@"1234567"];
+    [self setupEmptyResult];
+    [self setupClientSuccessAndFailureBlocks];
+    NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorGetSeedWithCaptcha userInfo:@{ PydioErrorSeedKey : @"1234567"}];
+    self.expectedResult = [BlocksCallResult failureWithError:error];
+    [self.client setupAFFailureBlock];
+    
+    [self.client setupSeedSuccessBlock];
+    self.client.seedSuccessBlock(nil,seed);
+
+    [self assertResultEqualsExpectedResult];
+}
+
 
 #pragma mark - Login
 

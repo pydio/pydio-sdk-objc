@@ -14,6 +14,7 @@
 #import "NSString+Hash.h"
 #import "User.h"
 #import "LoginResponse.h"
+#import "SeedResponse.h"
 #import "PydioErrors.h"
 #import "XMLResponseSerializer.h"
 #import "XMLResponseSerializerDelegate.h"
@@ -98,11 +99,16 @@ static NSString * const LOGIN_SEED = @"login_seed";
 
 -(void)setupSeedSuccessBlock {
     __weak typeof(self) weakSelf = self;
-    self.seedSuccessBlock = ^(AFHTTPRequestOperation *operation, id responseObject) {
+    self.seedSuccessBlock = ^(AFHTTPRequestOperation *operation, SeedResponse *seed) {
         __strong typeof(self) strongSelf = weakSelf;
         User *user = [[ServerDataManager sharedManager] userForServer:strongSelf.operationManager.baseURL];
-        AuthCredentials *authCredentials = [AuthCredentials credentialsWith:user AndSeed:responseObject];
-        [strongSelf loginWithCredentials:authCredentials];
+        if (!seed.captcha) {
+            AuthCredentials *authCredentials = [AuthCredentials credentialsWith:user AndSeed:seed.seed];
+            [strongSelf loginWithCredentials:authCredentials];
+        } else {
+            NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorGetSeedWithCaptcha userInfo:@{ PydioErrorSeedKey : seed.seed}];
+            strongSelf.failureBlock(error);
+        }
     };
 }
 
@@ -145,7 +151,7 @@ static NSString * const LOGIN_SEED = @"login_seed";
 }
 
 -(void)getSeed {
-    self.operationManager.responseSerializer = [[GetSeedResponseSerializer alloc] init];
+    self.operationManager.responseSerializer =  [GetSeedResponseSerializer serializer];
     [self.operationManager GET:@"index.php" parameters:@{GET_ACTION : @"get_seed"} success:self.seedSuccessBlock failure:self.afFailureBlock];
     
 }

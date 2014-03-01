@@ -1,5 +1,5 @@
 //
-//  GetSeedResponseSerializer.h
+//  GetSeedJSONResponseSerializer.h
 //  PydioSDK
 //
 //  Created by Michal Kloczko on 01/03/14.
@@ -8,6 +8,6 @@
 
 #import "AFURLResponseSerialization.h"
 
-@interface GetSeedResponseSerializer : AFCompoundResponseSerializer
+@interface GetSeedJSONResponseSerializer : AFJSONResponseSerializer
 
 @end

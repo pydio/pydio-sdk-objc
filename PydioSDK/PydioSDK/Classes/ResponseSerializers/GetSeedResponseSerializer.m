@@ -1,35 +1,32 @@
 //
-//  RequestSeedResponseSerializer.m
+//  GetSeedResponseSerializer.m
 //  PydioSDK
 //
-//  Created by ME on 04/01/14.
+//  Created by Michal Kloczko on 01/03/14.
 //  Copyright (c) 2014 MINI. All rights reserved.
 //
 
 #import "GetSeedResponseSerializer.h"
+#import "GetSeedTextResponseSerializer.h"
+#import "GetSeedJSONResponseSerializer.h"
+
+
+@interface GetSeedResponseSerializer ()
+@property (readwrite, nonatomic, strong) NSArray *responseSerializers;
+@end
 
 @implementation GetSeedResponseSerializer
+
 -(instancetype)init {
     self = [super init];
     if (self) {
-        self.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+        self.responseSerializers = @[
+                                     [GetSeedTextResponseSerializer serializer],
+                                     [GetSeedJSONResponseSerializer serializer]
+                                     ];
     }
     
     return self;
-}
-
-#pragma mark - AFURLResponseSerialization
-
-- (id)responseObjectForResponse:(NSURLResponse *)response
-                           data:(NSData *)data
-                          error:(NSError *__autoreleasing *)error
-{
-    id responseObject = [super responseObjectForResponse:response data:data error:error];
-    if (responseObject) {
-        return [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];;
-    }
-    
-    return nil;
 }
 
 @end

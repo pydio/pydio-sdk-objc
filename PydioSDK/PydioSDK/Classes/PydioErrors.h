@@ -13,9 +13,12 @@ extern NSString * const PydioErrorDomain;
 
 enum {
     PydioErrorUnableToParseAnswer = 1,
-    PydioErrorUnableToLogin = 2, //TODO: Split into Authorization error and unable to login error 
+    PydioErrorUnableToLogin = 2, //TODO: Split into Authorization error and unable to login error
+    PydioErrorGetSeedWithCaptcha,
     PydioErrorErrorResponse, //TODO: Maybe add another domain for server error responses
     PydioErrorReceivedNotExpectedAnswer    
 };
+
+extern NSString * const PydioErrorSeedKey;
 
 #endif
