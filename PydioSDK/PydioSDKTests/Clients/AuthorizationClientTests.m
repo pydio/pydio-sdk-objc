@@ -408,6 +408,23 @@ static id mockedManager(id self, SEL _cmd) {
     [self assertProgressIsNO];
 }
 
+-(void)test_shouldCallFailureWithCaptchaErrorBlock_WhenLoginResultIsCaptchaRequired {
+    LoginResponse *response = [[LoginResponse alloc] initWithValue:@"-4" AndToken:@"token"];
+    [self setupEmptyResult];
+    [self setupClientSuccessAndFailureBlocks];
+    NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorLoginWithCaptcha userInfo:nil];
+    self.expectedResult = [BlocksCallResult failureWithError:error];
+    [self.client setupAFFailureBlock];
+    [self.client setupLoginSuccessBlock];
+    
+    self.client.loginSuccessBlock(nil,response);
+    
+    [verifyCount(serverParamsManager,never()) setSecureToken:anything() ForServer:anything()];
+    [self assertResultEqualsExpectedResult];
+    [self assertAllBlocksNiled];
+    [self assertProgressIsNO];
+}
+
 #pragma mark - Whole Authorization process
 
 -(void)test_shouldStartAuthorizeAndSetupClient_WhenNotInProgress {
@@ -435,8 +452,6 @@ static id mockedManager(id self, SEL _cmd) {
     [self assertNoneSetupWasCalled];
     assertThatBool(self.client.wasPingCalled,equalToBool(NO));
 }
-
-//TODO: Test, should test for captcha response
 
 #pragma mark - Tests verification
 

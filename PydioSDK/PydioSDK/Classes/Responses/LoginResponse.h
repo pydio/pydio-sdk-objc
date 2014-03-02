@@ -11,7 +11,8 @@
 typedef NS_ENUM(NSUInteger, LRValue) {
     LRValueOK,
     LRValueFail,
-    LRValueLocked
+    LRValueLocked,
+    LRValueUnknown
 };
 
 @interface LoginResponse : NSObject

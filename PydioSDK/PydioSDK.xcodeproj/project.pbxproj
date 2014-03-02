@@ -89,6 +89,8 @@
 		89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EA187F4BAB005F6580 /* PydioClient.m */; };
 		89B429ED187F4BD0005F6580 /* PydioClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EC187F4BD0005F6580 /* PydioClientTests.m */; };
 		89B4780A187DFCE700A9CFC5 /* AuthCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B47809187DFCE700A9CFC5 /* AuthCredentials.m */; };
+		89B567B518C34C3500F8EABA /* GetSeedTextResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B567B418C34C3500F8EABA /* GetSeedTextResponseSerializerTests.m */; };
+		89B567B718C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B567B618C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m */; };
 		89BAC56A18A1198400799C1C /* ServerContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BAC56918A1198400799C1C /* ServerContentViewController.m */; };
 		89BD973E1891A20C0054CFA2 /* login_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89BD973D1891A20C0054CFA2 /* login_response.xml */; };
 		89BD97401891A2710054CFA2 /* LoginResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */; };
@@ -241,6 +243,8 @@
 		89B429EC187F4BD0005F6580 /* PydioClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClientTests.m; sourceTree = "<group>"; };
 		89B47808187DFCE700A9CFC5 /* AuthCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthCredentials.h; sourceTree = "<group>"; };
 		89B47809187DFCE700A9CFC5 /* AuthCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthCredentials.m; sourceTree = "<group>"; };
+		89B567B418C34C3500F8EABA /* GetSeedTextResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSeedTextResponseSerializerTests.m; sourceTree = "<group>"; };
+		89B567B618C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSeedJSONResponseSerializerTests.m; sourceTree = "<group>"; };
 		89BAC56818A1198400799C1C /* ServerContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerContentViewController.h; sourceTree = "<group>"; };
 		89BAC56918A1198400799C1C /* ServerContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerContentViewController.m; sourceTree = "<group>"; };
 		89BD973D1891A20C0054CFA2 /* login_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = login_response.xml; sourceTree = "<group>"; };
@@ -470,7 +474,9 @@
 			children = (
 				89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */,
 				89B1B6F218A41B1500EC79C5 /* FailingResponseSerializerTests.m */,
+				89B567B618C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m */,
 				89A6C8A4189469A200EA5D13 /* GetSeedResponseSerializerTests.m */,
+				89B567B418C34C3500F8EABA /* GetSeedTextResponseSerializerTests.m */,
 				89A6C8AD18947ED600EA5D13 /* XMLResponseSerializerTests.m */,
 			);
 			path = ResponseSerializers;
@@ -785,6 +791,7 @@
 				89B13A9D18917A13007282EB /* ServerDataManagerTests.m in Sources */,
 				89C0880218B52A6100103985 /* OperationsClientTests.m in Sources */,
 				89A6AA42187B1E31003A6BDA /* AuthorizationClientTests.m in Sources */,
+				89B567B718C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m in Sources */,
 				89B429ED187F4BD0005F6580 /* PydioClientTests.m in Sources */,
 				89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */,
 				89AA6A1F18957FE9006A22DB /* LoginResponseSerializerDelegateTests.m in Sources */,
@@ -797,6 +804,7 @@
 				89A76DD018B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m in Sources */,
 				89ABF21518AD773500594B2E /* ErrorResponseSerializerDelegateTests.m in Sources */,
 				89C0880518B532F900103985 /* BlocksCallResult.m in Sources */,
+				89B567B518C34C3500F8EABA /* GetSeedTextResponseSerializerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

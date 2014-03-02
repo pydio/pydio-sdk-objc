@@ -15,6 +15,7 @@ enum {
     PydioErrorUnableToParseAnswer = 1,
     PydioErrorUnableToLogin = 2, //TODO: Split into Authorization error and unable to login error
     PydioErrorGetSeedWithCaptcha,
+    PydioErrorLoginWithCaptcha,
     PydioErrorErrorResponse, //TODO: Maybe add another domain for server error responses
     PydioErrorReceivedNotExpectedAnswer    
 };

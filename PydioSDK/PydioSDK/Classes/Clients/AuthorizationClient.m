@@ -116,12 +116,15 @@ static NSString * const LOGIN_SEED = @"login_seed";
     __weak typeof(self) weakSelf = self;
     self.loginSuccessBlock = ^(AFHTTPRequestOperation *operation, LoginResponse *response) {
         __strong typeof(self) strongSelf = weakSelf;
-        if (response.value != LRValueOK) {
-            NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
-            strongSelf.failureBlock(error);
-        } else {
+        if (response.value == LRValueOK) {
             [[ServerDataManager sharedManager] setSecureToken:response.secureToken ForServer:strongSelf.operationManager.baseURL];
             strongSelf.successBlock();
+        } else if (response.value == LRValueLocked) {
+            NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorLoginWithCaptcha userInfo:nil];
+            strongSelf.failureBlock(error);
+        } else {
+            NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
+            strongSelf.failureBlock(error);
         }
     };
 

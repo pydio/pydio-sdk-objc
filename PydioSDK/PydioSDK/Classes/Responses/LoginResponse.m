@@ -19,6 +19,8 @@
             _value = LRValueFail;
         } else if ([value compare:@"-4"] == NSOrderedSame) {
             _value = LRValueLocked;
+        } else {
+            _value = LRValueUnknown;
         }
         
         _secureToken = token;
