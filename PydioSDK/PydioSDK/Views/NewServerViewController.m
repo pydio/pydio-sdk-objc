@@ -7,7 +7,7 @@
 //
 
 #import "NewServerViewController.h"
-#import "ServerDataManager.h"
+#import "ServersParamsManager.h"
 #import "User.h"
 
 
@@ -45,7 +45,7 @@
 - (IBAction)addButtonPressed:(id)sender {
     if ([self isUsernameAndPassEntered]) {
         [self dismissKeyboardByRemovingFocus];
-        ServerDataManager *manager = [ServerDataManager sharedManager];
+        ServersParamsManager *manager = [ServersParamsManager sharedManager];
         [manager clearAllCookies:[NSURL URLWithString:self.server.text]];
         [manager clearSecureToken:[NSURL URLWithString:self.server.text]];
         User* user = [User userWithId:self.username.text AndPassword:self.password.text];

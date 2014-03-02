@@ -8,7 +8,7 @@
 
 #import "PydioClient.h"
 #import "AFHTTPRequestOperationManager.h"
-#import "ServerDataManager.h"
+#import "ServersParamsManager.h"
 #import "AuthorizationClient.h"
 #import "OperationsClient.h"
 #import "User.h"

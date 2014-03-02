@@ -8,7 +8,7 @@
 
 #import "OperationsClient.h"
 #import "AFHTTPRequestOperationManager.h"
-#import "ServerDataManager.h"
+#import "ServersParamsManager.h"
 #import "XMLResponseSerializer.h"
 #import "XMLResponseSerializerDelegate.h"
 #import "FailingResponseSerializer.h"
@@ -162,7 +162,7 @@ extern NSString * const PydioErrorDomain;
 }
 
 -(NSDictionary*)paramsWithTokenIfNeeded:(NSDictionary*)params forAction:(NSString*)action {
-    NSString *secureToken = [[ServerDataManager sharedManager] secureTokenForServer:self.operationManager.baseURL];
+    NSString *secureToken = [[ServersParamsManager sharedManager] secureTokenForServer:self.operationManager.baseURL];
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:params];
     
     if (secureToken) {

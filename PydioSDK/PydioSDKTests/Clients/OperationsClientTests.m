@@ -14,7 +14,7 @@
 
 #import "OperationsClient.h"
 #import <objc/runtime.h>
-#import "ServerDataManager.h"
+#import "ServersParamsManager.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "BlocksCallResult.h"
 #import "PydioErrors.h"
@@ -33,7 +33,7 @@ static NSString * const GET_ACTION = @"get_action";
 static NSString * const SECURE_TOKEN = @"secure_token";
 
 
-static ServerDataManager *cookieManager = nil;
+static ServersParamsManager *cookieManager = nil;
 
 static id mockedCookieManager(id self, SEL _cmd) {
     return cookieManager;
@@ -173,9 +173,9 @@ static id mockedCookieManager(id self, SEL _cmd) {
 - (void)setUp
 {
     [super setUp];
-    _methodToExchange = class_getClassMethod([ServerDataManager class], @selector(sharedManager));
+    _methodToExchange = class_getClassMethod([ServersParamsManager class], @selector(sharedManager));
     _originalIMP = method_setImplementation(_methodToExchange, (IMP)mockedCookieManager);
-    cookieManager = mock([ServerDataManager class]);
+    cookieManager = mock([ServersParamsManager class]);
     self.operationManager = mock([AFHTTPRequestOperationManager class]);
     self.client = [[OperationsClient alloc] init];
     self.client.operationManager = self.operationManager;
@@ -194,7 +194,7 @@ static id mockedCookieManager(id self, SEL _cmd) {
 
 #pragma mark - Tests for secure token
 
-- (void)test_shouldReturnActionParamsWithAccessToken_whenAccessTokenIsPresentInServerDataManager
+- (void)test_shouldReturnActionParamsWithAccessToken_whenAccessTokenIsPresentInServersParamsManager
 {
     //given
     NSString *action = @"action";
@@ -212,7 +212,7 @@ static id mockedCookieManager(id self, SEL _cmd) {
     assertThat(formedParams,equalTo(expectedParams));
 }
 
-- (void)test_shouldReturnActionParamsWithoutAccessToken_whenAccessTokenNotPresentInServerDataManager
+- (void)test_shouldReturnActionParamsWithoutAccessToken_whenAccessTokenNotPresentInServersParamsManager
 {
     //given
     NSString *action = @"action";

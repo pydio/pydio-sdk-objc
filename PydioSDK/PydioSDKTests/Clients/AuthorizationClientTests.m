@@ -18,7 +18,7 @@
 #import <objc/runtime.h>
 #import "AFHTTPRequestOperationManager.h"
 #import "AFURLRequestSerialization.h"
-#import "ServerDataManager.h"
+#import "ServersParamsManager.h"
 #import "GetSeedTextResponseSerializer.h"
 #import "GetSeedResponseSerializer.h"
 #import "AuthCredentials.h"
@@ -43,7 +43,7 @@ static NSString * const GET_SEED_ACTION = @"index.php?get_action=get_seed";
 static NSString * const LOGIN_ACTION = @"";
 static NSString * const INDEX = @"index.php";
 
-static ServerDataManager *serverParamsManager = nil;
+static ServersParamsManager *serverParamsManager = nil;
 
 static id mockedManager(id self, SEL _cmd) {
     return serverParamsManager;
@@ -181,8 +181,8 @@ static id mockedManager(id self, SEL _cmd) {
 - (void)setUp
 {
     [super setUp];
-    serverParamsManager = mock([ServerDataManager class]);
-    _methodToExchange = class_getClassMethod([ServerDataManager class], @selector(sharedManager));
+    serverParamsManager = mock([ServersParamsManager class]);
+    _methodToExchange = class_getClassMethod([ServersParamsManager class], @selector(sharedManager));
     _originalIMP = method_setImplementation(_methodToExchange, (IMP)mockedManager);
     self.operationManager = mock([AFHTTPRequestOperationManager class]);
     self.client = [[TestedAuthorizationClient alloc] init];

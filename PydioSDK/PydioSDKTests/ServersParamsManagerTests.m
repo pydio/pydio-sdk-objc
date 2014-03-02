@@ -13,7 +13,7 @@
 #define MOCKITO_SHORTHAND
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
-#import "ServerDataManager.h"
+#import "ServersParamsManager.h"
 #import <objc/runtime.h>
 #import "User.h"
 
@@ -26,12 +26,12 @@ id mockedSharedStorage(id slf,SEL cmd) {
 
 //AjaXplorer=phh8hhe8ibhrgrc2nuv4ec2sv4
 
-@interface ServerDataManagerTests : XCTestCase
+@interface ServersParamsManagerTests : XCTestCase
 @property (nonatomic,strong) NSURL* serverURL;
 @property (nonatomic,strong) NSArray* arrayWithCookie;
 @end
 
-@implementation ServerDataManagerTests {
+@implementation ServersParamsManagerTests {
     Method _method;
     IMP _originalIMP;
 }
@@ -62,15 +62,15 @@ id mockedSharedStorage(id slf,SEL cmd) {
 
 - (void)testInitialization
 {
-    ServerDataManager *manager = [ServerDataManager sharedManager];
+    ServersParamsManager *manager = [ServersParamsManager sharedManager];
     
     assertThat(manager,notNilValue());
 }
 
 - (void)testShouldReturnSameInstanceWhenCalled2Times
 {
-    ServerDataManager *manager = [ServerDataManager sharedManager];
-    ServerDataManager *manager2 = [ServerDataManager sharedManager];
+    ServersParamsManager *manager = [ServersParamsManager sharedManager];
+    ServersParamsManager *manager2 = [ServersParamsManager sharedManager];
     
     assertThat(manager,sameInstance(manager2));
 }
@@ -97,7 +97,7 @@ id mockedSharedStorage(id slf,SEL cmd) {
 
 -(void)testShouldSetUserForGivenServer
 {
-    ServerDataManager *manager = [ServerDataManager sharedManager];
+    ServersParamsManager *manager = [ServersParamsManager sharedManager];
     User *user = [User userWithId:@"userid" AndPassword:@"userpassword"];
     
     [manager setUser:user ForServer:self.serverURL];
@@ -107,7 +107,7 @@ id mockedSharedStorage(id slf,SEL cmd) {
 
 -(void)testShouldSetTokenForGivenServer
 {
-    ServerDataManager *manager = [ServerDataManager sharedManager];
+    ServersParamsManager *manager = [ServersParamsManager sharedManager];
     NSString *token = @"faketoken";
     
     [manager setSecureToken:token ForServer:self.serverURL];
@@ -117,14 +117,14 @@ id mockedSharedStorage(id slf,SEL cmd) {
 
 -(void)testShouldReturnNilWhenNoUserForGivenServer
 {
-    ServerDataManager *manager = [ServerDataManager sharedManager];
+    ServersParamsManager *manager = [ServersParamsManager sharedManager];
     
     assertThat([manager userForServer:self.serverURL],nilValue());
 }
 
 -(void)testShouldReturnNilWhenNoTokenForGivenServer
 {
-    ServerDataManager *manager = [ServerDataManager sharedManager];
+    ServersParamsManager *manager = [ServersParamsManager sharedManager];
     
     assertThat([manager secureTokenForServer:self.serverURL],nilValue());
 }

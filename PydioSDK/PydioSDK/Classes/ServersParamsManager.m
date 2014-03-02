@@ -6,19 +6,19 @@
 //  Copyright (c) 2014 MINI. All rights reserved.
 //
 
-#import "ServerDataManager.h"
+#import "ServersParamsManager.h"
 #import "NSURL+Normalization.h"
 
 
 static NSString * const COOKIE_NAME = @"AjaXplorer";
-static ServerDataManager *manager = nil;
+static ServersParamsManager *manager = nil;
 
-@interface ServerDataManager ()
+@interface ServersParamsManager ()
 @property (nonatomic,strong) NSMutableDictionary *users;
 @property (nonatomic,strong) NSMutableDictionary *tokens;
 @end
 
-@implementation ServerDataManager
+@implementation ServersParamsManager
 
 -(instancetype)init {
     self = [super init];
@@ -30,10 +30,10 @@ static ServerDataManager *manager = nil;
     return self;
 }
 
-+(ServerDataManager*)sharedManager {
++(ServersParamsManager*)sharedManager {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manager = [[ServerDataManager alloc] init];
+        manager = [[ServersParamsManager alloc] init];
     });
     
     return manager;

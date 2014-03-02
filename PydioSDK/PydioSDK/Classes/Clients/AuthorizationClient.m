@@ -9,7 +9,7 @@
 #import "AuthorizationClient.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "GetSeedResponseSerializer.h"
-#import "ServerDataManager.h"
+#import "ServersParamsManager.h"
 #import "AuthCredentials.h"
 #import "NSString+Hash.h"
 #import "User.h"
@@ -101,7 +101,7 @@ static NSString * const LOGIN_SEED = @"login_seed";
     __weak typeof(self) weakSelf = self;
     self.seedSuccessBlock = ^(AFHTTPRequestOperation *operation, SeedResponse *seed) {
         __strong typeof(self) strongSelf = weakSelf;
-        User *user = [[ServerDataManager sharedManager] userForServer:strongSelf.operationManager.baseURL];
+        User *user = [[ServersParamsManager sharedManager] userForServer:strongSelf.operationManager.baseURL];
         if (!seed.captcha) {
             AuthCredentials *authCredentials = [AuthCredentials credentialsWith:user AndSeed:seed.seed];
             [strongSelf loginWithCredentials:authCredentials];
@@ -117,7 +117,7 @@ static NSString * const LOGIN_SEED = @"login_seed";
     self.loginSuccessBlock = ^(AFHTTPRequestOperation *operation, LoginResponse *response) {
         __strong typeof(self) strongSelf = weakSelf;
         if (response.value == LRValueOK) {
-            [[ServerDataManager sharedManager] setSecureToken:response.secureToken ForServer:strongSelf.operationManager.baseURL];
+            [[ServersParamsManager sharedManager] setSecureToken:response.secureToken ForServer:strongSelf.operationManager.baseURL];
             strongSelf.successBlock();
         } else if (response.value == LRValueLocked) {
             NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorLoginWithCaptcha userInfo:nil];

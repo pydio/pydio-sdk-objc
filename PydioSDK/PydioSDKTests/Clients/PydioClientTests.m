@@ -18,7 +18,7 @@
 #import <objc/runtime.h>
 #import "BlocksCallResult.h"
 #import "AuthorizationClient.h"
-#import "ServerDataManager.h"
+#import "ServersParamsManager.h"
 #import "AFHTTPRequestOperationManager.h"
 #import "User.h"
 #import "OperationsClient.h"
