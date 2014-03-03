@@ -13,8 +13,6 @@
 		3DFF3AF0186648C900A766D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3DFF3AEE186648C900A766D7 /* InfoPlist.strings */; };
 		3DFF3AF2186648C900A766D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3AF1186648C900A766D7 /* main.m */; };
 		3DFF3AF6186648C900A766D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3AF5186648C900A766D7 /* AppDelegate.m */; };
-		3DFF3AF9186648C900A766D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DFF3AF7186648C900A766D7 /* Main.storyboard */; };
-		3DFF3AFC186648C900A766D7 /* ServersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3AFB186648C900A766D7 /* ServersViewController.m */; };
 		3DFF3AFE186648C900A766D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DFF3AFD186648C900A766D7 /* Images.xcassets */; };
 		3DFF3B05186648CA00A766D7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3B04186648C900A766D7 /* XCTest.framework */; };
 		3DFF3B06186648CA00A766D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3AE5186648C900A766D7 /* Foundation.framework */; };
@@ -39,7 +37,6 @@
 		89A58F0618A9796C00FCEDE5 /* ErrorResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A58F0518A9796C00FCEDE5 /* ErrorResponseParserDelegate.m */; };
 		89A58F0818A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A58F0718A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m */; };
 		89A58F0A18A9878600FCEDE5 /* error_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A58F0918A9878600FCEDE5 /* error_response.xml */; };
-		89A6155118A036300079D21B /* NewServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6155018A036300079D21B /* NewServerViewController.m */; };
 		89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */; };
 		89A6AA42187B1E31003A6BDA /* AuthorizationClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */; };
 		89A6AA46187B4436003A6BDA /* AuthorizationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA45187B4436003A6BDA /* AuthorizationClient.m */; };
@@ -47,7 +44,6 @@
 		89A6C8AB189479B600EA5D13 /* XMLResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6C8AA189479B600EA5D13 /* XMLResponseSerializer.m */; };
 		89A6C8AE18947ED600EA5D13 /* XMLResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6C8AD18947ED600EA5D13 /* XMLResponseSerializerTests.m */; };
 		89A6D1CF18A16F0A00B3A4AF /* NSURL+Normalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6D1CE18A16F0A00B3A4AF /* NSURL+Normalization.m */; };
-		89A6D1D218A1772F00B3A4AF /* ServerWorkspacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6D1D118A1772F00B3A4AF /* ServerWorkspacesViewController.m */; };
 		89A6F2FA189E3FDA00F1763E /* ls_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A6F2F9189E3FDA00F1763E /* ls_response2.xml */; };
 		89A6F2FE189E5A9600F1763E /* XMLParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F2FD189E5A9600F1763E /* XMLParserState.m */; };
 		89A6F305189E73FF00F1763E /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F304189E73FF00F1763E /* Node.m */; };
@@ -91,7 +87,6 @@
 		89B4780A187DFCE700A9CFC5 /* AuthCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B47809187DFCE700A9CFC5 /* AuthCredentials.m */; };
 		89B567B518C34C3500F8EABA /* GetSeedTextResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B567B418C34C3500F8EABA /* GetSeedTextResponseSerializerTests.m */; };
 		89B567B718C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B567B618C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m */; };
-		89BAC56A18A1198400799C1C /* ServerContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BAC56918A1198400799C1C /* ServerContentViewController.m */; };
 		89BD973E1891A20C0054CFA2 /* login_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89BD973D1891A20C0054CFA2 /* login_response.xml */; };
 		89BD97401891A2710054CFA2 /* LoginResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */; };
 		89C0880218B52A6100103985 /* OperationsClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C0880118B52A6100103985 /* OperationsClientTests.m */; };
@@ -121,9 +116,6 @@
 		3DFF3AF3186648C900A766D7 /* PydioSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PydioSDK-Prefix.pch"; sourceTree = "<group>"; };
 		3DFF3AF4186648C900A766D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3DFF3AF5186648C900A766D7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3DFF3AF8186648C900A766D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		3DFF3AFA186648C900A766D7 /* ServersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ServersViewController.h; sourceTree = "<group>"; };
-		3DFF3AFB186648C900A766D7 /* ServersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ServersViewController.m; sourceTree = "<group>"; };
 		3DFF3AFD186648C900A766D7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3DFF3B03186648C900A766D7 /* PydioSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PydioSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DFF3B04186648C900A766D7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -166,8 +158,6 @@
 		89A58F0518A9796C00FCEDE5 /* ErrorResponseParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorResponseParserDelegate.m; sourceTree = "<group>"; };
 		89A58F0718A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorResponseParserDelegateTests.m; sourceTree = "<group>"; };
 		89A58F0918A9878600FCEDE5 /* error_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = error_response.xml; sourceTree = "<group>"; };
-		89A6154F18A036300079D21B /* NewServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewServerViewController.h; sourceTree = "<group>"; };
-		89A6155018A036300079D21B /* NewServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewServerViewController.m; sourceTree = "<group>"; };
 		89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BootConfResponseSerializerTests.m; sourceTree = "<group>"; };
 		89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorizationClientTests.m; sourceTree = "<group>"; };
 		89A6AA44187B4436003A6BDA /* AuthorizationClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorizationClient.h; sourceTree = "<group>"; };
@@ -179,8 +169,6 @@
 		89A6C8AD18947ED600EA5D13 /* XMLResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLResponseSerializerTests.m; sourceTree = "<group>"; };
 		89A6D1CD18A16F0A00B3A4AF /* NSURL+Normalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Normalization.h"; sourceTree = "<group>"; };
 		89A6D1CE18A16F0A00B3A4AF /* NSURL+Normalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Normalization.m"; sourceTree = "<group>"; };
-		89A6D1D018A1772F00B3A4AF /* ServerWorkspacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerWorkspacesViewController.h; sourceTree = "<group>"; };
-		89A6D1D118A1772F00B3A4AF /* ServerWorkspacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerWorkspacesViewController.m; sourceTree = "<group>"; };
 		89A6F2F9189E3FDA00F1763E /* ls_response2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ls_response2.xml; sourceTree = "<group>"; };
 		89A6F2FB189E55D500F1763E /* ParserStateDelgate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParserStateDelgate.h; sourceTree = "<group>"; };
 		89A6F2FC189E5A9600F1763E /* XMLParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParserState.h; sourceTree = "<group>"; };
@@ -245,8 +233,6 @@
 		89B47809187DFCE700A9CFC5 /* AuthCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthCredentials.m; sourceTree = "<group>"; };
 		89B567B418C34C3500F8EABA /* GetSeedTextResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSeedTextResponseSerializerTests.m; sourceTree = "<group>"; };
 		89B567B618C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSeedJSONResponseSerializerTests.m; sourceTree = "<group>"; };
-		89BAC56818A1198400799C1C /* ServerContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerContentViewController.h; sourceTree = "<group>"; };
-		89BAC56918A1198400799C1C /* ServerContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerContentViewController.m; sourceTree = "<group>"; };
 		89BD973D1891A20C0054CFA2 /* login_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = login_response.xml; sourceTree = "<group>"; };
 		89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseParserDelegateTests.m; sourceTree = "<group>"; };
 		89C0880118B52A6100103985 /* OperationsClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClientTests.m; sourceTree = "<group>"; };
@@ -342,10 +328,8 @@
 		3DFF3AEB186648C900A766D7 /* PydioSDK */ = {
 			isa = PBXGroup;
 			children = (
-				89A6154E18A034360079D21B /* Views */,
 				3D03A67B1867176700DC5839 /* Classes */,
 				3DFF3AFD186648C900A766D7 /* Images.xcassets */,
-				3DFF3AF7186648C900A766D7 /* Main.storyboard */,
 				3DFF3AEC186648C900A766D7 /* Supporting Files */,
 			);
 			path = PydioSDK;
@@ -452,21 +436,6 @@
 				89401309188443C90044001D /* User.m */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		89A6154E18A034360079D21B /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				89A6154F18A036300079D21B /* NewServerViewController.h */,
-				89A6155018A036300079D21B /* NewServerViewController.m */,
-				89BAC56818A1198400799C1C /* ServerContentViewController.h */,
-				89BAC56918A1198400799C1C /* ServerContentViewController.m */,
-				3DFF3AFA186648C900A766D7 /* ServersViewController.h */,
-				3DFF3AFB186648C900A766D7 /* ServersViewController.m */,
-				89A6D1D018A1772F00B3A4AF /* ServerWorkspacesViewController.h */,
-				89A6D1D118A1772F00B3A4AF /* ServerWorkspacesViewController.m */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		89A6AA3D187B0A03003A6BDA /* ResponseSerializers */ = {
@@ -700,7 +669,6 @@
 			files = (
 				3DFF3AFE186648C900A766D7 /* Images.xcassets in Resources */,
 				3DFF3AF0186648C900A766D7 /* InfoPlist.strings in Resources */,
-				3DFF3AF9186648C900A766D7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,13 +696,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				89A9E1E718C2746B00C821D8 /* GetSeedResponseSerializer.m in Sources */,
-				89A6D1D218A1772F00B3A4AF /* ServerWorkspacesViewController.m in Sources */,
 				8940130A188443C90044001D /* User.m in Sources */,
-				89BAC56A18A1198400799C1C /* ServerContentViewController.m in Sources */,
 				3DFF3B2F18664EEF00A766D7 /* AFHTTPRequestOperation.m in Sources */,
 				8910F5F218786EFA0005BED4 /* NSString+Hash.m in Sources */,
 				89AC1ACB188DA30800ACAD7C /* Workspace.m in Sources */,
-				3DFF3AFC186648C900A766D7 /* ServersViewController.m in Sources */,
 				8910F5F5187874430005BED4 /* BootConfResponseSerializer.m in Sources */,
 				89B4780A187DFCE700A9CFC5 /* AuthCredentials.m in Sources */,
 				89A6AA46187B4436003A6BDA /* AuthorizationClient.m in Sources */,
@@ -744,7 +709,6 @@
 				89A9E1ED18C2917A00C821D8 /* GetSeedJSONResponseSerializer.m in Sources */,
 				89A58F0618A9796C00FCEDE5 /* ErrorResponseParserDelegate.m in Sources */,
 				3DFF3B3018664EEF00A766D7 /* AFHTTPRequestOperationManager.m in Sources */,
-				89A6155118A036300079D21B /* NewServerViewController.m in Sources */,
 				89AA6A1A18956EFE006A22DB /* XMLResponseSerializerDelegate.m in Sources */,
 				89A9E1EA18C27BFA00C821D8 /* SeedResponse.m in Sources */,
 				3DFF3B3218664EEF00A766D7 /* AFNetworkReachabilityManager.m in Sources */,
@@ -825,14 +789,6 @@
 				3DFF3AEF186648C900A766D7 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		3DFF3AF7186648C900A766D7 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3DFF3AF8186648C900A766D7 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		3DFF3B0D186648CA00A766D7 /* InfoPlist.strings */ = {
