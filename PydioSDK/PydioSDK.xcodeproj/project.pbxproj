@@ -7,120 +7,112 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3DFF3AE6186648C900A766D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3AE5186648C900A766D7 /* Foundation.framework */; };
-		3DFF3AE8186648C900A766D7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3AE7186648C900A766D7 /* CoreGraphics.framework */; };
-		3DFF3AEA186648C900A766D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3AE9186648C900A766D7 /* UIKit.framework */; };
-		3DFF3AF0186648C900A766D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3DFF3AEE186648C900A766D7 /* InfoPlist.strings */; };
-		3DFF3AF2186648C900A766D7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3AF1186648C900A766D7 /* main.m */; };
-		3DFF3AF6186648C900A766D7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3AF5186648C900A766D7 /* AppDelegate.m */; };
-		3DFF3AFE186648C900A766D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DFF3AFD186648C900A766D7 /* Images.xcassets */; };
-		3DFF3B05186648CA00A766D7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3B04186648C900A766D7 /* XCTest.framework */; };
-		3DFF3B06186648CA00A766D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3AE5186648C900A766D7 /* Foundation.framework */; };
-		3DFF3B07186648CA00A766D7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3AE9186648C900A766D7 /* UIKit.framework */; };
-		3DFF3B0F186648CA00A766D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3DFF3B0D186648CA00A766D7 /* InfoPlist.strings */; };
-		3DFF3B2F18664EEF00A766D7 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B1D18664EEF00A766D7 /* AFHTTPRequestOperation.m */; };
-		3DFF3B3018664EEF00A766D7 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B1F18664EEF00A766D7 /* AFHTTPRequestOperationManager.m */; };
-		3DFF3B3118664EEF00A766D7 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2118664EEF00A766D7 /* AFHTTPSessionManager.m */; };
-		3DFF3B3218664EEF00A766D7 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2418664EEF00A766D7 /* AFNetworkReachabilityManager.m */; };
-		3DFF3B3318664EEF00A766D7 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2618664EEF00A766D7 /* AFSecurityPolicy.m */; };
-		3DFF3B3418664EEF00A766D7 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2818664EEF00A766D7 /* AFURLConnectionOperation.m */; };
-		3DFF3B3518664EEF00A766D7 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2A18664EEF00A766D7 /* AFURLRequestSerialization.m */; };
-		3DFF3B3618664EEF00A766D7 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2C18664EEF00A766D7 /* AFURLResponseSerialization.m */; };
-		3DFF3B3718664EEF00A766D7 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2E18664EEF00A766D7 /* AFURLSessionManager.m */; };
-		8910F5F218786EFA0005BED4 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F118786EFA0005BED4 /* NSString+Hash.m */; };
-		8910F5F5187874430005BED4 /* BootConfResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */; };
-		8910F5F818788A7A0005BED4 /* GetSeedTextResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F718788A7A0005BED4 /* GetSeedTextResponseSerializer.m */; };
-		8910F6011878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F6001878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m */; };
-		8940130A188443C90044001D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401309188443C90044001D /* User.m */; };
-		89401D231883318F005A030A /* ServersParamsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401D221883318F005A030A /* ServersParamsManager.m */; };
-		89A554FF188C03F1008C1B64 /* NotAuthorizedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */; };
-		89A58F0618A9796C00FCEDE5 /* ErrorResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A58F0518A9796C00FCEDE5 /* ErrorResponseParserDelegate.m */; };
-		89A58F0818A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A58F0718A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m */; };
-		89A58F0A18A9878600FCEDE5 /* error_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A58F0918A9878600FCEDE5 /* error_response.xml */; };
-		89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */; };
-		89A6AA42187B1E31003A6BDA /* AuthorizationClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */; };
-		89A6AA46187B4436003A6BDA /* AuthorizationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA45187B4436003A6BDA /* AuthorizationClient.m */; };
-		89A6C8A5189469A200EA5D13 /* GetSeedResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6C8A4189469A200EA5D13 /* GetSeedResponseSerializerTests.m */; };
-		89A6C8AB189479B600EA5D13 /* XMLResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6C8AA189479B600EA5D13 /* XMLResponseSerializer.m */; };
-		89A6C8AE18947ED600EA5D13 /* XMLResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6C8AD18947ED600EA5D13 /* XMLResponseSerializerTests.m */; };
-		89A6D1CF18A16F0A00B3A4AF /* NSURL+Normalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6D1CE18A16F0A00B3A4AF /* NSURL+Normalization.m */; };
-		89A6F2FA189E3FDA00F1763E /* ls_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A6F2F9189E3FDA00F1763E /* ls_response2.xml */; };
-		89A6F2FE189E5A9600F1763E /* XMLParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F2FD189E5A9600F1763E /* XMLParserState.m */; };
-		89A6F305189E73FF00F1763E /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F304189E73FF00F1763E /* Node.m */; };
-		89A7691918A4391A0056A61F /* ListNodesRequestParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A7691818A4391A0056A61F /* ListNodesRequestParams.m */; };
-		89A76DD018B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DCF18B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m */; };
-		89A76DD318B2BF28000D0AF1 /* PydioErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */; };
-		89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A84FF31885F5B800AFC2F0 /* OperationsClient.m */; };
-		89A88C1C18BA951600DAE087 /* DeleteNodesRequestParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A88C1B18BA951600DAE087 /* DeleteNodesRequestParams.m */; };
-		89A8C22A18B687930027B715 /* mkdir_success_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A8C22918B687930027B715 /* mkdir_success_response.xml */; };
-		89A8C22D18B68EC30027B715 /* SuccessResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A8C22C18B68EC30027B715 /* SuccessResponseParserDelegate.m */; };
-		89A8C22F18B68F780027B715 /* SuccessResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A8C22E18B68F780027B715 /* SuccessResponseParserDelegateTests.m */; };
-		89A8C23218B6A6E40027B715 /* PydioSuccessResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A8C23118B6A6E40027B715 /* PydioSuccessResponse.m */; };
-		89A9E1E718C2746B00C821D8 /* GetSeedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E1E618C2746B00C821D8 /* GetSeedResponseSerializer.m */; };
-		89A9E1EA18C27BFA00C821D8 /* SeedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E1E918C27BFA00C821D8 /* SeedResponse.m */; };
-		89A9E1ED18C2917A00C821D8 /* GetSeedJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E1EC18C2917A00C821D8 /* GetSeedJSONResponseSerializer.m */; };
-		89AA1A751879AF0900679E04 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */; };
-		89AA1A791879B54C00679E04 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */; };
-		89AA6A1A18956EFE006A22DB /* XMLResponseSerializerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA6A1918956EFE006A22DB /* XMLResponseSerializerDelegate.m */; };
-		89AA6A1F18957FE9006A22DB /* LoginResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA6A1E18957FE9006A22DB /* LoginResponseSerializerDelegateTests.m */; };
-		89AA6A2118957FF9006A22DB /* NotAuthorizedResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA6A2018957FF9006A22DB /* NotAuthorizedResponseSerializerDelegateTests.m */; };
-		89AA6A231895800A006A22DB /* WorkspacesResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA6A221895800A006A22DB /* WorkspacesResponseSerializerDelegateTests.m */; };
-		89ABACFB1893B3E200E1420D /* NotAuthorizedResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ABACFA1893B3E200E1420D /* NotAuthorizedResponseParserDelegateTests.m */; };
-		89ABACFD1893BDC800E1420D /* unathorized_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89ABACFC1893BDC800E1420D /* unathorized_response.xml */; };
-		89ABACFF1893BEF700E1420D /* unathorized_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89ABACFE1893BEF700E1420D /* unathorized_response2.xml */; };
-		89ABAD021893D51400E1420D /* XCTestCase+XMLFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ABAD011893D51400E1420D /* XCTestCase+XMLFixture.m */; };
-		89ABF21518AD773500594B2E /* ErrorResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ABF21418AD773500594B2E /* ErrorResponseSerializerDelegateTests.m */; };
-		89AC1AC8188D8CAD00ACAD7C /* GetRepositoriesParserStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1AC7188D8CAD00ACAD7C /* GetRepositoriesParserStates.m */; };
-		89AC1ACB188DA30800ACAD7C /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1ACA188DA30800ACAD7C /* Workspace.m */; };
-		89AC1AD2188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */; };
-		89AC1AD5188DE98600ACAD7C /* get_registers_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AC1AD4188DE98600ACAD7C /* get_registers_response.xml */; };
-		89AD73B4189D2C69003C8DD4 /* ListFilesResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD73B3189D2C69003C8DD4 /* ListFilesResponseParserDelegate.m */; };
-		89AD73B6189D3449003C8DD4 /* ListFilesResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD73B5189D3449003C8DD4 /* ListFilesResponseParserDelegateTests.m */; };
-		89AD73B8189D3602003C8DD4 /* ls_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AD73B7189D3602003C8DD4 /* ls_response.xml */; };
-		89ADF99118BA0EE900E418CA /* MkDirRequestParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ADF99018BA0EE900E418CA /* MkDirRequestParams.m */; };
-		89B13A9D18917A13007282EB /* ServersParamsManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B13A9C18917A13007282EB /* ServersParamsManagerTests.m */; };
-		89B1B6F118A4170400EC79C5 /* FailingResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1B6F018A4170400EC79C5 /* FailingResponseSerializer.m */; };
-		89B1B6F318A41B1500EC79C5 /* FailingResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1B6F218A41B1500EC79C5 /* FailingResponseSerializerTests.m */; };
-		89B3560C188C70A500C62728 /* RepositoriesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B3560B188C70A500C62728 /* RepositoriesParserDelegate.m */; };
-		89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EA187F4BAB005F6580 /* PydioClient.m */; };
-		89B429ED187F4BD0005F6580 /* PydioClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EC187F4BD0005F6580 /* PydioClientTests.m */; };
-		89B4780A187DFCE700A9CFC5 /* AuthCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B47809187DFCE700A9CFC5 /* AuthCredentials.m */; };
-		89B567B518C34C3500F8EABA /* GetSeedTextResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B567B418C34C3500F8EABA /* GetSeedTextResponseSerializerTests.m */; };
-		89B567B718C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B567B618C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m */; };
-		89BD973E1891A20C0054CFA2 /* login_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89BD973D1891A20C0054CFA2 /* login_response.xml */; };
-		89BD97401891A2710054CFA2 /* LoginResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */; };
-		89C0880218B52A6100103985 /* OperationsClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C0880118B52A6100103985 /* OperationsClientTests.m */; };
-		89C0880518B532F900103985 /* BlocksCallResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C0880418B532F900103985 /* BlocksCallResult.m */; };
-		89C2A9C71878C4EE0051B8E6 /* LoginResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C61878C4EE0051B8E6 /* LoginResponseParserDelegate.m */; };
-		89C2A9CA1878CD440051B8E6 /* LoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C91878CD440051B8E6 /* LoginResponse.m */; };
+		89943D8418C66CED00C07E4F /* GetSeedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E1E618C2746B00C821D8 /* GetSeedResponseSerializer.m */; };
+		89943D8518C66CED00C07E4F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401309188443C90044001D /* User.m */; };
+		89943D8618C66CED00C07E4F /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B1D18664EEF00A766D7 /* AFHTTPRequestOperation.m */; };
+		89943D8718C66CED00C07E4F /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F118786EFA0005BED4 /* NSString+Hash.m */; };
+		89943D8818C66CED00C07E4F /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1ACA188DA30800ACAD7C /* Workspace.m */; };
+		89943D8918C66CED00C07E4F /* BootConfResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */; };
+		89943D8A18C66CED00C07E4F /* AuthCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B47809187DFCE700A9CFC5 /* AuthCredentials.m */; };
+		89943D8B18C66CED00C07E4F /* AuthorizationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA45187B4436003A6BDA /* AuthorizationClient.m */; };
+		89943D8C18C66CED00C07E4F /* XMLParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F2FD189E5A9600F1763E /* XMLParserState.m */; };
+		89943D8D18C66CED00C07E4F /* LoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C91878CD440051B8E6 /* LoginResponse.m */; };
+		89943D8E18C66CED00C07E4F /* ServersParamsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401D221883318F005A030A /* ServersParamsManager.m */; };
+		89943D8F18C66CED00C07E4F /* GetSeedJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E1EC18C2917A00C821D8 /* GetSeedJSONResponseSerializer.m */; };
+		89943D9018C66CED00C07E4F /* ErrorResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A58F0518A9796C00FCEDE5 /* ErrorResponseParserDelegate.m */; };
+		89943D9118C66CED00C07E4F /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B1F18664EEF00A766D7 /* AFHTTPRequestOperationManager.m */; };
+		89943D9218C66CED00C07E4F /* XMLResponseSerializerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA6A1918956EFE006A22DB /* XMLResponseSerializerDelegate.m */; };
+		89943D9318C66CED00C07E4F /* SeedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E1E918C27BFA00C821D8 /* SeedResponse.m */; };
+		89943D9418C66CED00C07E4F /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2418664EEF00A766D7 /* AFNetworkReachabilityManager.m */; };
+		89943D9518C66CED00C07E4F /* PydioErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */; };
+		89943D9618C66CED00C07E4F /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2C18664EEF00A766D7 /* AFURLResponseSerialization.m */; };
+		89943D9718C66CED00C07E4F /* ListFilesResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD73B3189D2C69003C8DD4 /* ListFilesResponseParserDelegate.m */; };
+		89943D9818C66CED00C07E4F /* PydioSuccessResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A8C23118B6A6E40027B715 /* PydioSuccessResponse.m */; };
+		89943D9918C66CED00C07E4F /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F304189E73FF00F1763E /* Node.m */; };
+		89943D9A18C66CED00C07E4F /* NotAuthorizedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */; };
+		89943D9B18C66CED00C07E4F /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2818664EEF00A766D7 /* AFURLConnectionOperation.m */; };
+		89943D9C18C66CED00C07E4F /* GetSeedTextResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F718788A7A0005BED4 /* GetSeedTextResponseSerializer.m */; };
+		89943D9D18C66CED00C07E4F /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2618664EEF00A766D7 /* AFSecurityPolicy.m */; };
+		89943D9E18C66CED00C07E4F /* MkDirRequestParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ADF99018BA0EE900E418CA /* MkDirRequestParams.m */; };
+		89943D9F18C66CED00C07E4F /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2118664EEF00A766D7 /* AFHTTPSessionManager.m */; };
+		89943DA018C66CED00C07E4F /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2A18664EEF00A766D7 /* AFURLRequestSerialization.m */; };
+		89943DA118C66CED00C07E4F /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2E18664EEF00A766D7 /* AFURLSessionManager.m */; };
+		89943DA218C66CED00C07E4F /* SuccessResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A8C22C18B68EC30027B715 /* SuccessResponseParserDelegate.m */; };
+		89943DA318C66CED00C07E4F /* NotAuthorizedResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F6001878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m */; };
+		89943DA418C66CED00C07E4F /* NSURL+Normalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6D1CE18A16F0A00B3A4AF /* NSURL+Normalization.m */; };
+		89943DA518C66CED00C07E4F /* LoginResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C61878C4EE0051B8E6 /* LoginResponseParserDelegate.m */; };
+		89943DA618C66CED00C07E4F /* XMLResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6C8AA189479B600EA5D13 /* XMLResponseSerializer.m */; };
+		89943DA718C66CED00C07E4F /* FailingResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1B6F018A4170400EC79C5 /* FailingResponseSerializer.m */; };
+		89943DA818C66CED00C07E4F /* RepositoriesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B3560B188C70A500C62728 /* RepositoriesParserDelegate.m */; };
+		89943DA918C66CED00C07E4F /* PydioClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EA187F4BAB005F6580 /* PydioClient.m */; };
+		89943DAA18C66CED00C07E4F /* OperationsClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A84FF31885F5B800AFC2F0 /* OperationsClient.m */; };
+		89943DAB18C66CED00C07E4F /* DeleteNodesRequestParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A88C1B18BA951600DAE087 /* DeleteNodesRequestParams.m */; };
+		89943DAC18C66CED00C07E4F /* ListNodesRequestParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A7691818A4391A0056A61F /* ListNodesRequestParams.m */; };
+		89943DAD18C66CED00C07E4F /* GetRepositoriesParserStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1AC7188D8CAD00ACAD7C /* GetRepositoriesParserStates.m */; };
+		89943DAE18C66CED00C07E4F /* NotAuthorizedResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA6A2018957FF9006A22DB /* NotAuthorizedResponseSerializerDelegateTests.m */; };
+		89943DAF18C66CED00C07E4F /* GetSeedResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6C8A4189469A200EA5D13 /* GetSeedResponseSerializerTests.m */; };
+		89943DB018C66CED00C07E4F /* ListFilesResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD73B5189D3449003C8DD4 /* ListFilesResponseParserDelegateTests.m */; };
+		89943DB118C66CED00C07E4F /* LoginResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */; };
+		89943DB218C66CED00C07E4F /* SuccessResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A8C22E18B68F780027B715 /* SuccessResponseParserDelegateTests.m */; };
+		89943DB318C66CED00C07E4F /* RepositoriesParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1AD1188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m */; };
+		89943DB418C66CED00C07E4F /* ServersParamsManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B13A9C18917A13007282EB /* ServersParamsManagerTests.m */; };
+		89943DB518C66CED00C07E4F /* OperationsClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C0880118B52A6100103985 /* OperationsClientTests.m */; };
+		89943DB618C66CED00C07E4F /* AuthorizationClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA41187B1E31003A6BDA /* AuthorizationClientTests.m */; };
+		89943DB718C66CED00C07E4F /* GetSeedJSONResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B567B618C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m */; };
+		89943DB818C66CED00C07E4F /* PydioClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B429EC187F4BD0005F6580 /* PydioClientTests.m */; };
+		89943DB918C66CED00C07E4F /* BootConfResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */; };
+		89943DBA18C66CED00C07E4F /* LoginResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA6A1E18957FE9006A22DB /* LoginResponseSerializerDelegateTests.m */; };
+		89943DBB18C66CED00C07E4F /* NotAuthorizedResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ABACFA1893B3E200E1420D /* NotAuthorizedResponseParserDelegateTests.m */; };
+		89943DBC18C66CED00C07E4F /* XCTestCase+XMLFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ABAD011893D51400E1420D /* XCTestCase+XMLFixture.m */; };
+		89943DBD18C66CED00C07E4F /* WorkspacesResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA6A221895800A006A22DB /* WorkspacesResponseSerializerDelegateTests.m */; };
+		89943DBE18C66CED00C07E4F /* ErrorResponseParserDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A58F0718A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m */; };
+		89943DBF18C66CED00C07E4F /* XMLResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6C8AD18947ED600EA5D13 /* XMLResponseSerializerTests.m */; };
+		89943DC018C66CED00C07E4F /* FailingResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B1B6F218A41B1500EC79C5 /* FailingResponseSerializerTests.m */; };
+		89943DC118C66CED00C07E4F /* ListFilesResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DCF18B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m */; };
+		89943DC218C66CED00C07E4F /* ErrorResponseSerializerDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ABF21418AD773500594B2E /* ErrorResponseSerializerDelegateTests.m */; };
+		89943DC318C66CED00C07E4F /* BlocksCallResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C0880418B532F900103985 /* BlocksCallResult.m */; };
+		89943DC418C66CED00C07E4F /* GetSeedTextResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B567B418C34C3500F8EABA /* GetSeedTextResponseSerializerTests.m */; };
+		89943DC518C66CED00C07E4F /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */; };
+		89943DC618C66CED00C07E4F /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */; };
+		89943DC718C6730A00C07E4F /* unathorized_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89ABACFC1893BDC800E1420D /* unathorized_response.xml */; };
+		89943DC818C6730A00C07E4F /* error_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A58F0918A9878600FCEDE5 /* error_response.xml */; };
+		89943DC918C6730A00C07E4F /* mkdir_success_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A8C22918B687930027B715 /* mkdir_success_response.xml */; };
+		89943DCA18C6730A00C07E4F /* login_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89BD973D1891A20C0054CFA2 /* login_response.xml */; };
+		89943DCB18C6730A00C07E4F /* unathorized_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89ABACFE1893BEF700E1420D /* unathorized_response2.xml */; };
+		89943DCC18C6730A00C07E4F /* ls_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AD73B7189D3602003C8DD4 /* ls_response.xml */; };
+		89943DCD18C6730A00C07E4F /* ls_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A6F2F9189E3FDA00F1763E /* ls_response2.xml */; };
+		89943DCF18C6730A00C07E4F /* get_registers_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AC1AD4188DE98600ACAD7C /* get_registers_response.xml */; };
+		89B863A118C52135009EA040 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3AE5186648C900A766D7 /* Foundation.framework */; };
+		89B863AE18C52135009EA040 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3B04186648C900A766D7 /* XCTest.framework */; };
+		89B863AF18C52135009EA040 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3AE5186648C900A766D7 /* Foundation.framework */; };
+		89B863B318C52135009EA040 /* libPydioSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B863A018C52135009EA040 /* libPydioSDK.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		3DFF3B08186648CA00A766D7 /* PBXContainerItemProxy */ = {
+		89B863B118C52135009EA040 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3DFF3ADA186648C900A766D7 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3DFF3AE1186648C900A766D7;
-			remoteInfo = PydioSDK;
+			remoteGlobalIDString = 89B8639F18C52135009EA040;
+			remoteInfo = libPydioSDK;
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		89B8639E18C52135009EA040 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		3DFF3AE2186648C900A766D7 /* PydioSDK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PydioSDK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DFF3AE5186648C900A766D7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		3DFF3AE7186648C900A766D7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		3DFF3AE9186648C900A766D7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		3DFF3AED186648C900A766D7 /* PydioSDK-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PydioSDK-Info.plist"; sourceTree = "<group>"; };
-		3DFF3AEF186648C900A766D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		3DFF3AF1186648C900A766D7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3DFF3AF3186648C900A766D7 /* PydioSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PydioSDK-Prefix.pch"; sourceTree = "<group>"; };
-		3DFF3AF4186648C900A766D7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		3DFF3AF5186648C900A766D7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3DFF3AFD186648C900A766D7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		3DFF3B03186648C900A766D7 /* PydioSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PydioSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DFF3B04186648C900A766D7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		3DFF3B0C186648CA00A766D7 /* PydioSDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PydioSDKTests-Info.plist"; sourceTree = "<group>"; };
-		3DFF3B0E186648CA00A766D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3DFF3B1C18664EEF00A766D7 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		3DFF3B1D18664EEF00A766D7 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		3DFF3B1E18664EEF00A766D7 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -233,6 +225,10 @@
 		89B47809187DFCE700A9CFC5 /* AuthCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthCredentials.m; sourceTree = "<group>"; };
 		89B567B418C34C3500F8EABA /* GetSeedTextResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSeedTextResponseSerializerTests.m; sourceTree = "<group>"; };
 		89B567B618C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSeedJSONResponseSerializerTests.m; sourceTree = "<group>"; };
+		89B863A018C52135009EA040 /* libPydioSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPydioSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		89B863A418C52135009EA040 /* PydioSDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PydioSDK-Prefix.pch"; sourceTree = "<group>"; };
+		89B863AD18C52135009EA040 /* PydioSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PydioSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		89B863B618C52135009EA040 /* PydioSDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PydioSDKTests-Info.plist"; sourceTree = "<group>"; };
 		89BD973D1891A20C0054CFA2 /* login_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = login_response.xml; sourceTree = "<group>"; };
 		89BD973F1891A2710054CFA2 /* LoginResponseParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginResponseParserDelegateTests.m; sourceTree = "<group>"; };
 		89C0880118B52A6100103985 /* OperationsClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClientTests.m; sourceTree = "<group>"; };
@@ -246,25 +242,23 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3DFF3ADF186648C900A766D7 /* Frameworks */ = {
+		89B8639D18C52135009EA040 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DFF3AE8186648C900A766D7 /* CoreGraphics.framework in Frameworks */,
-				3DFF3AEA186648C900A766D7 /* UIKit.framework in Frameworks */,
-				3DFF3AE6186648C900A766D7 /* Foundation.framework in Frameworks */,
+				89B863A118C52135009EA040 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3DFF3B00186648C900A766D7 /* Frameworks */ = {
+		89B863AA18C52135009EA040 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DFF3B05186648CA00A766D7 /* XCTest.framework in Frameworks */,
-				3DFF3B07186648CA00A766D7 /* UIKit.framework in Frameworks */,
-				3DFF3B06186648CA00A766D7 /* Foundation.framework in Frameworks */,
-				89AA1A751879AF0900679E04 /* OCHamcrestIOS.framework in Frameworks */,
-				89AA1A791879B54C00679E04 /* OCMockitoIOS.framework in Frameworks */,
+				89B863B318C52135009EA040 /* libPydioSDK.a in Frameworks */,
+				89B863AE18C52135009EA040 /* XCTest.framework in Frameworks */,
+				89B863AF18C52135009EA040 /* Foundation.framework in Frameworks */,
+				89943DC518C66CED00C07E4F /* OCHamcrestIOS.framework in Frameworks */,
+				89943DC618C66CED00C07E4F /* OCMockitoIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,8 +268,6 @@
 		3D03A67B1867176700DC5839 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				3DFF3AF4186648C900A766D7 /* AppDelegate.h */,
-				3DFF3AF5186648C900A766D7 /* AppDelegate.m */,
 				89A6AA43187B440A003A6BDA /* Clients */,
 				89401D211883318F005A030A /* ServersParamsManager.h */,
 				89401D221883318F005A030A /* ServersParamsManager.m */,
@@ -296,8 +288,8 @@
 			isa = PBXGroup;
 			children = (
 				3DFF3B3818664F1900A766D7 /* ExternalLibraries */,
-				3DFF3AEB186648C900A766D7 /* PydioSDK */,
-				3DFF3B0A186648CA00A766D7 /* PydioSDKTests */,
+				89B863A218C52135009EA040 /* PydioSDK */,
+				89B863B418C52135009EA040 /* PydioSDKTests */,
 				3DFF3AE4186648C900A766D7 /* Frameworks */,
 				3DFF3AE3186648C900A766D7 /* Products */,
 			);
@@ -306,8 +298,8 @@
 		3DFF3AE3186648C900A766D7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3DFF3AE2186648C900A766D7 /* PydioSDK.app */,
-				3DFF3B03186648C900A766D7 /* PydioSDKTests.xctest */,
+				89B863A018C52135009EA040 /* libPydioSDK.a */,
+				89B863AD18C52135009EA040 /* PydioSDKTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -318,57 +310,9 @@
 				89AA1A781879B54C00679E04 /* OCMockitoIOS.framework */,
 				89AA1A741879AF0900679E04 /* OCHamcrestIOS.framework */,
 				3DFF3AE5186648C900A766D7 /* Foundation.framework */,
-				3DFF3AE7186648C900A766D7 /* CoreGraphics.framework */,
-				3DFF3AE9186648C900A766D7 /* UIKit.framework */,
 				3DFF3B04186648C900A766D7 /* XCTest.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3DFF3AEB186648C900A766D7 /* PydioSDK */ = {
-			isa = PBXGroup;
-			children = (
-				3D03A67B1867176700DC5839 /* Classes */,
-				3DFF3AFD186648C900A766D7 /* Images.xcassets */,
-				3DFF3AEC186648C900A766D7 /* Supporting Files */,
-			);
-			path = PydioSDK;
-			sourceTree = "<group>";
-		};
-		3DFF3AEC186648C900A766D7 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				3DFF3AED186648C900A766D7 /* PydioSDK-Info.plist */,
-				3DFF3AEE186648C900A766D7 /* InfoPlist.strings */,
-				3DFF3AF1186648C900A766D7 /* main.m */,
-				3DFF3AF3186648C900A766D7 /* PydioSDK-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		3DFF3B0A186648CA00A766D7 /* PydioSDKTests */ = {
-			isa = PBXGroup;
-			children = (
-				89C0880318B532F900103985 /* BlocksCallResult.h */,
-				89C0880418B532F900103985 /* BlocksCallResult.m */,
-				89A6AA40187B1DE2003A6BDA /* Clients */,
-				89B13A9C18917A13007282EB /* ServersParamsManagerTests.m */,
-				89AC1AD3188DE84900ACAD7C /* Fixtures */,
-				89AC1AD0188DDD2700ACAD7C /* ResponseParsers */,
-				89A6AA3D187B0A03003A6BDA /* ResponseSerializers */,
-				89AA6A1B18957B5F006A22DB /* SerializersDelegates */,
-				3DFF3B0B186648CA00A766D7 /* Supporting Files */,
-			);
-			path = PydioSDKTests;
-			sourceTree = "<group>";
-		};
-		3DFF3B0B186648CA00A766D7 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				3DFF3B0C186648CA00A766D7 /* PydioSDKTests-Info.plist */,
-				3DFF3B0D186648CA00A766D7 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		3DFF3B1B18664EEF00A766D7 /* AFNetworking */ = {
@@ -591,42 +535,83 @@
 			path = Fixtures;
 			sourceTree = "<group>";
 		};
+		89B863A218C52135009EA040 /* PydioSDK */ = {
+			isa = PBXGroup;
+			children = (
+				3D03A67B1867176700DC5839 /* Classes */,
+				89B863A318C52135009EA040 /* Supporting Files */,
+			);
+			path = PydioSDK;
+			sourceTree = "<group>";
+		};
+		89B863A318C52135009EA040 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				89B863A418C52135009EA040 /* PydioSDK-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		89B863B418C52135009EA040 /* PydioSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				89C0880318B532F900103985 /* BlocksCallResult.h */,
+				89C0880418B532F900103985 /* BlocksCallResult.m */,
+				89A6AA40187B1DE2003A6BDA /* Clients */,
+				89B13A9C18917A13007282EB /* ServersParamsManagerTests.m */,
+				89AC1AD3188DE84900ACAD7C /* Fixtures */,
+				89AC1AD0188DDD2700ACAD7C /* ResponseParsers */,
+				89A6AA3D187B0A03003A6BDA /* ResponseSerializers */,
+				89AA6A1B18957B5F006A22DB /* SerializersDelegates */,
+				89B863B518C52135009EA040 /* Supporting Files */,
+			);
+			path = PydioSDKTests;
+			sourceTree = "<group>";
+		};
+		89B863B518C52135009EA040 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				89B863B618C52135009EA040 /* PydioSDKTests-Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3DFF3AE1186648C900A766D7 /* PydioSDK */ = {
+		89B8639F18C52135009EA040 /* PydioSDK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3DFF3B14186648CA00A766D7 /* Build configuration list for PBXNativeTarget "PydioSDK" */;
+			buildConfigurationList = 89B863C018C52135009EA040 /* Build configuration list for PBXNativeTarget "PydioSDK" */;
 			buildPhases = (
-				3DFF3ADE186648C900A766D7 /* Sources */,
-				3DFF3ADF186648C900A766D7 /* Frameworks */,
-				3DFF3AE0186648C900A766D7 /* Resources */,
+				89B8639C18C52135009EA040 /* Sources */,
+				89B8639D18C52135009EA040 /* Frameworks */,
+				89B8639E18C52135009EA040 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = PydioSDK;
-			productName = PydioSDK;
-			productReference = 3DFF3AE2186648C900A766D7 /* PydioSDK.app */;
-			productType = "com.apple.product-type.application";
+			productName = libPydioSDK;
+			productReference = 89B863A018C52135009EA040 /* libPydioSDK.a */;
+			productType = "com.apple.product-type.library.static";
 		};
-		3DFF3B02186648C900A766D7 /* PydioSDKTests */ = {
+		89B863AC18C52135009EA040 /* PydioSDKTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3DFF3B17186648CA00A766D7 /* Build configuration list for PBXNativeTarget "PydioSDKTests" */;
+			buildConfigurationList = 89B863C118C52135009EA040 /* Build configuration list for PBXNativeTarget "PydioSDKTests" */;
 			buildPhases = (
-				3DFF3AFF186648C900A766D7 /* Sources */,
-				3DFF3B00186648C900A766D7 /* Frameworks */,
-				3DFF3B01186648C900A766D7 /* Resources */,
+				89B863A918C52135009EA040 /* Sources */,
+				89B863AA18C52135009EA040 /* Frameworks */,
+				89B863AB18C52135009EA040 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3DFF3B09186648CA00A766D7 /* PBXTargetDependency */,
+				89B863B218C52135009EA040 /* PBXTargetDependency */,
 			);
 			name = PydioSDKTests;
-			productName = PydioSDKTests;
-			productReference = 3DFF3B03186648C900A766D7 /* PydioSDKTests.xctest */;
+			productName = libPydioSDKTests;
+			productReference = 89B863AD18C52135009EA040 /* PydioSDKTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -638,8 +623,8 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = MINI;
 				TargetAttributes = {
-					3DFF3B02186648C900A766D7 = {
-						TestTargetID = 3DFF3AE1186648C900A766D7;
+					89B863AC18C52135009EA040 = {
+						TestTargetID = 89B8639F18C52135009EA040;
 					};
 				};
 			};
@@ -656,150 +641,119 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3DFF3AE1186648C900A766D7 /* PydioSDK */,
-				3DFF3B02186648C900A766D7 /* PydioSDKTests */,
+				89B8639F18C52135009EA040 /* PydioSDK */,
+				89B863AC18C52135009EA040 /* PydioSDKTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		3DFF3AE0186648C900A766D7 /* Resources */ = {
+		89B863AB18C52135009EA040 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DFF3AFE186648C900A766D7 /* Images.xcassets in Resources */,
-				3DFF3AF0186648C900A766D7 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3DFF3B01186648C900A766D7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				89ABACFD1893BDC800E1420D /* unathorized_response.xml in Resources */,
-				89A58F0A18A9878600FCEDE5 /* error_response.xml in Resources */,
-				89A8C22A18B687930027B715 /* mkdir_success_response.xml in Resources */,
-				89BD973E1891A20C0054CFA2 /* login_response.xml in Resources */,
-				89ABACFF1893BEF700E1420D /* unathorized_response2.xml in Resources */,
-				89AD73B8189D3602003C8DD4 /* ls_response.xml in Resources */,
-				89A6F2FA189E3FDA00F1763E /* ls_response2.xml in Resources */,
-				3DFF3B0F186648CA00A766D7 /* InfoPlist.strings in Resources */,
-				89AC1AD5188DE98600ACAD7C /* get_registers_response.xml in Resources */,
+				89943DC718C6730A00C07E4F /* unathorized_response.xml in Resources */,
+				89943DC818C6730A00C07E4F /* error_response.xml in Resources */,
+				89943DC918C6730A00C07E4F /* mkdir_success_response.xml in Resources */,
+				89943DCA18C6730A00C07E4F /* login_response.xml in Resources */,
+				89943DCB18C6730A00C07E4F /* unathorized_response2.xml in Resources */,
+				89943DCC18C6730A00C07E4F /* ls_response.xml in Resources */,
+				89943DCD18C6730A00C07E4F /* ls_response2.xml in Resources */,
+				89943DCF18C6730A00C07E4F /* get_registers_response.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3DFF3ADE186648C900A766D7 /* Sources */ = {
+		89B8639C18C52135009EA040 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89A9E1E718C2746B00C821D8 /* GetSeedResponseSerializer.m in Sources */,
-				8940130A188443C90044001D /* User.m in Sources */,
-				3DFF3B2F18664EEF00A766D7 /* AFHTTPRequestOperation.m in Sources */,
-				8910F5F218786EFA0005BED4 /* NSString+Hash.m in Sources */,
-				89AC1ACB188DA30800ACAD7C /* Workspace.m in Sources */,
-				8910F5F5187874430005BED4 /* BootConfResponseSerializer.m in Sources */,
-				89B4780A187DFCE700A9CFC5 /* AuthCredentials.m in Sources */,
-				89A6AA46187B4436003A6BDA /* AuthorizationClient.m in Sources */,
-				89A6F2FE189E5A9600F1763E /* XMLParserState.m in Sources */,
-				89C2A9CA1878CD440051B8E6 /* LoginResponse.m in Sources */,
-				89401D231883318F005A030A /* ServersParamsManager.m in Sources */,
-				89A9E1ED18C2917A00C821D8 /* GetSeedJSONResponseSerializer.m in Sources */,
-				89A58F0618A9796C00FCEDE5 /* ErrorResponseParserDelegate.m in Sources */,
-				3DFF3B3018664EEF00A766D7 /* AFHTTPRequestOperationManager.m in Sources */,
-				89AA6A1A18956EFE006A22DB /* XMLResponseSerializerDelegate.m in Sources */,
-				89A9E1EA18C27BFA00C821D8 /* SeedResponse.m in Sources */,
-				3DFF3B3218664EEF00A766D7 /* AFNetworkReachabilityManager.m in Sources */,
-				89A76DD318B2BF28000D0AF1 /* PydioErrorResponse.m in Sources */,
-				3DFF3B3618664EEF00A766D7 /* AFURLResponseSerialization.m in Sources */,
-				89AD73B4189D2C69003C8DD4 /* ListFilesResponseParserDelegate.m in Sources */,
-				89A8C23218B6A6E40027B715 /* PydioSuccessResponse.m in Sources */,
-				89A6F305189E73FF00F1763E /* Node.m in Sources */,
-				89A554FF188C03F1008C1B64 /* NotAuthorizedResponse.m in Sources */,
-				3DFF3B3418664EEF00A766D7 /* AFURLConnectionOperation.m in Sources */,
-				8910F5F818788A7A0005BED4 /* GetSeedTextResponseSerializer.m in Sources */,
-				3DFF3B3318664EEF00A766D7 /* AFSecurityPolicy.m in Sources */,
-				89ADF99118BA0EE900E418CA /* MkDirRequestParams.m in Sources */,
-				3DFF3B3118664EEF00A766D7 /* AFHTTPSessionManager.m in Sources */,
-				3DFF3B3518664EEF00A766D7 /* AFURLRequestSerialization.m in Sources */,
-				3DFF3B3718664EEF00A766D7 /* AFURLSessionManager.m in Sources */,
-				89A8C22D18B68EC30027B715 /* SuccessResponseParserDelegate.m in Sources */,
-				8910F6011878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m in Sources */,
-				89A6D1CF18A16F0A00B3A4AF /* NSURL+Normalization.m in Sources */,
-				3DFF3AF6186648C900A766D7 /* AppDelegate.m in Sources */,
-				89C2A9C71878C4EE0051B8E6 /* LoginResponseParserDelegate.m in Sources */,
-				89A6C8AB189479B600EA5D13 /* XMLResponseSerializer.m in Sources */,
-				89B1B6F118A4170400EC79C5 /* FailingResponseSerializer.m in Sources */,
-				89B3560C188C70A500C62728 /* RepositoriesParserDelegate.m in Sources */,
-				89B429EB187F4BAB005F6580 /* PydioClient.m in Sources */,
-				89A84FF41885F5B800AFC2F0 /* OperationsClient.m in Sources */,
-				89A88C1C18BA951600DAE087 /* DeleteNodesRequestParams.m in Sources */,
-				89A7691918A4391A0056A61F /* ListNodesRequestParams.m in Sources */,
-				89AC1AC8188D8CAD00ACAD7C /* GetRepositoriesParserStates.m in Sources */,
-				3DFF3AF2186648C900A766D7 /* main.m in Sources */,
+				89943D8418C66CED00C07E4F /* GetSeedResponseSerializer.m in Sources */,
+				89943D8518C66CED00C07E4F /* User.m in Sources */,
+				89943D8618C66CED00C07E4F /* AFHTTPRequestOperation.m in Sources */,
+				89943D8718C66CED00C07E4F /* NSString+Hash.m in Sources */,
+				89943D8818C66CED00C07E4F /* Workspace.m in Sources */,
+				89943D8918C66CED00C07E4F /* BootConfResponseSerializer.m in Sources */,
+				89943D8A18C66CED00C07E4F /* AuthCredentials.m in Sources */,
+				89943D8B18C66CED00C07E4F /* AuthorizationClient.m in Sources */,
+				89943D8C18C66CED00C07E4F /* XMLParserState.m in Sources */,
+				89943D8D18C66CED00C07E4F /* LoginResponse.m in Sources */,
+				89943D8E18C66CED00C07E4F /* ServersParamsManager.m in Sources */,
+				89943D8F18C66CED00C07E4F /* GetSeedJSONResponseSerializer.m in Sources */,
+				89943D9018C66CED00C07E4F /* ErrorResponseParserDelegate.m in Sources */,
+				89943D9118C66CED00C07E4F /* AFHTTPRequestOperationManager.m in Sources */,
+				89943D9218C66CED00C07E4F /* XMLResponseSerializerDelegate.m in Sources */,
+				89943D9318C66CED00C07E4F /* SeedResponse.m in Sources */,
+				89943D9418C66CED00C07E4F /* AFNetworkReachabilityManager.m in Sources */,
+				89943D9518C66CED00C07E4F /* PydioErrorResponse.m in Sources */,
+				89943D9618C66CED00C07E4F /* AFURLResponseSerialization.m in Sources */,
+				89943D9718C66CED00C07E4F /* ListFilesResponseParserDelegate.m in Sources */,
+				89943D9818C66CED00C07E4F /* PydioSuccessResponse.m in Sources */,
+				89943D9918C66CED00C07E4F /* Node.m in Sources */,
+				89943D9A18C66CED00C07E4F /* NotAuthorizedResponse.m in Sources */,
+				89943D9B18C66CED00C07E4F /* AFURLConnectionOperation.m in Sources */,
+				89943D9C18C66CED00C07E4F /* GetSeedTextResponseSerializer.m in Sources */,
+				89943D9D18C66CED00C07E4F /* AFSecurityPolicy.m in Sources */,
+				89943D9E18C66CED00C07E4F /* MkDirRequestParams.m in Sources */,
+				89943D9F18C66CED00C07E4F /* AFHTTPSessionManager.m in Sources */,
+				89943DA018C66CED00C07E4F /* AFURLRequestSerialization.m in Sources */,
+				89943DA118C66CED00C07E4F /* AFURLSessionManager.m in Sources */,
+				89943DA218C66CED00C07E4F /* SuccessResponseParserDelegate.m in Sources */,
+				89943DA318C66CED00C07E4F /* NotAuthorizedResponseParserDelegate.m in Sources */,
+				89943DA418C66CED00C07E4F /* NSURL+Normalization.m in Sources */,
+				89943DA518C66CED00C07E4F /* LoginResponseParserDelegate.m in Sources */,
+				89943DA618C66CED00C07E4F /* XMLResponseSerializer.m in Sources */,
+				89943DA718C66CED00C07E4F /* FailingResponseSerializer.m in Sources */,
+				89943DA818C66CED00C07E4F /* RepositoriesParserDelegate.m in Sources */,
+				89943DA918C66CED00C07E4F /* PydioClient.m in Sources */,
+				89943DAA18C66CED00C07E4F /* OperationsClient.m in Sources */,
+				89943DAB18C66CED00C07E4F /* DeleteNodesRequestParams.m in Sources */,
+				89943DAC18C66CED00C07E4F /* ListNodesRequestParams.m in Sources */,
+				89943DAD18C66CED00C07E4F /* GetRepositoriesParserStates.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3DFF3AFF186648C900A766D7 /* Sources */ = {
+		89B863A918C52135009EA040 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89AA6A2118957FF9006A22DB /* NotAuthorizedResponseSerializerDelegateTests.m in Sources */,
-				89A6C8A5189469A200EA5D13 /* GetSeedResponseSerializerTests.m in Sources */,
-				89AD73B6189D3449003C8DD4 /* ListFilesResponseParserDelegateTests.m in Sources */,
-				89BD97401891A2710054CFA2 /* LoginResponseParserDelegateTests.m in Sources */,
-				89A8C22F18B68F780027B715 /* SuccessResponseParserDelegateTests.m in Sources */,
-				89AC1AD2188DDFB300ACAD7C /* RepositoriesParserDelegateTests.m in Sources */,
-				89B13A9D18917A13007282EB /* ServersParamsManagerTests.m in Sources */,
-				89C0880218B52A6100103985 /* OperationsClientTests.m in Sources */,
-				89A6AA42187B1E31003A6BDA /* AuthorizationClientTests.m in Sources */,
-				89B567B718C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m in Sources */,
-				89B429ED187F4BD0005F6580 /* PydioClientTests.m in Sources */,
-				89A6AA3F187B0A30003A6BDA /* BootConfResponseSerializerTests.m in Sources */,
-				89AA6A1F18957FE9006A22DB /* LoginResponseSerializerDelegateTests.m in Sources */,
-				89ABACFB1893B3E200E1420D /* NotAuthorizedResponseParserDelegateTests.m in Sources */,
-				89ABAD021893D51400E1420D /* XCTestCase+XMLFixture.m in Sources */,
-				89AA6A231895800A006A22DB /* WorkspacesResponseSerializerDelegateTests.m in Sources */,
-				89A58F0818A97FD600FCEDE5 /* ErrorResponseParserDelegateTests.m in Sources */,
-				89A6C8AE18947ED600EA5D13 /* XMLResponseSerializerTests.m in Sources */,
-				89B1B6F318A41B1500EC79C5 /* FailingResponseSerializerTests.m in Sources */,
-				89A76DD018B2B0C8000D0AF1 /* ListFilesResponseSerializerDelegateTests.m in Sources */,
-				89ABF21518AD773500594B2E /* ErrorResponseSerializerDelegateTests.m in Sources */,
-				89C0880518B532F900103985 /* BlocksCallResult.m in Sources */,
-				89B567B518C34C3500F8EABA /* GetSeedTextResponseSerializerTests.m in Sources */,
+				89943DAE18C66CED00C07E4F /* NotAuthorizedResponseSerializerDelegateTests.m in Sources */,
+				89943DAF18C66CED00C07E4F /* GetSeedResponseSerializerTests.m in Sources */,
+				89943DB018C66CED00C07E4F /* ListFilesResponseParserDelegateTests.m in Sources */,
+				89943DB118C66CED00C07E4F /* LoginResponseParserDelegateTests.m in Sources */,
+				89943DB218C66CED00C07E4F /* SuccessResponseParserDelegateTests.m in Sources */,
+				89943DB318C66CED00C07E4F /* RepositoriesParserDelegateTests.m in Sources */,
+				89943DB418C66CED00C07E4F /* ServersParamsManagerTests.m in Sources */,
+				89943DB518C66CED00C07E4F /* OperationsClientTests.m in Sources */,
+				89943DB618C66CED00C07E4F /* AuthorizationClientTests.m in Sources */,
+				89943DB718C66CED00C07E4F /* GetSeedJSONResponseSerializerTests.m in Sources */,
+				89943DB818C66CED00C07E4F /* PydioClientTests.m in Sources */,
+				89943DB918C66CED00C07E4F /* BootConfResponseSerializerTests.m in Sources */,
+				89943DBA18C66CED00C07E4F /* LoginResponseSerializerDelegateTests.m in Sources */,
+				89943DBB18C66CED00C07E4F /* NotAuthorizedResponseParserDelegateTests.m in Sources */,
+				89943DBC18C66CED00C07E4F /* XCTestCase+XMLFixture.m in Sources */,
+				89943DBD18C66CED00C07E4F /* WorkspacesResponseSerializerDelegateTests.m in Sources */,
+				89943DBE18C66CED00C07E4F /* ErrorResponseParserDelegateTests.m in Sources */,
+				89943DBF18C66CED00C07E4F /* XMLResponseSerializerTests.m in Sources */,
+				89943DC018C66CED00C07E4F /* FailingResponseSerializerTests.m in Sources */,
+				89943DC118C66CED00C07E4F /* ListFilesResponseSerializerDelegateTests.m in Sources */,
+				89943DC218C66CED00C07E4F /* ErrorResponseSerializerDelegateTests.m in Sources */,
+				89943DC318C66CED00C07E4F /* BlocksCallResult.m in Sources */,
+				89943DC418C66CED00C07E4F /* GetSeedTextResponseSerializerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3DFF3B09186648CA00A766D7 /* PBXTargetDependency */ = {
+		89B863B218C52135009EA040 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3DFF3AE1186648C900A766D7 /* PydioSDK */;
-			targetProxy = 3DFF3B08186648CA00A766D7 /* PBXContainerItemProxy */;
+			target = 89B8639F18C52135009EA040 /* PydioSDK */;
+			targetProxy = 89B863B118C52135009EA040 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		3DFF3AEE186648C900A766D7 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3DFF3AEF186648C900A766D7 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		3DFF3B0D186648CA00A766D7 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3DFF3B0E186648CA00A766D7 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3DFF3B12186648CA00A766D7 /* Debug */ = {
@@ -874,40 +828,40 @@
 			};
 			name = Release;
 		};
-		3DFF3B15186648CA00A766D7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PydioSDK/PydioSDK-Prefix.pch";
-				INFOPLIST_FILE = "PydioSDK/PydioSDK-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		3DFF3B16186648CA00A766D7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "PydioSDK/PydioSDK-Prefix.pch";
-				INFOPLIST_FILE = "PydioSDK/PydioSDK-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		3DFF3B18186648CA00A766D7 /* Debug */ = {
+		89B863BC18C52135009EA040 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PydioSDK.app/PydioSDK";
-				CLANG_ENABLE_MODULES = NO;
+				DSTROOT = /tmp/libPydioSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PydioSDK/PydioSDK-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		89B863BD18C52135009EA040 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				DSTROOT = /tmp/libPydioSDK.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PydioSDK/PydioSDK-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		89B863BE18C52135009EA040 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -921,18 +875,21 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "PydioSDKTests/PydioSDKTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
 		};
-		3DFF3B19186648CA00A766D7 /* Release */ = {
+		89B863BF18C52135009EA040 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PydioSDK.app/PydioSDK";
-				CLANG_ENABLE_MODULES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -942,8 +899,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PydioSDK/PydioSDK-Prefix.pch";
 				INFOPLIST_FILE = "PydioSDKTests/PydioSDKTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
@@ -960,20 +922,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3DFF3B14186648CA00A766D7 /* Build configuration list for PBXNativeTarget "PydioSDK" */ = {
+		89B863C018C52135009EA040 /* Build configuration list for PBXNativeTarget "PydioSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3DFF3B15186648CA00A766D7 /* Debug */,
-				3DFF3B16186648CA00A766D7 /* Release */,
+				89B863BC18C52135009EA040 /* Debug */,
+				89B863BD18C52135009EA040 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3DFF3B17186648CA00A766D7 /* Build configuration list for PBXNativeTarget "PydioSDKTests" */ = {
+		89B863C118C52135009EA040 /* Build configuration list for PBXNativeTarget "PydioSDKTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3DFF3B18186648CA00A766D7 /* Debug */,
-				3DFF3B19186648CA00A766D7 /* Release */,
+				89B863BE18C52135009EA040 /* Debug */,
+				89B863BF18C52135009EA040 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
