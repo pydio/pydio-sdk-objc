@@ -21,7 +21,6 @@
 #import "ServersParamsManager.h"
 #import "GetSeedTextResponseSerializer.h"
 #import "GetSeedResponseSerializer.h"
-#import "AuthCredentials.h"
 #import "NSString+Hash.h"
 #import "LoginResponse.h"
 #import "SeedResponse.h"
@@ -68,7 +67,7 @@ static id mockedManager(id self, SEL _cmd) {
 -(void)setupLoginSuccessBlock;
 -(void)ping;
 -(void)getSeed;
--(void)loginWithCredentials:(AuthCredentials*)credentials;
+-(void)login:(User*)user;
 @end
 
 #pragma mark - Class made for test purposes
@@ -86,7 +85,7 @@ static id mockedManager(id self, SEL _cmd) {
 @property (nonatomic,assign) BOOL wasSetupLoginCalled;
 @property (nonatomic,assign) BOOL wasSetupAFFailureCalled;
 
-@property (nonatomic,strong) AuthCredentials* loginAuthCredentials;
+@property (nonatomic,strong) User* loginUser;
 @end
 
 @implementation TestedAuthorizationClient
@@ -148,12 +147,12 @@ static id mockedManager(id self, SEL _cmd) {
     }
 }
 
--(void)loginWithCredentials:(AuthCredentials*)credentials {
+-(void)login:(User*)user {
     if (self.callTestVariant) {
         self.wasLoginWithCredentialsCalled = YES;
-        self.loginAuthCredentials = credentials;
+        self.loginUser = user;
     } else {
-        [super loginWithCredentials:credentials];
+        [super login:user];
     }
 }
 
@@ -228,15 +227,15 @@ static id mockedManager(id self, SEL _cmd) {
 
 #pragma mark -
 
--(NSDictionary*)createExpectedLoginParamsWithHashedPassword:(AuthCredentials*)credentials {
+-(NSDictionary*)createExpectedLoginParamsWithHashedPassword:(User*)user AndSeed:(NSString*)seed {
     return @{@"get_action": @"login",
-             @"userid": credentials.userid,
-             @"password": [[NSString stringWithFormat:@"%@%@", [credentials.password md5], credentials.seed] md5],
-             @"login_seed" : credentials.seed
+             @"userid": user.userid,
+             @"password": [[NSString stringWithFormat:@"%@%@", [user.password md5], seed] md5],
+             @"login_seed" : seed
              };
 }
 
-#pragma mark - Inocation of success and failure blocks
+#pragma mark - Invocation of success and failure blocks
 
 -(void)test_shouldSetupSuccessAndFailureBlocks {
     [self setupEmptyResult];
@@ -325,31 +324,37 @@ static id mockedManager(id self, SEL _cmd) {
 }
 
 -(void)test_shouldSetupSeedResponseBlockAndCallLogin_WhenSeedSuccessBlockWasCalled {
+    //given
     User* user = [self exampleUser];
     SeedResponse *seed = [SeedResponse seed:@"1234567"];
-    AuthCredentials *expectedCredenials = [[AuthCredentials alloc] initWith:user AndSeed:@"1234567"];
     [given([serverParamsManager userForServer:anything()]) willReturn:user];
+    [given([serverParamsManager seedForServer:anything()]) willReturn:@"1234567"];
     self.client.callTestVariant = YES;
-
+    //when
     [self.client setupSeedSuccessBlock];
     self.client.seedSuccessBlock(nil,seed);
-    
+    //then
     [verify(serverParamsManager) userForServer:anything()];
+    [verify(serverParamsManager) setSeed:equalTo(seed.seed) ForServer:anything()];
     assertThatBool(self.client.wasLoginWithCredentialsCalled,equalToBool(YES));
-    assertThat(self.client.loginAuthCredentials,equalTo(expectedCredenials));
+    assertThat(self.client.loginUser,equalTo(user));
 }
 
 -(void)test_shouldSetupSeedResponseBlockAndCallFailureWithLoginError_WhenReceivedSeedResponseWithCaptcha {
+    //given
     SeedResponse *seed = [SeedResponse seedWithCaptcha:@"1234567"];
     [self setupEmptyResult];
     [self setupClientSuccessAndFailureBlocks];
     NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorGetSeedWithCaptcha userInfo:@{ PydioErrorSeedKey : @"1234567"}];
     self.expectedResult = [BlocksCallResult failureWithError:error];
     [self.client setupAFFailureBlock];
-    
+    //when
     [self.client setupSeedSuccessBlock];
     self.client.seedSuccessBlock(nil,seed);
-
+    //then
+    [verify(serverParamsManager) setSeed:equalTo(seed.seed) ForServer:anything()];
+    [verifyCount(serverParamsManager,never()) userForServer:anything()];
+    assertThatBool(self.client.wasLoginWithCredentialsCalled,equalToBool(NO));
     [self assertResultEqualsExpectedResult];
 }
 
@@ -359,19 +364,17 @@ static id mockedManager(id self, SEL _cmd) {
 -(void)test_shouldCallAFNetworkingMethodWithParams_WhenLoginCalled {
     User* user = [self exampleUser];
     NSString *seed = @"1234567";
-    AuthCredentials *credenials = [[AuthCredentials alloc] initWith:user AndSeed:seed];
-    NSDictionary *expectedParams = [self createExpectedLoginParamsWithHashedPassword:credenials];
+    [given([serverParamsManager seedForServer:anything()]) willReturn:@"1234567"];
+    NSDictionary *expectedParams = [self createExpectedLoginParamsWithHashedPassword:user AndSeed:seed];
     [self.client setupAFFailureBlock];
     [self.client setupLoginSuccessBlock];
-
-    [self.client loginWithCredentials:credenials];
-
+    //when
+    [self.client login:user];
+    //then
     assertThat(self.client.loginSuccessBlock,notNilValue());
     assertThat(self.client.afFailureBlock,notNilValue());
-    MKTArgumentCaptor *responseSerializer = [[MKTArgumentCaptor alloc] init];
-    [verify(self.operationManager)  setResponseSerializer:[responseSerializer capture]];
-    assertThat([responseSerializer value],instanceOf([XMLResponseSerializer class]));
-    assertThat(((XMLResponseSerializer*)[responseSerializer value]).serializerDelegate,instanceOf([LoginResponseSerializerDelegate class]));
+    [self assertLoginResponseSerializer];
+    [verify(serverParamsManager) seedForServer:anything()];
     [verify(self.operationManager) POST:@"" parameters:equalTo(expectedParams) success:self.client.loginSuccessBlock failure:self.client.afFailureBlock];
 }
 
@@ -441,16 +444,51 @@ static id mockedManager(id self, SEL _cmd) {
 }
 
 -(void)test_shouldNotStartAuthorizeAndSetupClient_WhenInProgress {
+    //given
     [self setupEmptyResult];
     self.client.progress = YES;
     self.client.callSetupsTestVariant = YES;
     self.client.callTestVariant = YES;
-    
+    //when
     BOOL startResult = [self.client authorizeWithSuccess:self.successBlock failure:self.failureBlock];
-
+    //then
     assertThatBool(startResult,equalToBool(NO));
     [self assertNoneSetupWasCalled];
     assertThatBool(self.client.wasPingCalled,equalToBool(NO));
+}
+
+#pragma mark - Login process with blocks
+
+-(void)test_shouldStartLoginAndSetupLoginResponse_whenNotInProgress {
+    //given
+    User* user = [self exampleUser];
+    [given([serverParamsManager userForServer:anything()]) willReturn:user];
+    [self setupEmptyResult];
+    self.client.callSetupsTestVariant = YES;
+    self.client.callTestVariant = YES;
+    //when
+    BOOL startResult = [self.client loginWithSuccess:self.successBlock failure:self.failureBlock];
+    //then
+    assertThatBool(startResult,equalToBool(YES));
+    [self assertProgressIsYES];
+    [self assertSetupsForLoginWithBlocksWereCalled];
+    assertThatBool(self.client.wasLoginWithCredentialsCalled,equalToBool(YES));
+    assertThat(self.client.loginUser,equalTo(user));
+}
+
+-(void)test_shouldNotStartLoginAndSetupLoginResponse_whenInProgress {
+    //given
+    [self setupEmptyResult];
+    self.client.progress = YES;
+    self.client.callSetupsTestVariant = YES;
+    self.client.callTestVariant = YES;
+    //when
+    BOOL startResult = [self.client loginWithSuccess:self.successBlock failure:self.failureBlock];
+    //then
+    assertThatBool(startResult,equalToBool(NO));
+    [verifyCount(serverParamsManager,never()) seedForServer:anything()];
+    [self assertNoneSetupWasCalled];
+    assertThatBool(self.client.wasLoginWithCredentialsCalled,equalToBool(NO));
 }
 
 #pragma mark - Tests verification
@@ -490,6 +528,21 @@ static id mockedManager(id self, SEL _cmd) {
     assertThatBool(self.client.wasSetupGetSeedCalled,equalToBool(NO));
     assertThatBool(self.client.wasSetupLoginCalled,equalToBool(NO));
     assertThatBool(self.client.wasSetupSuccessAndFailureCalled,equalToBool(NO));
+}
+
+-(void)assertSetupsForLoginWithBlocksWereCalled {
+    assertThatBool(self.client.wasSetupAFFailureCalled,equalToBool(YES));
+    assertThatBool(self.client.wasSetupLoginCalled,equalToBool(YES));
+    assertThatBool(self.client.wasSetupSuccessAndFailureCalled,equalToBool(YES));
+    assertThatBool(self.client.wasSetupPingCalled,equalToBool(NO));
+    assertThatBool(self.client.wasSetupGetSeedCalled,equalToBool(NO));
+}
+
+-(void)assertLoginResponseSerializer {
+    MKTArgumentCaptor *responseSerializer = [[MKTArgumentCaptor alloc] init];
+    [verify(self.operationManager)  setResponseSerializer:[responseSerializer capture]];
+    assertThat([responseSerializer value],instanceOf([XMLResponseSerializer class]));
+    assertThat(((XMLResponseSerializer*)[responseSerializer value]).serializerDelegate,instanceOf([LoginResponseSerializerDelegate class]));
 }
 
 #pragma mark - Helpers

@@ -16,6 +16,7 @@ static ServersParamsManager *manager = nil;
 @interface ServersParamsManager ()
 @property (nonatomic,strong) NSMutableDictionary *users;
 @property (nonatomic,strong) NSMutableDictionary *tokens;
+@property (nonatomic,strong) NSMutableDictionary *seeds;
 @end
 
 @implementation ServersParamsManager
@@ -25,6 +26,7 @@ static ServersParamsManager *manager = nil;
     if (self) {
         self.users = [NSMutableDictionary dictionary];
         self.tokens = [NSMutableDictionary dictionary];
+        self.seeds = [NSMutableDictionary dictionary];
     }
     
     return self;
@@ -78,6 +80,18 @@ static ServersParamsManager *manager = nil;
 
 -(void)clearSecureToken:(NSURL *)server {
     [self.tokens removeObjectForKey:[self serverKey:server]];
+}
+
+-(void)setSeed:(NSString *)token ForServer:(NSURL *)server {
+    [self.seeds setValue:token forKey:[self serverKey:server]];
+}
+
+-(NSString*)seedForServer:(NSURL *)server {
+    return [self.seeds valueForKey:[self serverKey:server]];
+}
+
+-(void)clearSeed:(NSURL *)server {
+    [self.seeds removeObjectForKey:[self serverKey:server]];
 }
 
 -(NSArray*)serversList {

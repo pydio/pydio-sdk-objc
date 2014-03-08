@@ -10,7 +10,6 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "GetSeedResponseSerializer.h"
 #import "ServersParamsManager.h"
-#import "AuthCredentials.h"
 #import "NSString+Hash.h"
 #import "User.h"
 #import "LoginResponse.h"
@@ -47,7 +46,7 @@ static NSString * const LOGIN_SEED = @"login_seed";
 -(void)setupLoginSuccessBlock;
 -(void)ping;
 -(void)getSeed;
--(void)loginWithCredentials:(AuthCredentials*)credentials;
+-(void)login:(User*)user;
 @end
 
 @implementation AuthorizationClient
@@ -101,10 +100,10 @@ static NSString * const LOGIN_SEED = @"login_seed";
     __weak typeof(self) weakSelf = self;
     self.seedSuccessBlock = ^(AFHTTPRequestOperation *operation, SeedResponse *seed) {
         __strong typeof(self) strongSelf = weakSelf;
-        User *user = [[ServersParamsManager sharedManager] userForServer:strongSelf.operationManager.baseURL];
+        [[ServersParamsManager sharedManager] setSeed:seed.seed ForServer:strongSelf.operationManager.baseURL];
         if (!seed.captcha) {
-            AuthCredentials *authCredentials = [AuthCredentials credentialsWith:user AndSeed:seed.seed];
-            [strongSelf loginWithCredentials:authCredentials];
+            User *user = [[ServersParamsManager sharedManager] userForServer:strongSelf.operationManager.baseURL];
+            [strongSelf login:user];
         } else {
             NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorGetSeedWithCaptcha userInfo:@{ PydioErrorSeedKey : seed.seed}];
             strongSelf.failureBlock(error);
@@ -149,6 +148,24 @@ static NSString * const LOGIN_SEED = @"login_seed";
     return YES;
 }
 
+-(BOOL)loginWithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure {
+    if (self.progress) {
+        return NO;
+    }
+    
+    self.progress = YES;
+    [self setupSuccess:success AndFailure:failure];
+    [self setupLoginSuccessBlock];
+    [self setupAFFailureBlock];
+
+    User *user = [[ServersParamsManager sharedManager] userForServer:self.operationManager.baseURL];
+    [self login:user];
+    
+    return YES;
+}
+
+#pragma mark - Authorization steps
+
 -(void)ping {
     [self.operationManager GET:@"index.php" parameters:@{GET_ACTION : @"ping"} success:self.pingSuccessBlock failure:self.afFailureBlock];
 }
@@ -159,13 +176,14 @@ static NSString * const LOGIN_SEED = @"login_seed";
     
 }
 
--(void)loginWithCredentials:(AuthCredentials*)credentials {
+-(void)login:(User*)user {
     [self.operationManager.requestSerializer setValue:@"true" forHTTPHeaderField:@"Ajxp-Force-Login"];
     self.operationManager.responseSerializer = [self createLoginResponseSerializer];
+    NSString *seed = [[ServersParamsManager sharedManager] seedForServer:self.operationManager.baseURL];
     NSDictionary *params = @{GET_ACTION : @"login",
-                             USERID : credentials.userid,
-                             PASSWORD : [self hashedPass:credentials.password WithSeed:credentials.seed],
-                             LOGIN_SEED : credentials.seed
+                             USERID : user.userid,
+                             PASSWORD : [self hashedPass:user.password WithSeed:seed],
+                             LOGIN_SEED : seed
                              };
 
     [self.operationManager POST:@"" parameters:params success:self.loginSuccessBlock failure:self.afFailureBlock];

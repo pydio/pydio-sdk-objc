@@ -13,7 +13,6 @@
 		89943D8718C66CED00C07E4F /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F118786EFA0005BED4 /* NSString+Hash.m */; };
 		89943D8818C66CED00C07E4F /* Workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1ACA188DA30800ACAD7C /* Workspace.m */; };
 		89943D8918C66CED00C07E4F /* BootConfResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */; };
-		89943D8A18C66CED00C07E4F /* AuthCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B47809187DFCE700A9CFC5 /* AuthCredentials.m */; };
 		89943D8B18C66CED00C07E4F /* AuthorizationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6AA45187B4436003A6BDA /* AuthorizationClient.m */; };
 		89943D8C18C66CED00C07E4F /* XMLParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F2FD189E5A9600F1763E /* XMLParserState.m */; };
 		89943D8D18C66CED00C07E4F /* LoginResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C2A9C91878CD440051B8E6 /* LoginResponse.m */; };
@@ -221,8 +220,6 @@
 		89B429E9187F4BAB005F6580 /* PydioClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioClient.h; sourceTree = "<group>"; };
 		89B429EA187F4BAB005F6580 /* PydioClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClient.m; sourceTree = "<group>"; };
 		89B429EC187F4BD0005F6580 /* PydioClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClientTests.m; sourceTree = "<group>"; };
-		89B47808187DFCE700A9CFC5 /* AuthCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthCredentials.h; sourceTree = "<group>"; };
-		89B47809187DFCE700A9CFC5 /* AuthCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthCredentials.m; sourceTree = "<group>"; };
 		89B567B418C34C3500F8EABA /* GetSeedTextResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSeedTextResponseSerializerTests.m; sourceTree = "<group>"; };
 		89B567B618C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSeedJSONResponseSerializerTests.m; sourceTree = "<group>"; };
 		89B863A018C52135009EA040 /* libPydioSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPydioSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -372,8 +369,6 @@
 		8910F5FE18789F870005BED4 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				89B47808187DFCE700A9CFC5 /* AuthCredentials.h */,
-				89B47809187DFCE700A9CFC5 /* AuthCredentials.m */,
 				8910F5F018786EFA0005BED4 /* NSString+Hash.h */,
 				8910F5F118786EFA0005BED4 /* NSString+Hash.m */,
 				89401308188443C90044001D /* User.h */,
@@ -676,7 +671,6 @@
 				89943D8718C66CED00C07E4F /* NSString+Hash.m in Sources */,
 				89943D8818C66CED00C07E4F /* Workspace.m in Sources */,
 				89943D8918C66CED00C07E4F /* BootConfResponseSerializer.m in Sources */,
-				89943D8A18C66CED00C07E4F /* AuthCredentials.m in Sources */,
 				89943D8B18C66CED00C07E4F /* AuthorizationClient.m in Sources */,
 				89943D8C18C66CED00C07E4F /* XMLParserState.m in Sources */,
 				89943D8D18C66CED00C07E4F /* LoginResponse.m in Sources */,
@@ -862,6 +856,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_MODULES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -890,6 +885,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_MODULES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

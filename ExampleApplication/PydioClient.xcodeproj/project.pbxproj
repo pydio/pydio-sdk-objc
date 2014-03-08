@@ -27,7 +27,6 @@
 		89B8635D18C517E9009EA040 /* AuthorizationClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8631218C517E9009EA040 /* AuthorizationClient.m */; };
 		89B8635E18C517E9009EA040 /* OperationsClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8631418C517E9009EA040 /* OperationsClient.m */; };
 		89B8635F18C517E9009EA040 /* PydioClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8631618C517E9009EA040 /* PydioClient.m */; };
-		89B8636018C517E9009EA040 /* AuthCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8631918C517E9009EA040 /* AuthCredentials.m */; };
 		89B8636118C517E9009EA040 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8631B18C517E9009EA040 /* NSString+Hash.m */; };
 		89B8636218C517E9009EA040 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8631D18C517E9009EA040 /* User.m */; };
 		89B8636318C517E9009EA040 /* NSURL+Normalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8631F18C517E9009EA040 /* NSURL+Normalization.m */; };
@@ -110,8 +109,6 @@
 		89B8631418C517E9009EA040 /* OperationsClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationsClient.m; sourceTree = "<group>"; };
 		89B8631518C517E9009EA040 /* PydioClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioClient.h; sourceTree = "<group>"; };
 		89B8631618C517E9009EA040 /* PydioClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioClient.m; sourceTree = "<group>"; };
-		89B8631818C517E9009EA040 /* AuthCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthCredentials.h; sourceTree = "<group>"; };
-		89B8631918C517E9009EA040 /* AuthCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthCredentials.m; sourceTree = "<group>"; };
 		89B8631A18C517E9009EA040 /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
 		89B8631B18C517E9009EA040 /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
 		89B8631C18C517E9009EA040 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -350,8 +347,6 @@
 		89B8631718C517E9009EA040 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				89B8631818C517E9009EA040 /* AuthCredentials.h */,
-				89B8631918C517E9009EA040 /* AuthCredentials.m */,
 				89B8631A18C517E9009EA040 /* NSString+Hash.h */,
 				89B8631B18C517E9009EA040 /* NSString+Hash.m */,
 				89B8631C18C517E9009EA040 /* User.h */,
@@ -632,7 +627,6 @@
 				89B8639918C51A0B009EA040 /* AFURLRequestSerialization.m in Sources */,
 				89B8636818C517E9009EA040 /* ListFilesResponseParserDelegate.m in Sources */,
 				89B8639A18C51A0B009EA040 /* AFURLResponseSerialization.m in Sources */,
-				89B8636018C517E9009EA040 /* AuthCredentials.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
