@@ -18,4 +18,5 @@ extern NSString * const PydioErrorDomain;
 
 -(BOOL)authorizeWithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure;
 -(BOOL)loginWithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure;
+-(BOOL)getCaptchaWithSuccess:(void(^)(NSData *captcha))success failure:(void(^)(NSError *error))failure;
 @end

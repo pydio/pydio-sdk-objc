@@ -20,6 +20,7 @@
 
 
 typedef void(^AFSuccessBlock)(AFHTTPRequestOperation *operation, id responseObject);
+typedef void(^CaptchaSuccessBlock)(NSData *data);
 
 
 static NSString * const PING_ACTION = @"index.php?get_action=ping";
@@ -34,12 +35,15 @@ static NSString * const LOGIN_SEED = @"login_seed";
 @property (nonatomic,copy) AFSuccessBlock pingSuccessBlock;
 @property (nonatomic,copy) AFSuccessBlock seedSuccessBlock;
 @property (nonatomic,copy) AFSuccessBlock loginSuccessBlock;
+@property (nonatomic,copy) AFSuccessBlock captchaSuccessBlock;
 @property (nonatomic,copy) void(^afFailureBlock)(AFHTTPRequestOperation *operation, NSError *error);
 @property (nonatomic,copy) void(^successBlock)();
 @property (nonatomic,copy) void(^failureBlock)(NSError* error);
 
 -(void)clearBlocks;
 -(void)setupSuccess:(void(^)())success AndFailure:(void(^)(NSError*))failure;
+-(void)setupFailure:(void(^)(NSError*))failure;
+-(void)setupGetCaptchaSuccess:(void(^)(NSData *captcha))success;
 -(void)setupAFFailureBlock;
 -(void)setupPingSuccessBlock;
 -(void)setupSeedSuccessBlock;
@@ -60,6 +64,7 @@ static NSString * const LOGIN_SEED = @"login_seed";
     _pingSuccessBlock = nil;
     _seedSuccessBlock = nil;
     _loginSuccessBlock = nil;
+    _captchaSuccessBlock = nil;
 }
 
 -(void)setupSuccess:(void(^)())success AndFailure:(void(^)(NSError*))failure {
@@ -68,15 +73,30 @@ static NSString * const LOGIN_SEED = @"login_seed";
     self.successBlock = ^{
         __strong typeof(self) strongSelf = weakSelf;
         success();
-        strongSelf->_progress = NO;
         [strongSelf clearBlocks];
+        strongSelf->_progress = NO;
     };
     
+    [self setupFailure:failure];
+}
+
+-(void)setupFailure:(void(^)(NSError*))failure {
+    __weak typeof(self) weakSelf = self;
     self.failureBlock = ^(NSError *error){
         __strong typeof(self) strongSelf = weakSelf;
         failure(error);
-        strongSelf->_progress = NO;
         [strongSelf clearBlocks];
+        strongSelf->_progress = NO;
+    };
+}
+
+-(void)setupGetCaptchaSuccess:(void(^)(NSData *captcha))success {
+    __weak typeof(self) weakSelf = self;
+    self.captchaSuccessBlock = ^(AFHTTPRequestOperation *operation, id response) {
+        __strong typeof(self) strongSelf = weakSelf;
+        success(response);
+        [strongSelf clearBlocks];
+        strongSelf->_progress = NO;
     };
 }
 
@@ -161,6 +181,22 @@ static NSString * const LOGIN_SEED = @"login_seed";
     User *user = [[ServersParamsManager sharedManager] userForServer:self.operationManager.baseURL];
     [self login:user];
     
+    return YES;
+}
+
+-(BOOL)getCaptchaWithSuccess:(void(^)(NSData *captcha))success failure:(void(^)(NSError *error))failure {
+    if (self.progress) {
+        return NO;
+    }
+    
+    self.progress = YES;
+    [self setupGetCaptchaSuccess:success];
+    [self setupFailure:failure];
+    [self setupAFFailureBlock];
+    AFHTTPResponseSerializer *responseSerializer = [AFHTTPResponseSerializer serializer];
+    responseSerializer.acceptableContentTypes = [[NSSet alloc] initWithObjects:@"image/tiff", @"image/jpeg", @"image/gif", @"image/png", @"image/ico", @"image/x-icon", @"image/bmp", @"image/x-bmp", @"image/x-xbitmap", @"image/x-win-bitmap", nil];
+    [self.operationManager setResponseSerializer:responseSerializer];    
+    [self.operationManager GET:@"index.php" parameters:@{GET_ACTION : @"get_captcha"} success:self.captchaSuccessBlock failure:self.afFailureBlock];
     return YES;
 }
 
