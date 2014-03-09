@@ -121,6 +121,40 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return YES;
 }
 
+-(BOOL)login:(NSString *)captcha WithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure {
+    if (self.progress) {
+        return NO;
+    }
+    [self setupCommons:success failure:failure];
+    self.authorizationsTriesCount = 0;
+    
+    typeof(self) strongSelf = self;
+    self.operationBlock = ^{
+        [strongSelf.authorizationClient login:captcha WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
+    };
+    
+    self.operationBlock();
+    
+    return YES;
+}
+
+-(BOOL)getCaptchaWithSuccess:(void(^)(NSData *captcha))success failure:(void(^)(NSError *error))failure {
+    if (self.progress) {
+        return NO;
+    }
+    [self setupCommons:success failure:failure];
+    self.authorizationsTriesCount = 0;
+    
+    typeof(self) strongSelf = self;
+    self.operationBlock = ^{
+        [strongSelf.authorizationClient getCaptchaWithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
+    };
+    
+    self.operationBlock();
+    
+    return YES;
+}
+
 -(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray* workspaces))success failure:(void(^)(NSError* error))failure {
     if (self.progress) {
         return NO;

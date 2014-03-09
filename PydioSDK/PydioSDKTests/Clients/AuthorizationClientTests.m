@@ -70,7 +70,7 @@ static id mockedManager(id self, SEL _cmd) {
 -(void)setupLoginSuccessBlock;
 -(void)ping;
 -(void)getSeed;
--(void)login:(User*)user;
+-(void)login:(User*)user WithCaptcha:(NSString*)captcha;
 @end
 
 #pragma mark - Class made for test purposes
@@ -168,12 +168,12 @@ static id mockedManager(id self, SEL _cmd) {
     }
 }
 
--(void)login:(User*)user {
+-(void)login:(User*)user WithCaptcha:(NSString*)captcha {
     if (self.callTestVariant) {
         self.wasLoginWithCredentialsCalled = YES;
         self.loginUser = user;
     } else {
-        [super login:user];
+        [super login:user WithCaptcha:captcha];
     }
 }
 
@@ -248,12 +248,18 @@ static id mockedManager(id self, SEL _cmd) {
 
 #pragma mark -
 
--(NSDictionary*)createExpectedLoginParamsWithHashedPassword:(User*)user AndSeed:(NSString*)seed {
-    return @{@"get_action": @"login",
+-(NSDictionary*)createExpectedLoginParamsWithHashedPassword:(User*)user AndSeed:(NSString*)seed AndCaptcha:(NSString *)captcha {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:@{@"get_action": @"login",
              @"userid": user.userid,
              @"password": [[NSString stringWithFormat:@"%@%@", [user.password md5], seed] md5],
              @"login_seed" : seed
-             };
+             }];
+    
+    if (captcha){
+        [dict setValue:captcha forKey:@"captcha_code"];
+    }
+    
+    return dict;
 }
 
 #pragma mark - Invocation of success and failure blocks
@@ -398,11 +404,29 @@ static id mockedManager(id self, SEL _cmd) {
     User* user = [self exampleUser];
     NSString *seed = @"1234567";
     [given([serverParamsManager seedForServer:anything()]) willReturn:@"1234567"];
-    NSDictionary *expectedParams = [self createExpectedLoginParamsWithHashedPassword:user AndSeed:seed];
+    NSDictionary *expectedParams = [self createExpectedLoginParamsWithHashedPassword:user AndSeed:seed AndCaptcha:nil];
     [self.client setupAFFailureBlock];
     [self.client setupLoginSuccessBlock];
     //when
-    [self.client login:user];
+    [self.client login:user WithCaptcha:nil];
+    //then
+    assertThat(self.client.loginSuccessBlock,notNilValue());
+    assertThat(self.client.afFailureBlock,notNilValue());
+    [self assertLoginResponseSerializer];
+    [verify(serverParamsManager) seedForServer:anything()];
+    [verify(self.operationManager) POST:@"" parameters:equalTo(expectedParams) success:self.client.loginSuccessBlock failure:self.client.afFailureBlock];
+}
+
+-(void)test_shouldCallAFNetworkingMethodWithParams_WhenLoginWithCaptchaCalled {
+    User* user = [self exampleUser];
+    NSString *seed = @"1234567";
+    NSString *captcha = @"captcha";
+    [given([serverParamsManager seedForServer:anything()]) willReturn:@"1234567"];
+    NSDictionary *expectedParams = [self createExpectedLoginParamsWithHashedPassword:user AndSeed:seed AndCaptcha:captcha];
+    [self.client setupAFFailureBlock];
+    [self.client setupLoginSuccessBlock];
+    //when
+    [self.client login:user WithCaptcha:captcha];
     //then
     assertThat(self.client.loginSuccessBlock,notNilValue());
     assertThat(self.client.afFailureBlock,notNilValue());
@@ -496,11 +520,12 @@ static id mockedManager(id self, SEL _cmd) {
     //given
     User* user = [self exampleUser];
     [given([serverParamsManager userForServer:anything()]) willReturn:user];
+    [given([serverParamsManager seedForServer:anything()]) willReturn:@"seed"];
     [self setupEmptyResult];
     self.client.callSetupsTestVariant = YES;
     self.client.callTestVariant = YES;
     //when
-    BOOL startResult = [self.client loginWithSuccess:self.successBlock failure:self.failureBlock];
+    BOOL startResult = [self.client login:nil WithSuccess:self.successBlock failure:self.failureBlock];
     //then
     assertThatBool(startResult,equalToBool(YES));
     [self assertProgressIsYES];
@@ -509,6 +534,26 @@ static id mockedManager(id self, SEL _cmd) {
     assertThat(self.client.loginUser,equalTo(user));
 }
 
+-(void)test_shouldStartLoginWithCaptchaAndSetupLoginResponse_whenNotInProgress {
+    //given
+    NSString *captcha = @"captcha";
+    User* user = [self exampleUser];
+    [given([serverParamsManager userForServer:anything()]) willReturn:user];
+    [given([serverParamsManager seedForServer:anything()]) willReturn:@"seed"];
+    [self setupEmptyResult];
+    self.client.callSetupsTestVariant = YES;
+    self.client.callTestVariant = YES;
+    //when
+    BOOL startResult = [self.client login:captcha WithSuccess:self.successBlock failure:self.failureBlock];
+    //then
+    assertThatBool(startResult,equalToBool(YES));
+    [self assertProgressIsYES];
+    [self assertSetupsForLoginWithBlocksWereCalled];
+    assertThatBool(self.client.wasLoginWithCredentialsCalled,equalToBool(YES));
+    assertThat(self.client.loginUser,equalTo(user));
+}
+
+
 -(void)test_shouldNotStartLoginAndSetupLoginResponse_whenInProgress {
     //given
     [self setupEmptyResult];
@@ -516,7 +561,7 @@ static id mockedManager(id self, SEL _cmd) {
     self.client.callSetupsTestVariant = YES;
     self.client.callTestVariant = YES;
     //when
-    BOOL startResult = [self.client loginWithSuccess:self.successBlock failure:self.failureBlock];
+    BOOL startResult = [self.client login:nil WithSuccess:self.successBlock failure:self.failureBlock];
     //then
     assertThatBool(startResult,equalToBool(NO));
     [verifyCount(serverParamsManager,never()) seedForServer:anything()];

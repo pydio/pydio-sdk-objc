@@ -328,6 +328,59 @@ static OperationsClient* operationsClient = nil;
     [verify(operationsClient) deleteNodes:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
 }
 
+#pragma mark - Test login with captcha
+
+-(void)test_shouldNotStartLogin_whenInProgress
+{
+    //given
+    NSString *captcha = @"captcha";
+    [self setupAuthorizationClient:YES AndOperationsClient:NO];
+    [self setupExpectedAndEmptyResult];
+    //when
+    BOOL startResult = [self.client login:captcha WithSuccess:self.successBlock failure:self.failureBlock];
+    //then
+    [self assertNotStartedOperationSetup:startResult];
+    [verifyCount(authorizationClient,never()) login:anything() WithSuccess:anything() failure:anything()];
+}
+
+-(void)test_shouldStartLogin_whenNotInProgress
+{
+    //given
+    NSString *captcha = @"captcha";
+    [self setupEmptyResult];
+    //when
+    BOOL startResult = [self.client login:captcha WithSuccess:self.successBlock failure:self.failureBlock];
+    //then
+    [self assertStartedOperationSetup0AuthTries:startResult];
+    [verify(authorizationClient) login:equalTo(captcha) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+}
+
+#pragma mark - Get Captcha
+
+-(void)test_shouldNotStartGetCaptcha_whenInProgress
+{
+    //given
+    [self setupAuthorizationClient:YES AndOperationsClient:NO];
+    [self setupExpectedAndEmptyResult];
+    //when
+    BOOL startResult = [self.client getCaptchaWithSuccess:self.successBlock failure:self.failureBlock];
+    //then
+    [self assertNotStartedOperationSetup:startResult];
+    [verifyCount(authorizationClient,never()) getCaptchaWithSuccess:anything() failure:anything()];
+}
+
+-(void)test_shouldStartGetCaptcha_whenNotInProgress
+{
+    //given
+    [self setupEmptyResult];
+    //when
+    BOOL startResult = [self.client getCaptchaWithSuccess:self.successBlock failure:self.failureBlock];
+    //then
+    [self assertStartedOperationSetup0AuthTries:startResult];
+    [verify(authorizationClient) getCaptchaWithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+
+}
+
 #pragma mark - Tests Verification
 
 -(void)setupAuthorizationClient:(BOOL) authProgress AndOperationsClient: (BOOL)operationsProgress {

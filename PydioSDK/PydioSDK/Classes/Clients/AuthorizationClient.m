@@ -29,6 +29,8 @@ static NSString * const GET_ACTION = @"get_action";
 static NSString * const USERID = @"userid";
 static NSString * const PASSWORD = @"password";
 static NSString * const LOGIN_SEED = @"login_seed";
+static NSString * const CAPTCHA_CODE = @"captcha_code";
+
 
 @interface AuthorizationClient ()
 @property (readwrite,nonatomic,assign) BOOL progress;
@@ -50,6 +52,7 @@ static NSString * const LOGIN_SEED = @"login_seed";
 -(void)setupLoginSuccessBlock;
 -(void)ping;
 -(void)getSeed;
+-(void)login:(User*)user WithCaptcha:(NSString*)captcha;
 -(void)login:(User*)user;
 @end
 
@@ -168,7 +171,7 @@ static NSString * const LOGIN_SEED = @"login_seed";
     return YES;
 }
 
--(BOOL)loginWithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure {
+-(BOOL)login:(NSString *)captcha WithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure {
     if (self.progress) {
         return NO;
     }
@@ -179,7 +182,7 @@ static NSString * const LOGIN_SEED = @"login_seed";
     [self setupAFFailureBlock];
 
     User *user = [[ServersParamsManager sharedManager] userForServer:self.operationManager.baseURL];
-    [self login:user];
+    [self login:user WithCaptcha:captcha];
     
     return YES;
 }
@@ -195,7 +198,7 @@ static NSString * const LOGIN_SEED = @"login_seed";
     [self setupAFFailureBlock];
     AFHTTPResponseSerializer *responseSerializer = [AFHTTPResponseSerializer serializer];
     responseSerializer.acceptableContentTypes = [[NSSet alloc] initWithObjects:@"image/tiff", @"image/jpeg", @"image/gif", @"image/png", @"image/ico", @"image/x-icon", @"image/bmp", @"image/x-bmp", @"image/x-xbitmap", @"image/x-win-bitmap", nil];
-    [self.operationManager setResponseSerializer:responseSerializer];    
+    [self.operationManager setResponseSerializer:responseSerializer];
     [self.operationManager GET:@"index.php" parameters:@{GET_ACTION : @"get_captcha"} success:self.captchaSuccessBlock failure:self.afFailureBlock];
     return YES;
 }
@@ -212,17 +215,28 @@ static NSString * const LOGIN_SEED = @"login_seed";
     
 }
 
--(void)login:(User*)user {
+-(void)login:(User*)user WithCaptcha:(NSString*)captcha {
     [self.operationManager.requestSerializer setValue:@"true" forHTTPHeaderField:@"Ajxp-Force-Login"];
     self.operationManager.responseSerializer = [self createLoginResponseSerializer];
     NSString *seed = [[ServersParamsManager sharedManager] seedForServer:self.operationManager.baseURL];
-    NSDictionary *params = @{GET_ACTION : @"login",
-                             USERID : user.userid,
-                             PASSWORD : [self hashedPass:user.password WithSeed:seed],
-                             LOGIN_SEED : seed
-                             };
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjects:@[ @"login",
+                                                                                user.userid,
+                                                                                [self hashedPass:user.password WithSeed:seed],
+                                                                                seed]
+                                                                     forKeys:@[GET_ACTION,
+                                                                               USERID,
+                                                                               PASSWORD,
+                                                                               LOGIN_SEED]];
 
+    if (captcha) {
+        [params setValue:captcha forKey:CAPTCHA_CODE];
+    }
+    
     [self.operationManager POST:@"" parameters:params success:self.loginSuccessBlock failure:self.afFailureBlock];
+}
+
+-(void)login:(User*)user {
+    [self login:user WithCaptcha:nil];
 }
 
 -(NSString *)hashedPass:(NSString*)pass WithSeed:(NSString *)seed {
