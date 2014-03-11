@@ -12,6 +12,7 @@
 #import "PydioClient.h"
 #import "Workspace.h"
 #import "ServerWorkspacesViewController.h"
+#import "CaptchaView.h"
 
 
 static NSString * const TABLE_CELL_ID = @"ServerCell";
@@ -70,4 +71,12 @@ static NSString * const SERVER_CONTENT_SEGUE = @"ServerContent";
     return self.servers.count;
 }
 
+#pragma mark - tmp
+
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    CaptchaView *captchaView = [[CaptchaView alloc] init];
+    [captchaView show];
+    
+    return NO;
+}
 @end

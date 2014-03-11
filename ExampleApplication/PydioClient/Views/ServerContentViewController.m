@@ -13,6 +13,7 @@
 #import "ListNodesRequestParams.h"
 #import "MkDirRequestParams.h"
 #import "DeleteNodesRequestParams.h"
+#import "CaptchaView.h"
 
 
 static NSString * const TABLE_CELL_ID = @"TableCell";
@@ -153,6 +154,8 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     
     [alert show];
+//    CaptchaView *captchaView = [[CaptchaView alloc] init];
+//    [captchaView show];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

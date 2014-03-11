@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		89A9E50A18CFA5420073D1AB /* CaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E50918CFA5420073D1AB /* CaptchaView.m */; };
 		89B567C718C386E200F8EABA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B567C618C386E200F8EABA /* Foundation.framework */; };
 		89B567C918C386E200F8EABA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B567C818C386E200F8EABA /* CoreGraphics.framework */; };
 		89B567CB18C386E200F8EABA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B567CA18C386E200F8EABA /* UIKit.framework */; };
@@ -78,6 +79,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		89A9E50818CFA5420073D1AB /* CaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaView.h; sourceTree = "<group>"; };
+		89A9E50918CFA5420073D1AB /* CaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptchaView.m; sourceTree = "<group>"; };
 		89B567C318C386E200F8EABA /* PydioClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PydioClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89B567C618C386E200F8EABA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89B567C818C386E200F8EABA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -291,6 +294,8 @@
 		89B8628D18C500B1009EA040 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				89A9E50818CFA5420073D1AB /* CaptchaView.h */,
+				89A9E50918CFA5420073D1AB /* CaptchaView.m */,
 				89B8628E18C500B1009EA040 /* NewServerViewController.h */,
 				89B8628F18C500B1009EA040 /* NewServerViewController.m */,
 				89B8629018C500B1009EA040 /* ServerContentViewController.h */,
@@ -587,6 +592,7 @@
 				89B8639818C51A0B009EA040 /* AFURLConnectionOperation.m in Sources */,
 				89B8637618C517E9009EA040 /* BootConfResponseSerializer.m in Sources */,
 				89B8636918C517E9009EA040 /* LoginResponseParserDelegate.m in Sources */,
+				89A9E50A18CFA5420073D1AB /* CaptchaView.m in Sources */,
 				89B8636F18C517E9009EA040 /* LoginResponse.m in Sources */,
 				89B8636318C517E9009EA040 /* NSURL+Normalization.m in Sources */,
 				89B8639B18C51A0B009EA040 /* AFURLSessionManager.m in Sources */,

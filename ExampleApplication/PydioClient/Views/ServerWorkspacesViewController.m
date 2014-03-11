@@ -11,6 +11,7 @@
 #import "PydioClient.h"
 #import "Node.h"
 #import "ServerContentViewController.h"
+#import "PydioErrors.h"
 
 
 static NSString * const TABLE_CELL_ID = @"TableCell";
@@ -44,12 +45,15 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 -(void)viewWillAppear:(BOOL)animated {
     self.navigationItem.title = [self.server absoluteString];
     
-    PydioClient *client = [[PydioClient alloc] initWithServer:[self.server absoluteString]];
+    PydioClient *client = [self pydioClient];
     [client listWorkspacesWithSuccess:^(NSArray *files) {
         self.workspaces = files;
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         NSLog(@"%s %@",__PRETTY_FUNCTION__,error);
+        if (error.code == PydioErrorGetSeedWithCaptcha || error.code == PydioErrorLoginWithCaptcha) {
+            [self loadCaptcha];
+        }
     }];
 }
 
@@ -93,4 +97,17 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
    
 }
 
+#pragma mark - Helpers
+
+-(PydioClient *)pydioClient {
+    return [[PydioClient alloc] initWithServer:[self.server absoluteString]];
+}
+
+-(void)loadCaptcha {
+    [[self pydioClient] getCaptchaWithSuccess:^(NSData *captcha) {
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%s %@",__PRETTY_FUNCTION__,error);
+    }];
+}
 @end
