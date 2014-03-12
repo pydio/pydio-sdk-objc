@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		89A9E50A18CFA5420073D1AB /* CaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E50918CFA5420073D1AB /* CaptchaView.m */; };
+		89A9E50C18CFB4EB0073D1AB /* TOOLBAR.png in Resources */ = {isa = PBXBuildFile; fileRef = 89A9E50B18CFB4EB0073D1AB /* TOOLBAR.png */; };
 		89B567C718C386E200F8EABA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B567C618C386E200F8EABA /* Foundation.framework */; };
 		89B567C918C386E200F8EABA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B567C818C386E200F8EABA /* CoreGraphics.framework */; };
 		89B567CB18C386E200F8EABA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B567CA18C386E200F8EABA /* UIKit.framework */; };
@@ -81,6 +82,7 @@
 /* Begin PBXFileReference section */
 		89A9E50818CFA5420073D1AB /* CaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaView.h; sourceTree = "<group>"; };
 		89A9E50918CFA5420073D1AB /* CaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptchaView.m; sourceTree = "<group>"; };
+		89A9E50B18CFB4EB0073D1AB /* TOOLBAR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TOOLBAR.png; sourceTree = "<group>"; };
 		89B567C318C386E200F8EABA /* PydioClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PydioClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89B567C618C386E200F8EABA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		89B567C818C386E200F8EABA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -250,6 +252,7 @@
 		89B567CC18C386E200F8EABA /* PydioClient */ = {
 			isa = PBXGroup;
 			children = (
+				89A9E50B18CFB4EB0073D1AB /* TOOLBAR.png */,
 				89B8637E18C519E5009EA040 /* ExternalLibs */,
 				89B8630C18C517B6009EA040 /* PydioSDK */,
 				89B8628D18C500B1009EA040 /* Views */,
@@ -565,6 +568,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89B8628C18C4FDB4009EA040 /* Main.storyboard in Resources */,
+				89A9E50C18CFB4EB0073D1AB /* TOOLBAR.png in Resources */,
 				89B567D118C386E200F8EABA /* InfoPlist.strings in Resources */,
 				89B567D918C386E200F8EABA /* Images.xcassets in Resources */,
 			);
