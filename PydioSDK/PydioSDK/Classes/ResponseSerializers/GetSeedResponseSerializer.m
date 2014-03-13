@@ -21,8 +21,8 @@
     self = [super init];
     if (self) {
         self.responseSerializers = @[
-                                     [GetSeedTextResponseSerializer serializer],
-                                     [GetSeedJSONResponseSerializer serializer]
+                                     [GetSeedJSONResponseSerializer serializer],
+                                     [GetSeedTextResponseSerializer serializer]
                                      ];
     }
     

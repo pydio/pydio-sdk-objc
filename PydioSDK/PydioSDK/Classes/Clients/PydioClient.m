@@ -21,15 +21,15 @@
 static const int AUTHORIZATION_TRIES_COUNT = 1;
 
 @interface PydioClient ()
-@property(nonatomic,strong) AFHTTPRequestOperationManager* operationManager;
-@property(nonatomic,strong) AuthorizationClient* authorizationClient;
-@property(nonatomic,strong) OperationsClient* operationsClient;
-@property(nonatomic,copy) void(^operationBlock)();
+@property (nonatomic,strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic,strong) AuthorizationClient* authorizationClient;
+@property (nonatomic,strong) OperationsClient* operationsClient;
+@property (nonatomic,copy) void(^operationBlock)();
 @property (nonatomic,copy) void(^successBlock)(id response);
-@property(nonatomic,copy) void(^failureBlock)(NSError* error);
+@property (nonatomic,copy) void(^failureBlock)(NSError* error);
 @property (nonatomic,copy) void(^successResponseBlock)(id responseObject);
 @property (nonatomic,copy) void(^failureResponseBlock)(NSError *error);
-@property(nonatomic,assign) int authorizationsTriesCount;
+@property (nonatomic,assign) int authorizationsTriesCount;
 
 -(AFHTTPRequestOperationManager*)createOperationManager:(NSString*)server;
 -(AuthorizationClient*)createAuthorizationClient;
@@ -42,6 +42,16 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 
 
 @implementation PydioClient
+
++(id)alloc {
+    id objc = [super alloc];
+    NSLog(@"objc %s %@",__PRETTY_FUNCTION__,objc);
+    return objc;
+}
+
+-(void)dealloc {
+    NSLog(@"objc %s %@",__PRETTY_FUNCTION__,self);
+}
 
 -(NSURL*)serverURL {
     return self.operationManager.baseURL;
@@ -73,6 +83,8 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 
 -(void)setupSuccessResponseBlock {
     __weak typeof(self) weakSelf = self;
+    NSLog(@"%s %@ %@",__PRETTY_FUNCTION__,weakSelf,self);
+    
     self.successResponseBlock = ^(id response){
         __strong typeof(self) strongSelf = weakSelf;
         strongSelf.successBlock(response);
@@ -126,7 +138,9 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         return NO;
     }
     [self setupCommons:success failure:failure];
-    self.authorizationsTriesCount = 0;
+//    self.authorizationsTriesCount = 0;
+    
+    NSLog(@"%s %@ %@",__PRETTY_FUNCTION__,self,success);
     
     typeof(self) strongSelf = self;
     self.operationBlock = ^{

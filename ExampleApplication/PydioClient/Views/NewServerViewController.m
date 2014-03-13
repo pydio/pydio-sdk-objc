@@ -32,6 +32,10 @@
 {
     [super viewDidLoad];
     [self setupGestureRecognizerForDissmissingKeyboard];
+    
+    self.server.text = @"http://sandbox.ajaxplorer.info";
+    self.username.text = @"michal";
+    self.password.text = @"michalK1";
 }
 
 - (void)didReceiveMemoryWarning

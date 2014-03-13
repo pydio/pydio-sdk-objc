@@ -71,7 +71,7 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
 }
 
 -(void)setupSuccess:(void(^)())success AndFailure:(void(^)(NSError*))failure {
-
+    NSLog(@"%s %@ %@",__PRETTY_FUNCTION__,self,success);
     __weak typeof(self) weakSelf = self;
     self.successBlock = ^{
         __strong typeof(self) strongSelf = weakSelf;
@@ -175,6 +175,7 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
     if (self.progress) {
         return NO;
     }
+    NSLog(@"%s %@ %@",__PRETTY_FUNCTION__,self,success);
     
     self.progress = YES;
     [self setupSuccess:success AndFailure:failure];

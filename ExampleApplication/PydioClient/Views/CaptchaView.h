@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CaptchaView : UIView
+@interface CaptchaView : UIView <UITextFieldDelegate>
+-(instancetype)initWithImage:(NSData *)data send:(void(^)(NSString *captcha))send cancel:(void(^)())cancel;
 -(void)show;
 @end
