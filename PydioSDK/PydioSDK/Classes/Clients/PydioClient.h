@@ -19,11 +19,11 @@
 
 -(instancetype)initWithServer:(NSString *)server;
 
--(BOOL)authorizeWithSuccess:(void(^)())success failure:(void(^)(NSError* error))failure;
--(BOOL)login:(NSString *)captcha WithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure;
+-(BOOL)authorizeWithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError* error))failure;
+-(BOOL)login:(NSString *)captcha WithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError *error))failure;
 -(BOOL)getCaptchaWithSuccess:(void(^)(NSData *captcha))success failure:(void(^)(NSError *error))failure;
 -(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray* workspaces))success failure:(void(^)(NSError* error))failure;
 -(BOOL)listNodes:(ListNodesRequestParams*)params WithSuccess:(void(^)(NSArray* nodes))success failure:(void(^)(NSError* error))failure;
--(BOOL)mkdir:(MkDirRequestParams*)params WithSuccess:(void(^)())success failure:(void(^)(NSError* error))failure;
+-(BOOL)mkdir:(MkDirRequestParams*)params WithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError* error))failure;
 -(BOOL)deleteNodes:(DeleteNodesRequestParams*)params WithSuccess:(void(^)())success failure:(void(^)(NSError* error))failure;
 @end

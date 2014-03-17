@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Pydio. All rights reserved.
 //
 
-#import "UIView+CaptchaView.h"
+#import "UIViewController+CaptchaView.h"
 #import "CaptchaView.h"
 
-@implementation UIView (CaptchaView)
+@implementation UIViewController (CaptchaView)
 -(void)showCaptchaView:(NSData*)image Send:(void(^)(NSString *captcha))send Cancel:(void(^)())cancel {
     CaptchaView *captchaView = [[CaptchaView alloc] initWithImage:image send:send cancel:cancel];
     

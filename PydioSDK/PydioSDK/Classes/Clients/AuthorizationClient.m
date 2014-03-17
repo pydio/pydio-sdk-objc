@@ -43,7 +43,7 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
 @property (nonatomic,copy) void(^failureBlock)(NSError* error);
 
 -(void)clearBlocks;
--(void)setupSuccess:(void(^)())success AndFailure:(void(^)(NSError*))failure;
+-(void)setupSuccess:(void(^)(id ignored))success AndFailure:(void(^)(NSError*))failure;
 -(void)setupFailure:(void(^)(NSError*))failure;
 -(void)setupGetCaptchaSuccess:(void(^)(NSData *captcha))success;
 -(void)setupAFFailureBlock;
@@ -70,12 +70,11 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
     _captchaSuccessBlock = nil;
 }
 
--(void)setupSuccess:(void(^)())success AndFailure:(void(^)(NSError*))failure {
-    NSLog(@"%s %@ %@",__PRETTY_FUNCTION__,self,success);
+-(void)setupSuccess:(void(^)(id ignored))success AndFailure:(void(^)(NSError*))failure {
     __weak typeof(self) weakSelf = self;
     self.successBlock = ^{
         __strong typeof(self) strongSelf = weakSelf;
-        success();
+        success(nil);
         [strongSelf clearBlocks];
         strongSelf->_progress = NO;
     };
@@ -154,7 +153,7 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
 
 #pragma mark - Authorization process
 
--(BOOL)authorizeWithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure {
+-(BOOL)authorizeWithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError *error))failure {
     if (self.progress) {
         return NO;
     }
@@ -171,11 +170,10 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
     return YES;
 }
 
--(BOOL)login:(NSString *)captcha WithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure {
+-(BOOL)login:(NSString *)captcha WithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError *error))failure {
     if (self.progress) {
         return NO;
     }
-    NSLog(@"%s %@ %@",__PRETTY_FUNCTION__,self,success);
     
     self.progress = YES;
     [self setupSuccess:success AndFailure:failure];

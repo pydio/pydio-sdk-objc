@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		89A21B4C18D362550076B089 /* UIView+CaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A21B4B18D362550076B089 /* UIView+CaptchaView.m */; };
+		89A21B4C18D362550076B089 /* UIViewController+CaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A21B4B18D362550076B089 /* UIViewController+CaptchaView.m */; };
 		89A9E50A18CFA5420073D1AB /* CaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E50918CFA5420073D1AB /* CaptchaView.m */; };
 		89A9E50C18CFB4EB0073D1AB /* TOOLBAR.png in Resources */ = {isa = PBXBuildFile; fileRef = 89A9E50B18CFB4EB0073D1AB /* TOOLBAR.png */; };
 		89B567C718C386E200F8EABA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B567C618C386E200F8EABA /* Foundation.framework */; };
@@ -81,8 +81,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		89A21B4A18D362550076B089 /* UIView+CaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CaptchaView.h"; sourceTree = "<group>"; };
-		89A21B4B18D362550076B089 /* UIView+CaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CaptchaView.m"; sourceTree = "<group>"; };
+		89A21B4A18D362550076B089 /* UIViewController+CaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CaptchaView.h"; sourceTree = "<group>"; };
+		89A21B4B18D362550076B089 /* UIViewController+CaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CaptchaView.m"; sourceTree = "<group>"; };
 		89A9E50818CFA5420073D1AB /* CaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaView.h; sourceTree = "<group>"; };
 		89A9E50918CFA5420073D1AB /* CaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptchaView.m; sourceTree = "<group>"; };
 		89A9E50B18CFB4EB0073D1AB /* TOOLBAR.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TOOLBAR.png; sourceTree = "<group>"; };
@@ -310,8 +310,8 @@
 				89B8629318C500B1009EA040 /* ServersViewController.m */,
 				89B8629418C500B1009EA040 /* ServerWorkspacesViewController.h */,
 				89B8629518C500B1009EA040 /* ServerWorkspacesViewController.m */,
-				89A21B4A18D362550076B089 /* UIView+CaptchaView.h */,
-				89A21B4B18D362550076B089 /* UIView+CaptchaView.m */,
+				89A21B4A18D362550076B089 /* UIViewController+CaptchaView.h */,
+				89A21B4B18D362550076B089 /* UIViewController+CaptchaView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -620,7 +620,7 @@
 				89B8639718C51A0B009EA040 /* AFSecurityPolicy.m in Sources */,
 				89B8629918C500B1009EA040 /* ServerWorkspacesViewController.m in Sources */,
 				89B8636518C517E9009EA040 /* ListNodesRequestParams.m in Sources */,
-				89A21B4C18D362550076B089 /* UIView+CaptchaView.m in Sources */,
+				89A21B4C18D362550076B089 /* UIViewController+CaptchaView.m in Sources */,
 				89B8636D18C517E9009EA040 /* GetRepositoriesParserStates.m in Sources */,
 				89B8629618C500B1009EA040 /* NewServerViewController.m in Sources */,
 				89B8629718C500B1009EA040 /* ServerContentViewController.m in Sources */,

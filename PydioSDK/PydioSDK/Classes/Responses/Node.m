@@ -24,8 +24,7 @@
 }
 
 -(BOOL)isTreeEqual:(Node*)other {
-    BOOL result = [self isValuesEqual:other];
-    result = self.children.count == other.children.count;
+    BOOL result = [self isValuesEqual:other] && self.children.count == other.children.count;
     
     NSUInteger i = 0;
     while (result && i < self.children.count) {

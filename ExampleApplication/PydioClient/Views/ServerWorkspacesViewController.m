@@ -12,7 +12,7 @@
 #import "Node.h"
 #import "ServerContentViewController.h"
 #import "PydioErrors.h"
-#import "UIView+CaptchaView.h"
+#import "UIViewController+CaptchaView.h"
 
 
 static NSString * const TABLE_CELL_ID = @"TableCell";
@@ -99,7 +99,6 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
         self.workspaces = files;
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-        NSLog(@"%s %@",__PRETTY_FUNCTION__,error);
         if (error.code == PydioErrorGetSeedWithCaptcha || error.code == PydioErrorLoginWithCaptcha) {
             [self loadCaptcha];
         }
@@ -107,30 +106,34 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 }
 
 -(void)loadCaptcha {
-    void(^failureBlock)(NSError *error) = ^(NSError *error) {
-        NSLog(@"%s %@",__PRETTY_FUNCTION__,error);
+    
+    dispatch_block_t cancelCaptchaBlock = ^{
+        [self.navigationController popViewControllerAnimated:YES];
+    };
+    
+    void(^loginSuccessBlock)(id ignored) = ^(id ignored) {
+        [self listWorkspaces];
+    };
+    
+    void(^getCaptchaFailureBlock)(NSError *error) = ^(NSError *error) {
+        NSLog(@"%s Login with captcha failure %@",__PRETTY_FUNCTION__,error);
+        cancelCaptchaBlock();
+    };
+
+    void(^loginFailureBlock)(NSError *error) = ^(NSError *error) {
+        NSLog(@"%s Login with captcha failure %@",__PRETTY_FUNCTION__,error);
+        cancelCaptchaBlock();
     };
     
     void(^sendCaptchaBlock)(NSString *captcha) =  ^(NSString *captcha){
-        NSLog(@"%s %@",__PRETTY_FUNCTION__,captcha);
-        [[self pydioClient] login:captcha WithSuccess:^{
-            NSLog(@"%s Login with captcha success",__PRETTY_FUNCTION__);
-//            [self listWorkspaces];
-        } failure:failureBlock];
+        [[self pydioClient] login:captcha WithSuccess:loginSuccessBlock failure:loginFailureBlock];
     };
     
     void(^getCapcthaSuccessBlock)(NSData *captcha) = ^(NSData *captcha) {
-        [self.view showCaptchaView:captcha Send:sendCaptchaBlock Cancel:^{}];
+        [self showCaptchaView:captcha Send:sendCaptchaBlock Cancel:cancelCaptchaBlock];
     };
     
-    PydioClient *pclient = [self pydioClient];
-    NSLog(@"PydioClient before capctha %@",pclient);
-    
-    [pclient getCaptchaWithSuccess:getCapcthaSuccessBlock failure:failureBlock];
-}
-
--(void)logSomething {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
+    [[self pydioClient] getCaptchaWithSuccess:getCapcthaSuccessBlock failure:getCaptchaFailureBlock];
 }
 
 @end

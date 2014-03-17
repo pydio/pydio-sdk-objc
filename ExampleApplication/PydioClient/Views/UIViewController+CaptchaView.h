@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIView (CaptchaView)
+@interface UIViewController (CaptchaView)
 -(void)showCaptchaView:(NSData*)image Send:(void(^)(NSString *captcha))send Cancel:(void(^)())cancel;
 @end

@@ -154,8 +154,6 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     
     [alert show];
-//    CaptchaView *captchaView = [[CaptchaView alloc] init];
-//    [captchaView show];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -166,7 +164,7 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
 
 -(void)mkDir:(NSString*)dirname {
     PydioClient *client = [self pydioClient];
-    [client mkdir:[self mkdirRequestParams:dirname] WithSuccess:^{
+    [client mkdir:[self mkdirRequestParams:dirname] WithSuccess:^(id ignored){
         [self listFiles];
     } failure:^(NSError *error) {
         NSLog(@"%s FAILURE: %@",__PRETTY_FUNCTION__,error);

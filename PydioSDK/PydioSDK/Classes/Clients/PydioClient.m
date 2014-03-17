@@ -43,16 +43,6 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 
 @implementation PydioClient
 
-+(id)alloc {
-    id objc = [super alloc];
-    NSLog(@"objc %s %@",__PRETTY_FUNCTION__,objc);
-    return objc;
-}
-
--(void)dealloc {
-    NSLog(@"objc %s %@",__PRETTY_FUNCTION__,self);
-}
-
 -(NSURL*)serverURL {
     return self.operationManager.baseURL;
 }
@@ -83,8 +73,6 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 
 -(void)setupSuccessResponseBlock {
     __weak typeof(self) weakSelf = self;
-    NSLog(@"%s %@ %@",__PRETTY_FUNCTION__,weakSelf,self);
-    
     self.successResponseBlock = ^(id response){
         __strong typeof(self) strongSelf = weakSelf;
         strongSelf.successBlock(response);
@@ -116,7 +104,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 
 #pragma mark -
 
--(BOOL)authorizeWithSuccess:(void(^)())success failure:(void(^)(NSError* error))failure {
+-(BOOL)authorizeWithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError* error))failure {
     if (self.progress) {
         return NO;
     }
@@ -133,14 +121,12 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return YES;
 }
 
--(BOOL)login:(NSString *)captcha WithSuccess:(void(^)())success failure:(void(^)(NSError *error))failure {
+-(BOOL)login:(NSString *)captcha WithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError *error))failure {
     if (self.progress) {
         return NO;
     }
     [self setupCommons:success failure:failure];
-//    self.authorizationsTriesCount = 0;
-    
-    NSLog(@"%s %@ %@",__PRETTY_FUNCTION__,self,success);
+    self.authorizationsTriesCount = 0;
     
     typeof(self) strongSelf = self;
     self.operationBlock = ^{
@@ -201,7 +187,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return YES;
 }
 
--(BOOL)mkdir:(MkDirRequestParams*)params WithSuccess:(void(^)())success failure:(void(^)(NSError* error))failure {
+-(BOOL)mkdir:(MkDirRequestParams*)params WithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError* error))failure {
     if (self.progress) {
         return NO;
     }
