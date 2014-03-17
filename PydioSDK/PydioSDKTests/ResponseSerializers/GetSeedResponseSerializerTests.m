@@ -41,8 +41,8 @@
 
 -(void)test_ShouldSetupMainResponseSerializer {
     assertThatUnsignedInteger(self.responseSerializer.responseSerializers.count,equalToUnsignedInteger(2));
-    assertThat([self.responseSerializer.responseSerializers objectAtIndex:0],instanceOf([GetSeedTextResponseSerializer class]));
-    assertThat([self.responseSerializer.responseSerializers objectAtIndex:1],instanceOf([GetSeedJSONResponseSerializer class]));
+    assertThat([self.responseSerializer.responseSerializers objectAtIndex:0],instanceOf([GetSeedJSONResponseSerializer class]));
+    assertThat([self.responseSerializer.responseSerializers objectAtIndex:1],instanceOf([GetSeedTextResponseSerializer class]));
 }
 
 @end

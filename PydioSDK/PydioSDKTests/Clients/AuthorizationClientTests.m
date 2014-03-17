@@ -57,11 +57,11 @@ static id mockedManager(id self, SEL _cmd) {
 @property (nonatomic,copy) AFSuccessBlock loginSuccessBlock;
 @property (nonatomic,copy) AFSuccessBlock captchaSuccessBlock;
 @property (nonatomic,copy) void(^afFailureBlock)(AFHTTPRequestOperation *operation, NSError *error);
-@property (nonatomic,copy) void(^successBlock)();
+@property (nonatomic,copy) void(^successBlock)(id ignored);
 @property (nonatomic,copy) void(^failureBlock)(NSError* error);
 
 -(NSString *)hashedPass:(NSString*)pass WithSeed:(NSString *)seed;
--(void)setupSuccess:(void(^)())success AndFailure:(void(^)(NSError*))failure;
+-(void)setupSuccess:(void(^)(id ignored))success AndFailure:(void(^)(NSError*))failure;
 -(void)setupFailure:(void(^)(NSError*))failure;
 -(void)setupGetCaptchaSuccess:(void(^)(NSData *captcha))success;
 -(void)setupAFFailureBlock;
@@ -95,7 +95,7 @@ static id mockedManager(id self, SEL _cmd) {
 
 @implementation TestedAuthorizationClient
 
--(void)setupSuccess:(void(^)())success AndFailure:(void(^)(NSError*))failure {
+-(void)setupSuccess:(void(^)(id ignored))success AndFailure:(void(^)(NSError*))failure {
     if (self.callSetupsTestVariant) {
         self.wasSetupSuccessAndFailureCalled = YES;
     } else {
@@ -278,7 +278,7 @@ static id mockedManager(id self, SEL _cmd) {
     [self setupEmptyResult];
     [self setupClientSuccessAndFailureBlocks];
     
-    self.client.successBlock();
+    self.client.successBlock(nil);
     
     [self assertResultEqualsExpectedResult];
     [self assertAllBlocksNiled];
@@ -678,7 +678,7 @@ static id mockedManager(id self, SEL _cmd) {
 
 -(void)setupEmptyResult {
     self.result = [BlocksCallResult result];
-    self.successBlock = [self.result voidSuccessBlock];
+    self.successBlock = [self.result successBlock];
     self.failureBlock = [self.result failureBlock];
 }
 
