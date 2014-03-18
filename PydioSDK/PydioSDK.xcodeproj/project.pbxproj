@@ -265,18 +265,8 @@
 		3D03A67B1867176700DC5839 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				89A6AA43187B440A003A6BDA /* Clients */,
-				89401D211883318F005A030A /* ServersParamsManager.h */,
-				89401D221883318F005A030A /* ServersParamsManager.m */,
-				8910F5FE18789F870005BED4 /* Data */,
-				89A6D1CD18A16F0A00B3A4AF /* NSURL+Normalization.h */,
-				89A6D1CE18A16F0A00B3A4AF /* NSURL+Normalization.m */,
-				89E5A14B1887156F001CE77D /* PydioErrors.h */,
-				89A7691618A4388C0056A61F /* Requests */,
-				89AC1ACC188DAEDD00ACAD7C /* ResponseParsers */,
-				89AC1ACD188DBE1900ACAD7C /* Responses */,
-				8910F5FD18789E2E0005BED4 /* ResponseSerializers */,
-				89A6C8A81894791700EA5D13 /* SerializersDelegates */,
+				89B68C7F18D8F76F006C7461 /* Public */,
+				89B68C7E18D8F566006C7461 /* Internals */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -369,8 +359,8 @@
 		8910F5FE18789F870005BED4 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				8910F5F018786EFA0005BED4 /* NSString+Hash.h */,
-				8910F5F118786EFA0005BED4 /* NSString+Hash.m */,
+				89A7691618A4388C0056A61F /* Requests */,
+				89AC1ACD188DBE1900ACAD7C /* Responses */,
 				89401308188443C90044001D /* User.h */,
 				89401309188443C90044001D /* User.m */,
 			);
@@ -403,12 +393,8 @@
 		89A6AA43187B440A003A6BDA /* Clients */ = {
 			isa = PBXGroup;
 			children = (
-				89A6AA44187B4436003A6BDA /* AuthorizationClient.h */,
-				89A6AA45187B4436003A6BDA /* AuthorizationClient.m */,
 				89B429E9187F4BAB005F6580 /* PydioClient.h */,
 				89B429EA187F4BAB005F6580 /* PydioClient.m */,
-				89A84FF21885F5B800AFC2F0 /* OperationsClient.h */,
-				89A84FF31885F5B800AFC2F0 /* OperationsClient.m */,
 			);
 			path = Clients;
 			sourceTree = "<group>";
@@ -482,18 +468,8 @@
 		89AC1ACD188DBE1900ACAD7C /* Responses */ = {
 			isa = PBXGroup;
 			children = (
-				89C2A9C81878CD440051B8E6 /* LoginResponse.h */,
-				89C2A9C91878CD440051B8E6 /* LoginResponse.m */,
 				89A6F303189E73FF00F1763E /* Node.h */,
 				89A6F304189E73FF00F1763E /* Node.m */,
-				89A554FD188C03F1008C1B64 /* NotAuthorizedResponse.h */,
-				89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */,
-				89A76DD118B2BF28000D0AF1 /* PydioErrorResponse.h */,
-				89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */,
-				89A8C23018B6A6E40027B715 /* PydioSuccessResponse.h */,
-				89A8C23118B6A6E40027B715 /* PydioSuccessResponse.m */,
-				89A9E1E818C27BFA00C821D8 /* SeedResponse.h */,
-				89A9E1E918C27BFA00C821D8 /* SeedResponse.m */,
 				89AC1AC9188DA30800ACAD7C /* Workspace.h */,
 				89AC1ACA188DA30800ACAD7C /* Workspace.m */,
 			);
@@ -528,6 +504,70 @@
 				89ABACFE1893BEF700E1420D /* unathorized_response2.xml */,
 			);
 			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		89B68C7E18D8F566006C7461 /* Internals */ = {
+			isa = PBXGroup;
+			children = (
+				89B68C8218D9008D006C7461 /* Clients */,
+				89B68C8018D8F7E8006C7461 /* Helpers */,
+				89AC1ACC188DAEDD00ACAD7C /* ResponseParsers */,
+				89B68C8118D8FA66006C7461 /* Responses */,
+				8910F5FD18789E2E0005BED4 /* ResponseSerializers */,
+				89A6C8A81894791700EA5D13 /* SerializersDelegates */,
+			);
+			path = Internals;
+			sourceTree = "<group>";
+		};
+		89B68C7F18D8F76F006C7461 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				89A6AA43187B440A003A6BDA /* Clients */,
+				8910F5FE18789F870005BED4 /* Data */,
+				89E5A14B1887156F001CE77D /* PydioErrors.h */,
+				89401D211883318F005A030A /* ServersParamsManager.h */,
+				89401D221883318F005A030A /* ServersParamsManager.m */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		89B68C8018D8F7E8006C7461 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8910F5F018786EFA0005BED4 /* NSString+Hash.h */,
+				8910F5F118786EFA0005BED4 /* NSString+Hash.m */,
+				89A6D1CD18A16F0A00B3A4AF /* NSURL+Normalization.h */,
+				89A6D1CE18A16F0A00B3A4AF /* NSURL+Normalization.m */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		89B68C8118D8FA66006C7461 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				89C2A9C81878CD440051B8E6 /* LoginResponse.h */,
+				89C2A9C91878CD440051B8E6 /* LoginResponse.m */,
+				89A554FD188C03F1008C1B64 /* NotAuthorizedResponse.h */,
+				89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */,
+				89A76DD118B2BF28000D0AF1 /* PydioErrorResponse.h */,
+				89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */,
+				89A8C23018B6A6E40027B715 /* PydioSuccessResponse.h */,
+				89A8C23118B6A6E40027B715 /* PydioSuccessResponse.m */,
+				89A9E1E818C27BFA00C821D8 /* SeedResponse.h */,
+				89A9E1E918C27BFA00C821D8 /* SeedResponse.m */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		89B68C8218D9008D006C7461 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				89A6AA44187B4436003A6BDA /* AuthorizationClient.h */,
+				89A6AA45187B4436003A6BDA /* AuthorizationClient.m */,
+				89A84FF21885F5B800AFC2F0 /* OperationsClient.h */,
+				89A84FF31885F5B800AFC2F0 /* OperationsClient.m */,
+			);
+			path = Clients;
 			sourceTree = "<group>";
 		};
 		89B863A218C52135009EA040 /* PydioSDK */ = {
