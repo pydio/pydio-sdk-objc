@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		89B68C9418D90505006C7461 /* PydioSDKLipo */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 89B68C9518D90505006C7461 /* Build configuration list for PBXAggregateTarget "PydioSDKLipo" */;
+			buildPhases = (
+				89B68C9818D905B5006C7461 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = PydioSDKLipo;
+			productName = PydioSDKLipo;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		89943D8418C66CED00C07E4F /* GetSeedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E1E618C2746B00C821D8 /* GetSeedResponseSerializer.m */; };
 		89943D8518C66CED00C07E4F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401309188443C90044001D /* User.m */; };
@@ -81,6 +95,15 @@
 		89943DCC18C6730A00C07E4F /* ls_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AD73B7189D3602003C8DD4 /* ls_response.xml */; };
 		89943DCD18C6730A00C07E4F /* ls_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A6F2F9189E3FDA00F1763E /* ls_response2.xml */; };
 		89943DCF18C6730A00C07E4F /* get_registers_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AC1AD4188DE98600ACAD7C /* get_registers_response.xml */; };
+		89B68C8B18D9025A006C7461 /* PydioClient.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89B429E9187F4BAB005F6580 /* PydioClient.h */; };
+		89B68C8C18D9025A006C7461 /* DeleteNodesRequestParams.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89A88C1A18BA951600DAE087 /* DeleteNodesRequestParams.h */; };
+		89B68C8D18D9025A006C7461 /* ListNodesRequestParams.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89A7691718A4391A0056A61F /* ListNodesRequestParams.h */; };
+		89B68C8E18D9025A006C7461 /* MkDirRequestParams.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89ADF98F18BA0EE900E418CA /* MkDirRequestParams.h */; };
+		89B68C8F18D9025A006C7461 /* Node.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89A6F303189E73FF00F1763E /* Node.h */; };
+		89B68C9018D9025A006C7461 /* Workspace.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89AC1AC9188DA30800ACAD7C /* Workspace.h */; };
+		89B68C9118D9025A006C7461 /* User.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89401308188443C90044001D /* User.h */; };
+		89B68C9218D9025A006C7461 /* PydioErrors.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89E5A14B1887156F001CE77D /* PydioErrors.h */; };
+		89B68C9318D9025A006C7461 /* ServersParamsManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89401D211883318F005A030A /* ServersParamsManager.h */; };
 		89B863A118C52135009EA040 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3AE5186648C900A766D7 /* Foundation.framework */; };
 		89B863AE18C52135009EA040 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3B04186648C900A766D7 /* XCTest.framework */; };
 		89B863AF18C52135009EA040 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DFF3AE5186648C900A766D7 /* Foundation.framework */; };
@@ -104,6 +127,15 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				89B68C8B18D9025A006C7461 /* PydioClient.h in CopyFiles */,
+				89B68C8C18D9025A006C7461 /* DeleteNodesRequestParams.h in CopyFiles */,
+				89B68C8D18D9025A006C7461 /* ListNodesRequestParams.h in CopyFiles */,
+				89B68C8E18D9025A006C7461 /* MkDirRequestParams.h in CopyFiles */,
+				89B68C8F18D9025A006C7461 /* Node.h in CopyFiles */,
+				89B68C9018D9025A006C7461 /* Workspace.h in CopyFiles */,
+				89B68C9118D9025A006C7461 /* User.h in CopyFiles */,
+				89B68C9218D9025A006C7461 /* PydioErrors.h in CopyFiles */,
+				89B68C9318D9025A006C7461 /* ServersParamsManager.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,6 +710,7 @@
 			targets = (
 				89B8639F18C52135009EA040 /* PydioSDK */,
 				89B863AC18C52135009EA040 /* PydioSDKTests */,
+				89B68C9418D90505006C7461 /* PydioSDKLipo */,
 			);
 		};
 /* End PBXProject section */
@@ -699,6 +732,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		89B68C9818D905B5006C7461 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# define output folder environment variable\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target PydioSDK ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target PydioSDK -configuration ${CONFIGURATION} -sdk iphonesimulator -arch i386 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 2. Create universal binary file using lipo\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/lib${PROJECT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${PROJECT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${PROJECT_NAME}.a\"\n\n# Last touch. copy the header files. Just for convenience\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include\" \"${UNIVERSAL_OUTPUTFOLDER}/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		89B8639C18C52135009EA040 /* Sources */ = {
@@ -862,6 +911,20 @@
 			};
 			name = Release;
 		};
+		89B68C9618D90505006C7461 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		89B68C9718D90505006C7461 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		89B863BC18C52135009EA040 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -957,6 +1020,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		89B68C9518D90505006C7461 /* Build configuration list for PBXAggregateTarget "PydioSDKLipo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89B68C9618D90505006C7461 /* Debug */,
+				89B68C9718D90505006C7461 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		89B863C018C52135009EA040 /* Build configuration list for PBXNativeTarget "PydioSDK" */ = {
 			isa = XCConfigurationList;
