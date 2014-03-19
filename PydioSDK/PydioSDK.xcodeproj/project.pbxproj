@@ -95,6 +95,7 @@
 		89943DCC18C6730A00C07E4F /* ls_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AD73B7189D3602003C8DD4 /* ls_response.xml */; };
 		89943DCD18C6730A00C07E4F /* ls_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A6F2F9189E3FDA00F1763E /* ls_response2.xml */; };
 		89943DCF18C6730A00C07E4F /* get_registers_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AC1AD4188DE98600ACAD7C /* get_registers_response.xml */; };
+		89B08E9918DA2D9A0041660A /* Commons.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89B08E9818DA28400041660A /* Commons.h */; };
 		89B68C8B18D9025A006C7461 /* PydioClient.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89B429E9187F4BAB005F6580 /* PydioClient.h */; };
 		89B68C8C18D9025A006C7461 /* DeleteNodesRequestParams.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89A88C1A18BA951600DAE087 /* DeleteNodesRequestParams.h */; };
 		89B68C8D18D9025A006C7461 /* ListNodesRequestParams.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89A7691718A4391A0056A61F /* ListNodesRequestParams.h */; };
@@ -127,6 +128,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				89B08E9918DA2D9A0041660A /* Commons.h in CopyFiles */,
 				89B68C8B18D9025A006C7461 /* PydioClient.h in CopyFiles */,
 				89B68C8C18D9025A006C7461 /* DeleteNodesRequestParams.h in CopyFiles */,
 				89B68C8D18D9025A006C7461 /* ListNodesRequestParams.h in CopyFiles */,
@@ -243,6 +245,7 @@
 		89AD73B7189D3602003C8DD4 /* ls_response.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ls_response.xml; sourceTree = "<group>"; };
 		89ADF98F18BA0EE900E418CA /* MkDirRequestParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MkDirRequestParams.h; sourceTree = "<group>"; };
 		89ADF99018BA0EE900E418CA /* MkDirRequestParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MkDirRequestParams.m; sourceTree = "<group>"; };
+		89B08E9818DA28400041660A /* Commons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commons.h; sourceTree = "<group>"; };
 		89B13A9C18917A13007282EB /* ServersParamsManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServersParamsManagerTests.m; sourceTree = "<group>"; };
 		89B1B6EF18A4170400EC79C5 /* FailingResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FailingResponseSerializer.h; sourceTree = "<group>"; };
 		89B1B6F018A4170400EC79C5 /* FailingResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FailingResponseSerializer.m; sourceTree = "<group>"; };
@@ -555,6 +558,7 @@
 			isa = PBXGroup;
 			children = (
 				89A6AA43187B440A003A6BDA /* Clients */,
+				89B08E9818DA28400041660A /* Commons.h */,
 				8910F5FE18789F870005BED4 /* Data */,
 				89E5A14B1887156F001CE77D /* PydioErrors.h */,
 				89401D211883318F005A030A /* ServersParamsManager.h */,
@@ -745,7 +749,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# define output folder environment variable\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target PydioSDK ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target PydioSDK -configuration ${CONFIGURATION} -sdk iphonesimulator -arch i386 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 2. Create universal binary file using lipo\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/lib${PROJECT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${PROJECT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${PROJECT_NAME}.a\"\n\n# Last touch. copy the header files. Just for convenience\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include\" \"${UNIVERSAL_OUTPUTFOLDER}/\"";
+			shellScript = "# define output folder environment variable\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target PydioSDK ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -target PydioSDK -configuration ${CONFIGURATION} -sdk iphonesimulator -arch i386 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 2. Create universal binary file using lipo\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/lib${PROJECT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${PROJECT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${PROJECT_NAME}.a\"\n\n# Last touch. copy the header files. Just for convenience\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/include\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n#Copy lipo from build directory to directory in project root\nrm -rf \"${PROJECT_DIR}/lipo-build\"\nmkdir -p \"${PROJECT_DIR}/lipo-build\"\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/\" \"${PROJECT_DIR}/lipo-build\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1028,6 +1032,7 @@
 				89B68C9718D90505006C7461 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		89B863C018C52135009EA040 /* Build configuration list for PBXNativeTarget "PydioSDK" */ = {
 			isa = XCConfigurationList;

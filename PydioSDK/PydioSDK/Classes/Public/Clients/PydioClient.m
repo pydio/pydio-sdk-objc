@@ -26,9 +26,9 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 @property (nonatomic,strong) OperationsClient* operationsClient;
 @property (nonatomic,copy) void(^operationBlock)();
 @property (nonatomic,copy) void(^successBlock)(id response);
-@property (nonatomic,copy) void(^failureBlock)(NSError* error);
+@property (nonatomic,copy) FailureBlock failureBlock;
 @property (nonatomic,copy) void(^successResponseBlock)(id responseObject);
-@property (nonatomic,copy) void(^failureResponseBlock)(NSError *error);
+@property (nonatomic,copy) FailureBlock failureResponseBlock;
 @property (nonatomic,assign) int authorizationsTriesCount;
 
 -(AFHTTPRequestOperationManager*)createOperationManager:(NSString*)server;
@@ -37,7 +37,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 -(void)setupResponseBlocks;
 -(void)setupSuccessResponseBlock;
 -(void)setupFailureResponseBlock;
--(void)setupCommons:(void(^)(id result))success failure:(void(^)(NSError *))failure;
+-(void)setupCommons:(void(^)(id result))success failure:(FailureBlock)failure;
 @end
 
 
@@ -94,7 +94,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     };
 }
 
--(void)setupCommons:(void(^)(id result))success failure:(void(^)(NSError *))failure {
+-(void)setupCommons:(void(^)(id result))success failure:(FailureBlock)failure {
     [self resetAuthorizationTriesCount];
     self.successBlock = success;
     self.failureBlock = failure;
@@ -104,7 +104,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 
 #pragma mark -
 
--(BOOL)authorizeWithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError* error))failure {
+-(BOOL)authorizeWithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure {
     if (self.progress) {
         return NO;
     }
@@ -121,7 +121,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return YES;
 }
 
--(BOOL)login:(NSString *)captcha WithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError *error))failure {
+-(BOOL)login:(NSString *)captcha WithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure {
     if (self.progress) {
         return NO;
     }
@@ -138,7 +138,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return YES;
 }
 
--(BOOL)getCaptchaWithSuccess:(void(^)(NSData *captcha))success failure:(void(^)(NSError *error))failure {
+-(BOOL)getCaptchaWithSuccess:(void(^)(NSData *captcha))success failure:(FailureBlock)failure {
     if (self.progress) {
         return NO;
     }
@@ -155,7 +155,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return YES;
 }
 
--(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray* workspaces))success failure:(void(^)(NSError* error))failure {
+-(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray* workspaces))success failure:(FailureBlock)failure {
     if (self.progress) {
         return NO;
     }
@@ -171,7 +171,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return YES;
 }
 
--(BOOL)listNodes:(ListNodesRequestParams *)params WithSuccess:(void(^)(NSArray* nodes))success failure:(void(^)(NSError* error))failure {
+-(BOOL)listNodes:(ListNodesRequestParams *)params WithSuccess:(void(^)(NSArray* nodes))success failure:(FailureBlock)failure {
     if (self.progress) {
         return NO;
     }
@@ -187,12 +187,12 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return YES;
 }
 
--(BOOL)mkdir:(MkDirRequestParams*)params WithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError* error))failure {
+-(BOOL)mkdir:(MkDirRequestParams*)params WithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure {
     if (self.progress) {
         return NO;
     }
     [self setupCommons:success failure:failure];
-
+    
     typeof(self) strongSelf = self;
     self.operationBlock = ^{
         [strongSelf.operationsClient mkdir:[params dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
@@ -203,7 +203,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return YES;
 }
 
--(BOOL)deleteNodes:(DeleteNodesRequestParams*)params WithSuccess:(void(^)())success failure:(void(^)(NSError* error))failure {
+-(BOOL)deleteNodes:(DeleteNodesRequestParams*)params WithSuccess:(void(^)())success failure:(FailureBlock)failure {
     if (self.progress) {
         return NO;
     }

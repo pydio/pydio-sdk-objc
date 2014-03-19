@@ -17,9 +17,7 @@
 #import "PydioErrors.h"
 
 
-
 typedef void(^SuccessBlock)(id response);
-typedef void(^FailureBlock)(NSError* error);
 
 extern NSString * const PydioErrorDomain;
 
@@ -105,7 +103,7 @@ extern NSString * const PydioErrorDomain;
     
     [self setupCommons:args.success failure:args.failure];
     self.operationManager.responseSerializer = serializer;
-
+    
     [self.operationManager GET:@"index.php" parameters:params success:self.successResponseBlock failure:self.failureResponseBlock];
     
     return YES;
@@ -124,26 +122,26 @@ extern NSString * const PydioErrorDomain;
     return YES;
 }
 
--(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray *workspaces))success failure:(void(^)(NSError *error))failure {
+-(BOOL)listWorkspacesWithSuccess:(void(^)(NSArray *workspaces))success failure:(FailureBlock)failure {
     
     return [self performGETAction:[self responseSerializerForGetRegisters]
                        withParams:[self paramsForGetRegisters]
                           andArgs:[AggregatedArgs argsWith:success failure:failure]];
 }
 
--(BOOL)listFiles:(NSDictionary*)params WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
+-(BOOL)listFiles:(NSDictionary*)params WithSuccess:(void(^)(NSArray* files))success failure:(FailureBlock)failure {
     return [self performGETAction:[self responseSerializerForListFiles]
                        withParams:[self paramsForLs:params]
                           andArgs:[AggregatedArgs argsWith:success failure:failure]];
 }
 
--(BOOL)mkdir:(NSDictionary*)params WithSuccess:(void(^)(NSArray* files))success failure:(void(^)(NSError* error))failure {
+-(BOOL)mkdir:(NSDictionary*)params WithSuccess:(void(^)(NSArray* files))success failure:(FailureBlock)failure {
     return [self performPOSTAction:[self responseSerializerForSuccessResponseToAction:@"mkdir"]
-                       withParams:[self paramsForMkDir:params]
-                          andArgs:[AggregatedArgs argsWith:success failure:failure]];
+                        withParams:[self paramsForMkDir:params]
+                           andArgs:[AggregatedArgs argsWith:success failure:failure]];
 }
 
--(BOOL)deleteNodes:(NSDictionary*)params WithSuccess:(void(^)())success failure:(void(^)(NSError* error))failure {
+-(BOOL)deleteNodes:(NSDictionary*)params WithSuccess:(void(^)())success failure:(FailureBlock)failure {
     return [self performPOSTAction:[self responseSerializerForSuccessResponseToAction:@"delete"]
                         withParams:[self paramsForDeleteNodes:params]
                            andArgs:[AggregatedArgs argsWith:success failure:failure]];
@@ -151,7 +149,7 @@ extern NSString * const PydioErrorDomain;
 
 #pragma mark - Helper methods
 
--(void)setupCommons:(void(^)(id result))success failure:(void(^)(NSError *))failure {
+-(void)setupCommons:(void(^)(id result))success failure:(FailureBlock)failure {
     self.progress = YES;
     
     self.operationManager.requestSerializer = [self defaultRequestSerializer];
@@ -226,7 +224,7 @@ extern NSString * const PydioErrorDomain;
              [self createSerializerForErrorResponse],
              serializer,
              [self createFailingSerializer]
-            ];
+             ];
 }
 
 -(XMLResponseSerializer*)createSerializerForNotAuthorized {

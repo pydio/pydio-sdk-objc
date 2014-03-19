@@ -40,11 +40,11 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
 @property (nonatomic,copy) AFSuccessBlock captchaSuccessBlock;
 @property (nonatomic,copy) void(^afFailureBlock)(AFHTTPRequestOperation *operation, NSError *error);
 @property (nonatomic,copy) void(^successBlock)();
-@property (nonatomic,copy) void(^failureBlock)(NSError* error);
+@property (nonatomic,copy) FailureBlock failureBlock;
 
 -(void)clearBlocks;
--(void)setupSuccess:(void(^)(id ignored))success AndFailure:(void(^)(NSError*))failure;
--(void)setupFailure:(void(^)(NSError*))failure;
+-(void)setupSuccess:(void(^)(id ignored))success AndFailure:(FailureBlock)failure;
+-(void)setupFailure:(FailureBlock)failure;
 -(void)setupGetCaptchaSuccess:(void(^)(NSData *captcha))success;
 -(void)setupAFFailureBlock;
 -(void)setupPingSuccessBlock;
@@ -70,7 +70,7 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
     _captchaSuccessBlock = nil;
 }
 
--(void)setupSuccess:(void(^)(id ignored))success AndFailure:(void(^)(NSError*))failure {
+-(void)setupSuccess:(void(^)(id ignored))success AndFailure:(FailureBlock)failure {
     __weak typeof(self) weakSelf = self;
     self.successBlock = ^{
         __strong typeof(self) strongSelf = weakSelf;
@@ -82,7 +82,7 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
     [self setupFailure:failure];
 }
 
--(void)setupFailure:(void(^)(NSError*))failure {
+-(void)setupFailure:(FailureBlock)failure {
     __weak typeof(self) weakSelf = self;
     self.failureBlock = ^(NSError *error){
         __strong typeof(self) strongSelf = weakSelf;
@@ -148,18 +148,18 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
             strongSelf.failureBlock(error);
         }
     };
-
+    
 }
 
 #pragma mark - Authorization process
 
--(BOOL)authorizeWithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError *error))failure {
+-(BOOL)authorizeWithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure {
     if (self.progress) {
         return NO;
     }
     
     self.progress = YES;
-    [self setupSuccess:success AndFailure:failure];    
+    [self setupSuccess:success AndFailure:failure];
     [self setupPingSuccessBlock];
     [self setupSeedSuccessBlock];
     [self setupLoginSuccessBlock];
@@ -170,7 +170,7 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
     return YES;
 }
 
--(BOOL)login:(NSString *)captcha WithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError *error))failure {
+-(BOOL)login:(NSString *)captcha WithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure {
     if (self.progress) {
         return NO;
     }
@@ -179,14 +179,14 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
     [self setupSuccess:success AndFailure:failure];
     [self setupLoginSuccessBlock];
     [self setupAFFailureBlock];
-
+    
     User *user = [[ServersParamsManager sharedManager] userForServer:self.operationManager.baseURL];
     [self login:user WithCaptcha:captcha];
     
     return YES;
 }
 
--(BOOL)getCaptchaWithSuccess:(void(^)(NSData *captcha))success failure:(void(^)(NSError *error))failure {
+-(BOOL)getCaptchaWithSuccess:(void(^)(NSData *captcha))success failure:(FailureBlock)failure {
     if (self.progress) {
         return NO;
     }
@@ -226,7 +226,7 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
                                                                                USERID,
                                                                                PASSWORD,
                                                                                LOGIN_SEED]];
-
+    
     if (captcha) {
         [params setValue:captcha forKey:CAPTCHA_CODE];
     }

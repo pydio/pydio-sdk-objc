@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Commons.h"
 
 extern NSString * const PydioErrorDomain;
 
@@ -16,7 +17,7 @@ extern NSString * const PydioErrorDomain;
 @property (nonatomic,strong) AFHTTPRequestOperationManager *operationManager;
 @property (readonly,nonatomic,assign) BOOL progress;
 
--(BOOL)authorizeWithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError *error))failure;
--(BOOL)login:(NSString *)captcha WithSuccess:(void(^)(id ignored))success failure:(void(^)(NSError *error))failure;
--(BOOL)getCaptchaWithSuccess:(void(^)(NSData *captcha))success failure:(void(^)(NSError *error))failure;
+-(BOOL)authorizeWithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure;
+-(BOOL)login:(NSString *)captcha WithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure;
+-(BOOL)getCaptchaWithSuccess:(void(^)(NSData *captcha))success failure:(FailureBlock)failure;
 @end

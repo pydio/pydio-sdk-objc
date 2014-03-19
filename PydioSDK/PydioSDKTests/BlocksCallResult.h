@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Commons.h"
 
 @class AFHTTPRequestOperation;
 
 typedef void (^VoidSuccessBlock)();
 typedef void (^SuccessBlock)(id responseObject);
-typedef void (^FailureBlock)(NSError *error);
+
 
 @interface BlocksCallResult : NSObject
 @property(nonatomic,assign) BOOL successBlockCalled;
