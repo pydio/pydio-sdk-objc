@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Node : NSObject
-@property (nonatomic,weak) Node* parent;
+@interface NodeResponse : NSObject
+@property (nonatomic,weak) NodeResponse* parent;
 @property (nonatomic,strong) NSString* name;
 @property (nonatomic,assign) BOOL isLeaf;
 @property (nonatomic,strong) NSString* path;
@@ -18,6 +18,6 @@
 @property (nonatomic,strong) NSArray *children;
 
 -(NSString*)fullPath;
--(BOOL)isTreeEqual:(Node*)node;
--(BOOL)isValuesEqual:(Node*)other;
+-(BOOL)isTreeEqual:(NodeResponse*)node;
+-(BOOL)isValuesEqual:(NodeResponse*)other;
 @end

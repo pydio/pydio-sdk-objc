@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Workspace : NSObject
+@interface WorkspaceResponse : NSObject
 @property (readonly,nonatomic,strong) NSString* workspaceId;
 @property (readonly,nonatomic,strong) NSString* label;
 @property (readonly,nonatomic,strong) NSString* description;

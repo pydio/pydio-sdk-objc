@@ -10,7 +10,7 @@
 #import "ServersParamsManager.h"
 #import "User.h"
 #import "PydioClient.h"
-#import "Workspace.h"
+#import "WorkspaceResponse.h"
 #import "ServerWorkspacesViewController.h"
 #import "CaptchaView.h"
 

@@ -7,7 +7,7 @@
 //
 
 #import "ListFilesResponseParserDelegate.h"
-#import "Node.h"
+#import "NodeResponse.h"
 
 
 static NSString * const TREE_NODE = @"tree";
@@ -68,12 +68,12 @@ static NSString * const MODIFTIME_ELEMENT = @"ajxp_modiftime";
     return [NSArray arrayWithArray:_files];
 }
 
--(void)appendFile:(Node*)file {
+-(void)appendFile:(NodeResponse*)file {
     [_files addObject:file];
 }
 
--(Node*)createFileNode:(NSDictionary*)attributes {
-    Node *file = [[Node alloc] init];
+-(NodeResponse*)createFileNode:(NSDictionary*)attributes {
+    NodeResponse *file = [[NodeResponse alloc] init];
     file.name = [attributes text];
     file.isLeaf = [[attributes isLeaf] isEqualToString:@"true"];
     file.path = [attributes filename];
@@ -87,7 +87,7 @@ static NSString * const MODIFTIME_ELEMENT = @"ajxp_modiftime";
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     if ([elementName isEqualToString:TREE_NODE] && [attributeDict filename] != nil) {
-        Node *node = [self createFileNode:attributeDict];
+        NodeResponse *node = [self createFileNode:attributeDict];
         node.parent = [self.parentsStack lastObject];
         if (!node.parent.children) {
             node.parent.children = [NSArray arrayWithObject:node];
@@ -103,7 +103,7 @@ static NSString * const MODIFTIME_ELEMENT = @"ajxp_modiftime";
 
 -(void)parser:(NSXMLParser*)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
     if ([elementName isEqualToString:TREE_NODE]) {
-        Node *node = [self.parentsStack lastObject];
+        NodeResponse *node = [self.parentsStack lastObject];
         [self.parentsStack removeLastObject];
         if (self.parentsStack.count == 0) {
             [_files addObject:node];

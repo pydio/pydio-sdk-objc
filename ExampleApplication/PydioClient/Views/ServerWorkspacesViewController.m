@@ -7,9 +7,9 @@
 //
 
 #import "ServerWorkspacesViewController.h"
-#import "Workspace.h"
+#import "WorkspaceResponse.h"
 #import "PydioClient.h"
-#import "Node.h"
+#import "NodeResponse.h"
 #import "ServerContentViewController.h"
 #import "PydioErrors.h"
 #import "UIViewController+CaptchaView.h"
@@ -63,7 +63,7 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TABLE_CELL_ID];
     }
     
-    cell.textLabel.text = ((Workspace*)[self.workspaces objectAtIndex:indexPath.row]).label;
+    cell.textLabel.text = ((WorkspaceResponse*)[self.workspaces objectAtIndex:indexPath.row]).label;
     
     return cell;
 }
@@ -81,9 +81,9 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
     int row = [self.tableView indexPathForSelectedRow].row;
     
     ServerContentViewController *destination = segue.destinationViewController;
-    destination.workspace = (Workspace*)[self.workspaces objectAtIndex:row];
+    destination.workspace = (WorkspaceResponse*)[self.workspaces objectAtIndex:row];
     destination.server = self.server;
-    destination.rootNode = [[Node alloc] init];
+    destination.rootNode = [[NodeResponse alloc] init];
     destination.rootNode.path = @"/";
    
 }

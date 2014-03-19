@@ -9,10 +9,10 @@
 #import "RepositoriesParserDelegate.h"
 #import "GetRepositoriesParserStates.h"
 
-@class Workspace;
+@class WorkspaceResponse;
 
 @interface RepositoriesParserDelegate ()
--(void)appendRepository:(Workspace*)repo;
+-(void)appendRepository:(WorkspaceResponse*)repo;
 @end
 
 @implementation RepositoriesParserDelegate
@@ -28,7 +28,7 @@
     return self;
 }
 
--(void)appendRepository:(Workspace*)repo {
+-(void)appendRepository:(WorkspaceResponse*)repo {
     _repositories = [_repositories arrayByAddingObject:repo];
 }
 

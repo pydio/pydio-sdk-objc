@@ -7,11 +7,11 @@
 //
 
 #import "GetRepositoriesParserStates.h"
-#import "Workspace.h"
+#import "WorkspaceResponse.h"
 
 
 @interface RepositoriesParserDelegate ()
--(void)appendRepository:(Workspace*)repo;
+-(void)appendRepository:(WorkspaceResponse*)repo;
 @end
 
 
@@ -52,7 +52,7 @@
     } else if (!self.description && [elementName isEqualToString:@"description"]) {
         self.description = self.buffer;
     } else if ([elementName isEqualToString:@"repo"]) {
-        Workspace *repo = [[Workspace alloc] initWithId:self.repoId AndLabel:self.label AndDescription:self.description];
+        WorkspaceResponse *repo = [[WorkspaceResponse alloc] initWithId:self.repoId AndLabel:self.label AndDescription:self.description];
         [self.delegate appendRepository:repo];
         self.delegate.parserState = [[ExpectStartRepoState alloc] initWithDelegate:self.delegate];
     }

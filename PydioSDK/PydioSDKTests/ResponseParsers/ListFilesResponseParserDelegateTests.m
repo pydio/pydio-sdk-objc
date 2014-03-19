@@ -14,7 +14,7 @@
 
 #import "ListFilesResponseParserDelegate.h"
 #import "XCTestCase+XMLFixture.h"
-#import "Node.h"
+#import "NodeResponse.h"
 
 
 @interface ListFilesResponseParserDelegateTests : XCTestCase
@@ -37,20 +37,20 @@
 
 - (void)testShouldParseCorrectFilesResponse
 {
-    Node *expectedTree = [self expectedFilesTree];
+    NodeResponse *expectedTree = [self expectedFilesTree];
     NSXMLParser *parser = [self parserWithFixture:@"ls_response2.xml" delegate:self.parserDelegate];
     
     BOOL result = [parser parse];
     
     assertThatBool(result,equalToBool(YES));
     assertThatUnsignedInteger(self.parserDelegate.files.count,equalToUnsignedInteger(1));
-    assertThatBool([((Node*)[self.parserDelegate.files objectAtIndex:0]) isTreeEqual:expectedTree],equalToBool(YES));
+    assertThatBool([((NodeResponse*)[self.parserDelegate.files objectAtIndex:0]) isTreeEqual:expectedTree],equalToBool(YES));
 }
 
 #pragma mark - Helpers
 
--(Node*)expectedFilesTree {
-    Node *node = [[Node alloc] init];
+-(NodeResponse*)expectedFilesTree {
+    NodeResponse *node = [[NodeResponse alloc] init];
     
     node.name = @"";
     node.isLeaf = NO;
@@ -65,8 +65,8 @@
     return node;
 }
 
--(Node*)child1:(Node*)parent {
-    Node *node = [[Node alloc] init];
+-(NodeResponse*)child1:(NodeResponse*)parent {
+    NodeResponse *node = [[NodeResponse alloc] init];
 
     node.parent = parent;
     node.name = @"curl_dump";
@@ -78,8 +78,8 @@
     return node;
 }
 
--(Node*)child2:(Node*)parent {
-    Node *node = [[Node alloc] init];
+-(NodeResponse*)child2:(NodeResponse*)parent {
+    NodeResponse *node = [[NodeResponse alloc] init];
     
     node.parent = parent;
     node.name = @"Recycle Bin";

@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class Workspace;
-@class Node;
+@class WorkspaceResponse;
+@class NodeResponse;
 
 @interface ServerContentViewController : UITableViewController
 
 @property (nonatomic,strong) NSURL *server;
-@property (nonatomic,strong) Workspace *workspace;
-@property (nonatomic,strong) Node* rootNode;
+@property (nonatomic,strong) WorkspaceResponse *workspace;
+@property (nonatomic,strong) NodeResponse* rootNode;
 
 - (IBAction)addDirClicked:(id)sender;
 @end

@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 MINI. All rights reserved.
 //
 
-#import "Workspace.h"
+#import "WorkspaceResponse.h"
 
-@implementation Workspace
+@implementation WorkspaceResponse
 
 -(instancetype)initWithId:(NSString*)repoId AndLabel:(NSString *)label AndDescription:(NSString*)description {
     self = [super init];

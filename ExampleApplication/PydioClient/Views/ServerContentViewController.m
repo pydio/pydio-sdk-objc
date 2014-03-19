@@ -7,9 +7,9 @@
 //
 
 #import "ServerContentViewController.h"
-#import "Node.h"
+#import "NodeResponse.h"
 #import "PydioClient.h"
-#import "Workspace.h"
+#import "WorkspaceResponse.h"
 #import "ListNodesRequestParams.h"
 #import "MkDirRequestParams.h"
 #import "DeleteNodesRequestParams.h"
@@ -113,7 +113,7 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
     [client listNodes:[self listFilesRequest]
           WithSuccess:^(NSArray *files) {
               if (files.count) {
-                  self.rootNode.children = ((Node*)[files objectAtIndex:0]).children;
+                  self.rootNode.children = ((NodeResponse*)[files objectAtIndex:0]).children;
                   [self.tableView reloadData];
               }
           } failure:^(NSError *error) {
@@ -138,8 +138,8 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
     return [self fileNodeAt:row].name;
 }
 
--(Node*)fileNodeAt:(NSInteger)row {
-    return (Node*)[self.rootNode.children objectAtIndex:row];
+-(NodeResponse*)fileNodeAt:(NSInteger)row {
+    return (NodeResponse*)[self.rootNode.children objectAtIndex:row];
 }
 
 #pragma mark - Add Directory
@@ -180,7 +180,7 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
     return params;
 }
 
--(void)deleteNode:(Node*)node {
+-(void)deleteNode:(NodeResponse*)node {
     PydioClient *client = [self pydioClient];
     [client deleteNodes:[self deleteNodeParams:node] WithSuccess:^{
         [self listFiles];
@@ -189,7 +189,7 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
     }];    
 }
 
--(DeleteNodesRequestParams *)deleteNodeParams:(Node*)node {
+-(DeleteNodesRequestParams *)deleteNodeParams:(NodeResponse*)node {
     DeleteNodesRequestParams *params = [[DeleteNodesRequestParams alloc] init];
     params.workspaceId = self.workspace.workspaceId;
     params.nodes = [NSArray arrayWithObject:node.fullPath];

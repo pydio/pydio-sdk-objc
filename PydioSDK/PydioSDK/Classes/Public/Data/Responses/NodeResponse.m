@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 MINI. All rights reserved.
 //
 
-#import "Node.h"
+#import "NodeResponse.h"
 
-@implementation Node
+@implementation NodeResponse
 
 -(NSString*)fullPath {
     
     NSString *path = self.path;
-    Node *node = self;
+    NodeResponse *node = self;
     
     while (node.parent) {
         path = [NSString stringWithFormat:@"%@%@",node.parent,path];
@@ -23,13 +23,13 @@
     return path;
 }
 
--(BOOL)isTreeEqual:(Node*)other {
+-(BOOL)isTreeEqual:(NodeResponse*)other {
     BOOL result = [self isValuesEqual:other] && self.children.count == other.children.count;
     
     NSUInteger i = 0;
     while (result && i < self.children.count) {
-        Node *myChild = [self.children objectAtIndex:i];
-        Node *otherChild = [other.children objectAtIndex:i];
+        NodeResponse *myChild = [self.children objectAtIndex:i];
+        NodeResponse *otherChild = [other.children objectAtIndex:i];
         
         result = [myChild isTreeEqual:otherChild];
         ++i;
@@ -38,7 +38,7 @@
     return result;
 }
 
--(BOOL)isValuesEqual:(Node*)other {
+-(BOOL)isValuesEqual:(NodeResponse*)other {
     if (self == other) {
         return YES;
     }
