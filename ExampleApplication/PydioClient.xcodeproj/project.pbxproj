@@ -544,6 +544,7 @@
 					"$(inherited)",
 					"/Users/pc-mobile/develop/ajaxplorer_new/PydioSDK/lipo-build",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -561,6 +562,7 @@
 					"$(inherited)",
 					"/Users/pc-mobile/develop/ajaxplorer_new/PydioSDK/lipo-build",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

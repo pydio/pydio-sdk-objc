@@ -21,9 +21,17 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		891A83E918DA46E0002E9FF7 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B1D18664EEF00A766D7 /* AFHTTPRequestOperation.m */; };
+		891A83EA18DA46E0002E9FF7 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B1F18664EEF00A766D7 /* AFHTTPRequestOperationManager.m */; };
+		891A83EB18DA46E0002E9FF7 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2118664EEF00A766D7 /* AFHTTPSessionManager.m */; };
+		891A83EC18DA46E0002E9FF7 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2418664EEF00A766D7 /* AFNetworkReachabilityManager.m */; };
+		891A83ED18DA46E0002E9FF7 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2618664EEF00A766D7 /* AFSecurityPolicy.m */; };
+		891A83EE18DA46E0002E9FF7 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2818664EEF00A766D7 /* AFURLConnectionOperation.m */; };
+		891A83EF18DA46E0002E9FF7 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2A18664EEF00A766D7 /* AFURLRequestSerialization.m */; };
+		891A83F018DA46E0002E9FF7 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2C18664EEF00A766D7 /* AFURLResponseSerialization.m */; };
+		891A83F118DA46E0002E9FF7 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2E18664EEF00A766D7 /* AFURLSessionManager.m */; };
 		89943D8418C66CED00C07E4F /* GetSeedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E1E618C2746B00C821D8 /* GetSeedResponseSerializer.m */; };
 		89943D8518C66CED00C07E4F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401309188443C90044001D /* User.m */; };
-		89943D8618C66CED00C07E4F /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B1D18664EEF00A766D7 /* AFHTTPRequestOperation.m */; };
 		89943D8718C66CED00C07E4F /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F118786EFA0005BED4 /* NSString+Hash.m */; };
 		89943D8818C66CED00C07E4F /* WorkspaceResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AC1ACA188DA30800ACAD7C /* WorkspaceResponse.m */; };
 		89943D8918C66CED00C07E4F /* BootConfResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */; };
@@ -33,23 +41,15 @@
 		89943D8E18C66CED00C07E4F /* ServersParamsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401D221883318F005A030A /* ServersParamsManager.m */; };
 		89943D8F18C66CED00C07E4F /* GetSeedJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E1EC18C2917A00C821D8 /* GetSeedJSONResponseSerializer.m */; };
 		89943D9018C66CED00C07E4F /* ErrorResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A58F0518A9796C00FCEDE5 /* ErrorResponseParserDelegate.m */; };
-		89943D9118C66CED00C07E4F /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B1F18664EEF00A766D7 /* AFHTTPRequestOperationManager.m */; };
 		89943D9218C66CED00C07E4F /* XMLResponseSerializerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AA6A1918956EFE006A22DB /* XMLResponseSerializerDelegate.m */; };
 		89943D9318C66CED00C07E4F /* SeedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E1E918C27BFA00C821D8 /* SeedResponse.m */; };
-		89943D9418C66CED00C07E4F /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2418664EEF00A766D7 /* AFNetworkReachabilityManager.m */; };
 		89943D9518C66CED00C07E4F /* PydioErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A76DD218B2BF28000D0AF1 /* PydioErrorResponse.m */; };
-		89943D9618C66CED00C07E4F /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2C18664EEF00A766D7 /* AFURLResponseSerialization.m */; };
 		89943D9718C66CED00C07E4F /* ListFilesResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD73B3189D2C69003C8DD4 /* ListFilesResponseParserDelegate.m */; };
 		89943D9818C66CED00C07E4F /* PydioSuccessResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A8C23118B6A6E40027B715 /* PydioSuccessResponse.m */; };
 		89943D9918C66CED00C07E4F /* NodeResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6F304189E73FF00F1763E /* NodeResponse.m */; };
 		89943D9A18C66CED00C07E4F /* NotAuthorizedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A554FE188C03F1008C1B64 /* NotAuthorizedResponse.m */; };
-		89943D9B18C66CED00C07E4F /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2818664EEF00A766D7 /* AFURLConnectionOperation.m */; };
 		89943D9C18C66CED00C07E4F /* GetSeedTextResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F718788A7A0005BED4 /* GetSeedTextResponseSerializer.m */; };
-		89943D9D18C66CED00C07E4F /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2618664EEF00A766D7 /* AFSecurityPolicy.m */; };
 		89943D9E18C66CED00C07E4F /* MkDirRequestParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ADF99018BA0EE900E418CA /* MkDirRequestParams.m */; };
-		89943D9F18C66CED00C07E4F /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2118664EEF00A766D7 /* AFHTTPSessionManager.m */; };
-		89943DA018C66CED00C07E4F /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2A18664EEF00A766D7 /* AFURLRequestSerialization.m */; };
-		89943DA118C66CED00C07E4F /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2E18664EEF00A766D7 /* AFURLSessionManager.m */; };
 		89943DA218C66CED00C07E4F /* SuccessResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A8C22C18B68EC30027B715 /* SuccessResponseParserDelegate.m */; };
 		89943DA318C66CED00C07E4F /* NotAuthorizedResponseParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F6001878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m */; };
 		89943DA418C66CED00C07E4F /* NSURL+Normalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A6D1CE18A16F0A00B3A4AF /* NSURL+Normalization.m */; };
@@ -760,7 +760,6 @@
 			files = (
 				89943D8418C66CED00C07E4F /* GetSeedResponseSerializer.m in Sources */,
 				89943D8518C66CED00C07E4F /* User.m in Sources */,
-				89943D8618C66CED00C07E4F /* AFHTTPRequestOperation.m in Sources */,
 				89943D8718C66CED00C07E4F /* NSString+Hash.m in Sources */,
 				89943D8818C66CED00C07E4F /* WorkspaceResponse.m in Sources */,
 				89943D8918C66CED00C07E4F /* BootConfResponseSerializer.m in Sources */,
@@ -770,23 +769,15 @@
 				89943D8E18C66CED00C07E4F /* ServersParamsManager.m in Sources */,
 				89943D8F18C66CED00C07E4F /* GetSeedJSONResponseSerializer.m in Sources */,
 				89943D9018C66CED00C07E4F /* ErrorResponseParserDelegate.m in Sources */,
-				89943D9118C66CED00C07E4F /* AFHTTPRequestOperationManager.m in Sources */,
 				89943D9218C66CED00C07E4F /* XMLResponseSerializerDelegate.m in Sources */,
 				89943D9318C66CED00C07E4F /* SeedResponse.m in Sources */,
-				89943D9418C66CED00C07E4F /* AFNetworkReachabilityManager.m in Sources */,
 				89943D9518C66CED00C07E4F /* PydioErrorResponse.m in Sources */,
-				89943D9618C66CED00C07E4F /* AFURLResponseSerialization.m in Sources */,
 				89943D9718C66CED00C07E4F /* ListFilesResponseParserDelegate.m in Sources */,
 				89943D9818C66CED00C07E4F /* PydioSuccessResponse.m in Sources */,
 				89943D9918C66CED00C07E4F /* NodeResponse.m in Sources */,
 				89943D9A18C66CED00C07E4F /* NotAuthorizedResponse.m in Sources */,
-				89943D9B18C66CED00C07E4F /* AFURLConnectionOperation.m in Sources */,
 				89943D9C18C66CED00C07E4F /* GetSeedTextResponseSerializer.m in Sources */,
-				89943D9D18C66CED00C07E4F /* AFSecurityPolicy.m in Sources */,
 				89943D9E18C66CED00C07E4F /* MkDirRequestParams.m in Sources */,
-				89943D9F18C66CED00C07E4F /* AFHTTPSessionManager.m in Sources */,
-				89943DA018C66CED00C07E4F /* AFURLRequestSerialization.m in Sources */,
-				89943DA118C66CED00C07E4F /* AFURLSessionManager.m in Sources */,
 				89943DA218C66CED00C07E4F /* SuccessResponseParserDelegate.m in Sources */,
 				89943DA318C66CED00C07E4F /* NotAuthorizedResponseParserDelegate.m in Sources */,
 				89943DA418C66CED00C07E4F /* NSURL+Normalization.m in Sources */,
@@ -806,6 +797,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				891A83E918DA46E0002E9FF7 /* AFHTTPRequestOperation.m in Sources */,
+				891A83EA18DA46E0002E9FF7 /* AFHTTPRequestOperationManager.m in Sources */,
+				891A83EB18DA46E0002E9FF7 /* AFHTTPSessionManager.m in Sources */,
+				891A83EC18DA46E0002E9FF7 /* AFNetworkReachabilityManager.m in Sources */,
+				891A83ED18DA46E0002E9FF7 /* AFSecurityPolicy.m in Sources */,
+				891A83EE18DA46E0002E9FF7 /* AFURLConnectionOperation.m in Sources */,
+				891A83EF18DA46E0002E9FF7 /* AFURLRequestSerialization.m in Sources */,
+				891A83F018DA46E0002E9FF7 /* AFURLResponseSerialization.m in Sources */,
+				891A83F118DA46E0002E9FF7 /* AFURLSessionManager.m in Sources */,
 				89943DAE18C66CED00C07E4F /* NotAuthorizedResponseSerializerDelegateTests.m in Sources */,
 				89943DAF18C66CED00C07E4F /* GetSeedResponseSerializerTests.m in Sources */,
 				89943DB018C66CED00C07E4F /* ListFilesResponseParserDelegateTests.m in Sources */,
