@@ -13,3 +13,4 @@ xcuserdata
 
 build/
 Frameworks/
+lipo-build/
