@@ -10,7 +10,6 @@
 #import "PydioErrors.h"
 
 NSString * const PydioErrorDomain = @"PydioErrorDomain";
-NSString * const PydioErrorSeedKey = @"PydioErrorSeedKey";
 
 static NSString * const TOKEN=@"SECURE_TOKEN";
 

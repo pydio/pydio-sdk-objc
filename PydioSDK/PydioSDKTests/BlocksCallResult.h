@@ -12,7 +12,6 @@
 @class AFHTTPRequestOperation;
 
 typedef void (^VoidSuccessBlock)();
-typedef void (^SuccessBlock)(id responseObject);
 
 
 @interface BlocksCallResult : NSObject

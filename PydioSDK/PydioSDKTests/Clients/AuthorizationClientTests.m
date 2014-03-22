@@ -52,18 +52,20 @@ static id mockedManager(id self, SEL _cmd) {
 
 @interface AuthorizationClient ()
 @property (readwrite,nonatomic,assign) BOOL progress;
-@property (nonatomic,copy) AFSuccessBlock pingSuccessBlock;
-@property (nonatomic,copy) AFSuccessBlock seedSuccessBlock;
-@property (nonatomic,copy) AFSuccessBlock loginSuccessBlock;
-@property (nonatomic,copy) AFSuccessBlock captchaSuccessBlock;
-@property (nonatomic,copy) void(^afFailureBlock)(AFHTTPRequestOperation *operation, NSError *error);
+//@property (nonatomic,copy) AFSuccessBlock pingSuccessBlock;
+//@property (nonatomic,copy) AFSuccessBlock seedSuccessBlock;
+//@property (nonatomic,copy) AFSuccessBlock loginSuccessBlock;
+//@property (nonatomic,copy) AFSuccessBlock captchaSuccessBlock;
+@property (nonatomic,copy) AFSuccessBlock afSuccessBlock;
+@property (nonatomic,copy) AFFailureBlock afFailureBlock;
 @property (nonatomic,copy) void(^successBlock)(id ignored);
 @property (nonatomic,copy) void(^failureBlock)(NSError* error);
 
 -(NSString *)hashedPass:(NSString*)pass WithSeed:(NSString *)seed;
 -(void)setupSuccess:(void(^)(id ignored))success AndFailure:(void(^)(NSError*))failure;
+-(void)setupSuccess:(SuccessBlock)success;
 -(void)setupFailure:(void(^)(NSError*))failure;
--(void)setupGetCaptchaSuccess:(void(^)(NSData *captcha))success;
+-(void)setupGetCaptchaSuccess;
 -(void)setupAFFailureBlock;
 -(void)setupPingSuccessBlock;
 -(void)setupSeedSuccessBlock;
@@ -79,15 +81,14 @@ static id mockedManager(id self, SEL _cmd) {
 @property (nonatomic,assign) BOOL callTestVariant;
 @property (nonatomic,assign) BOOL callSetupsTestVariant;
 @property (nonatomic,assign) BOOL wasPingCalled;
-@property (nonatomic,assign) BOOL wasGetSeedCalled;
+//@property (nonatomic,assign) BOOL wasGetSeedCalled;
 @property (nonatomic,assign) BOOL wasLoginWithCredentialsCalled;
 
 @property (nonatomic,assign) BOOL wasSetupSuccessAndFailureCalled;
 @property (nonatomic,assign) BOOL wasSetupFailureCalled;
-@property (nonatomic,assign) BOOL wasSetupGetCaptchaSuccess;
-@property (nonatomic,assign) BOOL wasSetupPingCalled;
-@property (nonatomic,assign) BOOL wasSetupGetSeedCalled;
-@property (nonatomic,assign) BOOL wasSetupLoginCalled;
+//@property (nonatomic,assign) BOOL wasSetupPingCalled;
+//@property (nonatomic,assign) BOOL wasSetupGetSeedCalled;
+//@property (nonatomic,assign) BOOL wasSetupLoginCalled;
 @property (nonatomic,assign) BOOL wasSetupAFFailureCalled;
 
 @property (nonatomic,strong) User* loginUser;
@@ -111,14 +112,6 @@ static id mockedManager(id self, SEL _cmd) {
     }
 }
 
--(void)setupGetCaptchaSuccess:(void(^)(NSData *captcha))success {
-    if (self.callSetupsTestVariant) {
-        self.wasSetupGetCaptchaSuccess = YES;
-    } else {
-        [super setupGetCaptchaSuccess:success];
-    }
-}
-
 -(void)setupAFFailureBlock {
     if (self.callSetupsTestVariant) {
         self.wasSetupAFFailureCalled = YES;
@@ -127,29 +120,29 @@ static id mockedManager(id self, SEL _cmd) {
     }
 }
 
--(void)setupPingSuccessBlock {
-    if (self.callSetupsTestVariant) {
-        self.wasSetupPingCalled = YES;
-    } else {
-        [super setupPingSuccessBlock];
-    }
-}
+//-(void)setupPingSuccessBlock {
+//    if (self.callSetupsTestVariant) {
+//        self.wasSetupPingCalled = YES;
+//    } else {
+//        [super setupPingSuccessBlock];
+//    }
+//}
 
--(void)setupSeedSuccessBlock {
-    if (self.callSetupsTestVariant) {
-        self.wasSetupGetSeedCalled = YES;
-    } else {
-        [super setupSeedSuccessBlock];
-    }
-}
+//-(void)setupSeedSuccessBlock {
+//    if (self.callSetupsTestVariant) {
+//        self.wasSetupGetSeedCalled = YES;
+//    } else {
+//        [super setupSeedSuccessBlock];
+//    }
+//}
 
--(void)setupLoginSuccessBlock {
-    if (self.callSetupsTestVariant) {
-        self.wasSetupLoginCalled = YES;
-    } else {
-        [super setupLoginSuccessBlock];
-    }
-}
+//-(void)setupLoginSuccessBlock {
+//    if (self.callSetupsTestVariant) {
+//        self.wasSetupLoginCalled = YES;
+//    } else {
+//        [super setupLoginSuccessBlock];
+//    }
+//}
 
 
 -(void)ping {
@@ -160,13 +153,13 @@ static id mockedManager(id self, SEL _cmd) {
     }
 }
 
--(void)getSeed {
-    if (self.callTestVariant) {
-        self.wasGetSeedCalled = YES;
-    } else {
-        [super getSeed];
-    }
-}
+//-(void)getSeed {
+//    if (self.callTestVariant) {
+//        self.wasGetSeedCalled = YES;
+//    } else {
+//        [super getSeed];
+//    }
+//}
 
 -(void)login:(User*)user WithCaptcha:(NSString*)captcha {
     if (self.callTestVariant) {
@@ -332,18 +325,20 @@ static id mockedManager(id self, SEL _cmd) {
     
     [self.client ping];
     
-    assertThat(self.client.pingSuccessBlock,notNilValue());
+    assertThat(self.client.afSuccessBlock,notNilValue());
     assertThat(self.client.afFailureBlock,notNilValue());
-    [verify(self.operationManager) GET:INDEX parameters:expectedParams success:self.client.pingSuccessBlock failure:self.client.afFailureBlock];
+    [verify(self.operationManager) GET:INDEX parameters:expectedParams success:self.client.afSuccessBlock failure:self.client.afFailureBlock];
 }
 
 -(void)test_shouldSetupPingResponseBlockAndCallGetSeed_WhenPingSuccessBlockWasCalled {
-    self.client.callTestVariant = YES;
-    
+    //given
     [self.client setupPingSuccessBlock];
-    self.client.pingSuccessBlock(nil,[[NSObject alloc] init]);
-    
-    assertThatBool(self.client.wasGetSeedCalled,equalToBool(YES));
+    NSDictionary *expectedParams = @{@"get_action" : @"get_seed"};
+    //when
+    self.client.afSuccessBlock(nil,[[NSObject alloc] init]);
+    //then
+    [verify(self.operationManager) setResponseSerializer:instanceOf([GetSeedResponseSerializer class])];
+    [verify(self.operationManager) GET:INDEX parameters:expectedParams success:self.client.afSuccessBlock failure:self.client.afFailureBlock];
 }
 
 #pragma mark - Invocation of Get Seed
@@ -355,11 +350,11 @@ static id mockedManager(id self, SEL _cmd) {
     
     [self.client getSeed];
     
-    assertThat(self.client.seedSuccessBlock,notNilValue());
+    assertThat(self.client.afSuccessBlock,notNilValue());
     assertThat(self.client.afFailureBlock,notNilValue());
 
     [verify(self.operationManager) setResponseSerializer:instanceOf([GetSeedResponseSerializer class])];
-    [verify(self.operationManager) GET:INDEX parameters:expectedParams success:self.client.seedSuccessBlock failure:self.client.afFailureBlock];
+    [verify(self.operationManager) GET:INDEX parameters:expectedParams success:self.client.afSuccessBlock failure:self.client.afFailureBlock];
 }
 
 -(void)test_shouldSetupSeedResponseBlockAndCallLogin_WhenSeedSuccessBlockWasCalled {
@@ -369,9 +364,9 @@ static id mockedManager(id self, SEL _cmd) {
     [given([serverParamsManager userForServer:anything()]) willReturn:user];
     [given([serverParamsManager seedForServer:anything()]) willReturn:@"1234567"];
     self.client.callTestVariant = YES;
-    //when
     [self.client setupSeedSuccessBlock];
-    self.client.seedSuccessBlock(nil,seed);
+    //when
+    self.client.afSuccessBlock(nil,seed);
     //then
     [verify(serverParamsManager) userForServer:anything()];
     [verify(serverParamsManager) setSeed:equalTo(seed.seed) ForServer:anything()];
@@ -384,12 +379,12 @@ static id mockedManager(id self, SEL _cmd) {
     SeedResponse *seed = [SeedResponse seedWithCaptcha:@"1234567"];
     [self setupEmptyResult];
     [self setupClientSuccessAndFailureBlocks];
-    NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorGetSeedWithCaptcha userInfo:@{ PydioErrorSeedKey : @"1234567"}];
+    NSError *error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorGetSeedWithCaptcha userInfo:nil];
     self.expectedResult = [BlocksCallResult failureWithError:error];
     [self.client setupAFFailureBlock];
-    //when
     [self.client setupSeedSuccessBlock];
-    self.client.seedSuccessBlock(nil,seed);
+    //when
+    self.client.afSuccessBlock(nil,seed);
     //then
     [verify(serverParamsManager) setSeed:equalTo(seed.seed) ForServer:anything()];
     [verifyCount(serverParamsManager,never()) userForServer:anything()];
@@ -410,11 +405,11 @@ static id mockedManager(id self, SEL _cmd) {
     //when
     [self.client login:user WithCaptcha:nil];
     //then
-    assertThat(self.client.loginSuccessBlock,notNilValue());
+    assertThat(self.client.afSuccessBlock,notNilValue());
     assertThat(self.client.afFailureBlock,notNilValue());
     [self assertLoginResponseSerializer];
     [verify(serverParamsManager) seedForServer:anything()];
-    [verify(self.operationManager) POST:@"" parameters:equalTo(expectedParams) success:self.client.loginSuccessBlock failure:self.client.afFailureBlock];
+    [verify(self.operationManager) POST:@"" parameters:equalTo(expectedParams) success:self.client.afSuccessBlock failure:self.client.afFailureBlock];
 }
 
 -(void)test_shouldCallAFNetworkingMethodWithParams_WhenLoginWithCaptchaCalled {
@@ -428,11 +423,11 @@ static id mockedManager(id self, SEL _cmd) {
     //when
     [self.client login:user WithCaptcha:captcha];
     //then
-    assertThat(self.client.loginSuccessBlock,notNilValue());
+    assertThat(self.client.afSuccessBlock,notNilValue());
     assertThat(self.client.afFailureBlock,notNilValue());
     [self assertLoginResponseSerializer];
     [verify(serverParamsManager) seedForServer:anything()];
-    [verify(self.operationManager) POST:@"" parameters:equalTo(expectedParams) success:self.client.loginSuccessBlock failure:self.client.afFailureBlock];
+    [verify(self.operationManager) POST:@"" parameters:equalTo(expectedParams) success:self.client.afSuccessBlock failure:self.client.afFailureBlock];
 }
 
 -(void)test_shouldCallSuccessBlock_WhenLoginResultIsSuccess {
@@ -443,7 +438,7 @@ static id mockedManager(id self, SEL _cmd) {
     [self.client setupAFFailureBlock];
     [self.client setupLoginSuccessBlock];
 
-    self.client.loginSuccessBlock(nil,response);
+    self.client.afSuccessBlock(nil,response);
     
     [verify(serverParamsManager) setSecureToken:equalTo(@"token") ForServer:anything()];
     [self assertResultEqualsExpectedResult];
@@ -460,7 +455,7 @@ static id mockedManager(id self, SEL _cmd) {
     [self.client setupAFFailureBlock];
     [self.client setupLoginSuccessBlock];
     
-    self.client.loginSuccessBlock(nil,response);
+    self.client.afSuccessBlock(nil,response);
     
     [verifyCount(serverParamsManager,never()) setSecureToken:anything() ForServer:anything()];
     [self assertResultEqualsExpectedResult];
@@ -477,7 +472,7 @@ static id mockedManager(id self, SEL _cmd) {
     [self.client setupAFFailureBlock];
     [self.client setupLoginSuccessBlock];
     
-    self.client.loginSuccessBlock(nil,response);
+    self.client.afSuccessBlock(nil,response);
     
     [verifyCount(serverParamsManager,never()) setSecureToken:anything() ForServer:anything()];
     [self assertResultEqualsExpectedResult];
@@ -577,11 +572,12 @@ static id mockedManager(id self, SEL _cmd) {
     self.expectedResult = [BlocksCallResult successWithResponse:data];
     [self setupEmptyResult];
     self.successBlock = nil;
+    [self.client setupGetCaptchaSuccess];
     [self.client setupFailure:self.failureBlock];
-    [self.client setupGetCaptchaSuccess:[self.result successBlock]];
+    [self.client setupSuccess:[self.result successBlock]];
     self.client.progress = YES;
     //when
-    self.client.captchaSuccessBlock(nil,data);
+    self.client.afSuccessBlock(nil,data);
     //then
     [self assertResultEqualsExpectedResult];
     [self assertAllBlocksNiled];
@@ -591,7 +587,6 @@ static id mockedManager(id self, SEL _cmd) {
 -(void)test_shouldStartGetCaptcha_whenNotInProgress {
     //given
     NSDictionary *expectedParams = @{@"get_action": @"get_captcha"};
-    self.client.callSetupsTestVariant = YES;
     [self setupEmptyResult];
     self.successBlock = [self.result successBlock];
     //when
@@ -600,35 +595,36 @@ static id mockedManager(id self, SEL _cmd) {
     [verify(self.operationManager) setResponseSerializer:anything()];
     assertThatBool(startResult,equalToBool(YES));
     [self assertProgressIsYES];
-    assertThatBool(self.client.wasSetupGetCaptchaSuccess,equalToBool(YES));
-    assertThatBool(self.client.wasSetupAFFailureCalled,equalToBool(YES));
-    assertThatBool(self.client.wasSetupFailureCalled,equalToBool(YES));
-    [verify(self.operationManager) GET:INDEX parameters:expectedParams success:self.client.captchaSuccessBlock failure:self.client.afFailureBlock];
+    assertThat(self.client.afSuccessBlock,notNilValue());
+    assertThat(self.client.successBlock,notNilValue());
+    assertThat(self.client.failureBlock,notNilValue());
+    assertThat(self.client.afFailureBlock,notNilValue());
+    [verify(self.operationManager) GET:INDEX parameters:expectedParams success:self.client.afSuccessBlock failure:self.client.afFailureBlock];
 }
 
 -(void)test_shouldNotStartGetCaptcha_whenInProgress {
     //given
     self.client.progress = YES;
-    self.client.callSetupsTestVariant = YES;
     [self setupEmptyResult];
     //when
     BOOL startResult = [self.client getCaptchaWithSuccess:nil failure:self.failureBlock];
     //then
     assertThatBool(startResult,equalToBool(NO));
-    assertThatBool(self.client.wasSetupGetCaptchaSuccess,equalToBool(NO));
+    assertThat(self.client.successBlock,nilValue());
+    assertThat(self.client.failureBlock,nilValue());
     [verifyCount(self.operationManager,never()) GET:INDEX parameters:anything() success:anything() failure:anything()];
 }
 
 #pragma mark - Tests verification
 
 -(void)assertAllBlocksNiled {
-    assertThat(self.client.pingSuccessBlock,nilValue());
-    assertThat(self.client.seedSuccessBlock,nilValue());
-    assertThat(self.client.loginSuccessBlock,nilValue());
+    assertThat(self.client.afSuccessBlock,nilValue());
+//    assertThat(self.client.seedSuccessBlock,nilValue());
+//    assertThat(self.client.loginSuccessBlock,nilValue());
     assertThat(self.client.afFailureBlock,nilValue());
     assertThat(self.client.successBlock,nilValue());
     assertThat(self.client.failureBlock,nilValue());
-    assertThat(self.client.captchaSuccessBlock,nilValue());
+//    assertThat(self.client.captchaSuccessBlock,nilValue());
 }
 
 -(void)assertResultEqualsExpectedResult {
@@ -645,26 +641,26 @@ static id mockedManager(id self, SEL _cmd) {
 
 -(void)assertAllSetupsWereCalled {
     assertThatBool(self.client.wasSetupAFFailureCalled,equalToBool(YES));
-    assertThatBool(self.client.wasSetupPingCalled,equalToBool(YES));
-    assertThatBool(self.client.wasSetupGetSeedCalled,equalToBool(YES));
-    assertThatBool(self.client.wasSetupLoginCalled,equalToBool(YES));
+//    assertThatBool(self.client.wasSetupPingCalled,equalToBool(YES));
+//    assertThatBool(self.client.wasSetupGetSeedCalled,equalToBool(YES));
+//    assertThatBool(self.client.wasSetupLoginCalled,equalToBool(YES));
     assertThatBool(self.client.wasSetupSuccessAndFailureCalled,equalToBool(YES));
 }
 
 -(void)assertNoneSetupWasCalled {
     assertThatBool(self.client.wasSetupAFFailureCalled,equalToBool(NO));
-    assertThatBool(self.client.wasSetupPingCalled,equalToBool(NO));
-    assertThatBool(self.client.wasSetupGetSeedCalled,equalToBool(NO));
-    assertThatBool(self.client.wasSetupLoginCalled,equalToBool(NO));
+//    assertThatBool(self.client.wasSetupPingCalled,equalToBool(NO));
+//    assertThatBool(self.client.wasSetupGetSeedCalled,equalToBool(NO));
+//    assertThatBool(self.client.wasSetupLoginCalled,equalToBool(NO));
     assertThatBool(self.client.wasSetupSuccessAndFailureCalled,equalToBool(NO));
 }
 
 -(void)assertSetupsForLoginWithBlocksWereCalled {
     assertThatBool(self.client.wasSetupAFFailureCalled,equalToBool(YES));
-    assertThatBool(self.client.wasSetupLoginCalled,equalToBool(YES));
+//    assertThatBool(self.client.wasSetupLoginCalled,equalToBool(YES));
     assertThatBool(self.client.wasSetupSuccessAndFailureCalled,equalToBool(YES));
-    assertThatBool(self.client.wasSetupPingCalled,equalToBool(NO));
-    assertThatBool(self.client.wasSetupGetSeedCalled,equalToBool(NO));
+//    assertThatBool(self.client.wasSetupPingCalled,equalToBool(NO));
+//    assertThatBool(self.client.wasSetupGetSeedCalled,equalToBool(NO));
 }
 
 -(void)assertLoginResponseSerializer {
@@ -693,23 +689,23 @@ static id mockedManager(id self, SEL _cmd) {
 }
 
 -(void)clearAllClientBlocks {
-    self.client.pingSuccessBlock = nil;
-    self.client.seedSuccessBlock = nil;
-    self.client.loginSuccessBlock = nil;
+//    self.client.seedSuccessBlock = nil;
+//    self.client.loginSuccessBlock = nil;
+    self.client.afSuccessBlock = nil;
     self.client.afFailureBlock = nil;
     self.client.successBlock = nil;
     self.client.failureBlock = nil;
-    self.client.captchaSuccessBlock = nil;
+//    self.client.captchaSuccessBlock = nil;
 }
 
 -(void)setBlocksToNotNilValue {
     AFSuccessBlock block = ^(AFHTTPRequestOperation *operation, id responseObject){
     };
-    self.client.pingSuccessBlock = block;
-    self.client.seedSuccessBlock = block;
-    self.client.loginSuccessBlock = block;
+//    self.client.seedSuccessBlock = block;
+//    self.client.loginSuccessBlock = block;
+    self.client.afSuccessBlock = block;
     self.client.afFailureBlock = block;
-    self.client.captchaSuccessBlock = block;
+//    self.client.captchaSuccessBlock = block;
 }
 
 @end

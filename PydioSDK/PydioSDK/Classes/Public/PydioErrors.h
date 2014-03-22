@@ -20,6 +20,4 @@ enum {
     PydioErrorReceivedNotExpectedAnswer    
 };
 
-extern NSString * const PydioErrorSeedKey;
-
 #endif

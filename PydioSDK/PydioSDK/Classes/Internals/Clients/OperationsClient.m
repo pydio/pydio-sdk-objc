@@ -17,8 +17,6 @@
 #import "PydioErrors.h"
 
 
-typedef void(^SuccessBlock)(id response);
-
 extern NSString * const PydioErrorDomain;
 
 #pragma mark -

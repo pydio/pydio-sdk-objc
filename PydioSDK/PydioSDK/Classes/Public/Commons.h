@@ -10,6 +10,6 @@
 #define PydioSDK_Commons_h
 
 typedef void(^FailureBlock)(NSError* error);
-
+typedef void(^SuccessBlock)(id response);
 
 #endif
