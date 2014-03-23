@@ -123,6 +123,7 @@ static OperationsClient* operationsClient = nil;
 
 -(void)test_shouldBeProgress_whenAuthorizationProgress
 {
+    self.client.authorizationClient = authorizationClient;
     [self setupAuthorizationClient:YES AndOperationsClient:NO];
     
     assertThatBool(self.client.progress, equalToBool(YES));
@@ -148,7 +149,7 @@ static OperationsClient* operationsClient = nil;
 
 -(void)test_shouldTryToAuthorizeWithBlocksAsArguments_WhenReceivedAuthorizationErrorAndTriesCountIsGreaterThan0
 {
-    NSError *errorResponse = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
+    NSError *errorResponse = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorRequireAuthorization userInfo:nil];
     [self setupExpectedAndEmptyResult];
     [self setupClientForBlockResponse];
     self.client.operationBlock = ^{};
@@ -157,7 +158,7 @@ static OperationsClient* operationsClient = nil;
     
     assertThat(self.result,equalTo(self.expectedResult));
     assertThatInt(self.client.authorizationsTriesCount,equalToInt(0));
-    [verify(self.client.authorizationClient) authorizeWithSuccess:self.client.operationBlock failure:self.client.failureResponseBlock];
+    [verify(authorizationClient) authorizeWithSuccess:self.client.operationBlock failure:self.client.failureResponseBlock];
 }
 
 -(void)test_shouldFailureAndNotTryToAuthorize_WhenReceivedAuthorizationErrorAndTriesCountIs0
@@ -172,7 +173,8 @@ static OperationsClient* operationsClient = nil;
     
     assertThat(self.result,equalTo(self.expectedResult));
     assertThatInt(self.client.authorizationsTriesCount,equalToInt(0));
-    [verifyCount(self.client.authorizationClient,never()) authorizeWithSuccess:anything() failure:anything()];
+    assertThat(self.client.authorizationClient,nilValue());
+    [verifyCount(authorizationClient,never()) authorizeWithSuccess:anything() failure:anything()];
     [self assertClientBlocksNiled];
 }
 
@@ -187,7 +189,8 @@ static OperationsClient* operationsClient = nil;
     
     assertThat(self.result,equalTo(self.expectedResult));
     assertThatInt(self.client.authorizationsTriesCount,equalToInt(DEFAULT_TRIES_COUNT));
-    [verifyCount(self.client.authorizationClient,never()) authorizeWithSuccess:anything() failure:anything()];
+    assertThat(self.client.authorizationClient,nilValue());
+    [verifyCount(authorizationClient,never()) authorizeWithSuccess:anything() failure:anything()];
     [self assertClientBlocksNiled];
 }
 
@@ -197,7 +200,7 @@ static OperationsClient* operationsClient = nil;
     self.expectedResult = [BlocksCallResult successWithResponse:object];
     [self setupEmptyResult];
     [self setupClientForBlockResponse];
-
+    
     self.client.successResponseBlock(object);
     
     assertThat(self.result,equalTo(self.expectedResult));
@@ -208,7 +211,7 @@ static OperationsClient* operationsClient = nil;
 
 -(void)test_ShouldNotStartListWorkspaces_WhenInProgress
 {
-    [self setupAuthorizationClient:YES AndOperationsClient:NO];
+    [self setupAuthorizationClient:NO AndOperationsClient:YES];
     [self setupExpectedAndEmptyResult];
     
     BOOL startResult = [self.client listWorkspacesWithSuccess:self.successBlock failure:self.successBlock];
@@ -232,11 +235,11 @@ static OperationsClient* operationsClient = nil;
 -(void)test_ShouldNotStartListFiles_WhenInProgress
 {
     ListNodesRequestParams *request = [self exampleListFilesRequest];
-    [self setupAuthorizationClient:YES AndOperationsClient:NO];
+    [self setupAuthorizationClient:NO AndOperationsClient:YES];
     [self setupExpectedAndEmptyResult];
     
     BOOL startResult = [self.client listNodes:request WithSuccess:self.successBlock failure:self.failureBlock];
-
+    
     [verifyCount(operationsClient,never()) listFiles:anything() WithSuccess:anything() failure:anything()];
     [self assertNotStartedOperationSetup:startResult];
 }
@@ -258,7 +261,7 @@ static OperationsClient* operationsClient = nil;
 -(void)test_ShouldNotStartMkDir_WhenInProgress
 {
     MkDirRequestParams *request = [self exampleMkDirRequestParams];
-    [self setupAuthorizationClient:YES AndOperationsClient:NO];
+    [self setupAuthorizationClient:NO AndOperationsClient:YES];
     [self setupExpectedAndEmptyResult];
     
     BOOL startResult = [self.client mkdir:request WithSuccess:self.successBlock failure:self.failureBlock];
@@ -283,7 +286,7 @@ static OperationsClient* operationsClient = nil;
 
 -(void)test_ShouldNotStartAuthorize_WhenInProgress
 {
-    [self setupAuthorizationClient:YES AndOperationsClient:NO];
+    [self setupAuthorizationClient:NO AndOperationsClient:YES];
     [self setupExpectedAndEmptyResult];
     
     BOOL startResult = [self.client authorizeWithSuccess:self.successBlock failure:self.failureBlock];
@@ -307,7 +310,7 @@ static OperationsClient* operationsClient = nil;
 -(void)test_ShouldNotStartDeleteNodes_WhenInProgress
 {
     DeleteNodesRequestParams *request = [self exampleDeleteNodesRequestParams];
-    [self setupAuthorizationClient:YES AndOperationsClient:NO];
+    [self setupAuthorizationClient:NO AndOperationsClient:YES];
     [self setupExpectedAndEmptyResult];
     
     BOOL startResult = [self.client deleteNodes:request WithSuccess:self.successBlock failure:self.failureBlock];
@@ -334,7 +337,7 @@ static OperationsClient* operationsClient = nil;
 {
     //given
     NSString *captcha = @"captcha";
-    [self setupAuthorizationClient:YES AndOperationsClient:NO];
+    [self setupAuthorizationClient:NO AndOperationsClient:YES];
     [self setupExpectedAndEmptyResult];
     //when
     BOOL startResult = [self.client login:captcha WithSuccess:self.successBlock failure:self.failureBlock];
@@ -360,7 +363,7 @@ static OperationsClient* operationsClient = nil;
 -(void)test_shouldNotStartGetCaptcha_whenInProgress
 {
     //given
-    [self setupAuthorizationClient:YES AndOperationsClient:NO];
+    [self setupAuthorizationClient:NO AndOperationsClient:YES];
     [self setupExpectedAndEmptyResult];
     //when
     BOOL startResult = [self.client getCaptchaWithSuccess:self.successBlock failure:self.failureBlock];
@@ -378,7 +381,7 @@ static OperationsClient* operationsClient = nil;
     //then
     [self assertStartedOperationSetup0AuthTries:startResult];
     [verify(authorizationClient) getCaptchaWithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
-
+    
 }
 
 #pragma mark - Tests Verification
@@ -465,7 +468,7 @@ static OperationsClient* operationsClient = nil;
              @"tmp_repository_id": @"testworkspaceid",
              @"dir" : @"/testpath",
              @"options" : @"al"
-            };
+             };
 }
 
 -(MkDirRequestParams*) exampleMkDirRequestParams {
@@ -482,7 +485,7 @@ static OperationsClient* operationsClient = nil;
              @"tmp_repository_id": @"testworkspaceid",
              @"dir" : @"/testdir/testdir",
              @"dirname" : @"nameofdir"
-            };
+             };
 }
 
 -(DeleteNodesRequestParams*)exampleDeleteNodesRequestParams {

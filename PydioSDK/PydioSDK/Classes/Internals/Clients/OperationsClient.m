@@ -257,7 +257,7 @@ extern NSString * const PydioErrorDomain;
 -(NSError *)identifyError:(id)potentialError {
     NSError *error = nil;
     if ([potentialError isKindOfClass:[NotAuthorizedResponse class]]) {
-        error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
+        error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorRequireAuthorization userInfo:nil];
     } else if ([potentialError isKindOfClass:[PydioErrorResponse class]]) {
         error = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorErrorResponse userInfo:
                  @{NSLocalizedFailureReasonErrorKey: [potentialError message]}];

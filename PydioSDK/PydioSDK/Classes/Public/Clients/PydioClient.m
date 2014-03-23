@@ -57,7 +57,6 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     self = [super init];
     if (self) {
         self.operationManager = [self createOperationManager:server];
-        self.authorizationClient = [self createAuthorizationClient];
         self.operationsClient = [self createOperationsClient];
     }
     
@@ -86,6 +85,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         __strong typeof(self) strongSelf = weakSelf;
         if ([strongSelf isAuthorizationError:error] && strongSelf.authorizationsTriesCount > 0) {
             strongSelf.authorizationsTriesCount--;
+            [strongSelf setupAuthorizationClient];
             [strongSelf.authorizationClient authorizeWithSuccess:strongSelf.operationBlock failure:strongSelf.failureResponseBlock];
         } else {
             strongSelf.failureBlock(error);
@@ -113,6 +113,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     
     typeof(self) strongSelf = self;
     self.operationBlock = ^{
+        [strongSelf setupAuthorizationClient];
         [strongSelf.authorizationClient authorizeWithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
@@ -130,6 +131,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     
     typeof(self) strongSelf = self;
     self.operationBlock = ^{
+        [strongSelf setupAuthorizationClient];
         [strongSelf.authorizationClient login:captcha WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
@@ -147,6 +149,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     
     typeof(self) strongSelf = self;
     self.operationBlock = ^{
+        [strongSelf setupAuthorizationClient];
         [strongSelf.authorizationClient getCaptchaWithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
@@ -233,6 +236,10 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:server]];
 }
 
+-(void)setupAuthorizationClient {
+    self.authorizationClient = [self createAuthorizationClient];
+}
+
 -(AuthorizationClient*)createAuthorizationClient {
     AuthorizationClient *client = [[AuthorizationClient alloc] init];
     client.operationManager = self.operationManager;
@@ -248,7 +255,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 }
 
 -(BOOL)isAuthorizationError:(NSError *)error {
-    return [error.domain isEqualToString:PydioErrorDomain] && error.code == PydioErrorUnableToLogin;
+    return [error.domain isEqualToString:PydioErrorDomain] && error.code == PydioErrorRequireAuthorization;
 }
 
 -(void)resetAuthorizationTriesCount {

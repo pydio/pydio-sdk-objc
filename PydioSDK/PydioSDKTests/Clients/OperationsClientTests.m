@@ -230,13 +230,14 @@ static id mockedCookieManager(id self, SEL _cmd) {
 
 -(void)test_shouldFailureWithUnableToLoginError_whenResponseFromAFNetworkingIsNotAuthorizedResponse
 {
+    //given
     NotAuthorizedResponse *response = [[NotAuthorizedResponse alloc] init];
-    BlocksCallResult *expectedResult = [BlocksCallResult failureWithError:[NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil]];
+    BlocksCallResult *expectedResult = [BlocksCallResult failureWithError:[NSError errorWithDomain:PydioErrorDomain code:PydioErrorRequireAuthorization userInfo:nil]];
     BlocksCallResult *result = [BlocksCallResult result];
     [self setupClientForBlockResponse:result];
-    
+    //when
     self.client.successResponseBlock(nil,response);
-    
+    //then
     assertThat(result,equalTo(expectedResult));
     [self assertClientCleanStateAfterBlockCall];
 }
