@@ -17,11 +17,11 @@
 #import "PydioErrors.h"
 #import "XMLResponseSerializer.h"
 #import "XMLResponseSerializerDelegate.h"
+#import "GetCaptchaResponseSerializer.h"
 
 
 typedef void(^AFSuccessBlock)(AFHTTPRequestOperation *operation, id responseObject);
-typedef void(^CaptchaSuccessBlock)(NSData *data);
-
+typedef void(^AFFailureBlock)(AFHTTPRequestOperation *operation, NSError *error);
 
 static NSString * const PING_ACTION = @"index.php?get_action=ping";
 static NSString * const GET_SEED_ACTION = @"index.php?get_action=get_seed";
@@ -34,16 +34,14 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
 
 @interface AuthorizationClient ()
 @property (readwrite,nonatomic,assign) BOOL progress;
-//@property (nonatomic,copy) AFSuccessBlock seedSuccessBlock;
-//@property (nonatomic,copy) AFSuccessBlock loginSuccessBlock;
-//@property (nonatomic,copy) AFSuccessBlock captchaSuccessBlock;
 @property (nonatomic,copy) AFSuccessBlock afSuccessBlock;
-@property (nonatomic,copy) void(^afFailureBlock)(AFHTTPRequestOperation *operation, NSError *error);
+@property (nonatomic,copy) AFFailureBlock afFailureBlock;
 @property (nonatomic,copy) SuccessBlock successBlock;
 @property (nonatomic,copy) FailureBlock failureBlock;
 
 -(void)clearBlocks;
--(void)setupSuccess:(void(^)(id ignored))success AndFailure:(FailureBlock)failure;
+-(void)setupSuccess:(SuccessBlock)success AndFailure:(FailureBlock)failure;
+-(void)setupSuccess:(SuccessBlock)success;
 -(void)setupFailure:(FailureBlock)failure;
 -(void)setupAFFailureBlock;
 -(void)setupPingSuccessBlock;
@@ -64,15 +62,17 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
     self.successBlock = nil;
     self.afSuccessBlock = nil;
     self.afFailureBlock = nil;
-//    _pingSuccessBlock = nil;
-//    _seedSuccessBlock = nil;
-//    _loginSuccessBlock = nil;
-//    _captchaSuccessBlock = nil;
 }
 
--(void)setupSuccess:(void(^)(id ignored))success AndFailure:(FailureBlock)failure {
+-(void)setupSuccess:(SuccessBlock)success AndFailure:(FailureBlock)failure {
     [self setupSuccess:success];
     [self setupFailure:failure];
+}
+
+-(void)startProgressAndSetupCommonBlocks:(SuccessBlock)success failure:(FailureBlock)failure {
+    self.progress = YES;
+    [self setupSuccess:success AndFailure:failure];
+    [self setupAFFailureBlock];
 }
 
 -(void)setupSuccess:(SuccessBlock)success {
@@ -156,29 +156,26 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
 
 #pragma mark - Authorization process
 
--(BOOL)authorizeWithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure {
+-(BOOL)authorizeWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure {
     if (self.progress) {
         return NO;
     }
     
-    self.progress = YES;
-    [self setupSuccess:success AndFailure:failure];
+    [self startProgressAndSetupCommonBlocks:success failure:failure];
     [self setupPingSuccessBlock];
-    [self setupAFFailureBlock];
     
     [self ping];
     
     return YES;
 }
 
--(BOOL)login:(NSString *)captcha WithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure {
+-(BOOL)login:(NSString *)captcha WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure {
     if (self.progress) {
         return NO;
     }
     
-    self.progress = YES;
-    [self setupSuccess:success AndFailure:failure];
-    [self setupAFFailureBlock];
+    [self startProgressAndSetupCommonBlocks:success failure:failure];
+    [self setupLoginSuccessBlock];
     
     User *user = [[ServersParamsManager sharedManager] userForServer:self.operationManager.baseURL];
     [self login:user WithCaptcha:captcha];
@@ -191,27 +188,24 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
         return NO;
     }
     
-    self.progress = YES;
+    [self startProgressAndSetupCommonBlocks:success failure:failure];
     [self setupGetCaptchaSuccess];
-    [self setupSuccess:success];
-    [self setupFailure:failure];
-    [self setupAFFailureBlock];
-    AFHTTPResponseSerializer *responseSerializer = [AFHTTPResponseSerializer serializer];
-    responseSerializer.acceptableContentTypes = [[NSSet alloc] initWithObjects:@"image/tiff", @"image/jpeg", @"image/gif", @"image/png", @"image/ico", @"image/x-icon", @"image/bmp", @"image/x-bmp", @"image/x-xbitmap", @"image/x-win-bitmap", nil];
-    [self.operationManager setResponseSerializer:responseSerializer];
-    [self.operationManager GET:@"index.php" parameters:@{GET_ACTION : @"get_captcha"} success:self.afSuccessBlock failure:self.afFailureBlock];
+    self.operationManager.responseSerializer = [[GetCaptchaResponseSerializer alloc] init];
+    
+    [self getOperation:@"get_captcha"];
+    
     return YES;
 }
 
 #pragma mark - Authorization steps
 
 -(void)ping {
-    [self.operationManager GET:@"index.php" parameters:@{GET_ACTION : @"ping"} success:self.afSuccessBlock failure:self.afFailureBlock];
+    [self getOperation:@"ping"];
 }
 
 -(void)getSeed {
     self.operationManager.responseSerializer =  [GetSeedResponseSerializer serializer];
-    [self.operationManager GET:@"index.php" parameters:@{GET_ACTION : @"get_seed"} success:self.afSuccessBlock failure:self.afFailureBlock];
+    [self getOperation:@"get_seed"];
     
 }
 
@@ -239,6 +233,8 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
     [self login:user WithCaptcha:nil];
 }
 
+#pragma - Helpers
+
 -(NSString *)hashedPass:(NSString*)pass WithSeed:(NSString *)seed {
     return [seed isEqualToString:@"-1"] ? pass : [[NSString stringWithFormat:@"%@%@", [pass md5], seed] md5];
 }
@@ -246,6 +242,10 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
 -(XMLResponseSerializer*)createLoginResponseSerializer {
     LoginResponseSerializerDelegate *delegate = [[LoginResponseSerializerDelegate alloc] init];
     return [[XMLResponseSerializer alloc] initWithDelegate:delegate];
+}
+
+-(void)getOperation:(NSString *)operation {
+    [self.operationManager GET:@"index.php" parameters:@{GET_ACTION : operation} success:self.afSuccessBlock failure:self.afFailureBlock];
 }
 
 @end

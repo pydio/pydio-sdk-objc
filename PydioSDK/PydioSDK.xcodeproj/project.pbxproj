@@ -95,6 +95,7 @@
 		89943DCC18C6730A00C07E4F /* ls_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AD73B7189D3602003C8DD4 /* ls_response.xml */; };
 		89943DCD18C6730A00C07E4F /* ls_response2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89A6F2F9189E3FDA00F1763E /* ls_response2.xml */; };
 		89943DCF18C6730A00C07E4F /* get_registers_response.xml in Resources */ = {isa = PBXBuildFile; fileRef = 89AC1AD4188DE98600ACAD7C /* get_registers_response.xml */; };
+		89A8DBA218DF1D5400DC6BAA /* GetCaptchaResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A8DBA118DF1D5400DC6BAA /* GetCaptchaResponseSerializer.m */; };
 		89B08E9918DA2D9A0041660A /* Commons.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89B08E9818DA28400041660A /* Commons.h */; };
 		89B68C8B18D9025A006C7461 /* PydioClient.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89B429E9187F4BAB005F6580 /* PydioClient.h */; };
 		89B68C8C18D9025A006C7461 /* DeleteNodesRequestParams.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89A88C1A18BA951600DAE087 /* DeleteNodesRequestParams.h */; };
@@ -215,6 +216,8 @@
 		89A8C22E18B68F780027B715 /* SuccessResponseParserDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuccessResponseParserDelegateTests.m; sourceTree = "<group>"; };
 		89A8C23018B6A6E40027B715 /* PydioSuccessResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioSuccessResponse.h; sourceTree = "<group>"; };
 		89A8C23118B6A6E40027B715 /* PydioSuccessResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioSuccessResponse.m; sourceTree = "<group>"; };
+		89A8DBA018DF1D5400DC6BAA /* GetCaptchaResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCaptchaResponseSerializer.h; sourceTree = "<group>"; };
+		89A8DBA118DF1D5400DC6BAA /* GetCaptchaResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCaptchaResponseSerializer.m; sourceTree = "<group>"; };
 		89A9E1E518C2746B00C821D8 /* GetSeedResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetSeedResponseSerializer.h; sourceTree = "<group>"; };
 		89A9E1E618C2746B00C821D8 /* GetSeedResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSeedResponseSerializer.m; sourceTree = "<group>"; };
 		89A9E1E818C27BFA00C821D8 /* SeedResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeedResponse.h; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 				8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */,
 				89B1B6EF18A4170400EC79C5 /* FailingResponseSerializer.h */,
 				89B1B6F018A4170400EC79C5 /* FailingResponseSerializer.m */,
+				89A8DBA018DF1D5400DC6BAA /* GetCaptchaResponseSerializer.h */,
+				89A8DBA118DF1D5400DC6BAA /* GetCaptchaResponseSerializer.m */,
 				89A9E1EB18C2917A00C821D8 /* GetSeedJSONResponseSerializer.h */,
 				89A9E1EC18C2917A00C821D8 /* GetSeedJSONResponseSerializer.m */,
 				89A9E1E518C2746B00C821D8 /* GetSeedResponseSerializer.h */,
@@ -789,6 +794,7 @@
 				89943DAA18C66CED00C07E4F /* OperationsClient.m in Sources */,
 				89943DAB18C66CED00C07E4F /* DeleteNodesRequestParams.m in Sources */,
 				89943DAC18C66CED00C07E4F /* ListNodesRequestParams.m in Sources */,
+				89A8DBA218DF1D5400DC6BAA /* GetCaptchaResponseSerializer.m in Sources */,
 				89943DAD18C66CED00C07E4F /* GetRepositoriesParserStates.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

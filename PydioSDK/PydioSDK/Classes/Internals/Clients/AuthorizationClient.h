@@ -17,7 +17,7 @@ extern NSString * const PydioErrorDomain;
 @property (nonatomic,strong) AFHTTPRequestOperationManager *operationManager;
 @property (readonly,nonatomic,assign) BOOL progress;
 
--(BOOL)authorizeWithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure;
--(BOOL)login:(NSString *)captcha WithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure;
+-(BOOL)authorizeWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+-(BOOL)login:(NSString *)captcha WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 -(BOOL)getCaptchaWithSuccess:(void(^)(NSData *captcha))success failure:(FailureBlock)failure;
 @end
