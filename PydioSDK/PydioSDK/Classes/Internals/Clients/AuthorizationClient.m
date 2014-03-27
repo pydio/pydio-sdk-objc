@@ -78,6 +78,9 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
 -(void)setupSuccess:(SuccessBlock)success {
     __weak typeof(self) weakSelf = self;
     self.successBlock = ^(id response) {
+        if (!weakSelf) {
+            return;
+        }
         __strong typeof(self) strongSelf = weakSelf;
         success(response);
         [strongSelf clearBlocks];
@@ -88,6 +91,9 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
 -(void)setupFailure:(FailureBlock)failure {
     __weak typeof(self) weakSelf = self;
     self.failureBlock = ^(NSError *error) {
+        if (!weakSelf) {
+            return;
+        }
         __strong typeof(self) strongSelf = weakSelf;
         failure(error);
         [strongSelf clearBlocks];
@@ -98,6 +104,9 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
 -(void)setupGetCaptchaSuccess {
     __weak typeof(self) weakSelf = self;
     self.afSuccessBlock = ^(AFHTTPRequestOperation *operation, id response) {
+        if (!weakSelf) {
+            return;
+        }
         __strong typeof(self) strongSelf = weakSelf;
         strongSelf.successBlock(response);
     };
@@ -106,6 +115,9 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
 -(void)setupAFFailureBlock {
     __weak typeof(self) weakSelf = self;
     self.afFailureBlock = ^(AFHTTPRequestOperation *operation,NSError *error){
+        if (!weakSelf) {
+            return;
+        }
         __strong typeof(self) strongSelf = weakSelf;
         strongSelf.failureBlock(error);
     };
@@ -114,6 +126,9 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
 -(void)setupPingSuccessBlock {
     __weak typeof(self) weakSelf = self;
     self.afSuccessBlock = ^(AFHTTPRequestOperation *operation, id responseObject){
+        if (!weakSelf) {
+            return;
+        }
         __strong typeof(self) strongSelf = weakSelf;
         [strongSelf setupSeedSuccessBlock];
         [strongSelf getSeed];
@@ -123,6 +138,9 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
 -(void)setupSeedSuccessBlock {
     __weak typeof(self) weakSelf = self;
     self.afSuccessBlock = ^(AFHTTPRequestOperation *operation, SeedResponse *seed) {
+        if (!weakSelf) {
+            return;
+        }
         __strong typeof(self) strongSelf = weakSelf;
         [[ServersParamsManager sharedManager] setSeed:seed.seed ForServer:strongSelf.operationManager.baseURL];
         if (!seed.captcha) {
@@ -139,6 +157,9 @@ static NSString * const CAPTCHA_CODE = @"captcha_code";
 -(void)setupLoginSuccessBlock {
     __weak typeof(self) weakSelf = self;
     self.afSuccessBlock = ^(AFHTTPRequestOperation *operation, LoginResponse *response) {
+        if (!weakSelf) {
+            return;
+        }
         __strong typeof(self) strongSelf = weakSelf;
         if (response.value == LRValueOK) {
             [[ServersParamsManager sharedManager] setSecureToken:response.secureToken ForServer:strongSelf.operationManager.baseURL];

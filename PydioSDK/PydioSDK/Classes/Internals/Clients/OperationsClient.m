@@ -63,6 +63,9 @@ extern NSString * const PydioErrorDomain;
 -(void)setupSuccessResponseBlock {
     __weak typeof(self) weakSelf = self;
     self.successResponseBlock = ^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (!weakSelf) {
+            return;
+        }
         __strong typeof(self) strongSelf = weakSelf;
         strongSelf.progress = NO;
         NSError *error = [strongSelf identifyError:responseObject];
@@ -78,6 +81,9 @@ extern NSString * const PydioErrorDomain;
 -(void)setupFailureResponseBlock {
     __weak typeof(self) weakSelf = self;
     self.failureResponseBlock = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (!weakSelf) {
+            return;
+        }
         __strong typeof(self) strongSelf = weakSelf;
         strongSelf.progress = NO;
         strongSelf.failureBlock(error);

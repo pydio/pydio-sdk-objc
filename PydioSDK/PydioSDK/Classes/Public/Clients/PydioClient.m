@@ -73,6 +73,9 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 -(void)setupSuccessResponseBlock {
     __weak typeof(self) weakSelf = self;
     self.successResponseBlock = ^(id response){
+        if (!weakSelf) {
+            return;
+        }
         __strong typeof(self) strongSelf = weakSelf;
         strongSelf.successBlock(response);
         [strongSelf clearBlocks];
@@ -82,6 +85,9 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 -(void)setupFailureResponseBlock {
     __weak typeof(self) weakSelf = self;
     self.failureResponseBlock = ^(NSError *error){
+        if (!weakSelf) {
+            return;
+        }
         __strong typeof(self) strongSelf = weakSelf;
         if ([strongSelf isAuthorizationError:error] && strongSelf.authorizationsTriesCount > 0) {
             strongSelf.authorizationsTriesCount--;
