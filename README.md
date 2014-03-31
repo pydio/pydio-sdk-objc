@@ -161,6 +161,7 @@ Generic serializers are following:
 ## How to contribute
 
 If you like, you can add new not implemented operations, for example described [here][3].
+Please <a href="http://pyd.io/contribute/cla">sign the Contributor License Agreement</a> before your PR can be merged.
 
 
  [0]: https://github.com/AFNetworking/AFNetworking
