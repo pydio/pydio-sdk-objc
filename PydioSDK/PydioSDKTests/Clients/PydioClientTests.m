@@ -17,6 +17,7 @@
 #import "PydioClient.h"
 #import <objc/runtime.h>
 #import "BlocksCallResult.h"
+#import "UnsignedIntegerBlockCallResult.h"
 #import "AuthorizationClient.h"
 #import "ServersParamsManager.h"
 #import "AFHTTPRequestOperationManager.h"
@@ -36,6 +37,12 @@ static NSString * const TEST_USER_PASSWORD = @"testpassword";
 static AFHTTPRequestOperationManager* operationManager = nil;
 static AuthorizationClient* authorizationClient = nil;
 static OperationsClient* operationsClient = nil;
+
+#pragma mark -
+
+static StateChangeBlock stateChangeBlock = ^(PydioClientState newState){
+    
+};
 
 #pragma mark - Exposing private members of tested class for test purposes
 
@@ -82,10 +89,12 @@ static OperationsClient* operationsClient = nil;
 
 @interface PydioClientTests : XCTestCase
 @property (nonatomic,strong) TestPydioClient* client;
-@property (nonatomic,assign) BlocksCallResult *result;
-@property (nonatomic,assign) BlocksCallResult *expectedResult;
+@property (nonatomic,strong) BlocksCallResult *result;
+@property (nonatomic,strong) BlocksCallResult *expectedResult;
 @property (nonatomic,assign) SuccessBlock successBlock;
 @property (nonatomic,assign) FailureBlock failureBlock;
+@property (nonatomic,strong) UnsignedIntegerBlockCallResult *stateChangeUpdateResult;
+@property (nonatomic,strong) UnsignedIntegerBlockCallResult *stateChangeExpectedResult;
 @end
 
 
@@ -150,66 +159,74 @@ static OperationsClient* operationsClient = nil;
 
 -(void)test_shouldTryToAuthorizeWithBlocksAsArguments_WhenReceivedAuthorizationErrorAndTriesCountIsGreaterThan0
 {
+    //given
     NSError *errorResponse = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorRequireAuthorization userInfo:nil];
     [self setupExpectedAndEmptyResult];
     [self setupClientForBlockResponse];
     self.client.operationBlock = ^{};
-    
+    [self setupStateChangeBlock:PydioClientAuthorization];
+    //when
     self.client.failureResponseBlock(errorResponse);
-    
+    //then
     assertThat(self.result,equalTo(self.expectedResult));
     assertThatInt(self.client.authorizationsTriesCount,equalToInt(0));
     [verify(authorizationClient) authorizeWithSuccess:self.client.operationBlock failure:self.client.failureResponseBlock];
-    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientAuthorization));
+    [self assertStateChangeExpectedResult];
 }
 
 -(void)test_shouldFailureAndNotTryToAuthorize_WhenReceivedAuthorizationErrorAndTriesCountIs0
 {
+    //given
     NSError *errorResponse = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToLogin userInfo:nil];
     self.expectedResult = [BlocksCallResult failureWithError:errorResponse];
     [self setupEmptyResult];
     [self setupClientForBlockResponse];
     self.client.authorizationsTriesCount = 0;
-    
+    [self setupStateChangeBlock:PydioClientFinished];
+    //when
     self.client.failureResponseBlock(errorResponse);
-    
+    //then
     assertThat(self.result,equalTo(self.expectedResult));
     assertThatInt(self.client.authorizationsTriesCount,equalToInt(0));
     assertThat(self.client.authorizationClient,nilValue());
     [verifyCount(authorizationClient,never()) authorizeWithSuccess:anything() failure:anything()];
     [self assertClientBlocksNiled];
-    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientFinished));
+    [self assertStateChangeExpectedResult];
 }
 
 -(void)test_shouldFailureAndNotTryToAuthorize_WhenReceivedSomeError
 {
+    //given
     NSError *errorResponse = [NSError errorWithDomain:PydioErrorDomain code:PydioErrorUnableToParseAnswer userInfo:nil];
     self.expectedResult = [BlocksCallResult failureWithError:errorResponse];
     [self setupEmptyResult];
     [self setupClientForBlockResponse];
-    
+    [self setupStateChangeBlock:PydioClientFinished];
+    //when
     self.client.failureResponseBlock(errorResponse);
-    
+    //then
     assertThat(self.result,equalTo(self.expectedResult));
     assertThatInt(self.client.authorizationsTriesCount,equalToInt(DEFAULT_TRIES_COUNT));
     assertThat(self.client.authorizationClient,nilValue());
     [verifyCount(authorizationClient,never()) authorizeWithSuccess:anything() failure:anything()];
     [self assertClientBlocksNiled];
-    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientFinished));
+    [self assertStateChangeExpectedResult];
 }
 
 -(void)test_shouldCallSuccessBlock_WhenReceivedSuccessAnswer
 {
+    //given
     NSObject *object = [[NSObject alloc] init];
     self.expectedResult = [BlocksCallResult successWithResponse:object];
     [self setupEmptyResult];
     [self setupClientForBlockResponse];
-    
+    [self setupStateChangeBlock:PydioClientFinished];
+    //when
     self.client.successResponseBlock(object);
-    
+    //then
     assertThat(self.result,equalTo(self.expectedResult));
     [self assertClientBlocksNiled];
-    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientFinished));
+    [self assertStateChangeExpectedResult];
 }
 
 #pragma mark - Test List Workspaces
@@ -227,13 +244,15 @@ static OperationsClient* operationsClient = nil;
 
 -(void)test_ShouldStartListWorkspaces_WhenNotInProgress
 {
+    //given
     [self setupEmptyResult];
-    
+    [self setupStateChangeBlock:PydioClientOperation];
+    //when
     BOOL startResult = [self.client listWorkspacesWithSuccess:self.successBlock failure:self.failureBlock];
-    
+    //then
     [self assertStartedOperationSetupDefaultAuthTries:startResult];
     [verify(operationsClient) listWorkspacesWithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
-    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientOperation));
+    [self assertStateChangeExpectedResult];
 }
 
 #pragma mark - Test List Files
@@ -252,15 +271,17 @@ static OperationsClient* operationsClient = nil;
 
 -(void)test_ShouldStartListFiles_WhenNotInProgress
 {
+    //given
     ListNodesRequestParams *request = [self exampleListFilesRequest];
     NSDictionary *expectedParams = [self exampleListFilesDictionary];
     [self setupEmptyResult];
-    
+    [self setupStateChangeBlock:PydioClientOperation];
+    //when
     BOOL startResult = [self.client listNodes:request WithSuccess:self.successBlock failure:self.failureBlock];
-    
+    //then
     [self assertStartedOperationSetupDefaultAuthTries:startResult];
     [verify(operationsClient) listFiles:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
-    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientOperation));
+    [self assertStateChangeExpectedResult];
 }
 
 #pragma mark - Test mkdir
@@ -279,15 +300,17 @@ static OperationsClient* operationsClient = nil;
 
 -(void)test_ShouldStartMkDir_WhenNotInProgress
 {
+    //given
     MkDirRequestParams *request = [self exampleMkDirRequestParams];
     NSDictionary *expectedParams = [self exampleMkDirRequestParamsDictionary];
     [self setupEmptyResult];
-    
+    [self setupStateChangeBlock:PydioClientOperation];
+    //when
     BOOL startResult = [self.client mkdir:request WithSuccess:self.successBlock failure:self.failureBlock];
-    
+    //then
     [self assertStartedOperationSetupDefaultAuthTries:startResult];
     [verify(operationsClient) mkdir:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
-    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientOperation));
+    [self assertStateChangeExpectedResult];
 }
 
 #pragma mark - Test authorize
@@ -305,13 +328,15 @@ static OperationsClient* operationsClient = nil;
 
 -(void)test_ShouldStartAuthorize_WhenNotInProgress
 {
+    //given
     [self setupEmptyResult];
-    
+    [self setupStateChangeBlock:PydioClientAuthorization];
+    //when
     BOOL startResult = [self.client authorizeWithSuccess:self.successBlock failure:self.failureBlock];
-    
+    //then
     [self assertStartedOperationSetup0AuthTries:startResult];
     [verify(authorizationClient) authorizeWithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
-    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientAuthorization));
+    [self assertStateChangeExpectedResult];
 }
 
 #pragma mark - Test delete nodes
@@ -330,15 +355,17 @@ static OperationsClient* operationsClient = nil;
 
 -(void)test_ShouldStartDeleteNodes_WhenNotInProgress
 {
+    //given
     DeleteNodesRequestParams *request = [self exampleDeleteNodesRequestParams];
     NSDictionary *expectedParams = [self exampleDeleteNodesDictionary];
     [self setupEmptyResult];
-    
+    [self setupStateChangeBlock:PydioClientOperation];
+    //when
     BOOL startResult = [self.client deleteNodes:request WithSuccess:self.successBlock failure:self.failureBlock];
-    
+    //then
     [self assertStartedOperationSetupDefaultAuthTries:startResult];
     [verify(operationsClient) deleteNodes:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
-    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientOperation));
+    [self assertStateChangeExpectedResult];
 }
 
 #pragma mark - Test login with captcha
@@ -361,12 +388,13 @@ static OperationsClient* operationsClient = nil;
     //given
     NSString *captcha = @"captcha";
     [self setupEmptyResult];
+    [self setupStateChangeBlock:PydioClientAuthorization];
     //when
     BOOL startResult = [self.client login:captcha WithSuccess:self.successBlock failure:self.failureBlock];
     //then
     [self assertStartedOperationSetup0AuthTries:startResult];
     [verify(authorizationClient) login:equalTo(captcha) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
-    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientAuthorization));
+    [self assertStateChangeExpectedResult];
 }
 
 #pragma mark - Get Captcha
@@ -387,12 +415,13 @@ static OperationsClient* operationsClient = nil;
 {
     //given
     [self setupEmptyResult];
+    [self setupStateChangeBlock:PydioClientOperation];
     //when
     BOOL startResult = [self.client getCaptchaWithSuccess:self.successBlock failure:self.failureBlock];
     //then
     [self assertStartedOperationSetup0AuthTries:startResult];
     [verify(authorizationClient) getCaptchaWithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
-    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientOperation));
+    [self assertStateChangeExpectedResult];
 }
 
 #pragma mark - Tests Verification
@@ -441,6 +470,11 @@ static OperationsClient* operationsClient = nil;
     [self assertClientBlocksNiled];
 }
 
+-(void)assertStateChangeExpectedResult {
+    assertThat(self.stateChangeUpdateResult,equalTo(self.stateChangeExpectedResult));
+    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(self.stateChangeExpectedResult.argument));
+}
+
 #pragma mark - Helpers
 
 -(void)setupExpectedAndEmptyResult {
@@ -452,6 +486,12 @@ static OperationsClient* operationsClient = nil;
     self.result = [BlocksCallResult result];
     self.successBlock = [self.result successBlock];
     self.failureBlock = [self.result failureBlock];
+}
+
+-(void)setupStateChangeBlock:(PydioClientState)expectedState {
+    self.stateChangeUpdateResult = [[UnsignedIntegerBlockCallResult alloc] init];
+    self.client.stateChangeBlock = [self.stateChangeUpdateResult block];
+    self.stateChangeExpectedResult = [UnsignedIntegerBlockCallResult blockCalledWith:expectedState];
 }
 
 -(void)setupClientForBlockResponse {

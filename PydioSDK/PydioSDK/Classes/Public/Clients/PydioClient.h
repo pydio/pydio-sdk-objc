@@ -20,11 +20,14 @@ typedef NS_ENUM(NSUInteger, PydioClientState) {
     PydioClientFinished
 };
 
+typedef void(^StateChangeBlock)(PydioClientState newState);
+
 
 @interface PydioClient : NSObject
 @property (readonly,nonatomic,strong) NSURL* serverURL;
 @property (readonly,nonatomic,assign) BOOL progress;
 @property (readonly,nonatomic,assign) PydioClientState state;
+@property (nonatomic,strong) StateChangeBlock stateChangeBlock;
 
 
 -(instancetype)initWithServer:(NSString *)server;

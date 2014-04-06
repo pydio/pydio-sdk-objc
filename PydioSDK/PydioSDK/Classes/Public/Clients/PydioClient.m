@@ -53,6 +53,13 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     return self.authorizationClient.progress || self.operationsClient.progress;
 }
 
+-(void)setState:(PydioClientState)state {
+    _state = state;
+    if (self.stateChangeBlock) {
+        self.stateChangeBlock(state);
+    }
+}
+
 #pragma mark - Initialization
 
 -(instancetype)initWithServer:(NSString *)server {
