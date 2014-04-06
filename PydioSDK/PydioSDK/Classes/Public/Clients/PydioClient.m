@@ -30,6 +30,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 @property (nonatomic,copy) void(^successResponseBlock)(id responseObject);
 @property (nonatomic,copy) FailureBlock failureResponseBlock;
 @property (nonatomic,assign) int authorizationsTriesCount;
+@property (readwrite,nonatomic,assign) PydioClientState state;
 
 -(AFHTTPRequestOperationManager*)createOperationManager:(NSString*)server;
 -(AuthorizationClient*)createAuthorizationClient;
@@ -38,6 +39,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 -(void)setupSuccessResponseBlock;
 -(void)setupFailureResponseBlock;
 -(void)setupCommons:(void(^)(id result))success failure:(FailureBlock)failure;
+-(void)callOperationBlock;
 @end
 
 
@@ -78,6 +80,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         }
         __strong typeof(self) strongSelf = weakSelf;
         strongSelf.successBlock(response);
+        strongSelf.state = PydioClientFinished;
         [strongSelf clearBlocks];
     };
 }
@@ -92,9 +95,11 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         if ([strongSelf isAuthorizationError:error] && strongSelf.authorizationsTriesCount > 0) {
             strongSelf.authorizationsTriesCount--;
             [strongSelf setupAuthorizationClient];
+            strongSelf.state = PydioClientAuthorization;
             [strongSelf.authorizationClient authorizeWithSuccess:strongSelf.operationBlock failure:strongSelf.failureResponseBlock];
         } else {
             strongSelf.failureBlock(error);
+            strongSelf.state = PydioClientFinished;
             [strongSelf clearBlocks];
         }
     };
@@ -107,6 +112,15 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     [self setupResponseBlocks];
 }
 
+-(void)callOperationBlock {
+    self.state = PydioClientOperation;
+    self.operationBlock();
+}
+
+-(void)callAuthorizationOperationBlock {
+    self.state = PydioClientAuthorization;
+    self.operationBlock();
+}
 
 #pragma mark -
 
@@ -123,7 +137,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         [strongSelf.authorizationClient authorizeWithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
-    self.operationBlock();
+    [self callAuthorizationOperationBlock];
     
     return YES;
 }
@@ -141,7 +155,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         [strongSelf.authorizationClient login:captcha WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
-    self.operationBlock();
+    [self callAuthorizationOperationBlock];
     
     return YES;
 }
@@ -159,7 +173,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         [strongSelf.authorizationClient getCaptchaWithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
-    self.operationBlock();
+    [self callOperationBlock];
     
     return YES;
 }
@@ -175,7 +189,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         [strongSelf.operationsClient listWorkspacesWithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
-    self.operationBlock();
+    [self callOperationBlock];
     
     return YES;
 }
@@ -191,7 +205,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         [strongSelf.operationsClient listFiles:[params dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
-    self.operationBlock();
+    [self callOperationBlock];
     
     return YES;
 }
@@ -207,7 +221,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         [strongSelf.operationsClient mkdir:[params dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
-    self.operationBlock();
+    [self callOperationBlock];
     
     return YES;
 }
@@ -223,7 +237,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         [strongSelf.operationsClient deleteNodes:[params dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
-    self.operationBlock();
+    [self callOperationBlock];
     
     return YES;
 }

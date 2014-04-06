@@ -119,6 +119,7 @@ static OperationsClient* operationsClient = nil;
 {
     assertThatBool(self.client.progress, equalToBool(NO));
     assertThat(self.client.serverURL, equalTo([self helperServerURL]));
+    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientIdle));
 }
 
 -(void)test_shouldBeProgress_whenAuthorizationProgress
@@ -159,6 +160,7 @@ static OperationsClient* operationsClient = nil;
     assertThat(self.result,equalTo(self.expectedResult));
     assertThatInt(self.client.authorizationsTriesCount,equalToInt(0));
     [verify(authorizationClient) authorizeWithSuccess:self.client.operationBlock failure:self.client.failureResponseBlock];
+    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientAuthorization));
 }
 
 -(void)test_shouldFailureAndNotTryToAuthorize_WhenReceivedAuthorizationErrorAndTriesCountIs0
@@ -176,6 +178,7 @@ static OperationsClient* operationsClient = nil;
     assertThat(self.client.authorizationClient,nilValue());
     [verifyCount(authorizationClient,never()) authorizeWithSuccess:anything() failure:anything()];
     [self assertClientBlocksNiled];
+    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientFinished));
 }
 
 -(void)test_shouldFailureAndNotTryToAuthorize_WhenReceivedSomeError
@@ -192,6 +195,7 @@ static OperationsClient* operationsClient = nil;
     assertThat(self.client.authorizationClient,nilValue());
     [verifyCount(authorizationClient,never()) authorizeWithSuccess:anything() failure:anything()];
     [self assertClientBlocksNiled];
+    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientFinished));
 }
 
 -(void)test_shouldCallSuccessBlock_WhenReceivedSuccessAnswer
@@ -205,6 +209,7 @@ static OperationsClient* operationsClient = nil;
     
     assertThat(self.result,equalTo(self.expectedResult));
     [self assertClientBlocksNiled];
+    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientFinished));
 }
 
 #pragma mark - Test List Workspaces
@@ -228,6 +233,7 @@ static OperationsClient* operationsClient = nil;
     
     [self assertStartedOperationSetupDefaultAuthTries:startResult];
     [verify(operationsClient) listWorkspacesWithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientOperation));
 }
 
 #pragma mark - Test List Files
@@ -254,6 +260,7 @@ static OperationsClient* operationsClient = nil;
     
     [self assertStartedOperationSetupDefaultAuthTries:startResult];
     [verify(operationsClient) listFiles:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientOperation));
 }
 
 #pragma mark - Test mkdir
@@ -280,6 +287,7 @@ static OperationsClient* operationsClient = nil;
     
     [self assertStartedOperationSetupDefaultAuthTries:startResult];
     [verify(operationsClient) mkdir:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientOperation));
 }
 
 #pragma mark - Test authorize
@@ -303,6 +311,7 @@ static OperationsClient* operationsClient = nil;
     
     [self assertStartedOperationSetup0AuthTries:startResult];
     [verify(authorizationClient) authorizeWithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientAuthorization));
 }
 
 #pragma mark - Test delete nodes
@@ -329,6 +338,7 @@ static OperationsClient* operationsClient = nil;
     
     [self assertStartedOperationSetupDefaultAuthTries:startResult];
     [verify(operationsClient) deleteNodes:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientOperation));
 }
 
 #pragma mark - Test login with captcha
@@ -356,6 +366,7 @@ static OperationsClient* operationsClient = nil;
     //then
     [self assertStartedOperationSetup0AuthTries:startResult];
     [verify(authorizationClient) login:equalTo(captcha) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientAuthorization));
 }
 
 #pragma mark - Get Captcha
@@ -381,7 +392,7 @@ static OperationsClient* operationsClient = nil;
     //then
     [self assertStartedOperationSetup0AuthTries:startResult];
     [verify(authorizationClient) getCaptchaWithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
-    
+    assertThatUnsignedInteger(self.client.state, equalToUnsignedInteger(PydioClientOperation));
 }
 
 #pragma mark - Tests Verification

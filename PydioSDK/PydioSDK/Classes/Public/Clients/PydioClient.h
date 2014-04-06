@@ -13,10 +13,19 @@
 @class MkDirRequestParams;
 @class DeleteNodesRequestParams;
 
+typedef NS_ENUM(NSUInteger, PydioClientState) {
+    PydioClientIdle,
+    PydioClientOperation,
+    PydioClientAuthorization,
+    PydioClientFinished
+};
+
 
 @interface PydioClient : NSObject
 @property (readonly,nonatomic,strong) NSURL* serverURL;
 @property (readonly,nonatomic,assign) BOOL progress;
+@property (readonly,nonatomic,assign) PydioClientState state;
+
 
 -(instancetype)initWithServer:(NSString *)server;
 
