@@ -78,7 +78,7 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    int row = [self.tableView indexPathForSelectedRow].row;
+    NSInteger row = [self.tableView indexPathForSelectedRow].row;
     
     ServerContentViewController *destination = segue.destinationViewController;
     destination.workspace = (WorkspaceResponse*)[self.workspaces objectAtIndex:row];
@@ -91,7 +91,11 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
 #pragma mark - Helpers
 
 -(PydioClient *)pydioClient {
-    return [[PydioClient alloc] initWithServer:[self.server absoluteString]];
+    PydioClient *client = [[PydioClient alloc] initWithServer:[self.server absoluteString]];
+    client.stateChangeBlock = ^(PydioClientState newState) {
+        NSLog(@"%s %d",__PRETTY_FUNCTION__,newState);
+    };
+    return client;
 }
 
 -(void)listWorkspaces {
