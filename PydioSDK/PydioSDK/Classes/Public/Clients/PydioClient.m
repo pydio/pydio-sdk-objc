@@ -39,7 +39,6 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 -(void)setupSuccessResponseBlock;
 -(void)setupFailureResponseBlock;
 -(void)setupCommons:(void(^)(id result))success failure:(FailureBlock)failure;
--(void)callOperationBlock;
 @end
 
 
@@ -57,6 +56,30 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     _state = state;
     if (self.stateChangeBlock) {
         self.stateChangeBlock(state);
+    }
+}
+
+-(void)setOperationBlock:(void (^)())operationBlock {
+    [self setOperationBlock:operationBlock WithState:PydioClientOperation];
+}
+
+-(void)setOperationBlockWithAuthorization:(void (^)())operationBlock {
+    [self setOperationBlock:operationBlock WithState:PydioClientAuthorization];
+}
+
+-(void)setOperationBlock:(void (^)())operationBlock WithState:(PydioClientState)state {
+    if (operationBlock == nil) {
+        _operationBlock = nil;
+    } else {
+        __weak typeof(self) weakSelf = self;
+        _operationBlock = ^{
+            if (!weakSelf) {
+                return;
+            }
+            __strong typeof(self) strongSelf = weakSelf;
+            strongSelf.state = state;
+            operationBlock();
+        };
     }
 }
 
@@ -119,16 +142,6 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     [self setupResponseBlocks];
 }
 
--(void)callOperationBlock {
-    self.state = PydioClientOperation;
-    self.operationBlock();
-}
-
--(void)callAuthorizationOperationBlock {
-    self.state = PydioClientAuthorization;
-    self.operationBlock();
-}
-
 #pragma mark -
 
 -(BOOL)authorizeWithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure {
@@ -139,12 +152,12 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     self.authorizationsTriesCount = 0;
     
     typeof(self) strongSelf = self;
-    self.operationBlock = ^{
+    [self setOperationBlockWithAuthorization: ^{
         [strongSelf setupAuthorizationClient];
         [strongSelf.authorizationClient authorizeWithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
-    };
+    }];
     
-    [self callAuthorizationOperationBlock];
+    self.operationBlock();
     
     return YES;
 }
@@ -157,12 +170,12 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     self.authorizationsTriesCount = 0;
     
     typeof(self) strongSelf = self;
-    self.operationBlock = ^{
+    [self setOperationBlockWithAuthorization: ^{
         [strongSelf setupAuthorizationClient];
         [strongSelf.authorizationClient login:captcha WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
-    };
+    }];
     
-    [self callAuthorizationOperationBlock];
+    self.operationBlock();
     
     return YES;
 }
@@ -180,7 +193,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         [strongSelf.authorizationClient getCaptchaWithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
-    [self callOperationBlock];
+    self.operationBlock();
     
     return YES;
 }
@@ -196,7 +209,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         [strongSelf.operationsClient listWorkspacesWithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
-    [self callOperationBlock];
+    self.operationBlock();
     
     return YES;
 }
@@ -212,7 +225,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         [strongSelf.operationsClient listFiles:[params dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
-    [self callOperationBlock];
+    self.operationBlock();
     
     return YES;
 }
@@ -228,7 +241,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         [strongSelf.operationsClient mkdir:[params dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
-    [self callOperationBlock];
+    self.operationBlock();
     
     return YES;
 }
@@ -244,7 +257,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
         [strongSelf.operationsClient deleteNodes:[params dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
-    [self callOperationBlock];
+    self.operationBlock();
     
     return YES;
 }
