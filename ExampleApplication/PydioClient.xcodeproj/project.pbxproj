@@ -7,6 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		89112CC819102E540035ADBE /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8638C18C51A0B009EA040 /* AFURLConnectionOperation.m */; };
+		89112CC919102E540035ADBE /* CaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E50918CFA5420073D1AB /* CaptchaView.m */; };
+		89112CCA19102E540035ADBE /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8639218C51A0B009EA040 /* AFURLSessionManager.m */; };
+		89112CCB19102E540035ADBE /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8638318C51A0B009EA040 /* AFHTTPRequestOperationManager.m */; };
+		89112CCC19102E540035ADBE /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8638818C51A0B009EA040 /* AFNetworkReachabilityManager.m */; };
+		89112CCD19102E540035ADBE /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8638118C51A0B009EA040 /* AFHTTPRequestOperation.m */; };
+		89112CCE19102E540035ADBE /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8638A18C51A0B009EA040 /* AFSecurityPolicy.m */; };
+		89112CCF19102E540035ADBE /* ServerWorkspacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8629518C500B1009EA040 /* ServerWorkspacesViewController.m */; };
+		89112CD019102E540035ADBE /* UIViewController+CaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A21B4B18D362550076B089 /* UIViewController+CaptchaView.m */; };
+		89112CD119102E540035ADBE /* NewServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8628F18C500B1009EA040 /* NewServerViewController.m */; };
+		89112CD219102E540035ADBE /* ServerContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8629118C500B1009EA040 /* ServerContentViewController.m */; };
+		89112CD319102E540035ADBE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B567D618C386E200F8EABA /* AppDelegate.m */; };
+		89112CD419102E540035ADBE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B567D218C386E200F8EABA /* main.m */; };
+		89112CD519102E540035ADBE /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8638518C51A0B009EA040 /* AFHTTPSessionManager.m */; };
+		89112CD619102E540035ADBE /* ServersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8629318C500B1009EA040 /* ServersViewController.m */; };
+		89112CD719102E540035ADBE /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8638E18C51A0B009EA040 /* AFURLRequestSerialization.m */; };
+		89112CD819102E540035ADBE /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B8639018C51A0B009EA040 /* AFURLResponseSerialization.m */; };
+		89112CDA19102E540035ADBE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B567C818C386E200F8EABA /* CoreGraphics.framework */; };
+		89112CDB19102E540035ADBE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B567CA18C386E200F8EABA /* UIKit.framework */; };
+		89112CDD19102E540035ADBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B567C618C386E200F8EABA /* Foundation.framework */; };
+		89112CDF19102E540035ADBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89B8628B18C4FDB4009EA040 /* Main.storyboard */; };
+		89112CE019102E540035ADBE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89B567CF18C386E200F8EABA /* InfoPlist.strings */; };
+		89112CE119102E540035ADBE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89B567D818C386E200F8EABA /* Images.xcassets */; };
+		89112CE819102E7E0035ADBE /* libPydioSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89112CE719102E7E0035ADBE /* libPydioSDK.a */; };
 		89A21B4C18D362550076B089 /* UIViewController+CaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A21B4B18D362550076B089 /* UIViewController+CaptchaView.m */; };
 		89A9E50A18CFA5420073D1AB /* CaptchaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E50918CFA5420073D1AB /* CaptchaView.m */; };
 		89B08EA818DA31710041660A /* libPydioSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 89B08EA718DA31710041660A /* libPydioSDK.a */; };
@@ -49,6 +73,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		89112CE519102E540035ADBE /* PydioClientWorkspace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PydioClientWorkspace.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		89112CE619102E550035ADBE /* PydioClientWorkspace-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PydioClientWorkspace-Info.plist"; path = "/Users/pc-mobile/develop/ajaxplorer_new/ExampleApplication/PydioClientWorkspace-Info.plist"; sourceTree = "<absolute>"; };
+		89112CE719102E7E0035ADBE /* libPydioSDK.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libPydioSDK.a; path = "../PydioSDK/build/Debug-iphoneos/libPydioSDK.a"; sourceTree = "<group>"; };
 		89A21B4A18D362550076B089 /* UIViewController+CaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CaptchaView.h"; sourceTree = "<group>"; };
 		89A21B4B18D362550076B089 /* UIViewController+CaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CaptchaView.m"; sourceTree = "<group>"; };
 		89A9E50818CFA5420073D1AB /* CaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaView.h; sourceTree = "<group>"; };
@@ -111,6 +138,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		89112CD919102E540035ADBE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89112CE819102E7E0035ADBE /* libPydioSDK.a in Frameworks */,
+				89112CDA19102E540035ADBE /* CoreGraphics.framework in Frameworks */,
+				89112CDB19102E540035ADBE /* UIKit.framework in Frameworks */,
+				89112CDD19102E540035ADBE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		89B567C018C386E200F8EABA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -177,6 +215,7 @@
 				89B567E518C386E200F8EABA /* PydioClientTests */,
 				89B567C518C386E200F8EABA /* Frameworks */,
 				89B567C418C386E200F8EABA /* Products */,
+				89112CE619102E550035ADBE /* PydioClientWorkspace-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -185,6 +224,7 @@
 			children = (
 				89B567C318C386E200F8EABA /* PydioClient.app */,
 				89B567DE18C386E200F8EABA /* PydioClientTests.xctest */,
+				89112CE519102E540035ADBE /* PydioClientWorkspace.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -192,6 +232,7 @@
 		89B567C518C386E200F8EABA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				89112CE719102E7E0035ADBE /* libPydioSDK.a */,
 				89B567C618C386E200F8EABA /* Foundation.framework */,
 				89B567C818C386E200F8EABA /* CoreGraphics.framework */,
 				89B567CA18C386E200F8EABA /* UIKit.framework */,
@@ -309,6 +350,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		89112CC619102E540035ADBE /* PydioClientWorkspace */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89112CE219102E540035ADBE /* Build configuration list for PBXNativeTarget "PydioClientWorkspace" */;
+			buildPhases = (
+				89112CC719102E540035ADBE /* Sources */,
+				89112CD919102E540035ADBE /* Frameworks */,
+				89112CDE19102E540035ADBE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PydioClientWorkspace;
+			productName = PydioClient;
+			productReference = 89112CE519102E540035ADBE /* PydioClientWorkspace.app */;
+			productType = "com.apple.product-type.application";
+		};
 		89B567C218C386E200F8EABA /* PydioClient */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89B567EF18C386E200F8EABA /* Build configuration list for PBXNativeTarget "PydioClient" */;
@@ -372,11 +430,22 @@
 			targets = (
 				89B567C218C386E200F8EABA /* PydioClient */,
 				89B567DD18C386E200F8EABA /* PydioClientTests */,
+				89112CC619102E540035ADBE /* PydioClientWorkspace */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		89112CDE19102E540035ADBE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89112CDF19102E540035ADBE /* Main.storyboard in Resources */,
+				89112CE019102E540035ADBE /* InfoPlist.strings in Resources */,
+				89112CE119102E540035ADBE /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		89B567C118C386E200F8EABA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -398,6 +467,30 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		89112CC719102E540035ADBE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89112CC819102E540035ADBE /* AFURLConnectionOperation.m in Sources */,
+				89112CC919102E540035ADBE /* CaptchaView.m in Sources */,
+				89112CCA19102E540035ADBE /* AFURLSessionManager.m in Sources */,
+				89112CCB19102E540035ADBE /* AFHTTPRequestOperationManager.m in Sources */,
+				89112CCC19102E540035ADBE /* AFNetworkReachabilityManager.m in Sources */,
+				89112CCD19102E540035ADBE /* AFHTTPRequestOperation.m in Sources */,
+				89112CCE19102E540035ADBE /* AFSecurityPolicy.m in Sources */,
+				89112CCF19102E540035ADBE /* ServerWorkspacesViewController.m in Sources */,
+				89112CD019102E540035ADBE /* UIViewController+CaptchaView.m in Sources */,
+				89112CD119102E540035ADBE /* NewServerViewController.m in Sources */,
+				89112CD219102E540035ADBE /* ServerContentViewController.m in Sources */,
+				89112CD319102E540035ADBE /* AppDelegate.m in Sources */,
+				89112CD419102E540035ADBE /* main.m in Sources */,
+				89112CD519102E540035ADBE /* AFHTTPSessionManager.m in Sources */,
+				89112CD619102E540035ADBE /* ServersViewController.m in Sources */,
+				89112CD719102E540035ADBE /* AFURLRequestSerialization.m in Sources */,
+				89112CD819102E540035ADBE /* AFURLResponseSerialization.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		89B567BF18C386E200F8EABA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -460,6 +553,38 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		89112CE319102E540035ADBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PydioClient/PydioClient-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/PydioClientWorkspace-Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = PydioClientWorkspace;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../PydioSDK/PydioSDK/Classes/Public/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		89112CE419102E540035ADBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PydioClient/PydioClient-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/PydioClientWorkspace-Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = PydioClientWorkspace;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../PydioSDK/PydioSDK/Classes/Public/**";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		89B567ED18C386E200F8EABA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -613,6 +738,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		89112CE219102E540035ADBE /* Build configuration list for PBXNativeTarget "PydioClientWorkspace" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89112CE319102E540035ADBE /* Debug */,
+				89112CE419102E540035ADBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		89B567BE18C386E200F8EABA /* Build configuration list for PBXProject "PydioClient" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

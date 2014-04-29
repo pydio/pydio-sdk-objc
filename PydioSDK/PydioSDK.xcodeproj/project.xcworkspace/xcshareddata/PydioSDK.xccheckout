@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A70E04B2-2104-4847-B630-594E3CDD14C5</string>
+	<key>IDESourceControlProjectName</key>
+	<string>PydioSDK</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C688E971-692C-4D3C-A901-23A35F62BC5D</key>
+		<string>ssh://github.com/AFNetworking/AFNetworking.git</string>
+		<key>C8CC42E0-CB31-4814-8ECB-489E9CA7483E</key>
+		<string>ssh://github.com/pydio/pydio-sdk-objc.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>PydioSDK/PydioSDK.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C688E971-692C-4D3C-A901-23A35F62BC5D</key>
+		<string>../../Libraries/AFNetworking</string>
+		<key>C8CC42E0-CB31-4814-8ECB-489E9CA7483E</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/pydio/pydio-sdk-objc.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C8CC42E0-CB31-4814-8ECB-489E9CA7483E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C688E971-692C-4D3C-A901-23A35F62BC5D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AFNetworking</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C8CC42E0-CB31-4814-8ECB-489E9CA7483E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ajaxplorer_new</string>
+		</dict>
+	</array>
+</dict>
+</plist>
