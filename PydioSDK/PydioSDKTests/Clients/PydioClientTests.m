@@ -20,7 +20,7 @@
 #import "UnsignedIntegerBlockCallResult.h"
 #import "AuthorizationClient.h"
 #import "ServersParamsManager.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "PydioRequestOperationManager.h"
 #import "User.h"
 #import "OperationsClient.h"
 #import "PydioErrors.h"
@@ -34,7 +34,7 @@ static NSString * const TEST_SERVER_ADDRESS = @"http://www.testserver.com/";
 static NSString * const TEST_USER_ID = @"testid";
 static NSString * const TEST_USER_PASSWORD = @"testpassword";
 
-static AFHTTPRequestOperationManager* operationManager = nil;
+static PydioRequestOperationManager* operationManager = nil;
 static AuthorizationClient* authorizationClient = nil;
 static OperationsClient* operationsClient = nil;
 
@@ -70,7 +70,7 @@ static StateChangeBlock stateChangeBlock = ^(PydioClientState newState){
     return authorizationClient;
 }
 
--(AFHTTPRequestOperationManager*)createOperationManager:(NSString*)server {
+-(PydioRequestOperationManager*)createOperationManager:(NSString*)server {
     return operationManager;
 }
 
@@ -103,7 +103,7 @@ static StateChangeBlock stateChangeBlock = ^(PydioClientState newState){
 - (void)setUp
 {
     [super setUp];
-    operationManager = mock([AFHTTPRequestOperationManager class]);
+    operationManager = mock([PydioRequestOperationManager class]);
     authorizationClient = mock([AuthorizationClient class]);
     operationsClient = mock([OperationsClient class]);
     

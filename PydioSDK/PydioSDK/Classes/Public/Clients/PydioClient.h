@@ -29,8 +29,10 @@ typedef void(^StateChangeBlock)(PydioClientState newState);
 @property (readonly,nonatomic,assign) PydioClientState state;
 @property (nonatomic,strong) StateChangeBlock stateChangeBlock;
 
-
 -(instancetype)initWithServer:(NSString *)server;
+
+- (void)setUploadProgressBlock:(void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))block;
+- (void)setDownloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead))block;
 
 -(BOOL)authorizeWithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure;
 -(BOOL)login:(NSString *)captcha WithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure;

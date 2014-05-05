@@ -30,6 +30,7 @@
 		891A83EF18DA46E0002E9FF7 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2A18664EEF00A766D7 /* AFURLRequestSerialization.m */; };
 		891A83F018DA46E0002E9FF7 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2C18664EEF00A766D7 /* AFURLResponseSerialization.m */; };
 		891A83F118DA46E0002E9FF7 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2E18664EEF00A766D7 /* AFURLSessionManager.m */; };
+		892F773A191807DC00FDC727 /* PydioRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 892F7739191807DC00FDC727 /* PydioRequestOperationManager.m */; };
 		89943D8418C66CED00C07E4F /* GetSeedResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A9E1E618C2746B00C821D8 /* GetSeedResponseSerializer.m */; };
 		89943D8518C66CED00C07E4F /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 89401309188443C90044001D /* User.m */; };
 		89943D8718C66CED00C07E4F /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 8910F5F118786EFA0005BED4 /* NSString+Hash.m */; };
@@ -175,6 +176,8 @@
 		8910F5F718788A7A0005BED4 /* GetSeedTextResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSeedTextResponseSerializer.m; sourceTree = "<group>"; };
 		8910F5FF1878A3410005BED4 /* NotAuthorizedResponseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedResponseParserDelegate.h; sourceTree = "<group>"; };
 		8910F6001878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedResponseParserDelegate.m; sourceTree = "<group>"; };
+		892F7738191807DC00FDC727 /* PydioRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioRequestOperationManager.h; sourceTree = "<group>"; };
+		892F7739191807DC00FDC727 /* PydioRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioRequestOperationManager.m; sourceTree = "<group>"; };
 		89401308188443C90044001D /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		89401309188443C90044001D /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		89401D211883318F005A030A /* ServersParamsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServersParamsManager.h; sourceTree = "<group>"; };
@@ -554,6 +557,8 @@
 			children = (
 				89B68C8218D9008D006C7461 /* Clients */,
 				89B68C8018D8F7E8006C7461 /* Helpers */,
+				892F7738191807DC00FDC727 /* PydioRequestOperationManager.h */,
+				892F7739191807DC00FDC727 /* PydioRequestOperationManager.m */,
 				89AC1ACC188DAEDD00ACAD7C /* ResponseParsers */,
 				89B68C8118D8FA66006C7461 /* Responses */,
 				8910F5FD18789E2E0005BED4 /* ResponseSerializers */,
@@ -781,6 +786,7 @@
 				89943D9018C66CED00C07E4F /* ErrorResponseParserDelegate.m in Sources */,
 				89943D9218C66CED00C07E4F /* XMLResponseSerializerDelegate.m in Sources */,
 				89943D9318C66CED00C07E4F /* SeedResponse.m in Sources */,
+				892F773A191807DC00FDC727 /* PydioRequestOperationManager.m in Sources */,
 				89943D9518C66CED00C07E4F /* PydioErrorResponse.m in Sources */,
 				89943D9718C66CED00C07E4F /* ListFilesResponseParserDelegate.m in Sources */,
 				89943D9818C66CED00C07E4F /* PydioSuccessResponse.m in Sources */,

@@ -7,7 +7,7 @@
 //
 
 #import "PydioClient.h"
-#import "AFHTTPRequestOperationManager.h"
+#import "PydioRequestOperationManager.h"
 #import "ServersParamsManager.h"
 #import "AuthorizationClient.h"
 #import "OperationsClient.h"
@@ -21,7 +21,7 @@
 static const int AUTHORIZATION_TRIES_COUNT = 1;
 
 @interface PydioClient ()
-@property (nonatomic,strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic,strong) PydioRequestOperationManager* operationManager;
 @property (nonatomic,strong) AuthorizationClient* authorizationClient;
 @property (nonatomic,strong) OperationsClient* operationsClient;
 @property (nonatomic,copy) void(^operationBlock)();
@@ -57,6 +57,14 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     if (self.stateChangeBlock) {
         self.stateChangeBlock(state);
     }
+}
+
+- (void)setUploadProgressBlock:(void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))block {
+    self.operationManager.uploadProgress = block;
+}
+
+- (void)setDownloadProgressBlock:(void (^)(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead))block {
+    self.operationManager.downloadProgress = block;
 }
 
 -(void)setOperationBlock:(void (^)())operationBlock {
@@ -272,8 +280,8 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     self.failureResponseBlock = nil;
 }
 
--(AFHTTPRequestOperationManager*)createOperationManager:(NSString*)server {
-    return [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:server]];
+-(PydioRequestOperationManager*)createOperationManager:(NSString*)server {
+    return [[PydioRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:server]];
 }
 
 -(void)setupAuthorizationClient {
