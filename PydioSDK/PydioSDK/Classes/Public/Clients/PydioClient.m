@@ -32,7 +32,7 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
 @property (nonatomic,assign) int authorizationsTriesCount;
 @property (readwrite,nonatomic,assign) PydioClientState state;
 
--(AFHTTPRequestOperationManager*)createOperationManager:(NSString*)server;
+-(PydioRequestOperationManager*)createOperationManager:(NSString*)server;
 -(AuthorizationClient*)createAuthorizationClient;
 -(OperationsClient*)createOperationsClient;
 -(void)setupResponseBlocks;
