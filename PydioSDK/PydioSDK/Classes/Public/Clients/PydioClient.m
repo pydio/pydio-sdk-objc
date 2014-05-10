@@ -16,6 +16,7 @@
 #import "ListNodesRequestParams.h"
 #import "MkDirRequestParams.h"
 #import "DeleteNodesRequestParams.h"
+#import "DownloadNodesRequestParams.h"
 
 
 static const int AUTHORIZATION_TRIES_COUNT = 1;
@@ -263,6 +264,22 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     typeof(self) strongSelf = self;
     self.operationBlock = ^{
         [strongSelf.operationsClient deleteNodes:[params dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
+    };
+    
+    self.operationBlock();
+    
+    return YES;
+}
+
+-(BOOL)downloadNodes:(DownloadNodesRequestParams*)params WithSuccess:(void(^)(id response))success failure:(FailureBlock)failure {
+    if (self.progress) {
+        return NO;
+    }
+    [self setupCommons:success failure:failure];
+    
+    typeof(self) strongSelf = self;
+    self.operationBlock = ^{
+        [strongSelf.operationsClient downloadNodes:[params dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
     };
     
     self.operationBlock();

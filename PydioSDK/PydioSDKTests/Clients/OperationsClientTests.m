@@ -23,6 +23,7 @@
 #import "XMLResponseSerializer.h"
 #import "XMLResponseSerializerDelegate.h"
 #import "FailingResponseSerializer.h"
+#import "DownloadNodesResponseSerializer.h"
 
 
 #pragma mark - Helpers
@@ -103,6 +104,13 @@ static id mockedCookieManager(id self, SEL _cmd) {
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 
+-(NSDictionary*)downloadNodesParams:(NSDictionary*)params {
+    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary:params];
+    [dict setValue:@"download" forKey:GET_ACTION];
+    
+    return [NSDictionary dictionaryWithDictionary:dict];
+}
+
 -(NSDictionary*)defaultRequestParams {
     return @{
              @"Accept-Encoding": @"gzip, deflate",
@@ -159,6 +167,12 @@ static id mockedCookieManager(id self, SEL _cmd) {
     AFCompoundResponseSerializer *compound = [self compundResponseSerializer];
     [self assertDefaultResponseSerializer:compound];
     [self assertResponseSerializer:compound AtResponsePositionHas:class];
+}
+
+-(void)assertDefaultResponseSerializersWithSerializer:(Class)class {
+    AFCompoundResponseSerializer *compound = [self compundResponseSerializer];
+    [self assertDefaultResponseSerializer:compound];
+    assertThat([compound.responseSerializers objectAtIndex:2],instanceOf(class));
 }
 
 -(void)assertClientBlocksSuccess:(SuccessBlock)success AndFailure:(FailureBlock)failure {
@@ -388,6 +402,22 @@ static id mockedCookieManager(id self, SEL _cmd) {
     [verify([self operationManager]) POST:equalTo(INDEX_URL) parameters:equalTo([self deleteNodesParams:params]) success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
     [self assertOperationManagerHasDefaultRequestSerializerSet];
     [self assertDefaultResponseSerializerWithClass:[SuccessResponseSerializerDelegate class]];
+    [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];
+}
+
+-(void)test_shouldStartDownloadNodes_whenNoOperationIsInProgress
+{
+    NSDictionary *params = @{};
+    BlocksCallResult *result = [BlocksCallResult result];
+    SuccessBlock successBlock = [result successBlock];
+    FailureBlock failureBlock = [result failureBlock];
+    
+    BOOL startResult = [self.client downloadNodes:params WithSuccess:successBlock failure:failureBlock];
+    
+    assertThatBool(startResult,equalToBool(YES));
+    [verify([self operationManager]) POST:equalTo(INDEX_URL) parameters:equalTo([self downloadNodesParams:params]) success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    [self assertOperationManagerHasDefaultRequestSerializerSet];
+    [self assertDefaultResponseSerializersWithSerializer:[DownloadNodesResponseSerializer class]];
     [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];
 }
 

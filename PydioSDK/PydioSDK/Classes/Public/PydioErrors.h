@@ -18,6 +18,7 @@ enum {
     PydioErrorGetSeedWithCaptcha,
     PydioErrorLoginWithCaptcha,
     PydioErrorErrorResponse, //TODO: Maybe add another domain for server error responses
+    PydioErrorNotAZipFileResponse,
     PydioErrorReceivedNotExpectedAnswer    
 };
 

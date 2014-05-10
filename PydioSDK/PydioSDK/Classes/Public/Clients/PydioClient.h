@@ -12,6 +12,7 @@
 @class ListNodesRequestParams;
 @class MkDirRequestParams;
 @class DeleteNodesRequestParams;
+@class DownloadNodesRequestParams;
 
 typedef NS_ENUM(NSUInteger, PydioClientState) {
     PydioClientIdle,
@@ -41,4 +42,5 @@ typedef void(^StateChangeBlock)(PydioClientState newState);
 -(BOOL)listNodes:(ListNodesRequestParams*)params WithSuccess:(void(^)(NSArray* nodes))success failure:(FailureBlock)failure;
 -(BOOL)mkdir:(MkDirRequestParams*)params WithSuccess:(void(^)(id ignored))success failure:(FailureBlock)failure;
 -(BOOL)deleteNodes:(DeleteNodesRequestParams*)params WithSuccess:(void(^)())success failure:(FailureBlock)failure;
+-(BOOL)downloadNodes:(DownloadNodesRequestParams*)params WithSuccess:(void(^)(id fileURL))success failure:(FailureBlock)failure;
 @end

@@ -8,11 +8,13 @@
 
 #import "OperationsClient.h"
 #import "AFHTTPRequestOperationManager.h"
+#import "AFURLResponseSerialization.h"
 #import "ServersParamsManager.h"
 #import "XMLResponseSerializer.h"
 #import "XMLResponseSerializerDelegate.h"
 #import "FailingResponseSerializer.h"
 #import "NotAuthorizedResponse.h"
+#import "DownloadNodesResponseSerializer.h"
 #import "PydioErrorResponse.h"
 #import "PydioErrors.h"
 
@@ -135,21 +137,29 @@ extern NSString * const PydioErrorDomain;
 
 -(BOOL)listFiles:(NSDictionary*)params WithSuccess:(void(^)(NSArray* files))success failure:(FailureBlock)failure {
     return [self performGETAction:[self responseSerializerForListFiles]
-                       withParams:[self paramsForLs:params]
+                       withParams:[self paramsWithTokenIfNeeded:params forAction:@"ls"]
                           andArgs:[AggregatedArgs argsWith:success failure:failure]];
 }
 
 -(BOOL)mkdir:(NSDictionary*)params WithSuccess:(void(^)(NSArray* files))success failure:(FailureBlock)failure {
     return [self performPOSTAction:[self responseSerializerForSuccessResponseToAction:@"mkdir"]
-                        withParams:[self paramsForMkDir:params]
+                        withParams:[self paramsWithTokenIfNeeded:params forAction:@"mkdir"]
                            andArgs:[AggregatedArgs argsWith:success failure:failure]];
 }
 
 -(BOOL)deleteNodes:(NSDictionary*)params WithSuccess:(void(^)())success failure:(FailureBlock)failure {
     return [self performPOSTAction:[self responseSerializerForSuccessResponseToAction:@"delete"]
-                        withParams:[self paramsForDeleteNodes:params]
+                        withParams:[self paramsWithTokenIfNeeded:params forAction:@"delete"]
                            andArgs:[AggregatedArgs argsWith:success failure:failure]];
 }
+
+-(BOOL)downloadNodes:(NSDictionary*)params WithSuccess:(void(^)(id response))success failure:(FailureBlock)failure {
+    return [self performPOSTAction:[self responseSerializerForDownload]
+                        withParams:[self paramsWithTokenIfNeeded:params forAction:@"download"]
+                           andArgs:[AggregatedArgs argsWith:success failure:failure]];
+}
+
+
 
 #pragma mark - Helper methods
 
@@ -178,18 +188,6 @@ extern NSString * const PydioErrorDomain;
 -(NSDictionary*)paramsForGetRegisters {
     NSDictionary *dict = [NSDictionary dictionaryWithObject:@"user/repositories" forKey:@"xPath"];
     return [self paramsWithTokenIfNeeded:dict forAction:@"get_xml_registry"];
-}
-
--(NSDictionary*)paramsForLs:(NSDictionary*)params {
-    return [self paramsWithTokenIfNeeded:params forAction:@"ls"];
-}
-
--(NSDictionary*)paramsForMkDir:(NSDictionary*)params {
-    return [self paramsWithTokenIfNeeded:params forAction:@"mkdir"];
-}
-
--(NSDictionary*)paramsForDeleteNodes:(NSDictionary*)params {
-    return [self paramsWithTokenIfNeeded:params forAction:@"delete"];
 }
 
 -(AFHTTPRequestSerializer*)defaultRequestSerializer {
@@ -222,7 +220,13 @@ extern NSString * const PydioErrorDomain;
     return [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
 }
 
--(NSArray*)defaultResponseSerializersWithSerializer:(XMLResponseSerializer*)serializer {
+-(AFHTTPResponseSerializer*)responseSerializerForDownload {
+    NSArray *serializers = [self defaultResponseSerializersWithSerializer:[[DownloadNodesResponseSerializer alloc] init]];
+    
+    return [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
+}
+
+-(NSArray*)defaultResponseSerializersWithSerializer:(AFHTTPResponseSerializer*)serializer {
     return @[
              [self createSerializerForNotAuthorized],
              [self createSerializerForErrorResponse],

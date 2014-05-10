@@ -21,6 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		890E23F81919568800C1C36B /* DownloadNodesRequestParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 890E23F71919568800C1C36B /* DownloadNodesRequestParams.m */; };
+		8911C427191F6FCA00533A98 /* DownloadNodesResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8911C426191F6FCA00533A98 /* DownloadNodesResponseSerializerTests.m */; };
+		8913FD48191EA8E9006FF88D /* DownloadNodesResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8913FD47191EA8E9006FF88D /* DownloadNodesResponseSerializer.m */; };
 		891A83E918DA46E0002E9FF7 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B1D18664EEF00A766D7 /* AFHTTPRequestOperation.m */; };
 		891A83EA18DA46E0002E9FF7 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B1F18664EEF00A766D7 /* AFHTTPRequestOperationManager.m */; };
 		891A83EB18DA46E0002E9FF7 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B2118664EEF00A766D7 /* AFHTTPSessionManager.m */; };
@@ -168,6 +171,8 @@
 		3DFF3B2C18664EEF00A766D7 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		3DFF3B2D18664EEF00A766D7 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		3DFF3B2E18664EEF00A766D7 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		890E23F61919568800C1C36B /* DownloadNodesRequestParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadNodesRequestParams.h; sourceTree = "<group>"; };
+		890E23F71919568800C1C36B /* DownloadNodesRequestParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadNodesRequestParams.m; sourceTree = "<group>"; };
 		8910F5F018786EFA0005BED4 /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
 		8910F5F118786EFA0005BED4 /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
 		8910F5F3187874430005BED4 /* BootConfResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BootConfResponseSerializer.h; sourceTree = "<group>"; };
@@ -176,6 +181,9 @@
 		8910F5F718788A7A0005BED4 /* GetSeedTextResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSeedTextResponseSerializer.m; sourceTree = "<group>"; };
 		8910F5FF1878A3410005BED4 /* NotAuthorizedResponseParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotAuthorizedResponseParserDelegate.h; sourceTree = "<group>"; };
 		8910F6001878A3410005BED4 /* NotAuthorizedResponseParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotAuthorizedResponseParserDelegate.m; sourceTree = "<group>"; };
+		8911C426191F6FCA00533A98 /* DownloadNodesResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadNodesResponseSerializerTests.m; sourceTree = "<group>"; };
+		8913FD46191EA8E9006FF88D /* DownloadNodesResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadNodesResponseSerializer.h; sourceTree = "<group>"; };
+		8913FD47191EA8E9006FF88D /* DownloadNodesResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadNodesResponseSerializer.m; sourceTree = "<group>"; };
 		892F7738191807DC00FDC727 /* PydioRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PydioRequestOperationManager.h; sourceTree = "<group>"; };
 		892F7739191807DC00FDC727 /* PydioRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PydioRequestOperationManager.m; sourceTree = "<group>"; };
 		89401308188443C90044001D /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -386,6 +394,8 @@
 			children = (
 				8910F5F3187874430005BED4 /* BootConfResponseSerializer.h */,
 				8910F5F4187874430005BED4 /* BootConfResponseSerializer.m */,
+				8913FD46191EA8E9006FF88D /* DownloadNodesResponseSerializer.h */,
+				8913FD47191EA8E9006FF88D /* DownloadNodesResponseSerializer.m */,
 				89B1B6EF18A4170400EC79C5 /* FailingResponseSerializer.h */,
 				89B1B6F018A4170400EC79C5 /* FailingResponseSerializer.m */,
 				89A8DBA018DF1D5400DC6BAA /* GetCaptchaResponseSerializer.h */,
@@ -417,6 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				89A6AA3E187B0A30003A6BDA /* BootConfResponseSerializerTests.m */,
+				8911C426191F6FCA00533A98 /* DownloadNodesResponseSerializerTests.m */,
 				89B1B6F218A41B1500EC79C5 /* FailingResponseSerializerTests.m */,
 				89B567B618C34C5600F8EABA /* GetSeedJSONResponseSerializerTests.m */,
 				89A6C8A4189469A200EA5D13 /* GetSeedResponseSerializerTests.m */,
@@ -471,6 +482,8 @@
 			children = (
 				89A88C1A18BA951600DAE087 /* DeleteNodesRequestParams.h */,
 				89A88C1B18BA951600DAE087 /* DeleteNodesRequestParams.m */,
+				890E23F61919568800C1C36B /* DownloadNodesRequestParams.h */,
+				890E23F71919568800C1C36B /* DownloadNodesRequestParams.m */,
 				89A7691718A4391A0056A61F /* ListNodesRequestParams.h */,
 				89A7691818A4391A0056A61F /* ListNodesRequestParams.m */,
 				89ADF98F18BA0EE900E418CA /* MkDirRequestParams.h */,
@@ -773,6 +786,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				890E23F81919568800C1C36B /* DownloadNodesRequestParams.m in Sources */,
 				89943D8418C66CED00C07E4F /* GetSeedResponseSerializer.m in Sources */,
 				89943D8518C66CED00C07E4F /* User.m in Sources */,
 				89943D8718C66CED00C07E4F /* NSString+Hash.m in Sources */,
@@ -782,6 +796,7 @@
 				89943D8C18C66CED00C07E4F /* XMLParserState.m in Sources */,
 				89943D8D18C66CED00C07E4F /* LoginResponse.m in Sources */,
 				89943D8E18C66CED00C07E4F /* ServersParamsManager.m in Sources */,
+				8913FD48191EA8E9006FF88D /* DownloadNodesResponseSerializer.m in Sources */,
 				89943D8F18C66CED00C07E4F /* GetSeedJSONResponseSerializer.m in Sources */,
 				89943D9018C66CED00C07E4F /* ErrorResponseParserDelegate.m in Sources */,
 				89943D9218C66CED00C07E4F /* XMLResponseSerializerDelegate.m in Sources */,
@@ -828,6 +843,7 @@
 				89943DB018C66CED00C07E4F /* ListFilesResponseParserDelegateTests.m in Sources */,
 				89943DB118C66CED00C07E4F /* LoginResponseParserDelegateTests.m in Sources */,
 				89943DB218C66CED00C07E4F /* SuccessResponseParserDelegateTests.m in Sources */,
+				8911C427191F6FCA00533A98 /* DownloadNodesResponseSerializerTests.m in Sources */,
 				89C77BAE18F1BDDE0016B2DC /* UnsignedIntegerBlockCallResult.m in Sources */,
 				89943DB318C66CED00C07E4F /* RepositoriesParserDelegateTests.m in Sources */,
 				89943DB418C66CED00C07E4F /* ServersParamsManagerTests.m in Sources */,

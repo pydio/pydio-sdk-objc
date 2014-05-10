@@ -14,6 +14,7 @@
 #import "MkDirRequestParams.h"
 #import "DeleteNodesRequestParams.h"
 #import "CaptchaView.h"
+#import "DownloadNodesRequestParams.h"
 
 
 static NSString * const TABLE_CELL_ID = @"TableCell";
@@ -105,7 +106,11 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
 #pragma mark - Helpers
 
 -(PydioClient*)pydioClient {
-    return [[PydioClient alloc] initWithServer:[self.server absoluteString]];
+    PydioClient *client = [[PydioClient alloc] initWithServer:[self.server absoluteString]];
+    [client setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        NSLog(@"download progress %s bytesRead: %d totalBytesRead: %lld totalBytesExpectedToRead: %lld",__PRETTY_FUNCTION__,bytesRead,totalBytesRead,totalBytesExpectedToRead);
+    }];
+    return client;
 }
 
 -(void)listFiles {
@@ -133,6 +138,15 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
 
     return request;
 }
+
+-(DownloadNodesRequestParams*)downloadNodesRequest:(NodeResponse*)node {
+    DownloadNodesRequestParams *request = [[DownloadNodesRequestParams alloc] init];
+    request.workspaceId = self.workspace.workspaceId;
+    request.nodes = [NSArray arrayWithObject:node];
+    
+    return request;
+}
+
 
 -(NSString*)fileNameAt:(NSInteger)row {
     return [self fileNodeAt:row].name;

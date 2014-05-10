@@ -95,6 +95,11 @@ static NSString * const TABLE_CELL_ID = @"TableCell";
     client.stateChangeBlock = ^(PydioClientState newState) {
         NSLog(@"%s %d",__PRETTY_FUNCTION__,newState);
     };
+    
+    [client setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        NSLog(@"download progress %s bytesRead: %d totalBytesRead: %lld totalBytesExpectedToRead: %lld",__PRETTY_FUNCTION__,bytesRead,totalBytesRead,totalBytesExpectedToRead);
+    }];
+    
     return client;
 }
 

@@ -27,6 +27,7 @@
 #import "ListNodesRequestParams.h"
 #import "MkDirRequestParams.h"
 #import "DeleteNodesRequestParams.h"
+#import "DownloadNodesRequestParams.h"
 
 
 static const int DEFAULT_TRIES_COUNT = 1;
@@ -424,6 +425,36 @@ static StateChangeBlock stateChangeBlock = ^(PydioClientState newState){
     [self assertStateChangeExpectedResult];
 }
 
+#pragma mark - Download Nodes
+
+-(void)test_shouldNotStartDownloadNodes_WhenInProgress
+{
+    //given
+    DownloadNodesRequestParams *request = [self exampleDownloadNodesRequestParams];
+    [self setupAuthorizationClient:NO AndOperationsClient:YES];
+    [self setupExpectedAndEmptyResult];
+    //when
+    BOOL startResult = [self.client downloadNodes:request WithSuccess:self.successBlock failure:self.failureBlock];
+    //then
+    [verifyCount(operationsClient,never()) downloadNodes:anything() WithSuccess:anything() failure:anything()];
+    [self assertNotStartedOperationSetup:startResult];
+}
+
+-(void)test_shouldNotStartDownloadNodes_WhenNotInProgress
+{
+    //given
+    DownloadNodesRequestParams *request = [self exampleDownloadNodesRequestParams];
+    NSDictionary *expectedParams = [self exampleDownloadNodesDictionary];
+    [self setupEmptyResult];
+    [self setupStateChangeBlock:PydioClientOperation];
+    //when
+    BOOL startResult = [self.client downloadNodes:request WithSuccess:self.successBlock failure:self.failureBlock];
+    //then
+    [self assertStartedOperationSetupDefaultAuthTries:startResult];
+    [verify(operationsClient) downloadNodes:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    [self assertStateChangeExpectedResult];
+}
+
 #pragma mark - Tests Verification
 
 -(void)setupAuthorizationClient:(BOOL) authProgress AndOperationsClient: (BOOL)operationsProgress {
@@ -548,6 +579,21 @@ static StateChangeBlock stateChangeBlock = ^(PydioClientState newState){
 }
 
 -(NSDictionary*)exampleDeleteNodesDictionary {
+    return @{
+             @"tmp_repository_id": @"testworkspaceid",
+             @"nodes" : [NSArray arrayWithObject:@"/testdir/testdir"]
+             };
+}
+
+-(DownloadNodesRequestParams*)exampleDownloadNodesRequestParams {
+    DownloadNodesRequestParams *params = [[DownloadNodesRequestParams alloc] init];
+    params.workspaceId = @"testworkspaceid";
+    params.nodes = [NSArray arrayWithObject:@"/testdir/testdir"];
+    
+    return params;
+}
+
+-(NSDictionary*)exampleDownloadNodesDictionary {
     return @{
              @"tmp_repository_id": @"testworkspaceid",
              @"nodes" : [NSArray arrayWithObject:@"/testdir/testdir"]
