@@ -20,4 +20,5 @@
 -(BOOL)mkdir:(NSDictionary*)params WithSuccess:(void(^)(NSArray* files))success failure:(FailureBlock)failure;
 -(BOOL)deleteNodes:(NSDictionary*)params WithSuccess:(void(^)())success failure:(FailureBlock)failure;
 -(BOOL)downloadNodes:(NSDictionary*)params WithSuccess:(void(^)(id response))success failure:(FailureBlock)failure;
+-(BOOL)uploadNodes:(NSDictionary*)params WithSuccess:(void(^)(id response))success failure:(FailureBlock)failure;
 @end

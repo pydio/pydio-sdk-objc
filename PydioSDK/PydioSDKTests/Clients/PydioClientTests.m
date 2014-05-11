@@ -28,6 +28,7 @@
 #import "MkDirRequestParams.h"
 #import "DeleteNodesRequestParams.h"
 #import "DownloadNodesRequestParams.h"
+#import "UploadNodesRequestParams.h"
 
 
 static const int DEFAULT_TRIES_COUNT = 1;
@@ -455,6 +456,36 @@ static StateChangeBlock stateChangeBlock = ^(PydioClientState newState){
     [self assertStateChangeExpectedResult];
 }
 
+#pragma mark - Download Nodes
+
+-(void)test_shouldNotStartUploadNodes_WhenInProgress
+{
+    //given
+    UploadNodesRequestParams *request = [self exampleUploadNodesRequestParams];
+    [self setupAuthorizationClient:NO AndOperationsClient:YES];
+    [self setupExpectedAndEmptyResult];
+    //when
+    BOOL startResult = [self.client uploadNodes:request WithSuccess:self.successBlock failure:self.failureBlock];
+    //then
+    [verifyCount(operationsClient,never()) uploadNodes:anything() WithSuccess:anything() failure:anything()];
+    [self assertNotStartedOperationSetup:startResult];
+}
+
+-(void)test_shouldNotStartUploadNodes_WhenNotInProgress
+{
+    //given
+    UploadNodesRequestParams *request = [self exampleUploadNodesRequestParams];
+    NSDictionary *expectedParams = [self exampleUploadNodesDictionary];
+    [self setupEmptyResult];
+    [self setupStateChangeBlock:PydioClientOperation];
+    //when
+    BOOL startResult = [self.client uploadNodes:request WithSuccess:self.successBlock failure:self.failureBlock];
+    //then
+    [self assertStartedOperationSetupDefaultAuthTries:startResult];
+    [verify(operationsClient) uploadNodes:equalTo(expectedParams) WithSuccess:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    [self assertStateChangeExpectedResult];
+}
+
 #pragma mark - Tests Verification
 
 -(void)setupAuthorizationClient:(BOOL) authProgress AndOperationsClient: (BOOL)operationsProgress {
@@ -599,5 +630,25 @@ static StateChangeBlock stateChangeBlock = ^(PydioClientState newState){
              @"nodes" : [NSArray arrayWithObject:@"/testdir/testdir"]
              };
 }
+
+-(UploadNodesRequestParams*)exampleUploadNodesRequestParams {
+    UploadNodesRequestParams *params = [[UploadNodesRequestParams alloc] init];
+    params.workspaceId = @"testworkspaceid";
+    params.node = @"/testdir/testdir";
+    params.fileName = @"filename";
+    params.data = [@"data" dataUsingEncoding:NSUTF8StringEncoding];
+    
+    return params;
+}
+
+-(NSDictionary*)exampleUploadNodesDictionary {
+    return @{
+             @"tmp_repository_id": @"testworkspaceid",
+             @"node" : @"/testdir/testdir",
+             @"urlencoded_filename" : @"filename",
+             @"filename" : [@"data" dataUsingEncoding:NSUTF8StringEncoding]
+            };
+}
+
 
 @end

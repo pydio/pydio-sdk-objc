@@ -159,7 +159,13 @@ extern NSString * const PydioErrorDomain;
                            andArgs:[AggregatedArgs argsWith:success failure:failure]];
 }
 
-
+-(BOOL)uploadNodes:(NSDictionary*)params WithSuccess:(void(^)(id response))success failure:(FailureBlock)failure {
+    return NO;
+//    return 
+//    [self performPOSTAction:[self responseSerializerForUpload]
+//                        withParams:[self paramsWithTokenIfNeeded:params forAction:@"download"]
+//                           andArgs:[AggregatedArgs argsWith:success failure:failure]];
+}
 
 #pragma mark - Helper methods
 

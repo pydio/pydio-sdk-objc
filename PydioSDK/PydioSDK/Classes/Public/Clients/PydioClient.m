@@ -17,6 +17,7 @@
 #import "MkDirRequestParams.h"
 #import "DeleteNodesRequestParams.h"
 #import "DownloadNodesRequestParams.h"
+#import "UploadNodesRequestParams.h"
 
 
 static const int AUTHORIZATION_TRIES_COUNT = 1;
@@ -285,6 +286,22 @@ static const int AUTHORIZATION_TRIES_COUNT = 1;
     self.operationBlock();
     
     return YES;
+}
+
+-(BOOL)uploadNodes:(UploadNodesRequestParams*)params WithSuccess:(void(^)(id resposne))success failure:(FailureBlock)failure {
+    if (self.progress) {
+        return NO;
+    }
+    [self setupCommons:success failure:failure];
+    
+    typeof(self) strongSelf = self;
+    self.operationBlock = ^{
+        [strongSelf.operationsClient uploadNodes:[params dictionaryRepresentation] WithSuccess:strongSelf.successResponseBlock failure:strongSelf.failureResponseBlock];
+    };
+    
+    self.operationBlock();
+    
+    return YES;    
 }
 
 #pragma mark - Helper methods
