@@ -23,6 +23,7 @@
 /* Begin PBXBuildFile section */
 		890E23F81919568800C1C36B /* DownloadNodesRequestParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 890E23F71919568800C1C36B /* DownloadNodesRequestParams.m */; };
 		8911C427191F6FCA00533A98 /* DownloadNodesResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8911C426191F6FCA00533A98 /* DownloadNodesResponseSerializerTests.m */; };
+		8911C428191FAD4400533A98 /* DownloadNodesRequestParams.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 890E23F61919568800C1C36B /* DownloadNodesRequestParams.h */; };
 		8913FD48191EA8E9006FF88D /* DownloadNodesResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8913FD47191EA8E9006FF88D /* DownloadNodesResponseSerializer.m */; };
 		891A83E918DA46E0002E9FF7 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B1D18664EEF00A766D7 /* AFHTTPRequestOperation.m */; };
 		891A83EA18DA46E0002E9FF7 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF3B1F18664EEF00A766D7 /* AFHTTPRequestOperationManager.m */; };
@@ -134,6 +135,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				8911C428191FAD4400533A98 /* DownloadNodesRequestParams.h in CopyFiles */,
 				89B08E9918DA2D9A0041660A /* Commons.h in CopyFiles */,
 				89B68C8B18D9025A006C7461 /* PydioClient.h in CopyFiles */,
 				89B68C8C18D9025A006C7461 /* DeleteNodesRequestParams.h in CopyFiles */,
