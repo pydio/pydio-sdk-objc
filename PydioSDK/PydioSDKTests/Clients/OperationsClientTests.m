@@ -111,6 +111,13 @@ static id mockedCookieManager(id self, SEL _cmd) {
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 
+-(NSDictionary*)uploadNodesParams:(NSDictionary*)params {
+    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary:params];
+    [dict setValue:@"upload" forKey:GET_ACTION];
+    
+    return [NSDictionary dictionaryWithDictionary:dict];
+}
+
 -(NSDictionary*)defaultRequestParams {
     return @{
              @"Accept-Encoding": @"gzip, deflate",
@@ -418,6 +425,22 @@ static id mockedCookieManager(id self, SEL _cmd) {
     [verify([self operationManager]) POST:equalTo(INDEX_URL) parameters:equalTo([self downloadNodesParams:params]) success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
     [self assertOperationManagerHasDefaultRequestSerializerSet];
     [self assertDefaultResponseSerializersWithSerializer:[DownloadNodesResponseSerializer class]];
+    [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];
+}
+
+-(void)test_shouldStartUploadNodes_whenNoOperationIsInProgress
+{
+    NSDictionary *params = @{};
+    BlocksCallResult *result = [BlocksCallResult result];
+    SuccessBlock successBlock = [result successBlock];
+    FailureBlock failureBlock = [result failureBlock];
+    
+    BOOL startResult = [self.client uploadNodes:params WithSuccess:successBlock failure:failureBlock];
+    
+    assertThatBool(startResult,equalToBool(YES));
+    [verify([self operationManager]) POST:equalTo(INDEX_URL) parameters:equalTo([self uploadNodesParams:params]) constructingBodyWithBlock:nilValue() success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    [self assertOperationManagerHasDefaultRequestSerializerSet];
+    [self assertDefaultResponseSerializersWithSerializer:[AFHTTPResponseSerializer class]];
     [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];
 }
 

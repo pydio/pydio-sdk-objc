@@ -160,11 +160,16 @@ extern NSString * const PydioErrorDomain;
 }
 
 -(BOOL)uploadNodes:(NSDictionary*)params WithSuccess:(void(^)(id response))success failure:(FailureBlock)failure {
-    return NO;
-//    return 
-//    [self performPOSTAction:[self responseSerializerForUpload]
-//                        withParams:[self paramsWithTokenIfNeeded:params forAction:@"download"]
-//                           andArgs:[AggregatedArgs argsWith:success failure:failure]];
+    if (self.progress) {
+        return NO;
+    }
+    
+    [self setupCommons:success failure:failure];
+    self.operationManager.responseSerializer = [self responseSerializerForUpload];
+    
+    [self.operationManager POST:@"index.php" parameters:[self paramsWithTokenIfNeeded:params forAction:@"upload"] constructingBodyWithBlock:nil success:self.successResponseBlock failure:self.failureResponseBlock];
+     
+    return YES;
 }
 
 #pragma mark - Helper methods
@@ -228,6 +233,12 @@ extern NSString * const PydioErrorDomain;
 
 -(AFHTTPResponseSerializer*)responseSerializerForDownload {
     NSArray *serializers = [self defaultResponseSerializersWithSerializer:[[DownloadNodesResponseSerializer alloc] init]];
+    
+    return [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
+}
+
+-(AFHTTPResponseSerializer*)responseSerializerForUpload {
+    NSArray *serializers = [self defaultResponseSerializersWithSerializer:[[AFHTTPResponseSerializer alloc] init]];
     
     return [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:serializers];
 }
