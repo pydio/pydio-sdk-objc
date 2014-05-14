@@ -139,15 +139,6 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
     return request;
 }
 
--(DownloadNodesRequestParams*)downloadNodesRequest:(NodeResponse*)node {
-    DownloadNodesRequestParams *request = [[DownloadNodesRequestParams alloc] init];
-    request.workspaceId = self.workspace.workspaceId;
-    request.nodes = [NSArray arrayWithObject:node];
-    
-    return request;
-}
-
-
 -(NSString*)fileNameAt:(NSInteger)row {
     return [self fileNodeAt:row].name;
 }
@@ -209,6 +200,14 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
     params.nodes = [NSArray arrayWithObject:node.fullPath];
     
     return params;
+}
+
+-(DownloadNodesRequestParams*)downloadNodesRequest:(NodeResponse*)node {
+    DownloadNodesRequestParams *request = [[DownloadNodesRequestParams alloc] init];
+    request.workspaceId = self.workspace.workspaceId;
+    request.nodes = [NSArray arrayWithObject:node.fullPath];
+    
+    return request;
 }
 
 @end

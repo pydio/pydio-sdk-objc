@@ -54,7 +54,14 @@ static BOOL validateResponse(id self, SEL _cmd, NSURLResponse * response, NSData
 {
     //given
     validationResult = YES;
-    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:nil statusCode:200 HTTPVersion:nil headerFields:@{ @"Content-Type" : @"application/force-download; name=\"Files.zip\""}];
+    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:nil
+                                                              statusCode:200
+                                                             HTTPVersion:nil
+                                                            headerFields:@{
+                                                                           @"Content-Type" : @"application/force-download; name=\"File\"",
+                                                                           @"Content-Transfer-Encoding" : @"binary"
+                                                                           }
+                                   ];
     NSError *error = nil;
     //when
     BOOL result = [self.responseSerializer validateResponse:response data:nil error:&error];
@@ -63,11 +70,26 @@ static BOOL validateResponse(id self, SEL _cmd, NSURLResponse * response, NSData
     assertThat(error,nilValue());
 }
 
-- (void)test_shouldNotAcceptServerDownloadResponse_whenNotKnownContentType
+- (void)test_shouldNotAcceptServerDownloadResponse_whenNoContentTransferEncoding
 {
     //given
     validationResult = YES;
-    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:nil statusCode:200 HTTPVersion:nil headerFields:@{ @"Content-Type" : @"application/force-download; name=\"Files\""}];
+    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:nil statusCode:200 HTTPVersion:nil headerFields:@{ @"Content-Type" : @"application/force-download; name=\"File\""}];
+    NSError *error = nil;
+    NSError *expectedError = [[NSError alloc] initWithDomain:PydioErrorDomain code:PydioErrorNotAZipFileResponse userInfo:nil];
+    //when
+    BOOL result = [self.responseSerializer validateResponse:response data:nil error:&error];
+    //then
+    assertThatBool(result,equalToBool(NO));
+    assertThat(error,equalTo(expectedError));
+}
+
+- (void)test_shouldNotAcceptServerDownloadResponse_whenNoContentType
+{
+    //given
+    validationResult = YES;
+    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:nil statusCode:200
+                                                             HTTPVersion:nil headerFields:@{ @"Content-Transfer-Encoding" : @"binary"}];
     NSError *error = nil;
     NSError *expectedError = [[NSError alloc] initWithDomain:PydioErrorDomain code:PydioErrorNotAZipFileResponse userInfo:nil];
     //when
