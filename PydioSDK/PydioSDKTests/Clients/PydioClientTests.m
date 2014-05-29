@@ -456,7 +456,7 @@ static StateChangeBlock stateChangeBlock = ^(PydioClientState newState){
     [self assertStateChangeExpectedResult];
 }
 
-#pragma mark - Download Nodes
+#pragma mark - Upload Nodes
 
 -(void)test_shouldNotStartUploadNodes_WhenInProgress
 {
@@ -634,7 +634,7 @@ static StateChangeBlock stateChangeBlock = ^(PydioClientState newState){
 -(UploadNodesRequestParams*)exampleUploadNodesRequestParams {
     UploadNodesRequestParams *params = [[UploadNodesRequestParams alloc] init];
     params.workspaceId = @"testworkspaceid";
-    params.node = @"/testdir/testdir";
+    params.dir = @"/testdir/testdir";
     params.fileName = @"filename";
     params.data = [@"data" dataUsingEncoding:NSUTF8StringEncoding];
     
@@ -644,9 +644,9 @@ static StateChangeBlock stateChangeBlock = ^(PydioClientState newState){
 -(NSDictionary*)exampleUploadNodesDictionary {
     return @{
              @"tmp_repository_id": @"testworkspaceid",
-             @"node" : @"/testdir/testdir",
+             @"dir" : @"/testdir/testdir",
              @"urlencoded_filename" : @"filename",
-             @"filename" : [@"data" dataUsingEncoding:NSUTF8StringEncoding]
+             @"data" : [@"data" dataUsingEncoding:NSUTF8StringEncoding],
             };
 }
 

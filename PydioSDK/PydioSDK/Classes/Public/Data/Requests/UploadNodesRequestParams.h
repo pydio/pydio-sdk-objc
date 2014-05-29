@@ -10,7 +10,7 @@
 
 @interface UploadNodesRequestParams : NSObject
 @property (nonatomic,strong) NSString* workspaceId;
-@property (nonatomic,strong) NSString* node;
+@property (nonatomic,strong) NSString* dir;
 @property (nonatomic,strong) NSString* fileName;
 @property (nonatomic,strong) NSData* data;
 @property (nonatomic,strong) NSDictionary* additional;

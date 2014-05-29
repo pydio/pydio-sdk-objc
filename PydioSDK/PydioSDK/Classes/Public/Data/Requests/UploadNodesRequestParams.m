@@ -12,9 +12,9 @@
 
 -(NSDictionary *)dictionaryRepresentation {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObject:self.workspaceId forKey:@"tmp_repository_id"];
-    [params setValue:self.node forKey:@"node"];
+    [params setValue:self.dir forKey:@"dir"];
     [params setValue:self.fileName forKey:@"urlencoded_filename"];
-    [params setValue:self.data forKey:self.fileName];
+    [params setValue:self.data forKey:@"data"];
     
     for (NSString *key in [self.additional allKeys]) {
         [params setValue:[self.additional valueForKey:key] forKey:key];

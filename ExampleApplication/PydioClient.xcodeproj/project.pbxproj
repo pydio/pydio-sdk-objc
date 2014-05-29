@@ -75,7 +75,7 @@
 /* Begin PBXFileReference section */
 		89112CE519102E540035ADBE /* PydioClientWorkspace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PydioClientWorkspace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89112CE619102E550035ADBE /* PydioClientWorkspace-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PydioClientWorkspace-Info.plist"; path = "/Users/pc-mobile/develop/ajaxplorer_new/ExampleApplication/PydioClientWorkspace-Info.plist"; sourceTree = "<absolute>"; };
-		89112CE719102E7E0035ADBE /* libPydioSDK.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libPydioSDK.a; path = "../PydioSDK/build/Debug-iphoneos/libPydioSDK.a"; sourceTree = "<group>"; };
+		89112CE719102E7E0035ADBE /* libPydioSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPydioSDK.a; path = "../PydioSDK/build/Debug-iphoneos/libPydioSDK.a"; sourceTree = "<group>"; };
 		89A21B4A18D362550076B089 /* UIViewController+CaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CaptchaView.h"; sourceTree = "<group>"; };
 		89A21B4B18D362550076B089 /* UIViewController+CaptchaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CaptchaView.m"; sourceTree = "<group>"; };
 		89A9E50818CFA5420073D1AB /* CaptchaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaView.h; sourceTree = "<group>"; };

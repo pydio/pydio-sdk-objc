@@ -21,6 +21,10 @@
 
 extern NSString * const PydioErrorDomain;
 
+static NSString * percentEscapedQueryStringFromString(NSString *string) {
+	return (__bridge_transfer  NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (__bridge CFStringRef)string, NULL, NULL, kCFStringEncodingUTF8);
+}
+
 #pragma mark -
 
 @interface AggregatedArgs : NSObject
@@ -167,9 +171,27 @@ extern NSString * const PydioErrorDomain;
     [self setupCommons:success failure:failure];
     self.operationManager.responseSerializer = [self responseSerializerForUpload];
     
-    [self.operationManager POST:@"index.php" parameters:[self paramsWithTokenIfNeeded:params forAction:@"upload"] constructingBodyWithBlock:nil success:self.successResponseBlock failure:self.failureResponseBlock];
+    NSString *urlString = [self uploadURL:params];
+    
+    [self.operationManager POST:urlString parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:[params valueForKey:@"data"] name:@"userfile_0" fileName:@"none" mimeType:@"application/octet-stream"];
+    }  success:self.successResponseBlock failure:self.failureResponseBlock];
      
     return YES;
+}
+
+-(NSString*)uploadURL:(NSDictionary*) params {
+    NSString *secureToken = [[ServersParamsManager sharedManager] secureTokenForServer:self.operationManager.baseURL];
+    NSMutableString *urlString = [NSMutableString stringWithString:@"index.php?get_action=upload"];
+    if (secureToken) {
+        [urlString appendFormat:@"&secure_token=%@",secureToken];
+    }
+    [urlString appendFormat:@"&dir=%@",percentEscapedQueryStringFromString([params valueForKey:@"dir"])];
+    if ([params valueForKey:@"urlencoded_filename"]) {
+        [urlString appendFormat:@"&urlencoded_filename=%@",percentEscapedQueryStringFromString([params valueForKey:@"urlencoded_filename"])];
+    }
+    
+    return [NSString stringWithString:urlString];
 }
 
 #pragma mark - Helper methods

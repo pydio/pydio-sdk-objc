@@ -344,8 +344,29 @@ static id mockedCookieManager(id self, SEL _cmd) {
     BOOL startResult = [self.client deleteNodes:@{} WithSuccess:nil failure:nil];
     
     assertThatBool(startResult,equalToBool(NO));
-    [verifyCount([self operationManager], never()) GET:anything() parameters:anything() success:anything() failure:anything()];
+    [verifyCount([self operationManager], never()) POST:anything() parameters:anything() success:anything() failure:anything()];
 }
+
+-(void)test_shouldNotStartDownloadNodes_whenOtherOperationIsInProgress
+{
+    self.client.progress = YES;
+    
+    BOOL startResult = [self.client downloadNodes:@{} WithSuccess:nil failure:nil];
+    
+    assertThatBool(startResult,equalToBool(NO));
+    [verifyCount([self operationManager], never()) POST:anything() parameters:anything() success:anything() failure:anything()];
+}
+
+-(void)test_shouldNotStartUploadNodes_whenOtherOperationIsInProgress
+{
+    self.client.progress = YES;
+    
+    BOOL startResult = [self.client uploadNodes:@{} WithSuccess:nil failure:nil];
+    
+    assertThatBool(startResult,equalToBool(NO));
+    [verifyCount([self operationManager], never()) POST:anything() parameters:anything() constructingBodyWithBlock:anything() success:anything() failure:anything()];
+}
+
 
 #pragma mark - Test starting when operations client is not in progress
 
@@ -430,7 +451,7 @@ static id mockedCookieManager(id self, SEL _cmd) {
 
 -(void)test_shouldStartUploadNodes_whenNoOperationIsInProgress
 {
-    NSDictionary *params = @{};
+    NSDictionary *params = [self exampleParamsForUpload];
     BlocksCallResult *result = [BlocksCallResult result];
     SuccessBlock successBlock = [result successBlock];
     FailureBlock failureBlock = [result failureBlock];
@@ -438,10 +459,26 @@ static id mockedCookieManager(id self, SEL _cmd) {
     BOOL startResult = [self.client uploadNodes:params WithSuccess:successBlock failure:failureBlock];
     
     assertThatBool(startResult,equalToBool(YES));
-    [verify([self operationManager]) POST:equalTo(INDEX_URL) parameters:equalTo([self uploadNodesParams:params]) constructingBodyWithBlock:nilValue() success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
+    [verify([self operationManager]) POST:equalTo([self exampleUploadAddress]) parameters:nilValue() constructingBodyWithBlock:anything() success:self.client.successResponseBlock failure:self.client.failureResponseBlock];
     [self assertOperationManagerHasDefaultRequestSerializerSet];
     [self assertDefaultResponseSerializersWithSerializer:[AFHTTPResponseSerializer class]];
     [self assertClientBlocksSuccess:successBlock AndFailure:failureBlock];
+}
+
+#pragma mark - Helper methods
+
+-(NSDictionary *)exampleParamsForUpload
+{
+    return @{
+             @"tmp_repository_id": @"testworkspaceid",
+             @"dir" : @"/testdir/testdir",
+             @"urlencoded_filename" : @"file name",
+             @"data" : [@"data" dataUsingEncoding:NSUTF8StringEncoding],
+             };
+}
+
+-(NSString *)exampleUploadAddress {
+    return [NSString stringWithFormat:@"%@%@%@",@"index.php?get_action=upload",@"&dir=/testdir/testdir",@"&urlencoded_filename=file%20name"];
 }
 
 @end

@@ -15,6 +15,7 @@
 #import "DeleteNodesRequestParams.h"
 #import "CaptchaView.h"
 #import "DownloadNodesRequestParams.h"
+#import "UploadNodesRequestParams.h"
 
 
 static NSString * const TABLE_CELL_ID = @"TableCell";
@@ -110,6 +111,10 @@ static NSString * const SHOW_DIR_CONTENT = @"ShowDirContent";
     [client setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
         NSLog(@"download progress %s bytesRead: %d totalBytesRead: %lld totalBytesExpectedToRead: %lld",__PRETTY_FUNCTION__,bytesRead,totalBytesRead,totalBytesExpectedToRead);
     }];
+    [client setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        NSLog(@"upload progress %s bytesWritten: %d totalBytesWritten: %lld totalBytesExpectedToWrite: %lld",__PRETTY_FUNCTION__,bytesWritten,totalBytesWritten,totalBytesExpectedToWrite);
+    }];
+
     return client;
 }
 
